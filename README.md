@@ -1,7 +1,3 @@
-Live Application
-
-Access the live version of the Garage V. Parrot application here. https://au-garage-92dd5c42a6c4.herokuapp.com/
-
 # Garage V. Parrot Web Application
 
 ## Overview
