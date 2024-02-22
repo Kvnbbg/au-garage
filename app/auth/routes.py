@@ -1,9 +1,8 @@
 # auth/routes.py
 from flask import Blueprint, render_template, flash, redirect, url_for
-from .forms import LoginForm
-from flask_login import logout_user
+from .forms import LoginForm, RegistrationForm
+from flask_login import logout_user, login_user
 from werkzeug.security import check_password_hash
-from flask_login import login_user
 from app.models import User
 from app import db  # Import the database instance
 
@@ -22,7 +21,6 @@ def login():
         else:
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
-
 
 @auth.route('/logout')
 def logout():
