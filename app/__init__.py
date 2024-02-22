@@ -4,6 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from config import Config
 from flask_migrate import Migrate
+from app.main import main
+from app.auth import auth
+from app.models import User
 
 # Initialize the database
 db = SQLAlchemy()
@@ -15,6 +18,12 @@ migrate = Migrate(app, db)
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'  # Specify the view function that handles logins
 login_manager.login_message_category = 'info'
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -31,5 +40,3 @@ def create_app(config_class=Config):
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
     # TODO: initialize other extensions like Flask-Mail
-
-    return app
