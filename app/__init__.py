@@ -7,9 +7,12 @@ from flask_migrate import Migrate
 from app.main import main
 from app.auth import auth
 from app.models import User
+from flask_mail import Mail
 
 # Initialize the database
 db = SQLAlchemy()
+
+app = Flask(__name__)
 
 # For handling database migrations, Flask-Migrate is a useful extension that integrates with Flask and SQLAlchemy. 
 migrate = Migrate(app, db)
@@ -24,6 +27,13 @@ login_manager.login_message_category = 'info'
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
+app.config['MAIL_SERVER'] = 'smtp.example.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'noreply@kvnbbg-creations.io'
+app.config['MAIL_PASSWORD'] = secrets.token_urlsafe(16)
+mail = Mail(app)
 
 def create_app(config_class=Config):
     app = Flask(__name__)
