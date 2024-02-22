@@ -3,9 +3,13 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from config import Config
+from flask_migrate import Migrate
 
 # Initialize the database
 db = SQLAlchemy()
+
+# For handling database migrations, Flask-Migrate is a useful extension that integrates with Flask and SQLAlchemy. 
+migrate = Migrate(app, db)
 
 # Initialize LoginManager
 login_manager = LoginManager()
@@ -20,10 +24,10 @@ def create_app(config_class=Config):
     login_manager.init_app(app)
 
     # Import and register blueprints
-    from yourapp.main.routes import main as main_blueprint
+    from app.main.routes import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
-    from yourapp.auth.routes import auth as auth_blueprint
+    from main.auth.routes import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
     # TODO: initialize other extensions like Flask-Mail
