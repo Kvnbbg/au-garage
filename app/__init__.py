@@ -2,12 +2,13 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from config import Config
+from app.config import Config
 from flask_migrate import Migrate
 from app.main import main
 from app.auth import auth
 from app.models import User
 from flask_mail import Mail
+
 
 # Initialize the database
 db = SQLAlchemy()

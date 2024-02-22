@@ -1,3 +1,3 @@
 # .flaskenv file
-FLASK_APP=yourapp
+FLASK_APP=app
 FLASK_ENV=development
