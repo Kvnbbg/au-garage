@@ -6,9 +6,18 @@
     <title>Garage V. Parrot</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="./static/css/min.css" rel="stylesheet">
-
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.lang').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.querySelectorAll('.lang-' + lang).forEach(el => {
+                el.style.display = 'block';
+            });
+        }
+    </script>
 </head>
-<body>
+<body onload="toggleLanguage('en')">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">Garage V. Parrot</a>
@@ -18,44 +27,88 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#" onclick="toggleLanguage('en')">🇺🇸 English</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contact</a>
+                        <a class="nav-link" href="#" onclick="toggleLanguage('fr')">🇫🇷 Français</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="py-5 bg-image-full" style="background-image: url('your-image-url-here');">
+    <header class="py-5 bg-image-full" style="background-image: url('./static/images/alogo.png');">
         <div class="text-center my-5">
-            <h1 class="text-white">Welcome to Garage V. Parrot</h1>
-            <h2 class="text-white-50">Your trusted automobile service center in Toulouse</h2>
+            <h1 class="text-white lang lang-en">Welcome to Garage V. Parrot</h1>
+            <h2 class="text-white-50 lang lang-en">Your trusted automobile service center in Toulouse</h2>
+            <h1 class="text-white lang lang-fr" style="display:none;">Bienvenue au Garage V. Parrot</h1>
+            <h2 class="text-white-50 lang lang-fr" style="display:none;">Votre centre de service automobile de confiance à Toulouse</h2>
         </div>
     </header>
 
-    <section class="py-5">
+    <!-- Services Section -->
+    <section id="services" class="py-5">
         <div class="container">
-            <p class="lead">At Garage V. Parrot, we offer a wide range of services to keep your vehicle running smoothly. From regular maintenance to repair services, our team of experienced mechanics is here to help.</p>
-            <p>Explore our website to learn more about our services, view available used vehicles for sale, or contact us for more information.</p>
+            <h3 class="text-center mb-4 lang lang-en">Our Services</h3>
+            <h3 class="text-center mb-4 lang lang-fr" style="display:none;">Nos Services</h3>
+            <!-- Example service list item -->
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <img src="./static/images/acar.png" alt="Service Image" class="img-fluid mb-3">
+                    <h4 class="lang lang-en">Regular Maintenance</h4>
+                    <h4 class="lang lang-fr" style="display:none;">Entretien Régulier</h4>
+                    <p class="lang lang-en">Keep your car in top condition with our regular maintenance services.</p>
+                    <p class="lang lang-fr" style="display:none;">Gardez votre voiture en parfait état avec nos services d'entretien régulier.</p>
+                </div>
+                <!-- Repeat for other services -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Vehicles for Sale Section -->
+    <section id="vehicles" class="py-5 bg-light">
+        <div class="container">
+            <h3 class="text-center mb-4 lang lang-en">Vehicles for Sale</h3>
+            <h3 class="text-center mb-4 lang lang-fr" style="display:none;">Véhicules à Vendre</h3>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <img src="./static/images/acars.png" alt="Car for Sale" class="img-fluid mb-3">
+                    <h4 class="lang lang-en">2015 Sedan - $15,000</h4>
+                    <h4 class="lang lang-fr" style="display:none;">2015 Berline - 15 000€</h4>
+                    <p class="lang lang-en">A reliable sedan in excellent condition.</p>
+                    <p class="lang lang-fr" style="display:none;">Une berline fiable en excellent état.</p>
+                </div>
+                <!-- Repeat for other vehicles -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Opening Hours Section -->
+    <section id="opening-hours" class="py-5">
+        <div class="container">
+            <h3 class="text-center mb-4 lang lang-en">Opening Hours</h3>
+            <h3 class="text-center mb-4 lang lang-fr" style="display:none;">Horaires d'Ouverture</h3>
+            <img src="./static/images/hours.png" alt="Opening Hours" class="img-fluid mb-3">
+            <!-- Dynamically display opening hours or use an image -->
         </div>
     </section>
 
     <footer class="py-5 bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Garage V. Parrot 2023</p>
+            <p class="m-0 text-center text-white">Copyright &copy; Garage V. Parrot 2024</p>
         </div>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
 </body>
 </html>
