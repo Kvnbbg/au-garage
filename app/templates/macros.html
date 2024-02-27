@@ -19,7 +19,6 @@
     </script>
 </head>
 <body onload="toggleLanguage('en')">
-{% block nav%}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">Garage V. Parrot</a>
@@ -36,17 +35,16 @@
                     </li>
                     <li class="nav=-item">
                         <a class="nav-link" href="/login">Login</a>
-                        <a class="nav-link lang lang-fr" href="/login" style="display:none;">Login</a>
+                        <a class="nav-link lang lang-fr" href="/login" style="display:none;">Connecter</a>
                     </li>
                     <li class="nav=-item">
                         <a class="nav-link" href="/register">Register</a>
-                        <a class="nav-link lang lang-fr" href="/register" style="display:none;">Register</a>
+                        <a class="nav-link lang lang-fr" href="/register" style="display:none;">Enregistrer</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-{% endblock %}
 
 <header class="py-5 bg-image-full" style="background-image: url('/static/images/logo.png');">
     <div class="text-center my-5">
