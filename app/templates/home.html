@@ -1,50 +1,75 @@
-{% extends 'macros.html' %}
+{% extends 'base.html' %} {% block content %}
+<!-- Services Section -->
+<section id="services" class="py-5">
+  <div class="container">
+    <h3 class="text-center mb-4 lang lang-en">Our Services</h3>
+    <h3 class="text-center mb-4 lang lang-fr" style="display: none">
+      Nos Services
+    </h3>
+    <!-- Example service list item -->
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <img
+          src="./static/images/acar.png"
+          alt="Service Image"
+          class="img-fluid mb-3"
+        />
+        <h4 class="lang lang-en">Regular Maintenance</h4>
+        <h4 class="lang lang-fr" style="display: none">Entretien Régulier</h4>
+        <p class="lang lang-en">
+          Keep your car in top condition with our regular maintenance services.
+        </p>
+        <p class="lang lang-fr" style="display: none">
+          Gardez votre voiture en parfait état avec nos services d'entretien
+          régulier.
+        </p>
+      </div>
+      <!-- Repeat for other services -->
+    </div>
+  </div>
+</section>
 
-{% block content %}
-    <!-- Services Section -->
-    <section id="services" class="py-5">
-        <div class="container">
-            <h3 class="text-center mb-4 lang lang-en">Our Services</h3>
-            <h3 class="text-center mb-4 lang lang-fr" style="display:none;">Nos Services</h3>
-            <!-- Example service list item -->
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <img src="./static/images/acar.png" alt="Service Image" class="img-fluid mb-3">
-                    <h4 class="lang lang-en">Regular Maintenance</h4>
-                    <h4 class="lang lang-fr" style="display:none;">Entretien Régulier</h4>
-                    <p class="lang lang-en">Keep your car in top condition with our regular maintenance services.</p>
-                    <p class="lang lang-fr" style="display:none;">Gardez votre voiture en parfait état avec nos services d'entretien régulier.</p>
-                </div>
-                <!-- Repeat for other services -->
-            </div>
-        </div>
-    </section>
+<!-- Vehicles for Sale Section -->
+<section id="vehicles" class="py-5 bg-light">
+  <div class="container">
+    <h3 class="text-center mb-4 lang lang-en">Vehicles for Sale</h3>
+    <h3 class="text-center mb-4 lang lang-fr" style="display: none">
+      Véhicules à Vendre
+    </h3>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <img
+          src="./static/images/acars.png"
+          alt="Car for Sale"
+          class="img-fluid mb-3"
+        />
+        <h4 class="lang lang-en">2015 Sedan - $15,000</h4>
+        <h4 class="lang lang-fr" style="display: none">
+          2015 Berline - 15 000€
+        </h4>
+        <p class="lang lang-en">A reliable sedan in excellent condition.</p>
+        <p class="lang lang-fr" style="display: none">
+          Une berline fiable en excellent état.
+        </p>
+      </div>
+      <!-- Repeat for other vehicles -->
+    </div>
+  </div>
+</section>
 
-    <!-- Vehicles for Sale Section -->
-    <section id="vehicles" class="py-5 bg-light">
-        <div class="container">
-            <h3 class="text-center mb-4 lang lang-en">Vehicles for Sale</h3>
-            <h3 class="text-center mb-4 lang lang-fr" style="display:none;">Véhicules à Vendre</h3>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <img src="./static/images/acars.png" alt="Car for Sale" class="img-fluid mb-3">
-                    <h4 class="lang lang-en">2015 Sedan - $15,000</h4>
-                    <h4 class="lang lang-fr" style="display:none;">2015 Berline - 15 000€</h4>
-                    <p class="lang lang-en">A reliable sedan in excellent condition.</p>
-                    <p class="lang lang-fr" style="display:none;">Une berline fiable en excellent état.</p>
-                </div>
-                <!-- Repeat for other vehicles -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Opening Hours Section -->
-    <section id="opening-hours" class="py-5">
-        <div class="container">
-            <h3 class="text-center mb-4 lang lang-en">Opening Hours</h3>
-            <h3 class="text-center mb-4 lang lang-fr" style="display:none;">Horaires d'Ouverture</h3>
-            <img src="./static/images/hours.png" alt="Opening Hours" class="img-fluid mb-3">
-            <!-- Dynamically display opening hours or use an image -->
-        </div>
-    </section>
+<!-- Opening Hours Section -->
+<section id="opening-hours" class="py-5">
+  <div class="container">
+    <h3 class="text-center mb-4 lang lang-en">Opening Hours</h3>
+    <h3 class="text-center mb-4 lang lang-fr" style="display: none">
+      Horaires d'Ouverture
+    </h3>
+    <img
+      src="./static/images/hours.png"
+      alt="Opening Hours"
+      class="img-fluid mb-3"
+    />
+    <!-- Dynamically display opening hours or use an image -->
+  </div>
+</section>
 {% endblock %}

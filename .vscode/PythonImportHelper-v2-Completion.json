@@ -1427,7 +1427,6 @@
         "kind": 5,
         "importPath": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
         "description": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
-        "peekOfCode": "aws_access_key_id = \"AKIAXYZDQCEN4EXAMPLE\"\naws_secret_access_key = \"Tg0pz8Jii8hkLx4+PnUisM8GmKs3a2DK+EXAMPLE\"\n# The below keys are copied from https://github.com/dustin-decker/secretsandstuff\ngithub_secret = \"369963c1434c377428ca8531fbc46c0c43d037a0\"\nbasic_auth = \"https://admin:admin@the-internet.herokuapp.com/basic_auth\"\npriv_key = '''\n-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABAjNIZuun\nxgLkM8KuzfmQuRAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQDe3Al0EMPz\nutVNk5DixaYrGMK56RqUoqGBinke6SWVWmqom1lBcJWzor6HlnMRPPr7YCEsJKL4IpuVwu",
         "detail": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
         "documentation": {}
     },
@@ -1436,7 +1435,7 @@
         "kind": 5,
         "importPath": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
         "description": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
-        "peekOfCode": "aws_secret_access_key = \"Tg0pz8Jii8hkLx4+PnUisM8GmKs3a2DK+EXAMPLE\"\n# The below keys are copied from https://github.com/dustin-decker/secretsandstuff\ngithub_secret = \"369963c1434c377428ca8531fbc46c0c43d037a0\"\nbasic_auth = \"https://admin:admin@the-internet.herokuapp.com/basic_auth\"\npriv_key = '''\n-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABAjNIZuun\nxgLkM8KuzfmQuRAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQDe3Al0EMPz\nutVNk5DixaYrGMK56RqUoqGBinke6SWVWmqom1lBcJWzor6HlnMRPPr7YCEsJKL4IpuVwu\ninRa5kdtNTyM7yyQTSR2xXCS0fUItNuq8pUktsH8VUggpMeew8hJv7rFA7tnIg3UXCl6iF",
+        "peekOfCode": "aws_secret_access_key = \"Tg0pz8Jii8hkLx4+PnUisM8GmKs3a2DK
         "detail": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
         "documentation": {}
     },
