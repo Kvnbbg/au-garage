@@ -38,7 +38,7 @@ def create_app(config_class=Config):
     app.config['MAIL_SERVER'] = 'smtp.example.com'
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USERNAME'] = 'noreply@yourdomain.com'
+    app.config['MAIL_USERNAME'] = 'code@kvnbbg-creations.io'
     # Securely generate a random password for the mail account
     app.config['MAIL_PASSWORD'] = secrets.token_urlsafe(16)
 
