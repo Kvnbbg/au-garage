@@ -524,7 +524,7 @@
         "documentation": {}
     },
     {
-        "label": "app",
+        "label": "create_app",
         "importPath": "app",
         "description": "app",
         "isExtraImport": true,
@@ -1663,6 +1663,15 @@
         "description": "app.models",
         "peekOfCode": "class User(db.Model, UserMixin):\n    id = db.Column(db.Integer, primary_key=True)\n    username = db.Column(db.String(20), unique=True, nullable=False)\n    password_hash = db.Column(db.String(128), nullable=False)\n    @property\n    def password(self):\n        raise AttributeError('password is not a readable attribute')\n    @password.setter\n    def password(self, password):\n        self.password_hash = generate_password_hash(password)",
         "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "run",
+        "description": "run",
+        "peekOfCode": "app = create_app()\nif __name__ == \"__main__\":\n    app.run(debug=True)",
+        "detail": "run",
         "documentation": {}
     }
 ]
