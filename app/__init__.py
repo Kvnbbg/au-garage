@@ -21,7 +21,7 @@ from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from .config import Config, DevelopmentConfig, ProductionConfig, TestingConfig
+from .config import DevelopmentConfig, ProductionConfig, TestingConfig
 
 # Create extension instances without initializing them with an app object
 db = SQLAlchemy()
