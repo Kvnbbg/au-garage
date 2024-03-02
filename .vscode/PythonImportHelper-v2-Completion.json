@@ -460,6 +460,14 @@
         "documentation": {}
     },
     {
+        "label": "flash",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "logout_user",
         "importPath": "flask_login",
         "description": "flask_login",
@@ -505,6 +513,14 @@
         "description": "werkzeug.security",
         "isExtraImport": true,
         "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "home",
+        "importPath": "app.main.routes",
+        "description": "app.main.routes",
+        "isExtraImport": true,
+        "detail": "app.main.routes",
         "documentation": {}
     },
     {
@@ -1571,7 +1587,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def login():\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and check_password_hash(user.password, form.password.data):\n            login_user(user)\n            flash('You have been logged in!', 'success')\n            return redirect(url_for('main.home'))\n        else:\n            flash('Login Unsuccessful. Please check username and password', 'danger')",
+        "peekOfCode": "def login():\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and check_password_hash(user.password, form.password.data):\n            login_user(user)\n            flash('You have been logged in!', 'success')\n            return redirect(url_for('main_home'))\n        else:\n            flash('Login Unsuccessful. Please check username and password', 'danger')",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1589,7 +1605,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def register():\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        user = User(username=form.username.data, password=form.password.data)\n        db.session.add(user)\n        db.session.commit()\n        login_user(user)\n        flash('Your account has been created! You are now logged in.', 'success')\n        return redirect(url_for('main.home'))\n    return render_template('register.html', title='Register', form=form)",
+        "peekOfCode": "def register():\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        user = User(username=form.username.data, password=form.password.data)\n        db.session.add(user)\n        db.session.commit()\n        login_user(user)\n        flash('Your account has been created! You are now logged in.', 'success')\n        return redirect(url_for('main_home'))\n    return render_template('register.html', title='Register', form=form)",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1598,7 +1614,7 @@
         "kind": 5,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "auth = Blueprint('auth', __name__)\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and check_password_hash(user.password, form.password.data):\n            login_user(user)\n            flash('You have been logged in!', 'success')\n            return redirect(url_for('main.home'))",
+        "peekOfCode": "auth = Blueprint('auth', __name__)\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and check_password_hash(user.password, form.password.data):\n            login_user(user)\n            flash('You have been logged in!', 'success')\n            return redirect(url_for('main_home'))",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1607,7 +1623,7 @@
         "kind": 2,
         "importPath": "app.main.routes",
         "description": "app.main.routes",
-        "peekOfCode": "def home():\n    return render_template('home.html')",
+        "peekOfCode": "def home():\n    flash('🚗💥🎉🕒🔥', 'info')\n    return render_template('home.html')",
         "detail": "app.main.routes",
         "documentation": {}
     },
@@ -1616,7 +1632,7 @@
         "kind": 5,
         "importPath": "app.main.routes",
         "description": "app.main.routes",
-        "peekOfCode": "main = Blueprint('main', __name__)\n@main.route('/')\n@main.route('/home')\ndef home():\n    return render_template('home.html')",
+        "peekOfCode": "main = Blueprint('main', __name__)\n@main.route('/')\n@main.route('/home')\ndef home():\n    flash('🚗💥🎉🕒🔥', 'info')\n    return render_template('home.html')",
         "detail": "app.main.routes",
         "documentation": {}
     },
@@ -1625,7 +1641,7 @@
         "kind": 6,
         "importPath": "app.config",
         "description": "app.config",
-        "peekOfCode": "class Config:\n    SECRET_KEY = secrets.token_hex(32)\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False\nclass DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'\nclass ProductionConfig(Config):",
+        "peekOfCode": "class Config:\n    SECRET_KEY = secrets.token_hex(32)\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///site.db\"\n    SQLALCHEMY_TRACK_MODIFICATIONS = False\nclass DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):",
         "detail": "app.config",
         "documentation": {}
     },
@@ -1634,7 +1650,7 @@
         "kind": 6,
         "importPath": "app.config",
         "description": "app.config",
-        "peekOfCode": "class DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'\nclass ProductionConfig(Config):\n    DEBUG = False",
+        "peekOfCode": "class DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
         "detail": "app.config",
         "documentation": {}
     },
@@ -1643,7 +1659,7 @@
         "kind": 6,
         "importPath": "app.config",
         "description": "app.config",
-        "peekOfCode": "class TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'\nclass ProductionConfig(Config):\n    DEBUG = False",
+        "peekOfCode": "class TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
         "detail": "app.config",
         "documentation": {}
     },

@@ -4,6 +4,7 @@ from .forms import LoginForm, RegistrationForm
 from flask_login import logout_user, login_user
 from werkzeug.security import check_password_hash
 from app.models import User
+from app.main.routes import home as main_home
 from app import db  # Import the database instance
 
 auth = Blueprint('auth', __name__)
@@ -17,7 +18,7 @@ def login():
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
             flash('You have been logged in!', 'success')
-            return redirect(url_for('main.home'))
+            return redirect(url_for('main_home'))
         else:
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -37,6 +38,6 @@ def register():
         db.session.commit()
         login_user(user)
         flash('Your account has been created! You are now logged in.', 'success')
-        return redirect(url_for('main.home'))
+        return redirect(url_for('main_home'))
     return render_template('register.html', title='Register', form=form)
 

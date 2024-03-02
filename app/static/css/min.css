@@ -93,3 +93,37 @@ form select {
         padding-top: 20px;
     }
 }
+
+/* Style for the flash messages container */
+ul.flashes {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+/* Individual flash message styling */
+ul.flashes li {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: #f2f2f2;
+    color: #333;
+    border-left: 5px solid #007bff; /* Blue border for informational messages */
+}
+
+/* Add more styles here for different categories of messages, e.g., success, error */
+ul.flashes li.success {
+    border-left-color: #28a745; /* Green for success */
+}
+
+ul.flashes li.error {
+    border-left-color: #dc3545; /* Red for error */
+}
+
+ul.flashes li.warning {
+    border-left-color: #ffc107; /* Yellow for warning */
+}
+
+ul.flashes li.info {
+    border-left-color: #17a2b8; /* Light blue for informational messages */
+    background-color: #d1ecf1;
+}
