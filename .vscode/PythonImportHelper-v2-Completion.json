@@ -1678,7 +1678,7 @@
         "kind": 5,
         "importPath": "run",
         "description": "run",
-        "peekOfCode": "os.environ[\"FLASK_ENV\"] = \"development\"\napp = create_app()\nif __name__ == \"__main__\":\n    app.run()",
+        "peekOfCode": "os.environ[\"FLASK_ENV\"] = \"production\"\napp = create_app()\nif __name__ == \"__main__\":\n    app.run()",
         "detail": "run",
         "documentation": {}
     },

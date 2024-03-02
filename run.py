@@ -3,7 +3,7 @@ from app import create_app
 import os
 
 # This is the entry point for the application. It creates an instance of the Flask application and runs it.
-os.environ["FLASK_ENV"] = "development"
+os.environ["FLASK_ENV"] = "production"
 
 app = create_app()
 
