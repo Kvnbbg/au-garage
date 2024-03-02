@@ -16,5 +16,5 @@ def home():
 
     # Flash the message
     flash(message, 'warning')  # 'info' is the category of the message
-    flash('🚗💥🎉🕒🔥', 'info')
+    flash('🛠️ 🔧 ⚙️', 'info')
     return render_template('home.html')

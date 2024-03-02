@@ -1624,7 +1624,7 @@
         "kind": 2,
         "importPath": "app.main.routes",
         "description": "app.main.routes",
-        "peekOfCode": "def home():\n    # Get the current date and time\n    now = datetime.datetime.now()\n    formatted_now = now.strftime(\"%Y-%m-%d %H:%M:%S\")  # Example: 2024-02-29 23:52\n    # Create the maintenance message\n    message = f\"Maintenance scheduled for {formatted_now}. We apologize for any inconvenience.\"\n    # Flash the message\n    flash(message, 'warning')  # 'info' is the category of the message\n    flash('🚗💥🎉🕒🔥', 'info')\n    return render_template('home.html')",
+        "peekOfCode": "def home():\n    # Get the current date and time\n    now = datetime.datetime.now()\n    formatted_now = now.strftime(\"%Y-%m-%d %H:%M:%S\")  # Example: 2024-02-29 23:52\n    # Create the maintenance message\n    message = f\"Maintenance scheduled for {formatted_now}. We apologize for any inconvenience.\"\n    # Flash the message\n    flash(message, 'warning')  # 'info' is the category of the message\n    flash('🛠️ 🔧 ⚙️', 'info')\n    return render_template('home.html')",
         "detail": "app.main.routes",
         "documentation": {}
     },
