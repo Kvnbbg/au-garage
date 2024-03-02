@@ -4,7 +4,6 @@ from .forms import LoginForm, RegistrationForm
 from flask_login import logout_user, login_user
 from werkzeug.security import check_password_hash
 from app.models import User
-from app.main.routes import home as main_home
 from app import db  # Import the database instance
 
 auth = Blueprint('auth', __name__)

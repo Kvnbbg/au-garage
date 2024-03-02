@@ -1,7 +1,3 @@
-To create a bilingual (French and English) professional file for the Garage V. Parrot web application, I'll provide you with a structured approach. This document will be divided into sections, each presented first in English followed by its French translation. I'll ensure the translations maintain the professional tone and accuracy needed for such a project.
-
----
-
 # Garage V. Parrot Web Application
 
 ## Overview

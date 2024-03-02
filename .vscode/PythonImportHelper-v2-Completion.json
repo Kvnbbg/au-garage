@@ -516,14 +516,6 @@
         "documentation": {}
     },
     {
-        "label": "home",
-        "importPath": "app.main.routes",
-        "description": "app.main.routes",
-        "isExtraImport": true,
-        "detail": "app.main.routes",
-        "documentation": {}
-    },
-    {
         "label": "db",
         "importPath": "app",
         "description": "app",
