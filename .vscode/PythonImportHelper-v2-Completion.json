@@ -1674,15 +1674,6 @@
         "documentation": {}
     },
     {
-        "label": "os.environ[\"FLASK_ENV\"]",
-        "kind": 5,
-        "importPath": "run",
-        "description": "run",
-        "peekOfCode": "os.environ[\"FLASK_ENV\"] = \"production\"\napp = create_app()\nif __name__ == \"__main__\":\n    app.run()",
-        "detail": "run",
-        "documentation": {}
-    },
-    {
         "label": "app",
         "kind": 5,
         "importPath": "run",

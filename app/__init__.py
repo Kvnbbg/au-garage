@@ -9,11 +9,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 from .config import Config
 
-import os
-
-# This is the entry point for the application. It creates an instance of the Flask application and runs it.
-os.environ["FLASK_ENV"] = "development"
-
 
 # Create extension instances without initializing them with an app object
 db = SQLAlchemy()
