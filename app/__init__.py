@@ -1,4 +1,18 @@
 # app/__init__.py
+"""
+    The `create_app` function initializes a Flask application with various extensions and configurations
+    based on the environment.
+    
+    :param user_id: The `user_id` parameter in the `load_user` function is the unique identifier for a
+    user in the system. It is typically used to load a specific user from the database based on their ID
+    when they are authenticated and accessing the application
+    :return: The `create_app()` function returns a Flask application instance that is configured based
+    on the environment specified in the `FLASK_ENV` environment variable. The function initializes
+    various extensions such as SQLAlchemy for database operations, Flask-Migrate for database
+    migrations, Flask-Login for user authentication, and Flask-Mail for email functionality. It also
+    sets up the configuration for the mail server and registers blueprints for different parts of
+"""
+import os
 import secrets
 
 from flask import Flask
@@ -7,8 +21,7 @@ from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from .config import Config
-
+from .config import Config, DevelopmentConfig, ProductionConfig, TestingConfig
 
 # Create extension instances without initializing them with an app object
 db = SQLAlchemy()
@@ -27,8 +40,17 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-def create_app(config_class=Config):
+def create_app():
     app = Flask(__name__)
+
+    if os.environ.get("FLASK_ENV") == "development":
+        config_class = DevelopmentConfig
+    elif os.environ.get("FLASK_ENV") == "testing":
+        config_class = TestingConfig
+
+    else:
+        config_class = ProductionConfig
+
     app.config.from_object(config_class)
 
     # Initialize extensions with the app object

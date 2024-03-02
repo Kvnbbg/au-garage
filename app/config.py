@@ -1,3 +1,5 @@
+# The above class defines different configurations for a Flask application, including a base
+# configuration, development configuration, testing configuration, and production configuration.
 # config.py
 import secrets
 
