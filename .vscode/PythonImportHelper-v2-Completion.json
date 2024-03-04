@@ -332,7 +332,24 @@
         "documentation": {}
     },
     {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
         "label": "FlaskForm",
+        "importPath": "flask_wtf",
+        "description": "flask_wtf",
+        "isExtraImport": true,
+        "detail": "flask_wtf",
+        "documentation": {}
+    },
+    {
+        "label": "RecaptchaField",
         "importPath": "flask_wtf",
         "description": "flask_wtf",
         "isExtraImport": true,
@@ -381,6 +398,22 @@
     },
     {
         "label": "ValidationError",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "Length",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "Regexp",
         "importPath": "wtforms.validators",
         "description": "wtforms.validators",
         "isExtraImport": true,
@@ -484,11 +517,27 @@
         "documentation": {}
     },
     {
+        "label": "current_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
         "label": "UserMixin",
         "importPath": "flask_login",
         "description": "flask_login",
         "isExtraImport": true,
         "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "generate_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
         "documentation": {}
     },
     {
@@ -537,6 +586,14 @@
         "description": "app",
         "isExtraImport": true,
         "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemyError",
+        "importPath": "sqlalchemy.exc",
+        "description": "sqlalchemy.exc",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.exc",
         "documentation": {}
     },
     {
@@ -1570,7 +1627,7 @@
         "kind": 6,
         "importPath": "app.auth.forms",
         "description": "app.auth.forms",
-        "peekOfCode": "class LoginForm(FlaskForm):\n    username = StringField('Username', validators=[DataRequired()])\n    password = PasswordField('Password', validators=[DataRequired()])\n    submit = SubmitField('Login')\nclass RegistrationForm(FlaskForm):\n    username = StringField('Username', validators=[DataRequired()])\n    password = PasswordField('Password', validators=[DataRequired()])\n    confirm_password = PasswordField('Confirm Password',\n                                     validators=[DataRequired(), EqualTo('password')])\n    submit = SubmitField('Sign Up')",
+        "peekOfCode": "class LoginForm(FlaskForm):\n    username = StringField('Username', validators=[DataRequired(), Length(min=4, max=25)])\n    password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])\n    submit = SubmitField('Login')\nclass RegistrationForm(FlaskForm):\n    username = StringField('Username', validators=[\n        DataRequired(), \n        Length(min=4, max=25), \n        Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,\n               'Usernames must have only letters, numbers, dots or underscores')])",
         "detail": "app.auth.forms",
         "documentation": {}
     },
@@ -1579,7 +1636,16 @@
         "kind": 6,
         "importPath": "app.auth.forms",
         "description": "app.auth.forms",
-        "peekOfCode": "class RegistrationForm(FlaskForm):\n    username = StringField('Username', validators=[DataRequired()])\n    password = PasswordField('Password', validators=[DataRequired()])\n    confirm_password = PasswordField('Confirm Password',\n                                     validators=[DataRequired(), EqualTo('password')])\n    submit = SubmitField('Sign Up')\n    def validate_username(self, username):\n        user = User.query.filter_by(username=username.data).first()\n        if user:\n            raise ValidationError('That username is taken. Please choose a different one.')",
+        "peekOfCode": "class RegistrationForm(FlaskForm):\n    username = StringField('Username', validators=[\n        DataRequired(), \n        Length(min=4, max=25), \n        Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,\n               'Usernames must have only letters, numbers, dots or underscores')])\n    password = PasswordField('Password', validators=[\n        DataRequired(), \n        Length(min=6, message=\"Password must be at least 6 characters long.\"), \n        Regexp('^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\\W_]).*$', 0,",
+        "detail": "app.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "app.auth.forms",
+        "description": "app.auth.forms",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nclass LoginForm(FlaskForm):\n    username = StringField('Username', validators=[DataRequired(), Length(min=4, max=25)])\n    password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])\n    submit = SubmitField('Login')\nclass RegistrationForm(FlaskForm):\n    username = StringField('Username', validators=[\n        DataRequired(), \n        Length(min=4, max=25), \n        Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,",
         "detail": "app.auth.forms",
         "documentation": {}
     },
@@ -1588,7 +1654,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def login():\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and check_password_hash(user.password, form.password.data):\n            login_user(user)\n            flash('You have been logged in!', 'success')\n            return redirect(url_for('main_home'))\n        else:\n            flash('Login Unsuccessful. Please check username and password', 'danger')",
+        "peekOfCode": "def login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = LoginForm()\n    if form.validate_on_submit():\n        try:\n            user = User.query.filter_by(username=form.username.data).first()\n            if user and check_password_hash(user.password, form.password.data):\n                login_user(user)\n                flash('You have been logged in!', 'success')",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1597,7 +1663,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def logout():\n    logout_user()\n    return redirect(url_for('main.home'))\n@auth.route('/register', methods=['GET', 'POST'])\ndef register():\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        user = User(username=form.username.data, password=form.password.data)\n        db.session.add(user)\n        db.session.commit()",
+        "peekOfCode": "def logout():\n    try:\n        logout_user()\n        flash('You have been logged out.', 'success')\n        return redirect(url_for('main.home'))\n    except Exception as e:\n        logger.error(f'Error during logout: {e}', exc_info=True)\n        flash('An error occurred during logout. Please try again later.', 'danger')\n@auth.route('/register', methods=['GET', 'POST'])\ndef register():",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1606,7 +1672,34 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def register():\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        user = User(username=form.username.data, password=form.password.data)\n        db.session.add(user)\n        db.session.commit()\n        login_user(user)\n        flash('Your account has been created! You are now logged in.', 'success')\n        return redirect(url_for('main_home'))\n    return render_template('register.html', title='Register', form=form)",
+        "peekOfCode": "def register():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        try:\n            hashed_password = generate_password_hash(form.password.data)\n            user = User(username=form.username.data, password=hashed_password)\n            db.session.add(user)\n            db.session.commit()",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "not_found_error",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def not_found_error(error):\n    return render_template('404.html'), 404\n@auth.app_errorhandler(500)\ndef internal_error(error):\n    db.session.rollback()\n    return render_template('500.html'), 500",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "internal_error",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def internal_error(error):\n    db.session.rollback()\n    return render_template('500.html'), 500",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nauth = Blueprint('auth', __name__)\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = LoginForm()\n    if form.validate_on_submit():\n        try:\n            user = User.query.filter_by(username=form.username.data).first()",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1615,7 +1708,7 @@
         "kind": 5,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "auth = Blueprint('auth', __name__)\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and check_password_hash(user.password, form.password.data):\n            login_user(user)\n            flash('You have been logged in!', 'success')\n            return redirect(url_for('main_home'))",
+        "peekOfCode": "auth = Blueprint('auth', __name__)\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = LoginForm()\n    if form.validate_on_submit():\n        try:\n            user = User.query.filter_by(username=form.username.data).first()\n            if user and check_password_hash(user.password, form.password.data):",
         "detail": "app.auth.routes",
         "documentation": {}
     },
