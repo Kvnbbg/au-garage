@@ -47,7 +47,21 @@ def logout():
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
+    """
+    Register a new user.
+
+    This function handles the registration process for a new user. It checks if the user is already logged in,
+    validates the registration form, creates a new user in the database, logs in the user, and redirects to the home page.
+
+    Returns:
+        If the registration is successful, it redirects to the home page.
+        If there is an error during registration, it displays an error message and renders the registration form.
+
+    Raises:
+        SQLAlchemyError: If there is an error with the database during registration.
+        Exception: If there is an unexpected error during registration.
+    """
+    if current_user.is_authenticated: # Redirect to home if user is already logged in
         return redirect(url_for('main.home'))
     form = RegistrationForm()
     if form.validate_on_submit():

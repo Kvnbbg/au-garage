@@ -1,4 +1,4 @@
-import logging
+import logging # Import the logging module
 
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, SubmitField

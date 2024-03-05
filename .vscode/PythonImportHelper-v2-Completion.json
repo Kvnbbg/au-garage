@@ -1664,7 +1664,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def register():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        try:\n            hashed_password = generate_password_hash(form.password.data)\n            user = User(username=form.username.data, password=hashed_password)\n            db.session.add(user)\n            db.session.commit()",
+        "peekOfCode": "def register():\n    \"\"\"\n    Register a new user.\n    This function handles the registration process for a new user. It checks if the user is already logged in,\n    validates the registration form, creates a new user in the database, logs in the user, and redirects to the home page.\n    Returns:\n        If the registration is successful, it redirects to the home page.\n        If there is an error during registration, it displays an error message and renders the registration form.\n    Raises:\n        SQLAlchemyError: If there is an error with the database during registration.",
         "detail": "app.auth.routes",
         "documentation": {}
     },
