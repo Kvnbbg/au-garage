@@ -349,6 +349,14 @@
         "documentation": {}
     },
     {
+        "label": "RecaptchaField",
+        "importPath": "flask_wtf",
+        "description": "flask_wtf",
+        "isExtraImport": true,
+        "detail": "flask_wtf",
+        "documentation": {}
+    },
+    {
         "label": "PasswordField",
         "importPath": "wtforms",
         "description": "wtforms",
@@ -366,6 +374,14 @@
     },
     {
         "label": "SubmitField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
+        "label": "EmailField",
         "importPath": "wtforms",
         "description": "wtforms",
         "isExtraImport": true,
@@ -406,6 +422,14 @@
     },
     {
         "label": "ValidationError",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "Email",
         "importPath": "wtforms.validators",
         "description": "wtforms.validators",
         "isExtraImport": true,
@@ -469,6 +493,14 @@
         "documentation": {}
     },
     {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "Blueprint",
         "importPath": "flask",
         "description": "flask",
@@ -490,6 +522,14 @@
         "description": "flask",
         "isExtraImport": true,
         "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "LoginManager",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
         "documentation": {}
     },
     {
@@ -517,7 +557,7 @@
         "documentation": {}
     },
     {
-        "label": "UserMixin",
+        "label": "login_required",
         "importPath": "flask_login",
         "description": "flask_login",
         "isExtraImport": true,
@@ -525,35 +565,11 @@
         "documentation": {}
     },
     {
-        "label": "generate_password_hash",
-        "importPath": "werkzeug.security",
-        "description": "werkzeug.security",
+        "label": "UserMixin",
+        "importPath": "flask_login",
+        "description": "flask_login",
         "isExtraImport": true,
-        "detail": "werkzeug.security",
-        "documentation": {}
-    },
-    {
-        "label": "check_password_hash",
-        "importPath": "werkzeug.security",
-        "description": "werkzeug.security",
-        "isExtraImport": true,
-        "detail": "werkzeug.security",
-        "documentation": {}
-    },
-    {
-        "label": "generate_password_hash",
-        "importPath": "werkzeug.security",
-        "description": "werkzeug.security",
-        "isExtraImport": true,
-        "detail": "werkzeug.security",
-        "documentation": {}
-    },
-    {
-        "label": "check_password_hash",
-        "importPath": "werkzeug.security",
-        "description": "werkzeug.security",
-        "isExtraImport": true,
-        "detail": "werkzeug.security",
+        "detail": "flask_login",
         "documentation": {}
     },
     {
@@ -581,11 +597,11 @@
         "documentation": {}
     },
     {
-        "label": "SQLAlchemyError",
-        "importPath": "sqlalchemy.exc",
-        "description": "sqlalchemy.exc",
+        "label": "db",
+        "importPath": "app",
+        "description": "app",
         "isExtraImport": true,
-        "detail": "sqlalchemy.exc",
+        "detail": "app",
         "documentation": {}
     },
     {
@@ -604,6 +620,22 @@
         "importPath": "secrets",
         "description": "secrets",
         "detail": "secrets",
+        "documentation": {}
+    },
+    {
+        "label": "generate_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "check_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
         "documentation": {}
     },
     {
@@ -1619,7 +1651,7 @@
         "kind": 6,
         "importPath": "app.auth.forms",
         "description": "app.auth.forms",
-        "peekOfCode": "class LoginForm(FlaskForm):\n    username = StringField(\n        \"Username\", validators=[DataRequired(), Length(min=4, max=25)]\n    )\n    password = PasswordField(\"Password\", validators=[DataRequired(), Length(min=6)])\n    submit = SubmitField(\"Login\")\nclass RegistrationForm(FlaskForm):\n    username = StringField(\n        \"Username\",\n        validators=[",
+        "peekOfCode": "class LoginForm(FlaskForm):\n    username = StringField(\n        \"Username\",\n        validators=[DataRequired(), Length(min=4, max=25)],\n        render_kw={\"placeholder\": \"Username\", \"class\": \"form-control\"}\n    )\n    password = PasswordField(\n        \"Password\",\n        validators=[DataRequired(), Length(min=6)],\n        render_kw={\"placeholder\": \"Password\", \"class\": \"form-control\"}",
         "detail": "app.auth.forms",
         "documentation": {}
     },
@@ -1637,8 +1669,17 @@
         "kind": 5,
         "importPath": "app.auth.forms",
         "description": "app.auth.forms",
-        "peekOfCode": "logger = logging.getLogger(__name__)\nclass LoginForm(FlaskForm):\n    username = StringField(\n        \"Username\", validators=[DataRequired(), Length(min=4, max=25)]\n    )\n    password = PasswordField(\"Password\", validators=[DataRequired(), Length(min=6)])\n    submit = SubmitField(\"Login\")\nclass RegistrationForm(FlaskForm):\n    username = StringField(\n        \"Username\",",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nclass LoginForm(FlaskForm):\n    username = StringField(\n        \"Username\",\n        validators=[DataRequired(), Length(min=4, max=25)],\n        render_kw={\"placeholder\": \"Username\", \"class\": \"form-control\"}\n    )\n    password = PasswordField(\n        \"Password\",\n        validators=[DataRequired(), Length(min=6)],",
         "detail": "app.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "load_user",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def load_user(user_id):\n    return User.query.get(int(user_id))\n# Routes\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()",
+        "detail": "app.auth.routes",
         "documentation": {}
     },
     {
@@ -1646,7 +1687,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = LoginForm()\n    if form.validate_on_submit():\n        try:\n            user = User.query.filter_by(username=form.username.data).first()\n            if user and check_password_hash(user.password, form.password.data):\n                login_user(user)\n                flash('You have been logged in!', 'success')",
+        "peekOfCode": "def login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and user.check_password(form.password.data):\n            login_user(user)\n            flash('You have been logged in!', 'success')\n            next_page = request.args.get('next')",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1655,7 +1696,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def logout():\n    try:\n        logout_user()\n        flash('You have been logged out.', 'success')\n        return redirect(url_for('main.home'))\n    except Exception as e:\n        logger.error(f'Error during logout: {e}', exc_info=True)\n        flash('An error occurred during logout. Please try again later.', 'danger')\n@auth.route('/register', methods=['GET', 'POST'])\ndef register():",
+        "peekOfCode": "def logout():\n    logout_user()\n    flash('You have been logged out.', 'success')\n    return redirect(url_for('main.home'))\n@auth.route('/register', methods=['GET', 'POST'])\ndef register():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = RegistrationForm()\n    if form.validate_on_submit():",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1664,7 +1705,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def register():\n    \"\"\"\n    Register a new user.\n    This function handles the registration process for a new user. It checks if the user is already logged in,\n    validates the registration form, creates a new user in the database, logs in the user, and redirects to the home page.\n    Returns:\n        If the registration is successful, it redirects to the home page.\n        If there is an error during registration, it displays an error message and renders the registration form.\n    Raises:\n        SQLAlchemyError: If there is an error with the database during registration.",
+        "peekOfCode": "def register():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        user = User(username=form.username.data, email=form.email.data)\n        user.set_password(form.password.data)\n        db.session.add(user)\n        db.session.commit()\n        login_user(user)",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1673,7 +1714,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def not_found_error(error):\n    return render_template('404.html'), 404\n@auth.app_errorhandler(500)\ndef internal_error(error):\n    db.session.rollback()\n    return render_template('500.html'), 500",
+        "peekOfCode": "def not_found_error(error):\n    return render_template('404.html'), 404\n@auth.app_errorhandler(500)\ndef internal_error(error):\n    db.session.rollback()\n    return render_template('500.html'), 500\n@auth.route('/dashboard')\n@login_required\ndef dashboard():\n    return render_template('dashboard.html')",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1682,7 +1723,16 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def internal_error(error):\n    db.session.rollback()\n    return render_template('500.html'), 500",
+        "peekOfCode": "def internal_error(error):\n    db.session.rollback()\n    return render_template('500.html'), 500\n@auth.route('/dashboard')\n@login_required\ndef dashboard():\n    return render_template('dashboard.html')",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "dashboard",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def dashboard():\n    return render_template('dashboard.html')",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1691,7 +1741,7 @@
         "kind": 5,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "logger = logging.getLogger(__name__)\nauth = Blueprint('auth', __name__)\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = LoginForm()\n    if form.validate_on_submit():\n        try:\n            user = User.query.filter_by(username=form.username.data).first()",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nauth = Blueprint('auth', __name__)\n@LoginManager.user_loader\ndef load_user(user_id):\n    return User.query.get(int(user_id))\n# Routes\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1700,7 +1750,7 @@
         "kind": 5,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "auth = Blueprint('auth', __name__)\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = LoginForm()\n    if form.validate_on_submit():\n        try:\n            user = User.query.filter_by(username=form.username.data).first()\n            if user and check_password_hash(user.password, form.password.data):",
+        "peekOfCode": "auth = Blueprint('auth', __name__)\n@LoginManager.user_loader\ndef load_user(user_id):\n    return User.query.get(int(user_id))\n# Routes\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = LoginForm()",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1763,7 +1813,7 @@
         "kind": 6,
         "importPath": "app.models",
         "description": "app.models",
-        "peekOfCode": "class User(db.Model, UserMixin):\n    id = db.Column(db.Integer, primary_key=True)\n    username = db.Column(db.String(20), unique=True, nullable=False)\n    password_hash = db.Column(db.String(128), nullable=False)\n    @property\n    def password(self):\n        raise AttributeError('password is not a readable attribute')\n    @password.setter\n    def password(self, password):\n        self.password_hash = generate_password_hash(password)",
+        "peekOfCode": "class User(UserMixin, db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    username = db.Column(db.String(64), index=True, unique=True)\n    email = db.Column(db.String(120), index=True, unique=True)\n    password_hash = db.Column(db.String(128))\n    def set_password(self, password):\n        self.password_hash = generate_password_hash(password)\n    def check_password(self, password):\n        return check_password_hash(self.password_hash, password)\n    @property",
         "detail": "app.models",
         "documentation": {}
     },
@@ -1772,7 +1822,7 @@
         "kind": 5,
         "importPath": "run",
         "description": "run",
-        "peekOfCode": "os.environ[\"FLASK_ENV\"] = \"development\"\napp = create_app()\nif __name__ == \"__main__\":\n    app.run()",
+        "peekOfCode": "os.environ[\"FLASK_ENV\"] = \"development\"\napp = create_app()\nif __name__ == \"__main__\":\n    db.create_all()\n    app.run()",
         "detail": "run",
         "documentation": {}
     },
@@ -1781,7 +1831,7 @@
         "kind": 5,
         "importPath": "run",
         "description": "run",
-        "peekOfCode": "app = create_app()\nif __name__ == \"__main__\":\n    app.run()",
+        "peekOfCode": "app = create_app()\nif __name__ == \"__main__\":\n    db.create_all()\n    app.run()",
         "detail": "run",
         "documentation": {}
     }

@@ -1,8 +1,7 @@
-import logging # Import the logging module
-
-from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, SubmitField
-from wtforms.validators import DataRequired, EqualTo, Length, Regexp, ValidationError
+import logging
+from flask_wtf import FlaskForm, RecaptchaField
+from wtforms import PasswordField, StringField, SubmitField, EmailField
+from wtforms.validators import DataRequired, EqualTo, Length, Regexp, ValidationError, Email
 
 from app.models import User
 
@@ -10,14 +9,21 @@ from app.models import User
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-
 class LoginForm(FlaskForm):
     username = StringField(
-        "Username", validators=[DataRequired(), Length(min=4, max=25)]
+        "Username",
+        validators=[DataRequired(), Length(min=4, max=25)],
+        render_kw={"placeholder": "Username", "class": "form-control"}
     )
-    password = PasswordField("Password", validators=[DataRequired(), Length(min=6)])
-    submit = SubmitField("Login")
-
+    password = PasswordField(
+        "Password",
+        validators=[DataRequired(), Length(min=6)],
+        render_kw={"placeholder": "Password", "class": "form-control"}
+    )
+    submit = SubmitField(
+        "Login",
+        render_kw={"class": "btn btn-primary"}
+    )
 
 class RegistrationForm(FlaskForm):
     username = StringField(
@@ -31,6 +37,15 @@ class RegistrationForm(FlaskForm):
                 "Usernames must have only letters, numbers, dots or underscores",
             ),
         ],
+        render_kw={"placeholder": "Username", "class": "form-control"}
+    )
+    email = EmailField(
+        "Email",
+        validators=[
+            DataRequired(),
+            Email(message="Please enter a valid email address."),
+        ],
+        render_kw={"placeholder": "Email", "class": "form-control"}
     )
     password = PasswordField(
         "Password",
@@ -43,6 +58,7 @@ class RegistrationForm(FlaskForm):
                 "Password must contain a letter, a number, and a special character.",
             ),
         ],
+        render_kw={"placeholder": "Password", "class": "form-control"}
     )
     confirm_password = PasswordField(
         "Confirm Password",
@@ -50,18 +66,23 @@ class RegistrationForm(FlaskForm):
             DataRequired(),
             EqualTo("password", message="Passwords must match."),
         ],
+        render_kw={"placeholder": "Confirm Password", "class": "form-control"}
     )
     # Uncomment the next line to enable Recaptcha
     # recaptcha = RecaptchaField()
-    submit = SubmitField("Sign Up")
+    submit = SubmitField(
+        "Sign Up",
+        render_kw={"class": "btn btn-success"}
+    )
 
     def validate_username(self, username):
-        cleaned_username = username.data.strip()
-        user = User.query.filter_by(username=cleaned_username).first()
+        user = User.query.filter_by(username=username.data).first()
         if user:
-            logger.warning(
-                f"Attempt to register with taken username: {cleaned_username}"
-            )
-            raise ValidationError(
-                "That username is taken. Please choose a different one."
-            )
+            logger.warning(f"Attempt to register with taken username: {username.data}")
+            raise ValidationError("That username is taken. Please choose a different one.")
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data.lower().strip()).first()
+        if user:
+            logger.warning(f"Attempt to register with taken email: {email.data}")
+            raise ValidationError("That email is already in use. Please choose a different one.")
