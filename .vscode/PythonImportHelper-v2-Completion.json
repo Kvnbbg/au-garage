@@ -349,15 +349,7 @@
         "documentation": {}
     },
     {
-        "label": "RecaptchaField",
-        "importPath": "flask_wtf",
-        "description": "flask_wtf",
-        "isExtraImport": true,
-        "detail": "flask_wtf",
-        "documentation": {}
-    },
-    {
-        "label": "StringField",
+        "label": "PasswordField",
         "importPath": "wtforms",
         "description": "wtforms",
         "isExtraImport": true,
@@ -365,7 +357,7 @@
         "documentation": {}
     },
     {
-        "label": "PasswordField",
+        "label": "StringField",
         "importPath": "wtforms",
         "description": "wtforms",
         "isExtraImport": true,
@@ -397,14 +389,6 @@
         "documentation": {}
     },
     {
-        "label": "ValidationError",
-        "importPath": "wtforms.validators",
-        "description": "wtforms.validators",
-        "isExtraImport": true,
-        "detail": "wtforms.validators",
-        "documentation": {}
-    },
-    {
         "label": "Length",
         "importPath": "wtforms.validators",
         "description": "wtforms.validators",
@@ -414,6 +398,14 @@
     },
     {
         "label": "Regexp",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "ValidationError",
         "importPath": "wtforms.validators",
         "description": "wtforms.validators",
         "isExtraImport": true,
@@ -1627,7 +1619,7 @@
         "kind": 6,
         "importPath": "app.auth.forms",
         "description": "app.auth.forms",
-        "peekOfCode": "class LoginForm(FlaskForm):\n    username = StringField('Username', validators=[DataRequired(), Length(min=4, max=25)])\n    password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])\n    submit = SubmitField('Login')\nclass RegistrationForm(FlaskForm):\n    username = StringField('Username', validators=[\n        DataRequired(), \n        Length(min=4, max=25), \n        Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,\n               'Usernames must have only letters, numbers, dots or underscores')])",
+        "peekOfCode": "class LoginForm(FlaskForm):\n    username = StringField(\n        \"Username\", validators=[DataRequired(), Length(min=4, max=25)]\n    )\n    password = PasswordField(\"Password\", validators=[DataRequired(), Length(min=6)])\n    submit = SubmitField(\"Login\")\nclass RegistrationForm(FlaskForm):\n    username = StringField(\n        \"Username\",\n        validators=[",
         "detail": "app.auth.forms",
         "documentation": {}
     },
@@ -1636,7 +1628,7 @@
         "kind": 6,
         "importPath": "app.auth.forms",
         "description": "app.auth.forms",
-        "peekOfCode": "class RegistrationForm(FlaskForm):\n    username = StringField('Username', validators=[\n        DataRequired(), \n        Length(min=4, max=25), \n        Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,\n               'Usernames must have only letters, numbers, dots or underscores')])\n    password = PasswordField('Password', validators=[\n        DataRequired(), \n        Length(min=6, message=\"Password must be at least 6 characters long.\"), \n        Regexp('^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\\W_]).*$', 0,",
+        "peekOfCode": "class RegistrationForm(FlaskForm):\n    username = StringField(\n        \"Username\",\n        validators=[\n            DataRequired(),\n            Length(min=4, max=25),\n            Regexp(\n                \"^[A-Za-z][A-Za-z0-9_.]*$\",\n                0,\n                \"Usernames must have only letters, numbers, dots or underscores\",",
         "detail": "app.auth.forms",
         "documentation": {}
     },
@@ -1645,7 +1637,7 @@
         "kind": 5,
         "importPath": "app.auth.forms",
         "description": "app.auth.forms",
-        "peekOfCode": "logger = logging.getLogger(__name__)\nclass LoginForm(FlaskForm):\n    username = StringField('Username', validators=[DataRequired(), Length(min=4, max=25)])\n    password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])\n    submit = SubmitField('Login')\nclass RegistrationForm(FlaskForm):\n    username = StringField('Username', validators=[\n        DataRequired(), \n        Length(min=4, max=25), \n        Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nclass LoginForm(FlaskForm):\n    username = StringField(\n        \"Username\", validators=[DataRequired(), Length(min=4, max=25)]\n    )\n    password = PasswordField(\"Password\", validators=[DataRequired(), Length(min=6)])\n    submit = SubmitField(\"Login\")\nclass RegistrationForm(FlaskForm):\n    username = StringField(\n        \"Username\",",
         "detail": "app.auth.forms",
         "documentation": {}
     },
