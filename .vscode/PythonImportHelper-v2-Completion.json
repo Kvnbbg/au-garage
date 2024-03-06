@@ -1674,15 +1674,6 @@
         "documentation": {}
     },
     {
-        "label": "load_user",
-        "kind": 2,
-        "importPath": "app.auth.routes",
-        "description": "app.auth.routes",
-        "peekOfCode": "def load_user(user_id):\n    return User.query.get(int(user_id))\n# Routes\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()",
-        "detail": "app.auth.routes",
-        "documentation": {}
-    },
-    {
         "label": "login",
         "kind": 2,
         "importPath": "app.auth.routes",
@@ -1741,7 +1732,7 @@
         "kind": 5,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "logger = logging.getLogger(__name__)\nauth = Blueprint('auth', __name__)\n@LoginManager.user_loader\ndef load_user(user_id):\n    return User.query.get(int(user_id))\n# Routes\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nauth = Blueprint('auth', __name__)\n# Routes\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1750,7 +1741,7 @@
         "kind": 5,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "auth = Blueprint('auth', __name__)\n@LoginManager.user_loader\ndef load_user(user_id):\n    return User.query.get(int(user_id))\n# Routes\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = LoginForm()",
+        "peekOfCode": "auth = Blueprint('auth', __name__)\n# Routes\n@auth.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('main.home'))\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and user.check_password(form.password.data):",
         "detail": "app.auth.routes",
         "documentation": {}
     },

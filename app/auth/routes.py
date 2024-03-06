@@ -11,10 +11,6 @@ logger = logging.getLogger(__name__)
 
 auth = Blueprint('auth', __name__)
 
-@LoginManager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
 # Routes
 @auth.route('/login', methods=['GET', 'POST'])
 def login():

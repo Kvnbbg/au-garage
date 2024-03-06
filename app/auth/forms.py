@@ -24,6 +24,7 @@ class LoginForm(FlaskForm):
         "Login",
         render_kw={"class": "btn btn-primary"}
     )
+    
 
 class RegistrationForm(FlaskForm):
     username = StringField(
