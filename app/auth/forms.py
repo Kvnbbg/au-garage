@@ -1,5 +1,5 @@
 import logging
-from flask_wtf import FlaskForm, RecaptchaField
+from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, SubmitField, EmailField
 from wtforms.validators import DataRequired, EqualTo, Length, Regexp, ValidationError, Email
 

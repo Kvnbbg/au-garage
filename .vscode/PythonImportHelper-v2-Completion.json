@@ -349,14 +349,6 @@
         "documentation": {}
     },
     {
-        "label": "RecaptchaField",
-        "importPath": "flask_wtf",
-        "description": "flask_wtf",
-        "isExtraImport": true,
-        "detail": "flask_wtf",
-        "documentation": {}
-    },
-    {
         "label": "PasswordField",
         "importPath": "wtforms",
         "description": "wtforms",
