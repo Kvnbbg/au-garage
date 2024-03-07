@@ -48,23 +48,23 @@
               >
             </li>
             <li class="nav=-item">
-              <a class="nav-link lang lang-en" href="/login.html">Login</a>
+              <a class="nav-link lang lang-en" href="{{ url_for('auth.login') }}">Login</a>
             </li>
             <li class="nav=-item">
               <a
                 class="nav-link lang lang-fr"
-                href="/login.html"
+                href="{{ url_for('auth.login') }}"
                 style="display: none"
                 >Se connecter</a
               >
             </li>
             <li class="nav=-item">
-              <a class="nav-link lang lang-en" href="/register.html">Register</a>
+              <a class="nav-link lang lang-en" href="{{ url_for('auth.register') }}">Register</a>
             </li>
             <li class="nav=-item">
               <a
                 class="nav-link lang lang-fr"
-                href="/register.html"
+                href="{{ url_for('auth.register') }}"
                 style="display: none"
                 >S'enregistrer</a
               >

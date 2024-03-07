@@ -517,14 +517,6 @@
         "documentation": {}
     },
     {
-        "label": "LoginManager",
-        "importPath": "flask_login",
-        "description": "flask_login",
-        "isExtraImport": true,
-        "detail": "flask_login",
-        "documentation": {}
-    },
-    {
         "label": "logout_user",
         "importPath": "flask_login",
         "description": "flask_login",

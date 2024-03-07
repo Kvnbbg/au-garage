@@ -1,6 +1,6 @@
 import logging
 from flask import Blueprint, render_template, flash, redirect, url_for, request
-from flask_login import LoginManager, logout_user, login_user, current_user, login_required
+from flask_login import logout_user, login_user, current_user, login_required
 from .forms import LoginForm, RegistrationForm
 from app.models import User
 from app import db  # Import the database instance
