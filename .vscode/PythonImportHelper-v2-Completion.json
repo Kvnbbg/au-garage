@@ -509,6 +509,14 @@
         "documentation": {}
     },
     {
+        "label": "session",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "Blueprint",
         "importPath": "flask",
         "description": "flask",
@@ -533,6 +541,14 @@
         "documentation": {}
     },
     {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "render_template",
         "importPath": "flask",
         "description": "flask",
@@ -542,6 +558,22 @@
     },
     {
         "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -630,10 +662,9 @@
     },
     {
         "label": "datetime",
-        "kind": 6,
-        "isExtraImport": true,
         "importPath": "datetime",
         "description": "datetime",
+        "isExtraImport": true,
         "detail": "datetime",
         "documentation": {}
     },
@@ -1731,6 +1762,15 @@
         "documentation": {}
     },
     {
+        "label": "set_language",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def set_language(language):\n    session['lang'] = language\n    return redirect(url_for('main.home'))\n# Configure logging\nlogging.basicConfig(level=logging.INFO)\nlogger = logging.getLogger(__name__)\nauth = Blueprint(\"auth\", __name__)\ndef is_safe_url(target):\n    \"\"\"\n    Validates that the target URL is safe for redirection (i.e., resides within the same site).",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
         "label": "is_safe_url",
         "kind": 2,
         "importPath": "app.auth.routes",
@@ -1744,7 +1784,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def login():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.home\"))\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and user.check_password(form.password.data):\n            login_user(user)\n            flash(\"You have been logged in!\", \"success\")\n            next_page = request.args.get(\"next\")",
+        "peekOfCode": "def login():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and user.check_password(form.password.data):\n            login_user(user)\n            flash(\"You have been logged in!\", \"success\")\n            next_page = request.args.get(\"next\")",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1753,7 +1793,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def logout():\n    logout_user()\n    flash(\"You have been logged out.\", \"success\")\n    return redirect(url_for(\"main.home\"))\n@auth.route(\"/register\", methods=[\"GET\", \"POST\"])\ndef register():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.home\"))\n    form = RegistrationForm()\n    if form.validate_on_submit():",
+        "peekOfCode": "def logout():\n    logout_user()\n    flash(\"You have been logged out.\", \"success\")\n    return redirect(url_for(\"main.home\"))\n@auth.route(\"/register\", methods=[\"GET\", \"POST\"])\ndef register():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))\n    form = RegistrationForm()\n    if form.validate_on_submit():",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1762,7 +1802,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def register():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.home\"))\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        user = User(username=form.username.data, email=form.email.data)\n        user.set_password(form.password.data)\n        db.session.add(user)\n        db.session.commit()\n        login_user(user)",
+        "peekOfCode": "def register():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        user = User(username=form.username.data, email=form.email.data)\n        user.set_password(form.password.data)\n        db.session.add(user)\n        db.session.commit()\n        login_user(user)",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1794,6 +1834,15 @@
         "documentation": {}
     },
     {
+        "label": "auth",
+        "kind": 5,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "auth = Blueprint('auth', __name__)\n@auth.route('/set_language/<language>')\ndef set_language(language):\n    session['lang'] = language\n    return redirect(url_for('main.home'))\n# Configure logging\nlogging.basicConfig(level=logging.INFO)\nlogger = logging.getLogger(__name__)\nauth = Blueprint(\"auth\", __name__)\ndef is_safe_url(target):",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
         "label": "logger",
         "kind": 5,
         "importPath": "app.auth.routes",
@@ -1812,11 +1861,29 @@
         "documentation": {}
     },
     {
+        "label": "set_language",
+        "kind": 2,
+        "importPath": "app.main.routes",
+        "description": "app.main.routes",
+        "peekOfCode": "def set_language(language):\n    session['lang'] = language\n    return redirect(url_for('home'))\n# Define a blueprint for your Flask application\nmain = Blueprint(\"main\", __name__)\ndef improved_home_with_maintenance_date():\n    \"\"\"\n    Renders the home page with dynamic messages and displays the duration since the maintenance started.\n    This function assumes it's being called within a Flask route.\n    \"\"\"",
+        "detail": "app.main.routes",
+        "documentation": {}
+    },
+    {
+        "label": "improved_home_with_maintenance_date",
+        "kind": 2,
+        "importPath": "app.main.routes",
+        "description": "app.main.routes",
+        "peekOfCode": "def improved_home_with_maintenance_date():\n    \"\"\"\n    Renders the home page with dynamic messages and displays the duration since the maintenance started.\n    This function assumes it's being called within a Flask route.\n    \"\"\"\n    # Get the current date and time\n    now = datetime.now()\n    formatted_now = now.strftime(\"%Y-%m-%d %H:%M:%S\")\n    # Predefined maintenance start date (for illustration, adjust as needed)\n    maintenance_start_date = datetime(2024, 1, 1, 0, 0, 0)",
+        "detail": "app.main.routes",
+        "documentation": {}
+    },
+    {
         "label": "home",
         "kind": 2,
         "importPath": "app.main.routes",
         "description": "app.main.routes",
-        "peekOfCode": "def home():\n    \"\"\"\n    Renders the home page and displays a maintenance message.\n    Returns:\n        response: The response object containing the rendered home page.\n    \"\"\"\n    # Get the current date and time\n    now = datetime.datetime.now()\n    formatted_now = now.strftime(\"%Y-%m-%d %H:%M:%S\")  # Example: 2024-02-29 23:52\n    # Get the last visited date from the cookie",
+        "peekOfCode": "def home():\n    \"\"\"\n    Renders the home page and displays a maintenance message.\n    This function calls the improved_home_with_maintenance_date function to handle the logic.\n    \"\"\"\n    return improved_home_with_maintenance_date()",
         "detail": "app.main.routes",
         "documentation": {}
     },
@@ -1825,7 +1892,16 @@
         "kind": 5,
         "importPath": "app.main.routes",
         "description": "app.main.routes",
-        "peekOfCode": "main = Blueprint('main', __name__)\n@main.route('/')\n@main.route('/home')\ndef home():\n    \"\"\"\n    Renders the home page and displays a maintenance message.\n    Returns:\n        response: The response object containing the rendered home page.\n    \"\"\"\n    # Get the current date and time",
+        "peekOfCode": "main = Blueprint('main', __name__)\n@main.route('/set_language/<language>')\ndef set_language(language):\n    session['lang'] = language\n    return redirect(url_for('home'))\n# Define a blueprint for your Flask application\nmain = Blueprint(\"main\", __name__)\ndef improved_home_with_maintenance_date():\n    \"\"\"\n    Renders the home page with dynamic messages and displays the duration since the maintenance started.",
+        "detail": "app.main.routes",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 5,
+        "importPath": "app.main.routes",
+        "description": "app.main.routes",
+        "peekOfCode": "main = Blueprint(\"main\", __name__)\ndef improved_home_with_maintenance_date():\n    \"\"\"\n    Renders the home page with dynamic messages and displays the duration since the maintenance started.\n    This function assumes it's being called within a Flask route.\n    \"\"\"\n    # Get the current date and time\n    now = datetime.now()\n    formatted_now = now.strftime(\"%Y-%m-%d %H:%M:%S\")\n    # Predefined maintenance start date (for illustration, adjust as needed)",
         "detail": "app.main.routes",
         "documentation": {}
     },

@@ -1,5 +1,29 @@
 {% extends 'base.html' %} {% block content %}
 <!-- Login Section -->
+{% if "error" in [category for category, message in get_flashed_messages(with_categories=true)] %}
+<script>
+    // Show a confirmation dialog
+    if (confirm("Login Unsuccessful. Would you like to be redirected to the registration page?")) {
+        // Create and style the flash message animation container
+        const flashContainer = document.createElement("ul");
+        flashContainer.classList.add("flashes", "fanimation"); // Add classes for styling
+        flashContainer.innerHTML = `
+            <li class="info">Redirecting to registration...</li>
+        `; // Example message, adapt as needed
+        document.body.appendChild(flashContainer);
+
+        // Wait for 2 seconds, then redirect and remove the flash message
+        setTimeout(function() {
+            window.location.href = "{{ url_for('auth.register') }}"; // Redirect to registration page
+        }, 2000);
+
+        setTimeout(() => {
+            document.body.removeChild(flashContainer);
+        }, 2000); // Adjust time according to your animation
+    }
+</script>
+{% endif %}
+
 <section id="login" class="py-5">
   <div class="container">
     <form action="{{ url_for('auth.login') }}" method="POST">
@@ -20,4 +44,30 @@
     </form>
   </div>
 </section>
+<!-- Links Section with Language Logic -->
+<section class="text-center mt-4">
+  <div class="container">
+    {% if session['lang'] == 'fr' %}
+      <p>Pas encore inscrit ?</p>
+      <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary">S'inscrire</a>
+      <a href="{{ url_for('set_language', language='eng') }}" class="btn btn-outline-secondary">Switch to English</a>
+    {% else %}
+      <p>Not registered yet?</p>
+      <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary">Register</a>
+      <a href="{{ url_for('set_language', language='fr') }}" class="btn btn-outline-secondary">Passer au français</a>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Password visibility toggle script -->
+<script>
+  function togglePasswordVisibility() {
+    const password = document.getElementById("password");
+    if (password.type === "password") {
+      password.type = "text";
+    } else {
+      password.type = "password";
+    }
+  }
+</script>
 {% endblock %}

@@ -1,13 +1,20 @@
 import logging
 from urllib.parse import urljoin, urlparse
 
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for, session
 from flask_login import current_user, login_required, login_user, logout_user
 
 from app import db  # Import the database instance
 from app.models import User
 
 from .forms import LoginForm, RegistrationForm
+
+auth = Blueprint('auth', __name__)
+
+@auth.route('/set_language/<language>')
+def set_language(language):
+    session['lang'] = language
+    return redirect(url_for('main.home'))
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -28,7 +35,7 @@ def is_safe_url(target):
 @auth.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for("main.home"))
+        return redirect(url_for("main.dashboard"))
 
     form = LoginForm()
     if form.validate_on_submit():
@@ -44,7 +51,8 @@ def login():
 
             return redirect(next_page)
         else:
-            flash("Login Unsuccessful. Please check username and password", "danger")
+            flash("Login Unsuccessful. Please check username and password. Redirecting to registration in 2 seconds...", "error")
+            return redirect(url_for("auth.register"))
 
     return render_template("login.html", title="Login", form=form)
 
@@ -60,7 +68,7 @@ def logout():
 @auth.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for("main.home"))
+        return redirect(url_for("main.dashboard"))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
