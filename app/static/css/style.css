@@ -124,6 +124,10 @@ form select {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+ul, ol {
+  list-style-type: none;
+}
+
 /* Animation class */
 .fanimation {
   /* Animation styles or reference to an animation */

@@ -1,50 +1,50 @@
-{% extends 'base.html' %} {% block content %}
-<!-- Login Section -->
-{% if "error" in [category for category, message in get_flashed_messages(with_categories=true)] %}
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Conditional script for redirection on login error -->
+{% if error_present %}
 <script>
     // Show a confirmation dialog
     if (confirm("Login Unsuccessful. Would you like to be redirected to the registration page?")) {
-        // Create and style the flash message animation container
-        const flashContainer = document.createElement("ul");
-        flashContainer.classList.add("flashes", "fanimation"); // Add classes for styling
-        flashContainer.innerHTML = `
-            <li class="info">Redirecting to registration...</li>
-        `; // Example message, adapt as needed
-        document.body.appendChild(flashContainer);
+      // Create and style the flash message animation container
+      const flashContainer = document.createElement("ul");
+      flashContainer.classList.add("flashes", "fanimation"); // Add classes for styling
+      flashContainer.innerHTML = `
+          <li class="info">Redirecting to registration...</li>
+      `; // Example message, adapt as needed
+      document.body.appendChild(flashContainer);
 
-        // Wait for 2 seconds, then redirect and remove the flash message
-        setTimeout(function() {
-            window.location.href = "{{ url_for('auth.register') }}"; // Redirect to registration page
-        }, 2000);
+      // Wait for 2 seconds, then redirect and remove the flash message
+      setTimeout(function() {
+          window.location.href = "{{ url_for('auth.register') }}"; // Redirect to registration page
+      }, 2000);
 
-        setTimeout(() => {
-            document.body.removeChild(flashContainer);
-        }, 2000); // Adjust time according to your animation
-    }
+      setTimeout(() => {
+          document.body.removeChild(flashContainer);
+      }, 2000); // Adjust time according to your animation
+  }
 </script>
 {% endif %}
 
+<!-- Login Section -->
 <section id="login" class="py-5">
-  <div class="container">
-    <form action="{{ url_for('auth.login') }}" method="POST">
-      {{ form.hidden_tag() }}
-      <div class="form-group">
-        {{ form.username.label }} {{ form.username(class="form-control") }}
-      </div>
-      <div class="form-group position-relative">
-        {{ form.password.label }} {{ form.password(class="form-control",
-        id="password") }}
-        <i
-          class="fas fa-eye position-absolute end-0 top-50 translate-middle-y"
-          style="cursor: pointer"
-          onclick="togglePasswordVisibility()"
-        ></i>
-      </div>
-      <div class="form-group">{{ form.submit(class="btn btn-primary") }}</div>
-    </form>
-  </div>
+    <div class="container">
+        <form action="{{ url_for('auth.login') }}" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.username.label }} {{ form.username(class="form-control") }}
+            </div>
+            <div class="form-group position-relative">
+                {{ form.password.label }}
+                {{ form.password(class="form-control", id="password") }}
+                <i class="fas fa-eye position-absolute end-0 top-50 translate-middle-y" style="cursor: pointer;" onclick="togglePasswordVisibility()"></i>
+            </div>
+            <div class="form-group">{{ form.submit(class="btn btn-primary") }}</div>
+        </form>
+    </div>
 </section>
-<!-- Links Section with Language Logic -->
+
+<!-- Language Switch and Registration Prompt -->
 <section class="text-center mt-4">
   <div class="container">
     {% if session['lang'] == 'fr' %}
@@ -59,15 +59,11 @@
   </div>
 </section>
 
-<!-- Password visibility toggle script -->
+<!-- Password Visibility Toggle Script -->
 <script>
-  function togglePasswordVisibility() {
-    const password = document.getElementById("password");
-    if (password.type === "password") {
-      password.type = "text";
-    } else {
-      password.type = "password";
+    function togglePasswordVisibility() {
+        const password = document.getElementById("password");
+        password.type = password.type === "password" ? "text" : "password";
     }
-  }
 </script>
 {% endblock %}

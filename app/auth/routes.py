@@ -48,8 +48,11 @@ def login():
         else:
             flash("Login Unsuccessful. Please check username and password.", "error")
             return render_template("login.html", title="Login", form=form, error=True)
+        # Preprocess flash messages to detect 'error' category
+        error_present = 'error' in (category for category, message in get_flashed_messages(with_categories=True))
 
-    return render_template("login.html", title="Login", form=form)
+    return render_template("login.html", title="Login", form=form, error_present=error_present)
+
 
 @auth.route("/logout")
 @login_required
