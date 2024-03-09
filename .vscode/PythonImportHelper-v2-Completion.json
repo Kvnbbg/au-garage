@@ -381,6 +381,14 @@
         "documentation": {}
     },
     {
+        "label": "Optional",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
         "label": "DataRequired",
         "importPath": "wtforms.validators",
         "description": "wtforms.validators",
@@ -581,6 +589,22 @@
         "documentation": {}
     },
     {
+        "label": "app",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "current_app",
         "importPath": "flask",
         "description": "flask",
@@ -629,6 +653,14 @@
         "documentation": {}
     },
     {
+        "label": "login_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
         "label": "db",
         "importPath": "app",
         "description": "app",
@@ -662,6 +694,14 @@
     },
     {
         "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
         "importPath": "datetime",
         "description": "datetime",
         "isExtraImport": true,
@@ -1766,7 +1806,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def set_language(language):\n    session['lang'] = language\n    return redirect(url_for('main.home'))\n# Configure logging\nlogging.basicConfig(level=logging.INFO)\nlogger = logging.getLogger(__name__)\nauth = Blueprint(\"auth\", __name__)\ndef is_safe_url(target):\n    \"\"\"\n    Validates that the target URL is safe for redirection (i.e., resides within the same site).",
+        "peekOfCode": "def set_language(language):\n    # Check to ensure the language code is supported\n    supported_languages = ['en', 'fr']\n    if language in supported_languages:\n        session['lang'] = language\n    else:\n        flash(\"Unsupported language.\", \"error\")\n    return redirect(url_for('main.home'))\ndef is_safe_url(target):\n    \"\"\"",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1775,7 +1815,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def is_safe_url(target):\n    \"\"\"\n    Validates that the target URL is safe for redirection (i.e., resides within the same site).\n    \"\"\"\n    ref_url = urlparse(request.host_url)\n    test_url = urlparse(urljoin(request.host_url, target))\n    return test_url.scheme in (\"http\", \"https\") and ref_url.netloc == test_url.netloc\n@auth.route(\"/login\", methods=[\"GET\", \"POST\"])\ndef login():\n    if current_user.is_authenticated:",
+        "peekOfCode": "def is_safe_url(target):\n    \"\"\"\n    Simplified function to validate that the target URL is safe for redirection.\n    \"\"\"\n    test_url = urlparse(urljoin(request.host_url, target))\n    return test_url.hostname == request.host_url.rstrip('/')\n@auth.route(\"/login\", methods=[\"GET\", \"POST\"])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1802,25 +1842,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def register():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        user = User(username=form.username.data, email=form.email.data)\n        user.set_password(form.password.data)\n        db.session.add(user)\n        db.session.commit()\n        login_user(user)",
-        "detail": "app.auth.routes",
-        "documentation": {}
-    },
-    {
-        "label": "not_found_error",
-        "kind": 2,
-        "importPath": "app.auth.routes",
-        "description": "app.auth.routes",
-        "peekOfCode": "def not_found_error(error):\n    return render_template(\"404.html\"), 404\n@auth.app_errorhandler(500)\ndef internal_error(error):\n    db.session.rollback()\n    return render_template(\"500.html\"), 500\n@auth.route(\"/dashboard\")\n@login_required\ndef dashboard():\n    return render_template(\"dashboard.html\")",
-        "detail": "app.auth.routes",
-        "documentation": {}
-    },
-    {
-        "label": "internal_error",
-        "kind": 2,
-        "importPath": "app.auth.routes",
-        "description": "app.auth.routes",
-        "peekOfCode": "def internal_error(error):\n    db.session.rollback()\n    return render_template(\"500.html\"), 500\n@auth.route(\"/dashboard\")\n@login_required\ndef dashboard():\n    return render_template(\"dashboard.html\")",
+        "peekOfCode": "def register():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        user = User(username=form.username.data, email=form.email.data if 'email' in form else None)\n        user.set_password(form.password.data)\n        db.session.add(user)\n        db.session.commit()\n        login_user(user)",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1829,16 +1851,25 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def dashboard():\n    return render_template(\"dashboard.html\")",
+        "peekOfCode": "def dashboard():\n    return render_template(\"dashboard.html\")\n# Flask application error handlers\n@auth.app_errorhandler(404)\ndef not_found_error(error):\n    return render_template(\"404.html\"), 404\n@auth.app_errorhandler(500)\ndef internal_error(error):\n    db.session.rollback()\n    return render_template(\"500.html\"), 500",
         "detail": "app.auth.routes",
         "documentation": {}
     },
     {
-        "label": "auth",
-        "kind": 5,
+        "label": "not_found_error",
+        "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "auth = Blueprint('auth', __name__)\n@auth.route('/set_language/<language>')\ndef set_language(language):\n    session['lang'] = language\n    return redirect(url_for('main.home'))\n# Configure logging\nlogging.basicConfig(level=logging.INFO)\nlogger = logging.getLogger(__name__)\nauth = Blueprint(\"auth\", __name__)\ndef is_safe_url(target):",
+        "peekOfCode": "def not_found_error(error):\n    return render_template(\"404.html\"), 404\n@auth.app_errorhandler(500)\ndef internal_error(error):\n    db.session.rollback()\n    return render_template(\"500.html\"), 500",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "internal_error",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def internal_error(error):\n    db.session.rollback()\n    return render_template(\"500.html\"), 500",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1847,7 +1878,7 @@
         "kind": 5,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "logger = logging.getLogger(__name__)\nauth = Blueprint(\"auth\", __name__)\ndef is_safe_url(target):\n    \"\"\"\n    Validates that the target URL is safe for redirection (i.e., resides within the same site).\n    \"\"\"\n    ref_url = urlparse(request.host_url)\n    test_url = urlparse(urljoin(request.host_url, target))\n    return test_url.scheme in (\"http\", \"https\") and ref_url.netloc == test_url.netloc\n@auth.route(\"/login\", methods=[\"GET\", \"POST\"])",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nauth = Blueprint('auth', __name__)\n@auth.route('/set_language/<language>')\ndef set_language(language):\n    # Check to ensure the language code is supported\n    supported_languages = ['en', 'fr']\n    if language in supported_languages:\n        session['lang'] = language\n    else:\n        flash(\"Unsupported language.\", \"error\")",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1856,7 +1887,7 @@
         "kind": 5,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "auth = Blueprint(\"auth\", __name__)\ndef is_safe_url(target):\n    \"\"\"\n    Validates that the target URL is safe for redirection (i.e., resides within the same site).\n    \"\"\"\n    ref_url = urlparse(request.host_url)\n    test_url = urlparse(urljoin(request.host_url, target))\n    return test_url.scheme in (\"http\", \"https\") and ref_url.netloc == test_url.netloc\n@auth.route(\"/login\", methods=[\"GET\", \"POST\"])\ndef login():",
+        "peekOfCode": "auth = Blueprint('auth', __name__)\n@auth.route('/set_language/<language>')\ndef set_language(language):\n    # Check to ensure the language code is supported\n    supported_languages = ['en', 'fr']\n    if language in supported_languages:\n        session['lang'] = language\n    else:\n        flash(\"Unsupported language.\", \"error\")\n    return redirect(url_for('main.home'))",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1910,7 +1941,7 @@
         "kind": 6,
         "importPath": "app.config",
         "description": "app.config",
-        "peekOfCode": "class Config:\n    SECRET_KEY = secrets.token_hex(32)\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///site.db\"\n    SQLALCHEMY_TRACK_MODIFICATIONS = False\nclass DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):",
+        "peekOfCode": "class Config:\n    SECRET_KEY = secrets.token_hex(32)\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///user.db\"\n    SQLALCHEMY_TRACK_MODIFICATIONS = True\nclass DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):",
         "detail": "app.config",
         "documentation": {}
     },
@@ -1946,7 +1977,25 @@
         "kind": 6,
         "importPath": "app.models",
         "description": "app.models",
-        "peekOfCode": "class User(UserMixin, db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    username = db.Column(db.String(64), index=True, unique=True)\n    email = db.Column(db.String(120), index=True, unique=True)\n    password_hash = db.Column(db.String(128))\n    @property\n    def password(self):\n        \"\"\"Password is not a readable attribute.\"\"\"\n        raise AttributeError('password is not a readable attribute')\n    @password.setter",
+        "peekOfCode": "class User(UserMixin, db.Model):\n    __tablename__ = 'user'\n    id = db.Column(db.Integer, primary_key=True)\n    username = db.Column(db.String(64), index=True, unique=True, nullable=False)\n    email = db.Column(db.String(120), index=True, unique=True, nullable=True)\n    password_hash = db.Column(db.String(128), nullable=False)\n    def __init__(self, username, email=None, password=None):\n        self.username = username\n        self.email = email\n        if password:",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "create_user_table",
+        "kind": 2,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "def create_user_table():\n    sql = \"\"\"\n    CREATE TABLE IF NOT EXISTS user (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        username VARCHAR(64) NOT NULL UNIQUE,\n        email VARCHAR(120) UNIQUE,\n        password_hash VARCHAR(128) NOT NULL\n    );\n    \"\"\"\n    # Assuming you have a connection and a cursor to your SQLite database",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "login_user_with_expiration",
+        "kind": 2,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "def login_user_with_expiration(user, remember=True):\n    # Log in the user as usual\n    login_user(user, remember=remember)\n    # Set session expiration date to 1 year from now\n    session.permanent = True\n    app.permanent_session_lifetime = timedelta(days=365)",
         "detail": "app.models",
         "documentation": {}
     },
@@ -2074,15 +2123,6 @@
         "description": "migrations.env",
         "peekOfCode": "target_db = current_app.extensions['migrate'].db\n# other values from the config, defined by the needs of env.py,\n# can be acquired:\n# my_important_option = config.get_main_option(\"my_important_option\")\n# ... etc.\ndef get_metadata():\n    if hasattr(target_db, 'metadatas'):\n        return target_db.metadatas[None]\n    return target_db.metadata\ndef run_migrations_offline():",
         "detail": "migrations.env",
-        "documentation": {}
-    },
-    {
-        "label": "os.environ[\"FLASK_ENV\"]",
-        "kind": 5,
-        "importPath": "run",
-        "description": "run",
-        "peekOfCode": "os.environ[\"FLASK_ENV\"] = \"development\"\napp = create_app()\nif __name__ == \"__main__\":\n    db.create_all()\n    app.run()",
-        "detail": "run",
         "documentation": {}
     },
     {

@@ -1,27 +1,50 @@
 {% extends 'base.html' %}
-<div class="container">
-    <form method="post">
-        {{ form.hidden_tag() }}
-        <div class="form-group">
-            {{ form.username.label }}
-            {{ form.username(class="form-control") }}
-            {% if form.username.errors %}
-                {% for error in form.username.errors %}
-                    <div class="alert alert-danger">{{ error }}</div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.password.label }}
-            {{ form.password(class="form-control") }}
-        </div>
-        <div class="form-group">
-            {{ form.confirm_password.label }}
-            {{ form.confirm_password(class="form-control") }}
-        </div>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-primary") }}
-        </div>
-    </form>
-</div>
+
+{% block content %}
+<section class="registration-section text-center mt-4">
+  <div class="container">
+    {% if session['lang'] == 'fr' %}
+      <h2>Inscription</h2>
+      <a href="{{ url_for('set_language', language='eng') }}" class="btn btn-outline-secondary">Passer à l'anglais</a>
+    {% else %}
+      <h2>Not registered yet?</h2>
+      <a href="{{ url_for('set_language', language='fr') }}" class="btn btn-outline-secondary">Switch to French</a>
+    {% endif %}
+    <div class="dropdown-divider"></div>
+    <div class="register-form-wrapper mt-4">
+      <form method="post" novalidate>
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+              {{ form.username.label(class="form-label") }}
+              {{ form.username(class="form-control") }}
+              {% if form.username.errors %}
+                  {% for error in form.username.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                  {% endfor %}
+              {% endif %}
+          </div>
+          <div class="form-group">
+              {{ form.password.label(class="form-label") }}
+              {{ form.password(class="form-control") }}
+          </div>
+          <div class="form-group">
+              {{ form.confirm_password.label(class="form-label") }}
+              {{ form.confirm_password(class="form-control") }}
+          </div>
+          <div class="form-group">
+              {{ form.email.label(class="form-label") }} (Optional)
+              {{ form.email(class="form-control") }}
+              {% if form.email.errors %}
+                  {% for error in form.email.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                  {% endfor %}
+              {% endif %}
+          </div>
+          <div class="form-group">
+              {{ form.submit(class="btn btn-primary") }}
+          </div>
+      </form>
+    </div>
+  </div>
+</section>
 {% endblock %}

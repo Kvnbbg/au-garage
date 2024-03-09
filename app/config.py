@@ -6,8 +6,8 @@ import secrets
 
 class Config:
     SECRET_KEY = secrets.token_hex(32)
-    SQLALCHEMY_DATABASE_URI = "sqlite:///site.db"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = "sqlite:///user.db"
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 class DevelopmentConfig(Config):
     DEBUG = True

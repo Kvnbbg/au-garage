@@ -1,6 +1,6 @@
 import logging
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, SubmitField, EmailField
+from wtforms import PasswordField, StringField, SubmitField, EmailField, Optional
 from wtforms.validators import DataRequired, EqualTo, Length, Regexp, ValidationError, Email
 
 from app.models import User
@@ -24,7 +24,6 @@ class LoginForm(FlaskForm):
         "Login",
         render_kw={"class": "btn btn-primary"}
     )
-    
 
 class RegistrationForm(FlaskForm):
     username = StringField(
@@ -41,12 +40,12 @@ class RegistrationForm(FlaskForm):
         render_kw={"placeholder": "Username", "class": "form-control"}
     )
     email = EmailField(
-        "Email",
+        "Email (Optional)",
         validators=[
-            DataRequired(),
+            Optional(),
             Email(message="Please enter a valid email address."),
         ],
-        render_kw={"placeholder": "Email", "class": "form-control"}
+        render_kw={"placeholder": "Email (Optional)", "class": "form-control"}
     )
     password = PasswordField(
         "Password",
@@ -69,8 +68,6 @@ class RegistrationForm(FlaskForm):
         ],
         render_kw={"placeholder": "Confirm Password", "class": "form-control"}
     )
-    # Uncomment the next line to enable Recaptcha
-    # recaptcha = RecaptchaField()
     submit = SubmitField(
         "Sign Up",
         render_kw={"class": "btn btn-success"}
@@ -83,7 +80,8 @@ class RegistrationForm(FlaskForm):
             raise ValidationError("That username is taken. Please choose a different one.")
 
     def validate_email(self, email):
-        user = User.query.filter_by(email=email.data.lower().strip()).first()
-        if user:
-            logger.warning(f"Attempt to register with taken email: {email.data}")
-            raise ValidationError("That email is already in use. Please choose a different one.")
+        if email.data:  # Only validate if email is provided
+            user = User.query.filter_by(email=email.data.lower().strip()).first()
+            if user:
+                logger.warning(f"Attempt to register with taken email: {email.data}")
+                raise ValidationError("That email is already in use. Please choose a different one.")
