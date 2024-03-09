@@ -5,10 +5,10 @@
   <div class="container">
     {% if session['lang'] == 'fr' %}
       <h2>Inscription</h2>
-      <a href="{{ url_for('set_language', language='eng') }}" class="btn btn-outline-secondary">Passer à l'anglais</a>
+      <a href="{{ url_for('auth.set_language', language='eng') }}" class="btn btn-outline-secondary">Passer à l'anglais</a>
     {% else %}
       <h2>Not registered yet?</h2>
-      <a href="{{ url_for('set_language', language='fr') }}" class="btn btn-outline-secondary">Switch to French</a>
+      <a href="{{ url_for('auth.set_language', language='fr') }}" class="btn btn-outline-secondary">Switch to French</a>
     {% endif %}
     <div class="dropdown-divider"></div>
     <div class="register-form-wrapper mt-4">

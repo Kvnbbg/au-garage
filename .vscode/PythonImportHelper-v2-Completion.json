@@ -525,6 +525,14 @@
         "documentation": {}
     },
     {
+        "label": "get_flashed_messages",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "Blueprint",
         "importPath": "flask",
         "description": "flask",
@@ -1815,7 +1823,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def is_safe_url(target):\n    \"\"\"\n    Simplified function to validate that the target URL is safe for redirection.\n    \"\"\"\n    test_url = urlparse(urljoin(request.host_url, target))\n    return test_url.hostname == request.host_url.rstrip('/')\n@auth.route(\"/login\", methods=[\"GET\", \"POST\"])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))",
+        "peekOfCode": "def is_safe_url(target):\n    \"\"\"\n    Simplified function to validate that the target URL is safe for redirection.\n    \"\"\"\n    test_url = urlparse(urljoin(request.host_url, target))\n    return test_url.hostname == request.host_url.rstrip('/')\n@auth.route(\"/login\", methods=[\"GET\", \"POST\"])\ndef login():\n    # Initialize error_present to False at the beginning\n    error_present = False",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1824,7 +1832,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def login():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and user.check_password(form.password.data):\n            login_user(user)\n            flash(\"You have been logged in!\", \"success\")\n            next_page = request.args.get(\"next\")",
+        "peekOfCode": "def login():\n    # Initialize error_present to False at the beginning\n    error_present = False\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and user.check_password(form.password.data):\n            login_user(user)",
         "detail": "app.auth.routes",
         "documentation": {}
     },

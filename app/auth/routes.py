@@ -1,7 +1,6 @@
 import logging
 from urllib.parse import urljoin, urlparse
-
-from flask import Blueprint, flash, redirect, render_template, request, url_for, session
+from flask import Blueprint, flash, redirect, render_template, request, url_for, session, get_flashed_messages
 from flask_login import current_user, login_required, login_user, logout_user
 from app import db  # Import the database instance
 from app.models import User
@@ -32,6 +31,9 @@ def is_safe_url(target):
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
+    # Initialize error_present to False at the beginning
+    error_present = False
+
     if current_user.is_authenticated:
         return redirect(url_for("main.dashboard"))
 
@@ -47,9 +49,11 @@ def login():
             return redirect(next_page)
         else:
             flash("Login Unsuccessful. Please check username and password.", "error")
-            return render_template("login.html", title="Login", form=form, error=True)
-        # Preprocess flash messages to detect 'error' category
-        error_present = 'error' in (category for category, message in get_flashed_messages(with_categories=True))
+            # Set error_present to True when there is a login error
+            error_present = True
+    else:
+        # Check for 'error' flash messages if form validation fails
+        error_present = any(category == 'error' for category, message in get_flashed_messages(with_categories=True))
 
     return render_template("login.html", title="Login", form=form, error_present=error_present)
 

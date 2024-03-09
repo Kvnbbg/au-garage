@@ -50,11 +50,11 @@
     {% if session['lang'] == 'fr' %}
       <p>Pas encore inscrit ?</p>
       <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary">S'inscrire</a>
-      <a href="{{ url_for('set_language', language='eng') }}" class="btn btn-outline-secondary">Switch to English</a>
+      <a href="{{ url_for('auth.set_language', language='eng') }}" class="btn btn-outline-secondary">Switch to English</a>
     {% else %}
       <p>Not registered yet?</p>
       <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary">Register</a>
-      <a href="{{ url_for('set_language', language='fr') }}" class="btn btn-outline-secondary">Passer au français</a>
+      <a href="{{ url_for('auth.set_language', language='fr') }}" class="btn btn-outline-secondary">Passer au français</a>
     {% endif %}
   </div>
 </section>
