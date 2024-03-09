@@ -381,14 +381,6 @@
         "documentation": {}
     },
     {
-        "label": "Optional",
-        "importPath": "wtforms",
-        "description": "wtforms",
-        "isExtraImport": true,
-        "detail": "wtforms",
-        "documentation": {}
-    },
-    {
         "label": "DataRequired",
         "importPath": "wtforms.validators",
         "description": "wtforms.validators",
@@ -430,6 +422,14 @@
     },
     {
         "label": "Email",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
         "importPath": "wtforms.validators",
         "description": "wtforms.validators",
         "isExtraImport": true,
@@ -709,15 +709,6 @@
         "documentation": {}
     },
     {
-        "label": "secrets",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "secrets",
-        "description": "secrets",
-        "detail": "secrets",
-        "documentation": {}
-    },
-    {
         "label": "generate_password_hash",
         "importPath": "werkzeug.security",
         "description": "werkzeug.security",
@@ -764,6 +755,15 @@
         "description": "logging.config",
         "isExtraImport": true,
         "detail": "logging.config",
+        "documentation": {}
+    },
+    {
+        "label": "secrets",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "secrets",
+        "description": "secrets",
+        "detail": "secrets",
         "documentation": {}
     },
     {
@@ -1937,42 +1937,6 @@
         "documentation": {}
     },
     {
-        "label": "Config",
-        "kind": 6,
-        "importPath": "app.config",
-        "description": "app.config",
-        "peekOfCode": "class Config:\n    SECRET_KEY = secrets.token_hex(32)\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///user.db\"\n    SQLALCHEMY_TRACK_MODIFICATIONS = True\nclass DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):",
-        "detail": "app.config",
-        "documentation": {}
-    },
-    {
-        "label": "DevelopmentConfig",
-        "kind": 6,
-        "importPath": "app.config",
-        "description": "app.config",
-        "peekOfCode": "class DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
-        "detail": "app.config",
-        "documentation": {}
-    },
-    {
-        "label": "TestingConfig",
-        "kind": 6,
-        "importPath": "app.config",
-        "description": "app.config",
-        "peekOfCode": "class TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
-        "detail": "app.config",
-        "documentation": {}
-    },
-    {
-        "label": "ProductionConfig",
-        "kind": 6,
-        "importPath": "app.config",
-        "description": "app.config",
-        "peekOfCode": "class ProductionConfig(Config):\n    DEBUG = False",
-        "detail": "app.config",
-        "documentation": {}
-    },
-    {
         "label": "User",
         "kind": 6,
         "importPath": "app.models",
@@ -2123,6 +2087,42 @@
         "description": "migrations.env",
         "peekOfCode": "target_db = current_app.extensions['migrate'].db\n# other values from the config, defined by the needs of env.py,\n# can be acquired:\n# my_important_option = config.get_main_option(\"my_important_option\")\n# ... etc.\ndef get_metadata():\n    if hasattr(target_db, 'metadatas'):\n        return target_db.metadatas[None]\n    return target_db.metadata\ndef run_migrations_offline():",
         "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "kind": 6,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "class Config:\n    SECRET_KEY = secrets.token_hex(32)\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///user.db\"\n    SQLALCHEMY_TRACK_MODIFICATIONS = True\nclass DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "DevelopmentConfig",
+        "kind": 6,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "class DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "TestingConfig",
+        "kind": 6,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "class TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "ProductionConfig",
+        "kind": 6,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "class ProductionConfig(Config):\n    DEBUG = False",
+        "detail": "config",
         "documentation": {}
     },
     {
