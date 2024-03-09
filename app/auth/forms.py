@@ -1,7 +1,7 @@
 import logging
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, SubmitField, EmailField, Optional
-from wtforms.validators import DataRequired, EqualTo, Length, Regexp, ValidationError, Email
+from wtforms import PasswordField, StringField, SubmitField, EmailField
+from wtforms.validators import DataRequired, EqualTo, Length, Regexp, ValidationError, Email, Optional
 
 from app.models import User
 
