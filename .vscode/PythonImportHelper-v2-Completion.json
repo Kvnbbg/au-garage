@@ -517,6 +517,22 @@
         "documentation": {}
     },
     {
+        "label": "flash",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "make_response",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "render_template",
         "importPath": "flask",
         "description": "flask",
@@ -525,7 +541,7 @@
         "documentation": {}
     },
     {
-        "label": "flash",
+        "label": "request",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -1800,7 +1816,7 @@
         "kind": 2,
         "importPath": "app.main.routes",
         "description": "app.main.routes",
-        "peekOfCode": "def home():\n    # Get the current date and time\n    now = datetime.datetime.now()\n    formatted_now = now.strftime(\"%Y-%m-%d %H:%M:%S\")  # Example: 2024-02-29 23:52\n    # Create the maintenance message\n    message = f\"Maintenance scheduled for {formatted_now}. We apologize for any inconvenience.\"\n    # Flash the message\n    flash(message, 'warning')  # 'info' is the category of the message\n    flash('🛠️ 🔧 ⚙️', 'info')\n    return render_template('home.html')",
+        "peekOfCode": "def home():\n    \"\"\"\n    Renders the home page and displays a maintenance message.\n    Returns:\n        response: The response object containing the rendered home page.\n    \"\"\"\n    # Get the current date and time\n    now = datetime.datetime.now()\n    formatted_now = now.strftime(\"%Y-%m-%d %H:%M:%S\")  # Example: 2024-02-29 23:52\n    # Get the last visited date from the cookie",
         "detail": "app.main.routes",
         "documentation": {}
     },
@@ -1809,7 +1825,7 @@
         "kind": 5,
         "importPath": "app.main.routes",
         "description": "app.main.routes",
-        "peekOfCode": "main = Blueprint('main', __name__)\n@main.route('/')\n@main.route('/home')\ndef home():\n    # Get the current date and time\n    now = datetime.datetime.now()\n    formatted_now = now.strftime(\"%Y-%m-%d %H:%M:%S\")  # Example: 2024-02-29 23:52\n    # Create the maintenance message\n    message = f\"Maintenance scheduled for {formatted_now}. We apologize for any inconvenience.\"\n    # Flash the message",
+        "peekOfCode": "main = Blueprint('main', __name__)\n@main.route('/')\n@main.route('/home')\ndef home():\n    \"\"\"\n    Renders the home page and displays a maintenance message.\n    Returns:\n        response: The response object containing the rendered home page.\n    \"\"\"\n    # Get the current date and time",
         "detail": "app.main.routes",
         "documentation": {}
     },
