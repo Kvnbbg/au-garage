@@ -8,7 +8,7 @@
     <div class="row">
       <!-- Service 1 -->
       <div class="col-md-4 mb-4">
-        <img src="{{ url_for('static', filename='images/service-example1.jpg') }}" alt="Service 1 Image" class="img-fluid mb-3" />
+        <img src="{{ url_for('static', filename='images/vehicule4.jpg') }}" alt="Service 1 Image" class="img-fluid mb-3" />
         <h4>{{ 'Engine Repair' if session['lang'] == 'en' else 'Réparation Moteur' }}</h4>
         <p>
           {{ 'Expert engine repair services to keep your vehicle running smoothly.' if session['lang'] == 'en' else 'Services experts de réparation de moteur pour maintenir votre véhicule en bon état de fonctionnement.' }}
@@ -16,7 +16,7 @@
       </div>
       <!-- Service 2 -->
       <div class="col-md-4 mb-4">
-        <img src="{{ url_for('static', filename='images/service-example2.jpg') }}" alt="Service 2 Image" class="img-fluid mb-3" />
+        <img src="{{ url_for('static', filename='images/vehicule5.jpg') }}" alt="Service 2 Image" class="img-fluid mb-3" />
         <h4>{{ 'Tire Replacement' if session['lang'] == 'en' else 'Remplacement de Pneus' }}</h4>
         <p>
           {{ 'Quality tire replacement services to ensure your safety on the road.' if session['lang'] == 'en' else 'Services de remplacement de pneus de qualité pour garantir votre sécurité sur la route.' }}
@@ -24,7 +24,7 @@
       </div>
       <!-- Service 3 -->
       <div class="col-md-4 mb-4">
-        <img src="{{ url_for('static', filename='images/service-example3.jpg') }}" alt="Service 3 Image" class="img-fluid mb-3" />
+        <img src="{{ url_for('static', filename='images/service-example2.jpg') }}" alt="Service 3 Image" class="img-fluid mb-3" />
         <h4>{{ 'Battery Check and Replacement' if session['lang'] == 'en' else 'Vérification et Remplacement de Batterie' }}</h4>
         <p>
           {{ 'Ensure your car starts every time with our battery check and replacement service.' if session['lang'] == 'en' else 'Assurez-vous que votre voiture démarre à chaque fois avec notre service de vérification et de remplacement de la batterie.' }}
@@ -55,18 +55,18 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="{{ url_for('static', filename='images/vehicle1.jpg') }}" class="d-block w-100" alt="Vehicle 1">
+          <img src="{{ url_for('static', filename='/images/vehicule1.jpg') }}" class="d-block w-100" alt="Vehicle 1">
           <div class="carousel-caption d-none d-md-block">
             <h5>2023 Sedan - €15,000</h5>
             <p>A reliable sedan in excellent condition.</p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="{{ url_for('static', filename='images/vehicle2.jpg') }}" class="d-block w-100" alt="Vehicle 2">
+          <img src="{{ url_for('static', filename='/images/vehicule2.jpg') }}" class="d-block w-100" alt="Vehicle 2">
           <!-- Carousel caption for vehicle 2 -->
         </div>
         <div class="carousel-item">
-          <img src="{{ url_for('static', filename='images/vehicle3.jpg') }}" class="d-block w-100" alt="Vehicle 3">
+          <img src="{{ url_for('static', filename='/images/vehicule3.jpg') }}" class="d-block w-100" alt="Vehicle 3">
           <!-- Carousel caption for vehicle 3 -->
         </div>
         <!-- Add more carousel items for additional vehicles -->
@@ -90,6 +90,12 @@
     <p class="text-center">
       {{ 'We\'re open from 9:00 AM to 5:00 PM, Monday through Friday. Visit us for all your car maintenance and repair needs.' if session['lang'] == 'en' else 'Nous sommes ouverts de 9h00 à 17h00, du lundi au vendredi. Visitez-nous pour tous vos besoins de maintenance et de réparation automobile.' }}
     </p>
+    <div>
+      <img src="{{ url_for('static', filename='/images/hours.png') }}" class="d-inline w-50" alt="hours">
+      <img src="{{ url_for('static', filename='/images/Github.png') }}" class="d-inline w-50" alt="hours">
+
+      <!-- Carousel caption for hours -->
+    </div>
   </div>
 </section>
 

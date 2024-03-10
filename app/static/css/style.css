@@ -1,210 +1,110 @@
 /* Base Styles */
 body {
-  font-family: "Monaco", sans-serif; /* Primary font */
-  background-color: #f0f0f0; /* Light background to ensure readability */
-  color: #333; /* Primary text color for contrast */
-  max-width: 100%;
+  font-family: "Poppins", sans-serif; /* Updated to Poppins for a cleaner look */
+  background-color: #f0f0f0;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Header Styles */
 header {
-  background: #007bff; /* Primary blue as per charte graphique */
+  background: #007bff;
   color: #fff;
-  padding-top: 30px;
-  min-height: 70px;
-  border-bottom: 3px solid #6c757d; /* Secondary grey for border */
+  padding: 20px 0;
+  border-bottom: 3px solid #6c757d;
+  transition: all 0.5s ease; /* Smooth transition for hover effects */
 }
 
-header a {
-  color: #fff;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 16px;
+header:hover {
+  background-color: #0056b3; /* Darker shade on hover */
 }
 
 /* Navigation Styles */
-nav ul {
-  list-style: none;
-  padding: 0;
+.navbar {
+  padding: 0 20px; /* Ensures padding is present */
 }
 
-nav ul li {
-  display: inline;
-  margin-right: 10px;
+.nav-link {
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
-/* Container for centering content */
-.container {
-  overflow: hidden;
-  max-width: 100%;
+.nav-link:hover, .navbar-brand:hover {
+  color: #d1ecf1; /* Lighter shade on hover */
 }
 
-/* Button Styles for Actions like Login, Contact, etc. */
+/* Image Hover Scale */
+img:hover {
+  transform: scale(1.05); /* Scales the image on hover */
+  transition: transform 0.3s ease; /* Smooth scaling transition */
+}
+
+/* Container Styles */
+.container, .container-fluid {
+  max-width: 1140px;
+  margin: auto;
+  padding: 0 15px; /* Provides padding on the sides */
+}
+
+/* Button Styles */
 .btn {
-  display: inline-block;
-  background: #28a745; /* Accent green for buttons */
+  background: #28a745;
   color: #fff;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
   transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #007bff; /* Darken button on hover */
+  background-color: #218838; /* Slightly darker green */
 }
 
-/* Forms Styles for Login, Contact, and Filters */
-form {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* Form Styles */
+form input, form button {
+  margin: 10px 0; /* Ensures spacing between form elements */
 }
 
-form label {
-  font-weight: bold;
-}
-
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form select {
-  width: 100%;
-  padding: 8px;
-  margin: 10px 0;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-/* Utility Classes for Spacing */
-.mt-20 {
+/* Utility Classes */
+.mt-20, .mb-20 {
   margin-top: 20px;
-}
-.mb-20 {
   margin-bottom: 20px;
 }
 
 /* Responsive Design Adjustments */
-@media (max-width: 768px) {
-  .container {
-    width: 95%;
+@media (max-width: 992px) {
+  header {
+    padding: 15px 0;
   }
 
-  header {
-    padding-top: 20px;
+  .navbar {
+    padding: 0 10px; /* Adjust padding for smaller screens */
+  }
+
+  .container, .container-fluid {
+    padding: 0 10px; /* Adjust container padding */
   }
 }
 
-/* Style for the flash messages container as a pop-up */
+@media (max-width: 768px) {
+  .navbar-toggler {
+    display: block; /* Ensure toggler is visible */
+  }
+
+  .navbar-collapse {
+    text-align: center; /* Center navigation items */
+  }
+}
+
+/* Flash Messages Styles */
 .flashes {
   position: fixed;
-  top: 50%;
+  top: 10%; /* Adjusted for better visibility */
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1050;
-  padding: 100%;
-  display: flex;
-  justify-content: center; /* align horizontal */
-  align-items: center; /* align vertical */
-  justify-content: center;
-  text-align: center;
-  gap: 20px;
-  width: 90%;
-  max-width: 100%;
-  background-color: #ffffff;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  color: #333;
-  font-size: 18px;
-  line-height: 1.6;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transform: translateX(-50%);
+  z-index: 2000;
+  width: auto;
+  max-width: 90%; /* Ensures it doesn't extend too wide */
 }
 
-ul, ol {
-  list-style-type: none;
-}
-
-/* Animation class */
-.fanimation {
-  /* Animation styles or reference to an animation */
-  animation: flashAnimation 2s ease-out;
-}
-
-/* Keyframes for flashAnimation */
-@keyframes flashAnimation {
-  0% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-
-/* Style for the flash messages container as pop up */
-ul.flashes {
-  position: fixed; /* Centers the div in the viewport */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1050; /* High z-index to ensure visibility above other content */
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 20px;
-  width: 90%; /* Responsive width */
-  max-width: 500px; /* Maximum width to maintain readability */
-  background-color: #ffffff; /* Neutral background to reduce strain */
-  border: 1px solid #d1d1d1; /* Subtle border */
-  border-radius: 10px; /* Softened corners for a modern look */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Smoother shadow for depth */
-  color: #333; /* Contrast color for readability */
-  font-size: 18px; /* Slightly larger font for clarity */
-  line-height: 1.6; /* Improved line spacing for readability */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, readable font */
-}
-
-/* Button styling for a more engaging user interaction */
-ul.flashes button {
-  padding: 10px 20px;
-  margin-top: 10px; /* Space above buttons for separation from text */
-  border: none;
-  border-radius: 5px; /* Rounded corners for buttons */
-  background-color: #007bff; /* Primary action color */
-  color: #ffffff; /* Text color for contrast */
-  font-size: 16px;
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.2s; /* Smooth transition for interaction */
-}
-
-/* Individual flash message styling */
-ul.flashes li {
-  margin: 5px 0;
-  padding: 10px;
-  background-color: #f2f2f2;
-  color: #333;
-  border-left: 5px solid #007bff; /* Blue border for informational messages */
-}
-
-/* styles here for different categories of messages */
-ul.flashes li.success {
-  border-left-color: #28a745; /* Green for success */
-  background-color: #d4edda;
-}
-
-ul.flashes li.error {
-  border-left-color: #dc3545; /* Red for error */
-  background-color: #f8d7da;
-}
-
-ul.flashes li.warning {
-  border-left-color: #ffc107; /* Yellow for warning */
-  background-color: #fff3cd;
-}
-
-ul.flashes li.info {
-  border-left-color: #17a2b8; /* Light blue for informational messages */
-  background-color: #d1ecf1;
+.flashes li {
+  margin-bottom: 5px; /* Reduced gap between messages */
 }

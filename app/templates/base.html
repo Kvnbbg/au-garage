@@ -57,7 +57,7 @@
         <a class="nav-item nav-link" href="{{ url_for('auth.set_language', language='en') }}">🇺🇸 English</a>
         <a class="nav-item nav-link" href="{{ url_for('auth.set_language', language='fr') }}">🇫🇷 Français</a>
         {% if not current_user.is_authenticated %}
-        <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+        <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
         {% else %}
         <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
         {% endif %}
@@ -65,7 +65,7 @@
     </div>
   </nav>
 <!-- Header and Main Content Here -->
-<header class="py-5 bg-image-full" style="background-image: url('{{ url_for('static', filename='images/service-example5.jpg') }}');">
+<header class="py-5 bg-image-full" style="background-image: url('{{ url_for('static', filename='images/service-example.jpg') }}');">
   <div class="text-center my-5">
     {% if session['lang'] == 'fr' %}
       <h1 class="text-white" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)">
