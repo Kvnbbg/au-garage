@@ -44,61 +44,47 @@
   </script>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="{{ url_for('main.home') }}">Garage V. Parrot</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('auth.set_language', language='en') }}">🇺🇸 English</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('auth.set_language', language='fr') }}">🇫🇷 Français</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('auth.login') }}">Connect</a>
-          </li>
-        </ul>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ url_for('main.home') }}">
+      <img src="{{ url_for('static', filename='/images/logo.png') }}" alt="Logo" style="height: 30px;">
+      Garage V. Parrot
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ml-auto">
+        <a class="nav-item nav-link" href="{{ url_for('auth.set_language', language='en') }}">🇺🇸 English</a>
+        <a class="nav-item nav-link" href="{{ url_for('auth.set_language', language='fr') }}">🇫🇷 Français</a>
+        {% if not current_user.is_authenticated %}
+        <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+        {% else %}
+        <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        {% endif %}
       </div>
     </div>
   </nav>
-
-  <!-- Header and Main Content Here -->
-
-  <header
-  class="py-5 bg-image-full"
-  style="background-image: url('/static/images/logo.png')"
->
+<!-- Header and Main Content Here -->
+<header class="py-5 bg-image-full" style="background-image: url('{{ url_for('static', filename='images/service-example5.jpg') }}');">
   <div class="text-center my-5">
-    <h1
-      class="text-white lang lang-en"
-      style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)"
-    >
-      Welcome to Garage V. Parrot
-    </h1>
-    <h2
-      class="text-white-50 lang lang-en"
-      style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)"
-    >
-      Your trusted automobile service center in Toulouse
-    </h2>
-    <h1
-      class="text-white lang lang-fr"
-      style="display: none; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)"
-    >
-      Bienvenue au Garage V. Parrot
-    </h1>
-    <h2
-      class="text-white-50 lang lang-fr"
-      style="display: none; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)"
-    >
-      Votre centre de service automobile de confiance à Toulouse
-    </h2>
+    {% if session['lang'] == 'fr' %}
+      <h1 class="text-white" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)">
+        Bienvenue au Garage V. Parrot
+      </h1>
+      <h2 class="text-white-50" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)">
+        Votre centre de service automobile de confiance à Toulouse
+      </h2>
+    {% else %}
+      <h1 class="text-white" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)">
+        Welcome to Garage V. Parrot
+      </h1>
+      <h2 class="text-white-50" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)">
+        Your trusted automobile service center in Toulouse
+      </h2>
+    {% endif %}
   </div>
 </header>
+
 
     <!-- Dynamic content injected here from child templates -->
     <main>
@@ -127,7 +113,7 @@
 
   <footer class="py-5 bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Garage V. Parrot 2024</p>
+      <p class="m-0 text-center text-white">Copyright &copy; Kevin, J MARVILLE 2024</p>
     </div>
   </footer>
 

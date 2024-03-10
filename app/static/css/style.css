@@ -1,17 +1,9 @@
 /* Base Styles */
 body {
   font-family: "Monaco", sans-serif; /* Primary font */
-  margin: 0;
-  padding: 0;
   background-color: #f0f0f0; /* Light background to ensure readability */
   color: #333; /* Primary text color for contrast */
-}
-
-/* Container for centering content */
-.container {
-  width: 80%;
-  margin: auto;
-  overflow: hidden;
+  max-width: 100%;
 }
 
 /* Header Styles */
@@ -39,6 +31,12 @@ nav ul {
 nav ul li {
   display: inline;
   margin-right: 10px;
+}
+
+/* Container for centering content */
+.container {
+  overflow: hidden;
+  max-width: 100%;
 }
 
 /* Button Styles for Actions like Login, Contact, etc. */
@@ -105,15 +103,15 @@ form select {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1050;
-  padding: 30px;
+  padding: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
   justify-content: center;
   text-align: center;
   gap: 20px;
   width: 90%;
-  max-width: 500px;
+  max-width: 100%;
   background-color: #ffffff;
   border: 1px solid #d1d1d1;
   border-radius: 10px;
