@@ -17,7 +17,6 @@
     <div class="register-form-wrapper mt-4">
       <form method="post" novalidate>
         {{ form.hidden_tag() }}
-        
         <div class="form-group">
           {{ form.username.label(class="form-label font-weight-bold") }}
           {{ form.username(class="form-control", placeholder=( "Username" if session['lang'] != 'fr' else "Nom d'utilisateur" )) }}
