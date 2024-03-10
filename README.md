@@ -2,9 +2,9 @@
 
 # Overview
 
-![Screenshot 1](static/images/screen1.jpg)
-![Screenshot 2](static/images/screen2.jpg)
-![Screenshot 3](static/images/screen3.jpg)
+![Screenshot 1](app/static/images/screen1.jpg)
+![Screenshot 2](app/static/images/screen2.jpg)
+![Screenshot 3](app/static/images/screen3.jpg)
 
 Garage V. Parrot, established by Vincent Parrot in Toulouse, is dedicated to providing a broad range of automobile services, including repair, maintenance, and the sale of used vehicles. Recognizing the importance of online visibility in today’s market, we aim to establish a web presence that reflects the quality and reliability of his services.
 
