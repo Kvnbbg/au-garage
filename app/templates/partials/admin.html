@@ -1,0 +1,91 @@
+<div class="container mt-4">
+    <!-- Dashboard Heading -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Admin Dashboard</h2>
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#systemNotificationModal">
+            System Notifications
+        </button>
+    </div>
+
+    <!-- User Management Section -->
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    User Management
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">User 1 <button class="btn btn-sm btn-danger float-end">Delete</button></li>
+                    <li class="list-group-item">User 2 <button class="btn btn-sm btn-danger float-end">Delete</button></li>
+                    <li class="list-group-item">User 3 <button class="btn btn-sm btn-danger float-end">Delete</button></li>
+                    <!-- Add more users dynamically -->
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Quick Actions</h5>
+                    <p class="card-text">Perform quick administrative tasks directly from this panel.</p>
+                    <button class="btn btn-primary">Create New User</button>
+                    <button class="btn btn-secondary">Generate Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Visualization -->
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Site Usage Statistics</h5>
+            <canvas id="usageChart"></canvas>
+            <!-- Placeholder for a chart. Use JavaScript charting library like Chart.js -->
+        </div>
+    </div>
+
+    <!-- System Notifications Modal -->
+    <div class="modal fade" id="systemNotificationModal" tabindex="-1" aria-labelledby="systemNotificationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="systemNotificationModalLabel">System Notifications</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Dynamically load system notifications here -->
+                    System updates and notifications will appear here.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Example: Initializing a chart with Chart.js (Assuming you've included Chart.js library)
+// Replace with actual data and configurations as needed
+var ctx = document.getElementById('usageChart').getContext('2d');
+var usageChart = new Chart(ctx, {
+    type: 'line', // or 'bar', 'pie', etc.
+    data: {
+        labels: ['January', 'February', 'March', 'April'], // Example labels
+        datasets: [{
+            label: 'Site Visits',
+            data: [10, 20, 30, 40], // Example data
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
