@@ -1,24 +1,44 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method="POST">
+<div class="container my-5">
+    <form method="POST" class="row g-3">
         {% csrf_token %}
-        <label for="role">Select your role:</label>
-        <select name="role" id="role">
-            <option value="admin">Admin</option>
-            <option value="employee">Employee</option>
-            <option value="client">Client</option>
-        </select>
-        <button type="submit">Submit</button>
+        <div class="col-md-6">
+            <label for="role" class="form-label">Select your role:</label>
+            <select name="role" id="role" class="form-select">
+                <option value="admin">Admin</option>
+                <option value="employee">Employee</option>
+                <option value="client">Client</option>
+            </select>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </form>
 
-    {% if user.role == 'admin' %}
-        {% include 'partials/admin.html' %}
-    {% elif user.role == 'employee' %}
-        {% include 'partials/employee.html' %}
-    {% elif user.role == 'client' %}
-        {% include 'partials/client.html' %}
-    {% else %}
-        <p>Invalid role</p>
-    {% endif %}
+    <div class="mt-4">
+        {% if user.role == 'admin' %}
+            <div class="card">
+                <div class="card-body">
+                    {% include 'partials/admin.html' %}
+                </div>
+            </div>
+        {% elif user.role == 'employee' %}
+            <div class="card">
+                <div class="card-body">
+                    {% include 'partials/employee.html' %}
+                </div>
+            </div>
+        {% elif user.role == 'client' %}
+            <div class="card">
+                <div class="card-body">
+                    {% include 'partials/client.html' %}
+                </div>
+            </div>
+        {% else %}
+            <p>Invalid role</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

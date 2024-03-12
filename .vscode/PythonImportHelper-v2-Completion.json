@@ -733,6 +733,14 @@
         "documentation": {}
     },
     {
+        "label": "generate_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
         "label": "op",
         "importPath": "alembic",
         "description": "alembic",
@@ -1850,7 +1858,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def register():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        user = User(username=form.username.data, email=form.email.data if 'email' in form else None)\n        user.set_password(form.password.data)\n        db.session.add(user)\n        db.session.commit()\n        login_user(user)",
+        "peekOfCode": "def register():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        # Initialize the User object with the username. The email field is added conditionally if present in the form.\n        user = User(username=form.username.data, email=form.email.data if 'email' in form else None)\n        # Set the user's password using the set_password method.\n        user.set_password(form.password.data)\n        # Add the new User object to the session and commit the transaction to save the user to the database.",
         "detail": "app.auth.routes",
         "documentation": {}
     },

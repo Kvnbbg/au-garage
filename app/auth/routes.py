@@ -72,13 +72,20 @@ def register():
     
     form = RegistrationForm()
     if form.validate_on_submit():
+        # Initialize the User object with the username. The email field is added conditionally if present in the form.
         user = User(username=form.username.data, email=form.email.data if 'email' in form else None)
+        # Set the user's password using the set_password method.
         user.set_password(form.password.data)
+        # Add the new User object to the session and commit the transaction to save the user to the database.
         db.session.add(user)
         db.session.commit()
+        # Log the user in after successful registration.
         login_user(user)
+        # Notify the user of successful account creation.
         flash("Your account has been created! You are now logged in.", "success")
+        # Redirect to the home page.
         return redirect(url_for("main.home"))
+    # Render the registration form template if the form has not been submitted or if validation fails.
     return render_template("register.html", title="Register", form=form)
 
 
