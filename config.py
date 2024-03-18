@@ -6,15 +6,15 @@ import secrets
 
 class Config:
     SECRET_KEY = secrets.token_hex(32)
-    SQLALCHEMY_DATABASE_URI = "sqlite:///user.db"
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    DATABASE_URI = "sqlite:///user.db"
+
 
 class DevelopmentConfig(Config):
     DEBUG = True
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:///test.db"
+    DATABASE_URI = "sqlite:///test.db"
 
 class ProductionConfig(Config):
     DEBUG = False

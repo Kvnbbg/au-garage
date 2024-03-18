@@ -381,6 +381,14 @@
         "documentation": {}
     },
     {
+        "label": "BooleanField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
         "label": "DataRequired",
         "importPath": "wtforms.validators",
         "description": "wtforms.validators",
@@ -437,19 +445,11 @@
         "documentation": {}
     },
     {
-        "label": "User",
-        "importPath": "app.models",
-        "description": "app.models",
+        "label": "for database utility",
+        "importPath": "app.database import get_db_connection  # Ensure correct",
+        "description": "app.database import get_db_connection  # Ensure correct",
         "isExtraImport": true,
-        "detail": "app.models",
-        "documentation": {}
-    },
-    {
-        "label": "User",
-        "importPath": "app.models",
-        "description": "app.models",
-        "isExtraImport": true,
-        "detail": "app.models",
+        "detail": "app.database import get_db_connection  # Ensure correct",
         "documentation": {}
     },
     {
@@ -470,6 +470,14 @@
     },
     {
         "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "config",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -509,14 +517,6 @@
         "documentation": {}
     },
     {
-        "label": "url_for",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
         "label": "session",
         "importPath": "flask",
         "description": "flask",
@@ -525,7 +525,7 @@
         "documentation": {}
     },
     {
-        "label": "get_flashed_messages",
+        "label": "url_for",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -597,7 +597,7 @@
         "documentation": {}
     },
     {
-        "label": "app",
+        "label": "current_app",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -669,51 +669,35 @@
         "documentation": {}
     },
     {
-        "label": "db",
-        "importPath": "app",
-        "description": "app",
+        "label": "ActivityLog",
+        "importPath": "app.models",
+        "description": "app.models",
         "isExtraImport": true,
-        "detail": "app",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "app.models",
+        "description": "app.models",
+        "isExtraImport": true,
+        "detail": "app.models",
         "documentation": {}
     },
     {
         "label": "db",
-        "importPath": "app",
-        "description": "app",
+        "importPath": "app.models",
+        "description": "app.models",
         "isExtraImport": true,
-        "detail": "app",
+        "detail": "app.models",
         "documentation": {}
     },
     {
-        "label": "create_app",
-        "importPath": "app",
-        "description": "app",
+        "label": "check_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
         "isExtraImport": true,
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "db",
-        "importPath": "app",
-        "description": "app",
-        "isExtraImport": true,
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "datetime",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "timedelta",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
+        "detail": "werkzeug.security",
         "documentation": {}
     },
     {
@@ -738,6 +722,103 @@
         "description": "werkzeug.security",
         "isExtraImport": true,
         "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "get_db_connection",
+        "importPath": "app.database",
+        "description": "app.database",
+        "isExtraImport": true,
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "# Assuming this function is adapted for direct SQL handling\n    send_email",
+        "importPath": "app.email",
+        "description": "app.email",
+        "isExtraImport": true,
+        "detail": "app.email",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "sqlite3",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sqlite3",
+        "description": "sqlite3",
+        "detail": "sqlite3",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "importPath": "flask_mail",
+        "description": "flask_mail",
+        "isExtraImport": true,
+        "detail": "flask_mail",
+        "documentation": {}
+    },
+    {
+        "label": "mail",
+        "importPath": "app",
+        "description": "app",
+        "isExtraImport": true,
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_db_connection",
+        "importPath": "app",
+        "description": "app",
+        "isExtraImport": true,
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "login_manager",
+        "importPath": "app",
+        "description": "app",
+        "isExtraImport": true,
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "create_app",
+        "importPath": "app",
+        "description": "app",
+        "isExtraImport": true,
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "app",
+        "description": "app",
+        "isExtraImport": true,
+        "detail": "app",
         "documentation": {}
     },
     {
@@ -1791,6 +1872,33 @@
         "documentation": {}
     },
     {
+        "label": "EditProfileForm",
+        "kind": 6,
+        "importPath": "app.auth.forms",
+        "description": "app.auth.forms",
+        "peekOfCode": "class EditProfileForm(FlaskForm):\n    username = StringField('Username', validators=[DataRequired()])\nclass ResetPasswordRequestForm(FlaskForm):\n    email = StringField('Email', validators=[DataRequired(), Email()])\n    submit = SubmitField('Request Password Reset')\nclass ResetPasswordForm(FlaskForm):\n    password = PasswordField('New Password', validators=[DataRequired()])\n    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])\n    submit = SubmitField('Reset Password')\nclass LoginForm(FlaskForm):",
+        "detail": "app.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "ResetPasswordRequestForm",
+        "kind": 6,
+        "importPath": "app.auth.forms",
+        "description": "app.auth.forms",
+        "peekOfCode": "class ResetPasswordRequestForm(FlaskForm):\n    email = StringField('Email', validators=[DataRequired(), Email()])\n    submit = SubmitField('Request Password Reset')\nclass ResetPasswordForm(FlaskForm):\n    password = PasswordField('New Password', validators=[DataRequired()])\n    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])\n    submit = SubmitField('Reset Password')\nclass LoginForm(FlaskForm):\n    username = StringField(\n        \"Username\",",
+        "detail": "app.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "ResetPasswordForm",
+        "kind": 6,
+        "importPath": "app.auth.forms",
+        "description": "app.auth.forms",
+        "peekOfCode": "class ResetPasswordForm(FlaskForm):\n    password = PasswordField('New Password', validators=[DataRequired()])\n    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])\n    submit = SubmitField('Reset Password')\nclass LoginForm(FlaskForm):\n    username = StringField(\n        \"Username\",\n        validators=[DataRequired(), Length(min=4, max=25)],\n        render_kw={\"placeholder\": \"Username\", \"class\": \"form-control\"}\n    )",
+        "detail": "app.auth.forms",
+        "documentation": {}
+    },
+    {
         "label": "LoginForm",
         "kind": 6,
         "importPath": "app.auth.forms",
@@ -1804,7 +1912,7 @@
         "kind": 6,
         "importPath": "app.auth.forms",
         "description": "app.auth.forms",
-        "peekOfCode": "class RegistrationForm(FlaskForm):\n    username = StringField(\n        \"Username\",\n        validators=[\n            DataRequired(),\n            Length(min=4, max=25),\n            Regexp(\n                \"^[A-Za-z][A-Za-z0-9_.]*$\",\n                0,\n                \"Usernames must have only letters, numbers, dots or underscores\",",
+        "peekOfCode": "class RegistrationForm(FlaskForm):\n    username = StringField(\"Username\", validators=[DataRequired(), Length(min=4, max=25), Regexp(\"^[A-Za-z][A-Za-z0-9_.]*$\", 0, \"Usernames must have only letters, numbers, dots or underscores\")], render_kw={\"placeholder\": \"Username\", \"class\": \"form-control\"})\n    email = EmailField(\"Email (Optional)\", validators=[Optional(), Email(message=\"Please enter a valid email address.\")], render_kw={\"placeholder\": \"Email (Optional)\", \"class\": \"form-control\"})\n    password = PasswordField(\"Password\", validators=[DataRequired(), Length(min=6, message=\"Password must be at least 6 characters long.\"), Regexp(\"^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\\W_]).*$\", 0, \"Password must contain a letter, a number, and a special character.\")], render_kw={\"placeholder\": \"Password\", \"class\": \"form-control\"})\n    confirm_password = PasswordField(\"Confirm Password\", validators=[DataRequired(), EqualTo(\"password\", message=\"Passwords must match.\")], render_kw={\"placeholder\": \"Confirm Password\", \"class\": \"form-control\"})\n    submit = SubmitField(\"Sign Up\", render_kw={\"class\": \"btn btn-success\"})\n    def validate_username(self, username):\n        conn = get_db_connection()\n        user = conn.execute('SELECT * FROM users WHERE username = ?', (username.data,)).fetchone()\n        conn.close()",
         "detail": "app.auth.forms",
         "documentation": {}
     },
@@ -1813,25 +1921,34 @@
         "kind": 5,
         "importPath": "app.auth.forms",
         "description": "app.auth.forms",
-        "peekOfCode": "logger = logging.getLogger(__name__)\nclass LoginForm(FlaskForm):\n    username = StringField(\n        \"Username\",\n        validators=[DataRequired(), Length(min=4, max=25)],\n        render_kw={\"placeholder\": \"Username\", \"class\": \"form-control\"}\n    )\n    password = PasswordField(\n        \"Password\",\n        validators=[DataRequired(), Length(min=6)],",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nclass EditProfileForm(FlaskForm):\n    username = StringField('Username', validators=[DataRequired()])\nclass ResetPasswordRequestForm(FlaskForm):\n    email = StringField('Email', validators=[DataRequired(), Email()])\n    submit = SubmitField('Request Password Reset')\nclass ResetPasswordForm(FlaskForm):\n    password = PasswordField('New Password', validators=[DataRequired()])\n    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])\n    submit = SubmitField('Reset Password')",
         "detail": "app.auth.forms",
         "documentation": {}
     },
     {
-        "label": "set_language",
+        "label": "get_user_by_username",
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def set_language(language):\n    # Check to ensure the language code is supported\n    supported_languages = ['en', 'fr']\n    if language in supported_languages:\n        session['lang'] = language\n    else:\n        flash(\"Unsupported language.\", \"error\")\n    return redirect(url_for('main.home'))\ndef is_safe_url(target):\n    \"\"\"",
+        "peekOfCode": "def get_user_by_username(username):\n    conn = get_db_connection()\n    user = conn.execute(\n        \"SELECT * FROM users WHERE username = ?\", (username,)\n    ).fetchone()\n    conn.close()\n    return user\ndef get_user_by_email(email):\n    conn = get_db_connection()\n    user = conn.execute(\"SELECT * FROM users WHERE email = ?\", (email,)).fetchone()",
         "detail": "app.auth.routes",
         "documentation": {}
     },
     {
-        "label": "is_safe_url",
+        "label": "get_user_by_email",
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def is_safe_url(target):\n    \"\"\"\n    Simplified function to validate that the target URL is safe for redirection.\n    \"\"\"\n    test_url = urlparse(urljoin(request.host_url, target))\n    return test_url.hostname == request.host_url.rstrip('/')\n@auth.route(\"/login\", methods=[\"GET\", \"POST\"])\ndef login():\n    # Initialize error_present to False at the beginning\n    error_present = False",
+        "peekOfCode": "def get_user_by_email(email):\n    conn = get_db_connection()\n    user = conn.execute(\"SELECT * FROM users WHERE email = ?\", (email,)).fetchone()\n    conn.close()\n    return user\ndef insert_new_user(username, email, password_hash):\n    conn = get_db_connection()\n    conn.execute(\n        \"INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)\",\n        (username, email, password_hash),",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "insert_new_user",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def insert_new_user(username, email, password_hash):\n    conn = get_db_connection()\n    conn.execute(\n        \"INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)\",\n        (username, email, password_hash),\n    )\n    conn.commit()\n    conn.close()\n@auth.route(\"/login\", methods=[\"GET\", \"POST\"])\ndef login():",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1840,16 +1957,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def login():\n    # Initialize error_present to False at the beginning\n    error_present = False\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and user.check_password(form.password.data):\n            login_user(user)",
-        "detail": "app.auth.routes",
-        "documentation": {}
-    },
-    {
-        "label": "logout",
-        "kind": 2,
-        "importPath": "app.auth.routes",
-        "description": "app.auth.routes",
-        "peekOfCode": "def logout():\n    logout_user()\n    flash(\"You have been logged out.\", \"success\")\n    return redirect(url_for(\"main.home\"))\n@auth.route(\"/register\", methods=[\"GET\", \"POST\"])\ndef register():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))\n    form = RegistrationForm()\n    if form.validate_on_submit():",
+        "peekOfCode": "def login():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.home\"))\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = get_user_by_username(form.username.data)\n        if user and check_password_hash(user[\"password_hash\"], form.password.data):\n            # User class needs adjustment for Flask-Login without SQLAlchemy\n            user_obj = User(\n                id=user[\"id\"], username=user[\"username\"]",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1858,7 +1966,70 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def register():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.dashboard\"))\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        # Initialize the User object with the username. The email field is added conditionally if present in the form.\n        user = User(username=form.username.data, email=form.email.data if 'email' in form else None)\n        # Set the user's password using the set_password method.\n        user.set_password(form.password.data)\n        # Add the new User object to the session and commit the transaction to save the user to the database.",
+        "peekOfCode": "def register():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.home\"))\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        hashed_password = generate_password_hash(form.password.data)\n        insert_new_user(form.username.data, form.email.data, hashed_password)\n        flash(\"Your account has been created, you can now log in.\", \"success\")\n        return redirect(url_for(\"auth.login\"))\n    return render_template(\"register.html\", title=\"Register\", form=form)",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "logout",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def logout():\n    logout_user()\n    return redirect(url_for(\"main.home\"))\ndef is_safe_url(target):\n    test_url = urlparse(urljoin(request.host_url, target))\n    return (\n        test_url.scheme in (\"http\", \"https\")\n        and urlparse(request.host_url).hostname == test_url.hostname\n    )\n@auth.route(\"/set_language/<language>\")",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "is_safe_url",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def is_safe_url(target):\n    test_url = urlparse(urljoin(request.host_url, target))\n    return (\n        test_url.scheme in (\"http\", \"https\")\n        and urlparse(request.host_url).hostname == test_url.hostname\n    )\n@auth.route(\"/set_language/<language>\")\ndef set_language(language):\n    # Check to ensure the language code is supported\n    supported_languages = [\"en\", \"fr\"]",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "set_language",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def set_language(language):\n    # Check to ensure the language code is supported\n    supported_languages = [\"en\", \"fr\"]\n    if language in supported_languages:\n        session[\"lang\"] = language\n    else:\n        flash(\"Unsupported language.\", \"error\")\n    return redirect(url_for(\"main.home\"))\n@auth.route(\"/profile\", methods=[\"GET\", \"POST\"])\n@login_required",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "profile",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def profile():\n    form = EditProfileForm(current_user.username)\n    if form.validate_on_submit():\n        current_user.username = form.username.data\n        current_user.email = form.email.data\n        db.session.commit()\n        flash(\"Your profile has been updated.\", \"success\")\n        return redirect(url_for(\"auth.profile\"))\n    elif request.method == \"GET\":\n        form.username.data = current_user.username",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "reset_password_request",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def reset_password_request():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.home\"))\n    form = ResetPasswordRequestForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(email=form.email.data).first()\n        if user:\n            send_password_reset_email(user)\n        flash(\"Check your email for the instructions to reset your password\", \"info\")\n        return redirect(url_for(\"auth.login\"))",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "reset_password",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def reset_password(token):\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.home\"))\n    user = User.verify_reset_password_token(token)\n    if not user:\n        return redirect(url_for(\"main.home\"))\n    form = ResetPasswordForm()\n    if form.validate_on_submit():\n        user.set_password(form.password.data)\n        db.session.commit()",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "send_password_reset_email",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def send_password_reset_email(user):\n    token = user.get_reset_password_token()\n    send_email(\n        \"[YourApp] Reset Your Password\",\n        sender=config[\"ADMINS\"][0],\n        recipients=[user.email],\n        text_body=render_template(\"email/reset_password.txt\", user=user, token=token),\n        html_body=render_template(\"email/reset_password.html\", user=user, token=token),\n    )\n@auth.route(\"/dashboard\")",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1867,7 +2038,7 @@
         "kind": 2,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "def dashboard():\n    return render_template(\"dashboard.html\")\n# Flask application error handlers\n@auth.app_errorhandler(404)\ndef not_found_error(error):\n    return render_template(\"404.html\"), 404\n@auth.app_errorhandler(500)\ndef internal_error(error):\n    db.session.rollback()\n    return render_template(\"500.html\"), 500",
+        "peekOfCode": "def dashboard():\n    # Example of extending dashboard functionality\n    if current_user.role == \"admin\":\n        # Fetch admin-specific data or activities\n        activities = ActivityLog.query.all()  # Assuming an ActivityLog model exists\n    else:\n        activities = None\n    return render_template(\"dashboard.html\", activities=activities)\n# Flask application error handlers\n@auth.app_errorhandler(404)",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1890,20 +2061,20 @@
         "documentation": {}
     },
     {
-        "label": "logger",
-        "kind": 5,
-        "importPath": "app.auth.routes",
-        "description": "app.auth.routes",
-        "peekOfCode": "logger = logging.getLogger(__name__)\nauth = Blueprint('auth', __name__)\n@auth.route('/set_language/<language>')\ndef set_language(language):\n    # Check to ensure the language code is supported\n    supported_languages = ['en', 'fr']\n    if language in supported_languages:\n        session['lang'] = language\n    else:\n        flash(\"Unsupported language.\", \"error\")",
-        "detail": "app.auth.routes",
-        "documentation": {}
-    },
-    {
         "label": "auth",
         "kind": 5,
         "importPath": "app.auth.routes",
         "description": "app.auth.routes",
-        "peekOfCode": "auth = Blueprint('auth', __name__)\n@auth.route('/set_language/<language>')\ndef set_language(language):\n    # Check to ensure the language code is supported\n    supported_languages = ['en', 'fr']\n    if language in supported_languages:\n        session['lang'] = language\n    else:\n        flash(\"Unsupported language.\", \"error\")\n    return redirect(url_for('main.home'))",
+        "peekOfCode": "auth = Blueprint(\"auth\", __name__)\n# Configure logging\nlogging.basicConfig(level=logging.INFO)\nlogger = logging.getLogger(__name__)\ndef get_user_by_username(username):\n    conn = get_db_connection()\n    user = conn.execute(\n        \"SELECT * FROM users WHERE username = ?\", (username,)\n    ).fetchone()\n    conn.close()",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "logger = logging.getLogger(__name__)\ndef get_user_by_username(username):\n    conn = get_db_connection()\n    user = conn.execute(\n        \"SELECT * FROM users WHERE username = ?\", (username,)\n    ).fetchone()\n    conn.close()\n    return user\ndef get_user_by_email(email):\n    conn = get_db_connection()",
         "detail": "app.auth.routes",
         "documentation": {}
     },
@@ -1953,20 +2124,110 @@
         "documentation": {}
     },
     {
-        "label": "User",
-        "kind": 6,
-        "importPath": "app.models",
-        "description": "app.models",
-        "peekOfCode": "class User(UserMixin, db.Model):\n    __tablename__ = 'user'\n    id = db.Column(db.Integer, primary_key=True)\n    username = db.Column(db.String(64), index=True, unique=True, nullable=False)\n    email = db.Column(db.String(120), index=True, unique=True, nullable=True)\n    password_hash = db.Column(db.String(128), nullable=False)\n    def __init__(self, username, email=None, password=None):\n        self.username = username\n        self.email = email\n        if password:",
-        "detail": "app.models",
+        "label": "get_db_connection",
+        "kind": 2,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "def get_db_connection():\n    conn = sqlite3.connect(DATABASE_URI)\n    conn.row_factory = sqlite3.Row\n    return conn\ndef create_user_table():\n    with get_db_connection() as conn:\n        cursor = conn.cursor()\n        cursor.execute(\"\"\"\n            CREATE TABLE IF NOT EXISTS users (\n                id INTEGER PRIMARY KEY AUTOINCREMENT,",
+        "detail": "app.database",
         "documentation": {}
     },
     {
         "label": "create_user_table",
         "kind": 2,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "def create_user_table():\n    with get_db_connection() as conn:\n        cursor = conn.cursor()\n        cursor.execute(\"\"\"\n            CREATE TABLE IF NOT EXISTS users (\n                id INTEGER PRIMARY KEY AUTOINCREMENT,\n                username TEXT UNIQUE NOT NULL,\n                email TEXT UNIQUE,\n                password_hash TEXT NOT NULL,\n                role_id INTEGER",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "create_role_table",
+        "kind": 2,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "def create_role_table():\n    with get_db_connection() as conn:\n        cursor = conn.cursor()\n        cursor.execute(\"\"\"\n            CREATE TABLE IF NOT EXISTS roles (\n                id INTEGER PRIMARY KEY AUTOINCREMENT,\n                name TEXT UNIQUE NOT NULL\n            );\n        \"\"\")\n        conn.commit()",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "init_db",
+        "kind": 2,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "def init_db():\n    \"\"\"Initializes the database by creating necessary tables.\"\"\"\n    create_user_table()\n    create_role_table()\n    # Add more table creation functions here as needed",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASE_URI",
+        "kind": 5,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "DATABASE_URI = Config.DATABASE_URI.split(\"///\")[-1]\ndef get_db_connection():\n    conn = sqlite3.connect(DATABASE_URI)\n    conn.row_factory = sqlite3.Row\n    return conn\ndef create_user_table():\n    with get_db_connection() as conn:\n        cursor = conn.cursor()\n        cursor.execute(\"\"\"\n            CREATE TABLE IF NOT EXISTS users (",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "send_email",
+        "kind": 2,
+        "importPath": "app.email",
+        "description": "app.email",
+        "peekOfCode": "def send_email(subject, sender, recipients, text_body, html_body):\n    msg = Message(subject, sender=sender, recipients=recipients)\n    msg.body = text_body\n    msg.html = html_body\n    mail.send(msg)",
+        "detail": "app.email",
+        "documentation": {}
+    },
+    {
+        "label": "ActivityLog",
+        "kind": 6,
         "importPath": "app.models",
         "description": "app.models",
-        "peekOfCode": "def create_user_table():\n    sql = \"\"\"\n    CREATE TABLE IF NOT EXISTS user (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        username VARCHAR(64) NOT NULL UNIQUE,\n        email VARCHAR(120) UNIQUE,\n        password_hash VARCHAR(128) NOT NULL\n    );\n    \"\"\"\n    # Assuming you have a connection and a cursor to your SQLite database",
+        "peekOfCode": "class ActivityLog:\n    def __init__(self, activity_id, user_id, activity_data):\n        self.activity_id = activity_id\n        self.user_id = user_id\n        self.activity_data = activity_data\n    @staticmethod\n    def log_activity(user_id, activity_data):\n        conn = get_db_connection()\n        conn.execute(\n            \"INSERT INTO activity_log (user_id, activity_data) VALUES (?, ?)\",",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "Role",
+        "kind": 6,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "class Role:\n    def __init__(self, name):\n        self.name = name\n    @staticmethod\n    def create_role(name):\n        conn = get_db_connection()\n        conn.execute(\"INSERT INTO roles (name) VALUES (?)\", (name,))\n        conn.commit()\n        conn.close()\n    @staticmethod",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "kind": 6,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "class User(UserMixin):\n    def __init__(\n        self,\n        id=None,\n        username=None,\n        email=None,\n        password=None,\n        role_id=None,\n        password_hash=None,\n    ):",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "DBHandler",
+        "kind": 6,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "class DBHandler:\n    @staticmethod\n    def add(user):\n        with get_db_connection() as conn:\n            if isinstance(user, User):\n                conn.execute(\n                    \"INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)\",\n                    (user.username, user.email, user.password_hash),\n                )\n    @staticmethod",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "QueryHandler",
+        "kind": 6,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "class QueryHandler:\n    def filter_by(self, **kwargs):\n        # Simplified example for username lookup\n        if \"username\" in kwargs:\n            with get_db_connection() as conn:\n                user_row = conn.execute(\n                    \"SELECT * FROM users WHERE username = ?\", (kwargs[\"username\"],)\n                ).fetchone()\n                if user_row:\n                    return User(",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "load_user",
+        "kind": 2,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "def load_user(user_id):\n    conn = get_db_connection()\n    user_row = conn.execute(\"SELECT * FROM users WHERE id = ?\", (user_id,)).fetchone()\n    conn.close()\n    if user_row:\n        return User(\n            id=user_row[\"id\"], username=user_row[\"username\"]\n        )  # Adjust according to your User class definition\n    return None\ndef login_user_with_expiration(user, remember=True, duration=365):",
         "detail": "app.models",
         "documentation": {}
     },
@@ -1975,7 +2236,25 @@
         "kind": 2,
         "importPath": "app.models",
         "description": "app.models",
-        "peekOfCode": "def login_user_with_expiration(user, remember=True):\n    # Log in the user as usual\n    login_user(user, remember=remember)\n    # Set session expiration date to 1 year from now\n    session.permanent = True\n    app.permanent_session_lifetime = timedelta(days=365)",
+        "peekOfCode": "def login_user_with_expiration(user, remember=True, duration=365):\n    login_user(user, remember=remember)\n    session.permanent = True\n    current_app.permanent_session_lifetime = timedelta(days=duration)\ndef init_roles():\n    roles = [\"admin\", \"editor\", \"viewer\"]\n    for role_name in roles:\n        if Role.find_by_name(role_name) is None:\n            Role.create_role(role_name)",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "init_roles",
+        "kind": 2,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "def init_roles():\n    roles = [\"admin\", \"editor\", \"viewer\"]\n    for role_name in roles:\n        if Role.find_by_name(role_name) is None:\n            Role.create_role(role_name)",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "db = DBHandler()\n@login_manager.user_loader\ndef load_user(user_id):\n    conn = get_db_connection()\n    user_row = conn.execute(\"SELECT * FROM users WHERE id = ?\", (user_id,)).fetchone()\n    conn.close()\n    if user_row:\n        return User(\n            id=user_row[\"id\"], username=user_row[\"username\"]\n        )  # Adjust according to your User class definition",
         "detail": "app.models",
         "documentation": {}
     },
@@ -2110,7 +2389,7 @@
         "kind": 6,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "class Config:\n    SECRET_KEY = secrets.token_hex(32)\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///user.db\"\n    SQLALCHEMY_TRACK_MODIFICATIONS = True\nclass DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):",
+        "peekOfCode": "class Config:\n    SECRET_KEY = secrets.token_hex(32)\n    DATABASE_URI = \"sqlite:///user.db\"\nclass DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
         "detail": "config",
         "documentation": {}
     },
@@ -2119,7 +2398,7 @@
         "kind": 6,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "class DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
+        "peekOfCode": "class DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
         "detail": "config",
         "documentation": {}
     },
@@ -2128,7 +2407,7 @@
         "kind": 6,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "class TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
+        "peekOfCode": "class TestingConfig(Config):\n    TESTING = True\n    DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
         "detail": "config",
         "documentation": {}
     },

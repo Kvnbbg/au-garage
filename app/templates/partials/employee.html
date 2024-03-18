@@ -1,0 +1,81 @@
+<div class="container mt-4">
+    <!-- Employee Dashboard Heading -->
+    <div class="mb-4">
+        <h2>Employee Dashboard</h2>
+    </div>
+
+    <!-- Task Management Section -->
+    <div class="card mb-4">
+        <div class="card-header">
+            Pending Tasks
+        </div>
+        <ul class="list-group list-group-flush" id="taskList">
+            <!-- Tasks will be dynamically loaded here -->
+            <li class="list-group-item">Loading tasks...</li>
+        </ul>
+    </div>
+
+    <!-- Timesheet Submission -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Submit Timesheet</h5>
+            <form id="timesheetForm">
+                <div class="mb-3">
+                    <label for="hoursWorked" class="form-label">Hours Worked</label>
+                    <input type="number" class="form-control" id="hoursWorked" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Announcements Section -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Announcements</h5>
+            <div id="announcementsList">
+                <!-- Announcements will be dynamically loaded here -->
+                Loading announcements...
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Load and display tasks
+    function loadTasks() {
+        // Placeholder for fetching data from the backend
+        setTimeout(() => {
+            document.getElementById('taskList').innerHTML =
+                `<li class="list-group-item">Task A</li>
+                 <li class="list-group-item">Task B</li>`;
+        }, 1000); // Simulating fetch delay
+    }
+
+    // Load and display announcements
+    function loadAnnouncements() {
+        // Placeholder for fetching data from the backend
+        setTimeout(() => {
+            document.getElementById('announcementsList').innerHTML =
+                `Company retreat scheduled for next month!`;
+        }, 1000); // Simulating fetch delay
+    }
+
+    // Handle timesheet form submission
+    document.getElementById('timesheetForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const hoursWorked = document.getElementById('hoursWorked').value;
+        console.log('Submitting timesheet with hours:', hoursWorked);
+        // Placeholder for AJAX post request to backend
+        // Simulate successful submission
+        setTimeout(() => {
+            alert('Timesheet submitted successfully!');
+            document.getElementById('hoursWorked').value = ''; // Reset input field
+        }, 500);
+    });
+
+    loadTasks();
+    loadAnnouncements();
+});
+</script>

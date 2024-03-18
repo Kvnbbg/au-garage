@@ -1,19 +1,20 @@
+# app/__init__.py
 import os
 from flask import Flask
 from flask_login import LoginManager
 from flask_mail import Mail
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 
+from .database import init_db, get_db_connection
 from config import DevelopmentConfig, ProductionConfig, TestingConfig
 
+__all__ = ['get_db_connection']
+
 # Create extension instances
-db = SQLAlchemy()
-migrate = Migrate()
 login_manager = LoginManager()
 mail = Mail()
 csrf = CSRFProtect()  # CSRF protection
+
 
 def create_app():
     app = Flask(__name__)
@@ -28,8 +29,6 @@ def create_app():
     app.config.from_object(config_class)
 
     # Initialize extensions with the app object
-    db.init_app(app)
-    migrate.init_app(app, db)
     login_manager.init_app(app)
     mail.init_app(app)
     csrf.init_app(app)  # Initialize CSRF protection
@@ -42,12 +41,8 @@ def create_app():
     from app.models import User  # Import here to avoid circular imports
     @login_manager.user_loader
     def load_user(user_id):
-        return User.query.get(int(user_id))
+        return User.query.get(int(user_id)) # Returns User object or None if not found
 
-    # Initialize the user table and other database-related setup
-    with app.app_context():
-        from .models import create_user_table  # Adjusted import
-        create_user_table()  # Create user table if it doesn't exist
 
     # Register blueprints
     from .auth.routes import auth as auth_blueprint
@@ -55,8 +50,6 @@ def create_app():
     
     from .main.routes import main as main_blueprint
     app.register_blueprint(main_blueprint)
-
-    # Additional setup or initialization can be done here
-    # E.g., setup scheduled jobs, initialize other app components
+    init_db()  # Initialize the database
 
     return app

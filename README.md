@@ -1,69 +1,89 @@
-# Garage V. Parrot Web Application
+# Garage Web Application
 
-# Overview
+## Overview
+
+Garage V. Parrot, founded by Vincent Parrot in Toulouse, specializes in providing comprehensive automobile services including repairs, maintenance, and sales of pre-owned vehicles. In today’s digital age, establishing a robust online presence is crucial. Hence, we are committed to launching a web platform that mirrors the excellence and dependability of our services.
 
 ![Screenshot 1](app/static/images/screen1.jpg)
 ![Screenshot 2](app/static/images/screen2.jpg)
 ![Screenshot 3](app/static/images/screen3.jpg)
 
-Garage V. Parrot, established by Vincent Parrot in Toulouse, is dedicated to providing a broad range of automobile services, including repair, maintenance, and the sale of used vehicles. Recognizing the importance of online visibility in today’s market, we aim to establish a web presence that reflects the quality and reliability of his services.
+## Features
 
-This project encompasses the development of a web application to serve as an online platform for Garage V. Parrot, facilitating the garage to showcase its services, list used vehicles for sale, and interact with customers through testimonials and contact forms.
+- Emojis for Enhanced Readability: 😊 Enabled
+- Programming Paradigm: 🧠 Object-Oriented
+- Development Language: 🌐 Python
+- Project Focus: 📚 Web Development
+- Comments: 📖 Descriptive and Insightful
+- Code Structure: 🛠️ Modular and Clean
+- Error Handling: 🚫 Comprehensive and Robust
 
-## Project Management
+## Project Management Tools
 
-- **Trello Board**: To keep track of the project's progress, tasks, and collaboration, visit our [Trello board](https://trello.com/b/eR2X9dfh).
-- **GitHub Repository**: The source code and project resources are available on our [GitHub repository](https://github.com/Kvnbbg/au-garage/).
-- **Live Application**: Access the live version of the Garage V. Parrot application here [Live app](https://au-garage-92dd5c42a6c4.herokuapp.com/).
+- **Trello Board**: Monitor our project's milestones and tasks via our [Trello board](https://trello.com/b/eR2X9dfh).
+- **GitHub Repository**: Access our source code and resources on [GitHub](https://github.com/Kvnbbg/au-garage/).
+- **Live Application**: Experience Garage V. Parrot's web application [here](https://au-garage-92dd5c42a6c4.herokuapp.com/).
 
-## Installation Instructions
+## Installation and Setup
 
 ### Prerequisites
 
-- Python 3.8+
-- pip (Python package manager)
+Ensure you have the following installed:
+- Python 3.8 or newer
+- pip (Python's package manager)
 - A SQL database system (e.g., PostgreSQL)
 
-### Setup
+### Installation Guide
 
-1. **Clone the Repository**: Obtain a copy of the project on your local machine.
+1. **Clone the Repository**: Download the project onto your local machine.
     ```bash
     git clone https://github.com/Kvnbbg/au-garage/
     cd au-garage
     ```
 
-2. **Install Dependencies**: Use pip to install the required Python packages.
+2. **Virtual Environment Setup**: Create and activate a virtual environment for project dependencies.
+    ```bash
+    # For Unix/macOS
+    python3 -m venv venv
+    source venv/bin/activate
+
+    # For Windows
+    python -m venv venv
+    .\venv\Scripts\activate
+    ```
+
+3. **Install Dependencies**: Install required packages using pip.
     ```bash
     pip install -r requirements.txt
     ```
 
-3. **Database Initialization**: Configure your SQL database connection and initialize the database schema.
+4. **Database Configuration**: Set up your database connection and initialize the database.
     ```bash
     flask db upgrade
     ```
 
-4. **Environment Variables**: Create an `.env` file in the project root to store environment variables such as the database connection string.
+5. **Set Environment Variables**: Store sensitive information like database URIs in an `.env` file within the project's root directory.
 
-5. **Run the Application**: Start the Flask application.
+6. **Launch the Application**: Start your Flask server.
     ```bash
     flask run
     ```
-    The application will be accessible at `http://localhost:5000`.
+    Visit `http://localhost:5000` to access the application.
 
 ## Usage
 
-Navigate to the web application using the provided URL to explore the services offered by Garage V. Parrot. The site allows users to view available services, used vehicles for sale, submit testimonials, and contact the garage.
+Explore the services offered by Garage V. Parrot via the web application. Users can browse available services, check out pre-owned vehicles, share testimonials, and get in touch with the garage team.
 
-## Contributing
+## Contributions
 
-Contributions to the au-garage project are welcome. Please refer to the [CONTRIBUTING.md](https://github.com/Kvnbbg/au-garage/CONTRIBUTING.md) document for guidelines on how to contribute.
+We welcome contributions! For contribution guidelines, please check [CONTRIBUTING.md](https://github.com/Kvnbbg/au-garage/CONTRIBUTING.md).
 
 ## License
 
-This project is licensed under a custom licensing model tailored to meet the specific commercial and development needs of Garage V. Parrot. For detailed license information, please refer to the [LICENSE.md](https://github.com/Kvnbbg/au-garage/LICENSE.md) file in the repository.
+This project operates under a bespoke license, tailored for both commercial purposes and development flexibility. For more information, refer to [LICENSE.md](https://github.com/Kvnbbg/au-garage/LICENSE.md).
 
-## Contact
+## Contact Us
 
-For inquiries, suggestions, or contributions, please open an issue in the GitHub repository. Your feedback and contributions are highly appreciated.
+Should you have any inquiries, suggestions, or wish to contribute, feel free to open an issue in our GitHub repository. Your input is invaluable to us.
 
-Thank you for your interest in the web application project.
+Thank you for exploring Garage V. Parrot's web application project.
