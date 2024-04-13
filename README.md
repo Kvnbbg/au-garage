@@ -82,8 +82,17 @@ We welcome contributions! For contribution guidelines, please check [CONTRIBUTIN
 
 This project operates under a bespoke license, tailored for both commercial purposes and development flexibility. For more information, refer to [LICENSE.md](https://github.com/Kvnbbg/au-garage/LICENSE.md).
 
+## Additional Resources 📁
+
+### STUDI Folder
+
+The STUDI folder contains essential resources for exam preparation, including:
+
+- **Study Guide**
+- **Flowcharts & Diagrams**
+
 ## Contact Us
 
-Should you have any inquiries, suggestions, or wish to contribute, feel free to open an issue in our GitHub repository. Your input is invaluable to us.
+Should you have any inquiries, suggestions, or wish to contribute, feel free to open an issue in our GitHub repository. Your input is invaluable to us at contact@kvnbbg.fr.
 
 Thank you for exploring Garage V. Parrot's web application project.
