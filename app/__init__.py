@@ -5,7 +5,6 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
-
 from config import DevelopmentConfig, ProductionConfig, TestingConfig
 
 from .database import get_db_connection, init_db
@@ -42,11 +41,20 @@ def create_app():
     login_manager.login_message_category = "info"
 
     # User loader function for Flask-Login
-    from app.models import User  # Import here to avoid circular imports
+    from config import Config
+
+    # Adjusting DATABASE_URI extraction to match your setup if needed
+    DATABASE_URI = Config.DATABASE_URI.split("///")[-1]
+    import sqlite3
 
     @login_manager.user_loader
     def load_user(user_id):
-        return User.query.get(int(user_id))  # Returns User object or None if not found
+        conn = sqlite3.connect(DATABASE_URI)  # Use your actual database name
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM users WHERE id=?", (user_id,))
+        user = cur.fetchone()
+        conn.close()
+        return user
 
     # Register blueprints
     from .auth.routes import auth as auth_blueprint
