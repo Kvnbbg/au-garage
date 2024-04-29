@@ -3,7 +3,7 @@ from urllib.parse import urljoin, urlparse
 
 from flask import Blueprint, config, flash, redirect, render_template, request, session, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-from app.models import ActivityLog, User, db
+from app.models import User, db
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.database import get_db_connection
@@ -170,14 +170,14 @@ def send_password_reset_email(user):
         html_body=render_template("email/reset_password.html", user=user, token=token),
     )
 
-
 @auth.route("/dashboard")
 @login_required
 def dashboard():
     # Example of extending dashboard functionality
     if current_user.role == "admin":
         # Fetch admin-specific data or activities
-        activities = ActivityLog.query.all()  # Assuming an ActivityLog model exists
+        conn = get_db_connection()
+        activities = conn.execute('SELECT * FROM activity_log').fetchall()
     else:
         activities = None
     return render_template("dashboard.html", activities=activities)
