@@ -1,7 +1,7 @@
 import sqlite3
 from config import Config
 
-# Adjusting DATABASE_URI extraction to match your setup
+# Adjusting DATABASE_URI extraction to match your setup if needed
 DATABASE_URI = Config.DATABASE_URI.split("///")[-1]
 
 def get_db_connection():
@@ -36,6 +36,7 @@ def create_role_table():
 
 def init_db():
     """Initializes the database by creating necessary tables."""
+    get_db_connection()
     create_user_table()
     create_role_table()
     # Add more table creation functions here as needed
