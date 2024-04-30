@@ -173,6 +173,12 @@ def send_password_reset_email(user):
 @auth.route("/dashboard")
 @login_required
 def dashboard():
+    flash("Welcome to the dashboard! Be careful as you navigate. Try running the different activities through movements in front.", "info")
+    return render_template("dashboard.html")
+
+@auth.route("/role")
+@login_required
+def  role():
     # Example of extending dashboard functionality
     if current_user.role == "admin":
         # Fetch admin-specific data or activities

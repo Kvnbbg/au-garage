@@ -21,6 +21,28 @@ header:hover {
   background-color: #0056b3; /* Darker shade on hover */
 }
 
+#character, #car {
+  position: absolute;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+}
+
+#character {
+  background: url('character.png') no-repeat;
+  animation: move 5s linear infinite;
+}
+
+#car {
+  background: url('car.png') no-repeat;
+  animation: move 3s linear infinite;
+}
+
+@keyframes move {
+  0% { left: 0; }
+  100% { left: 100%; }
+}
+
 /* Navigation Styles */
 .navbar {
   padding: 0 20px; /* Ensures padding is present */
