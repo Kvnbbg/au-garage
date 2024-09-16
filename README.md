@@ -1,6 +1,6 @@
 # Garage Web Application
 
-![Preview](https://au-garage-92dd5c42a6c4.herokuapp.com/)
+![Preview](https://web-production-d728.up.railway.app/)
 
 ## Overview
 
@@ -24,7 +24,7 @@ Garage V. Parrot, founded by Vincent Parrot in Toulouse, specializes in providin
 
 - **Trello Board**: Monitor our project's milestones and tasks via our [Trello board](https://trello.com/b/eR2X9dfh).
 - **GitHub Repository**: Access our source code and resources on [GitHub](https://github.com/Kvnbbg/au-garage/).
-- **Live Application**: Experience Garage V. Parrot's web application [here](https://au-garage-92dd5c42a6c4.herokuapp.com/).
+- **Live Application**: Experience Garage V. Parrot's web application [here](https://web-production-d728.up.railway.app/).
 
 ## Installation and Setup
 
@@ -82,7 +82,7 @@ We welcome contributions! For contribution guidelines, please check [CONTRIBUTIN
 
 ## License
 
-This project operates under a bespoke license, tailored for both commercial purposes and development flexibility. For more information, refer to [LICENSE.md](https://github.com/Kvnbbg/au-garage/LICENSE.md).
+This project operates under a bespoke license, tailored for both commercial purposes and development flexibility. For more information, refer to [LICENSE](https://github.com/Kvnbbg/au-garage/LICENSE).
 
 ## Additional Resources 📁
 
