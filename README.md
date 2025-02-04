@@ -4,6 +4,14 @@
 
 Initially, this project was for Monsieur Parrot to be successful on the exam day at STUDI (my online web developer school between 2022-24). But now this project has evolved with the VR headset and more cars like Tesla.
 
+## Project Origin
+
+The project was initially created for Monsieur Parrot (a local) to succeed in my exam at STUDI, the online french web developer platform school, between 2022-24.
+
+## Project Evolution
+
+The project has evolved significantly since its inception. Originally a local project for Vincent Parrot, it has now transformed into a fictional story where Elon Musk buys the garage to run it with a VR headset and more electric vehicles like Tesla.
+
 ## Overview
 
 Garage V. Parrot, founded by Vincent Parrot in Toulouse, specializes in providing comprehensive automobile services including repairs, maintenance, and sales of pre-owned vehicles. In today’s digital age, establishing a robust online presence is crucial. Hence, we are committed to launching a web platform that mirrors the excellence and dependability of our services.
