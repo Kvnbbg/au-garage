@@ -1,6 +1,8 @@
 # Garage Web Application
 
-![Preview](https://web-production-d728.up.railway.app/)
+## Introduction
+
+Initially, this project was for Monsieur Parrot to be successful on the exam day at STUDI (my online web developer school between 2022-24). But now this project has evolved with the VR headset and more cars like Tesla.
 
 ## Overview
 
