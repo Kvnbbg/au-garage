@@ -1,0 +1,57 @@
+# Dependabot configuration file
+# For more details on configuration options, see:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+
+  # Update Node.js dependencies (package.json / yarn.lock)
+  - package-ecosystem: "npm" # Ecosystem for JavaScript/Node.js packages
+    directory: "/"           # Location of package manifests (e.g., package.json)
+    schedule:
+      interval: "daily"      # Check for updates daily
+    open-pull-requests-limit: 10 # Limit the number of open PRs per ecosystem
+    labels:                  # Automatically apply labels to PRs
+      - "dependencies"
+      - "automated"
+
+  # Update Python dependencies (requirements.txt / Pipfile / pyproject.toml)
+  - package-ecosystem: "pip" # Ecosystem for Python packages
+    directory: "/"           # Location of package manifests (e.g., requirements.txt)
+    schedule:
+      interval: "weekly"     # Check for updates weekly
+      day: "monday"          # Specify the day of the week
+      time: "08:00"          # Specify the time of day (in UTC)
+    rebase-strategy: "disabled" # Disable automatic rebasing of PRs
+
+  # Update Ruby dependencies (Gemfile)
+  - package-ecosystem: "bundler" # Ecosystem for Ruby packages
+    directory: "/"               # Location of package manifests (e.g., Gemfile)
+    schedule:
+      interval: "monthly"        # Check for updates monthly
+    versioning-strategy: "increase-if-necessary" # Only increase version if necessary
+
+  # Update Docker image dependencies (Dockerfile)
+  - package-ecosystem: "docker"  # Ecosystem for container images
+    directory: "/"               # Location of Dockerfiles
+    schedule:
+      interval: "weekly"
+    ignore:                      # Ignore specific dependencies or versions
+      - dependency-name: "alpine"
+        versions: ["3.15", "3.16"]
+    commit-message:
+      prefix: "chore"            # Prefix for commit messages
+      include: "scope"           # Include scope in commit messages
+
+  # Update GitHub Actions workflows (.github/workflows)
+  - package-ecosystem: "github-actions" # Ecosystem for GitHub Actions
+    directory: "/.github/workflows"     # Location of workflow files
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-type: "all"          # Allow updates for all types of dependencies
+
+# Optional global settings
+global:
+  automerged-dependencies: []           # List of dependencies to auto-merge
+  default-branch-only: true             # Only monitor the default branch
