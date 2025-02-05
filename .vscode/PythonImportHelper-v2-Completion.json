@@ -1,0 +1,2432 @@
+[
+    {
+        "label": "math,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "math.",
+        "description": "math.",
+        "detail": "math.",
+        "documentation": {}
+    },
+    {
+        "label": "dill",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "dill",
+        "description": "dill",
+        "detail": "dill",
+        "documentation": {}
+    },
+    {
+        "label": "StringIO",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "StringIO",
+        "description": "StringIO",
+        "detail": "StringIO",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "pands",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pands",
+        "description": "pands",
+        "detail": "pands",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "Object",
+        "importPath": "my_lib",
+        "description": "my_lib",
+        "isExtraImport": true,
+        "detail": "my_lib",
+        "documentation": {}
+    },
+    {
+        "label": "Object3",
+        "importPath": "my_lib",
+        "description": "my_lib",
+        "isExtraImport": true,
+        "detail": "my_lib",
+        "documentation": {}
+    },
+    {
+        "label": "Object2",
+        "importPath": "my_lib",
+        "description": "my_lib",
+        "isExtraImport": true,
+        "detail": "my_lib",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "lib15",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib1",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib2",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib3",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib4",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib5",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib6",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib7",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib8",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib9",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib10",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib11",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib12",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib13",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib14",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "lib3",
+        "importPath": "third_party",
+        "description": "third_party",
+        "isExtraImport": true,
+        "detail": "third_party",
+        "documentation": {}
+    },
+    {
+        "label": "absolute_import",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "argparse",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "argparse",
+        "description": "argparse",
+        "detail": "argparse",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "google.protobuf.descriptor_pb2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "google.protobuf.descriptor_pb2",
+        "description": "google.protobuf.descriptor_pb2",
+        "detail": "google.protobuf.descriptor_pb2",
+        "documentation": {}
+    },
+    {
+        "label": "Bar",
+        "importPath": "source",
+        "description": "source",
+        "isExtraImport": true,
+        "detail": "source",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "string",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "string",
+        "description": "string",
+        "detail": "string",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Iterator",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Enum",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "collections",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "collections",
+        "description": "collections",
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "islice",
+        "importPath": "itertools",
+        "description": "itertools",
+        "isExtraImport": true,
+        "detail": "itertools",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "FlaskForm",
+        "importPath": "flask_wtf",
+        "description": "flask_wtf",
+        "isExtraImport": true,
+        "detail": "flask_wtf",
+        "documentation": {}
+    },
+    {
+        "label": "PasswordField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
+        "label": "StringField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
+        "label": "SubmitField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
+        "label": "EmailField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
+        "label": "BooleanField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
+        "label": "DataRequired",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "EqualTo",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "Length",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "Regexp",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "ValidationError",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "Email",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "for database utility",
+        "importPath": "app.database import get_db_connection  # Ensure correct",
+        "description": "app.database import get_db_connection  # Ensure correct",
+        "isExtraImport": true,
+        "detail": "app.database import get_db_connection  # Ensure correct",
+        "documentation": {}
+    },
+    {
+        "label": "urljoin",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "urlparse",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "flash",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "flash",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "make_response",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "current_app",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "current_app",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "current_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "logout_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "UserMixin",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "ActivityLog",
+        "importPath": "app.models",
+        "description": "app.models",
+        "isExtraImport": true,
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "app.models",
+        "description": "app.models",
+        "isExtraImport": true,
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "app.models",
+        "description": "app.models",
+        "isExtraImport": true,
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "check_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "generate_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "check_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "generate_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "get_db_connection",
+        "importPath": "app.database",
+        "description": "app.database",
+        "isExtraImport": true,
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "# Assuming this function is adapted for direct SQL handling\n    send_email",
+        "importPath": "app.email",
+        "description": "app.email",
+        "isExtraImport": true,
+        "detail": "app.email",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "sqlite3",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sqlite3",
+        "description": "sqlite3",
+        "detail": "sqlite3",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "importPath": "flask_mail",
+        "description": "flask_mail",
+        "isExtraImport": true,
+        "detail": "flask_mail",
+        "documentation": {}
+    },
+    {
+        "label": "mail",
+        "importPath": "app",
+        "description": "app",
+        "isExtraImport": true,
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_db_connection",
+        "importPath": "app",
+        "description": "app",
+        "isExtraImport": true,
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "login_manager",
+        "importPath": "app",
+        "description": "app",
+        "isExtraImport": true,
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "create_app",
+        "importPath": "app",
+        "description": "app",
+        "isExtraImport": true,
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "app",
+        "description": "app",
+        "isExtraImport": true,
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "op",
+        "importPath": "alembic",
+        "description": "alembic",
+        "isExtraImport": true,
+        "detail": "alembic",
+        "documentation": {}
+    },
+    {
+        "label": "context",
+        "importPath": "alembic",
+        "description": "alembic",
+        "isExtraImport": true,
+        "detail": "alembic",
+        "documentation": {}
+    },
+    {
+        "label": "sqlalchemy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "fileConfig",
+        "importPath": "logging.config",
+        "description": "logging.config",
+        "isExtraImport": true,
+        "detail": "logging.config",
+        "documentation": {}
+    },
+    {
+        "label": "secrets",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "secrets",
+        "description": "secrets",
+        "detail": "secrets",
+        "documentation": {}
+    },
+    {
+        "label": "Example3",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.autopep8.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.autopep8.test_data.basic.in",
+        "peekOfCode": "class Example3(   object ):\n    def __init__    ( self, bar ):\n     #Comments should have a space after the hash.\n     if bar : bar+=1;  bar=bar* bar   ; return bar\n     else:\n                    some_string = \"\"\"\n                       Indentation in multiline strings should not be touched.\nOnly actual code should be reindented.\n\"\"\"\n                    return (sys.path, some_string)",
+        "detail": ".trunk.plugins.trunk.linters.autopep8.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "example1",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.autopep8.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.autopep8.test_data.basic.in",
+        "peekOfCode": "def example1():\n    ####This is a long comment. This should be wrapped to fit within 72 characters.\n    some_tuple=(   1,2, 3,'a'  );\n    some_variable={'long':'Long code lines should be wrapped within 79 characters.',\n    'other':[math.pi, 100,200,300,9876543210,'This is a long string that goes on'],\n    'more':{'inner':'This whole logical line should be wrapped.',some_tuple:[1,\n    20,300,40000,500000000,60000000000000000]}}\n    return (some_tuple, some_variable)\ndef example2(): return {'has_key() is deprecated':True}.has_key({'f':2}.has_key(''));\nclass Example3(   object ):",
+        "detail": ".trunk.plugins.trunk.linters.autopep8.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "example2",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.autopep8.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.autopep8.test_data.basic.in",
+        "peekOfCode": "def example2(): return {'has_key() is deprecated':True}.has_key({'f':2}.has_key(''));\nclass Example3(   object ):\n    def __init__    ( self, bar ):\n     #Comments should have a space after the hash.\n     if bar : bar+=1;  bar=bar* bar   ; return bar\n     else:\n                    some_string = \"\"\"\n                       Indentation in multiline strings should not be touched.\nOnly actual code should be reindented.\n\"\"\"",
+        "detail": ".trunk.plugins.trunk.linters.autopep8.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "pick",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.bandit.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.bandit.test_data.basic.in",
+        "peekOfCode": "pick = dill.dumps({\"a\": \"b\", \"c\": \"d\"})\nprint(dill.loads(pick))\nfile_obj = StringIO.StringIO()\ndill.dump([1, 2, \"3\"], file_obj)",
+        "detail": ".trunk.plugins.trunk.linters.bandit.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "file_obj",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.bandit.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.bandit.test_data.basic.in",
+        "peekOfCode": "file_obj = StringIO.StringIO()\ndill.dump([1, 2, \"3\"], file_obj)",
+        "detail": ".trunk.plugins.trunk.linters.bandit.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "NoDocstring",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.codespell.test_data.basic_py.in",
+        "description": ".trunk.plugins.trunk.linters.codespell.test_data.basic_py.in",
+        "peekOfCode": "class NoDocstring(object):\n    def __init__(self, arg1):\n        self._attr1 = arg1\nclass Globe(object):\n    def __init__(self):\n        self.shape = 'spheroid'\n    def __inti__(self):\n        prit(\"this is not a valid method\")\n        callbak = lamda x: x * 2\n    varName1 = \"helol ym anme is var\"",
+        "detail": ".trunk.plugins.trunk.linters.codespell.test_data.basic_py.in",
+        "documentation": {}
+    },
+    {
+        "label": "Globe",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.codespell.test_data.basic_py.in",
+        "description": ".trunk.plugins.trunk.linters.codespell.test_data.basic_py.in",
+        "peekOfCode": "class Globe(object):\n    def __init__(self):\n        self.shape = 'spheroid'\n    def __inti__(self):\n        prit(\"this is not a valid method\")\n        callbak = lamda x: x * 2\n    varName1 = \"helol ym anme is var\"\ncachedir = \"/tmp\"",
+        "detail": ".trunk.plugins.trunk.linters.codespell.test_data.basic_py.in",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.codespell.test_data.basic_py.in",
+        "description": ".trunk.plugins.trunk.linters.codespell.test_data.basic_py.in",
+        "peekOfCode": "def main():\n    try:\n        pass\n    except (Exception, TypeError):\n        pass\nimport sys\nimport pands\nclass NoDocstring(object):\n    def __init__(self, arg1):\n        self._attr1 = arg1",
+        "detail": ".trunk.plugins.trunk.linters.codespell.test_data.basic_py.in",
+        "documentation": {}
+    },
+    {
+        "label": "cachedir",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.codespell.test_data.basic_py.in",
+        "description": ".trunk.plugins.trunk.linters.codespell.test_data.basic_py.in",
+        "peekOfCode": "cachedir = \"/tmp\"",
+        "detail": ".trunk.plugins.trunk.linters.codespell.test_data.basic_py.in",
+        "documentation": {}
+    },
+    {
+        "label": "to_result_sarif",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.codespell.codespell_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.codespell.codespell_to_sarif",
+        "peekOfCode": "def to_result_sarif(\n    path: str, line_number: int, column_number: int, rule_id: str, message: str\n):\n    return {\n        \"level\": \"error\",\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": path,",
+        "detail": ".trunk.plugins.trunk.linters.codespell.codespell_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.codespell.codespell_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.codespell.codespell_to_sarif",
+        "peekOfCode": "def main(argv):\n    results = []\n    for line in sys.stdin.readlines():\n        filename, line_number, message = line.split(\":\")\n        results.append(\n            to_result_sarif(\n                filename, int(line_number), 0, \"misspelled\", message.strip()\n            )\n        )\n    sarif = {",
+        "detail": ".trunk.plugins.trunk.linters.codespell.codespell_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "NoDocstring",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.cspell.test_data.basic_py.in",
+        "description": ".trunk.plugins.trunk.linters.cspell.test_data.basic_py.in",
+        "peekOfCode": "class NoDocstring(object):\n    def __init__(self, arg1):\n        self._attr1 = arg1\nclass Globe(object):\n    def __init__(self):\n        self.shape = 'spheroid'\n    def __inti__(self):\n        prit(\"this is not a valid method\")\n        callbak = lamda x: x * 2\n    varName1 = \"helol ym anme is var\"",
+        "detail": ".trunk.plugins.trunk.linters.cspell.test_data.basic_py.in",
+        "documentation": {}
+    },
+    {
+        "label": "Globe",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.cspell.test_data.basic_py.in",
+        "description": ".trunk.plugins.trunk.linters.cspell.test_data.basic_py.in",
+        "peekOfCode": "class Globe(object):\n    def __init__(self):\n        self.shape = 'spheroid'\n    def __inti__(self):\n        prit(\"this is not a valid method\")\n        callbak = lamda x: x * 2\n    varName1 = \"helol ym anme is var\"\ncachedir = \"/tmp\"",
+        "detail": ".trunk.plugins.trunk.linters.cspell.test_data.basic_py.in",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.cspell.test_data.basic_py.in",
+        "description": ".trunk.plugins.trunk.linters.cspell.test_data.basic_py.in",
+        "peekOfCode": "def main():\n    try:\n        pass\n    except (Exception, TypeError):\n        pass\nimport sys\nimport pands\nclass NoDocstring(object):\n    def __init__(self, arg1):\n        self._attr1 = arg1",
+        "detail": ".trunk.plugins.trunk.linters.cspell.test_data.basic_py.in",
+        "documentation": {}
+    },
+    {
+        "label": "cachedir",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.cspell.test_data.basic_py.in",
+        "description": ".trunk.plugins.trunk.linters.cspell.test_data.basic_py.in",
+        "peekOfCode": "cachedir = \"/tmp\"",
+        "detail": ".trunk.plugins.trunk.linters.cspell.test_data.basic_py.in",
+        "documentation": {}
+    },
+    {
+        "label": "NoDocstring",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.flake8.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.flake8.test_data.basic.in",
+        "peekOfCode": "class NoDocstring(object):\n    def __init__(self, arg1):\n        self._attr1 = arg1\nclass Globe(object):\n    def __init__(self):\n        self.shape = 'spheroid'",
+        "detail": ".trunk.plugins.trunk.linters.flake8.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "Globe",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.flake8.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.flake8.test_data.basic.in",
+        "peekOfCode": "class Globe(object):\n    def __init__(self):\n        self.shape = 'spheroid'",
+        "detail": ".trunk.plugins.trunk.linters.flake8.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.flake8.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.flake8.test_data.basic.in",
+        "peekOfCode": "def main():\n    try:\n        pass\n    except (Exception, TypeError):\n        pass\nimport sys\n# trunk-ignore(flake8/F401): this will trigger a warning to verify that the config is applied\nclass NoDocstring(object):\n    def __init__(self, arg1):\n        self._attr1 = arg1",
+        "detail": ".trunk.plugins.trunk.linters.flake8.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "aws_access_key_id",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.gitleaks.test_data.basic",
+        "description": ".trunk.plugins.trunk.linters.gitleaks.test_data.basic",
+        "peekOfCode": "aws_access_key_id = \"AKIAIO5FODNN7EXAMPLE\"\naws_access_key_id = \"AKIAIO5FODNN7EXAMPLE\"",
+        "detail": ".trunk.plugins.trunk.linters.gitleaks.test_data.basic",
+        "documentation": {}
+    },
+    {
+        "label": "aws_access_key_id",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.gitleaks.test_data.basic",
+        "description": ".trunk.plugins.trunk.linters.gitleaks.test_data.basic",
+        "peekOfCode": "aws_access_key_id = \"AKIAIO5FODNN7EXAMPLE\"",
+        "detail": ".trunk.plugins.trunk.linters.gitleaks.test_data.basic",
+        "documentation": {}
+    },
+    {
+        "label": "to_result_sarif",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.graphql-schema-linter.parse",
+        "description": ".trunk.plugins.trunk.linters.graphql-schema-linter.parse",
+        "peekOfCode": "def to_result_sarif(path: str, lineno: int, colno: int, rule_id: str, message: str):\n    return {\n        \"level\": \"error\",\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": path,\n                    },\n                    \"region\": {",
+        "detail": ".trunk.plugins.trunk.linters.graphql-schema-linter.parse",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.graphql-schema-linter.parse",
+        "description": ".trunk.plugins.trunk.linters.graphql-schema-linter.parse",
+        "peekOfCode": "def main(argv):\n    output_json = json.load(sys.stdin)\n    errors = output_json.get(\"errors\", [])\n    results = []\n    for error in errors:\n        rule = error.get(\"rule\", \"\")\n        message = error.get(\"message\", \"\")\n        location = error.get(\"location\")\n        if location:\n            path = location.get(\"file\", \"\")",
+        "detail": ".trunk.plugins.trunk.linters.graphql-schema-linter.parse",
+        "documentation": {}
+    },
+    {
+        "label": "try_find_string_in_file",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.markdown-link-check.parse",
+        "description": ".trunk.plugins.trunk.linters.markdown-link-check.parse",
+        "peekOfCode": "def try_find_string_in_file(filename, search_string):\n    with open(filename, \"r\") as f:\n        for i, line in enumerate(f):\n            index = line.find(search_string)\n            if index != -1:\n                return i + 1, index + 1\n    return 0, 0\ndef to_result_sarif(\n    path: str, line_number: int, column_number: int, rule_id: str, message: str\n):",
+        "detail": ".trunk.plugins.trunk.linters.markdown-link-check.parse",
+        "documentation": {}
+    },
+    {
+        "label": "to_result_sarif",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.markdown-link-check.parse",
+        "description": ".trunk.plugins.trunk.linters.markdown-link-check.parse",
+        "peekOfCode": "def to_result_sarif(\n    path: str, line_number: int, column_number: int, rule_id: str, message: str\n):\n    return {\n        \"level\": \"error\",\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": path,",
+        "detail": ".trunk.plugins.trunk.linters.markdown-link-check.parse",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.markdown-link-check.parse",
+        "description": ".trunk.plugins.trunk.linters.markdown-link-check.parse",
+        "peekOfCode": "def main(argv):\n    parser = argparse.ArgumentParser(description=\"Parse output of markdown-link-check\")\n    parser.add_argument(\"--target\", dest=\"target\")\n    args = parser.parse_args()\n    results = []\n    # Line numbers are not reported out of the tool right now - so we regex parse the output to extract issue codes\n    for line in sys.stdin:\n        parse_reg = \"\\s*(\\[.*\\])\\s(.*)→.*Status:\\s*(\\d*)(.*)\"\n        filename = args.target\n        parse_result = re.fullmatch(parse_reg, line, flags=re.DOTALL)",
+        "detail": ".trunk.plugins.trunk.linters.markdown-link-check.parse",
+        "documentation": {}
+    },
+    {
+        "label": "greeting",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.mypy.test_data.basic",
+        "description": ".trunk.plugins.trunk.linters.mypy.test_data.basic",
+        "peekOfCode": "def greeting(name: str) -> str:\n    return \"Hello \" + name\ndef printer() -> None:\n    print(\"Hello\")\ngreeting(3)\ngreeting(b\"Alice\")\na = printer()\nc: str = 4\nfrom source import Bar\ndef bad_foo(bar: Bar) -> str:",
+        "detail": ".trunk.plugins.trunk.linters.mypy.test_data.basic",
+        "documentation": {}
+    },
+    {
+        "label": "printer",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.mypy.test_data.basic",
+        "description": ".trunk.plugins.trunk.linters.mypy.test_data.basic",
+        "peekOfCode": "def printer() -> None:\n    print(\"Hello\")\ngreeting(3)\ngreeting(b\"Alice\")\na = printer()\nc: str = 4\nfrom source import Bar\ndef bad_foo(bar: Bar) -> str:\n  return bar.a + bar.b",
+        "detail": ".trunk.plugins.trunk.linters.mypy.test_data.basic",
+        "documentation": {}
+    },
+    {
+        "label": "bad_foo",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.mypy.test_data.basic",
+        "description": ".trunk.plugins.trunk.linters.mypy.test_data.basic",
+        "peekOfCode": "def bad_foo(bar: Bar) -> str:\n  return bar.a + bar.b",
+        "detail": ".trunk.plugins.trunk.linters.mypy.test_data.basic",
+        "documentation": {}
+    },
+    {
+        "label": "a",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.mypy.test_data.basic",
+        "description": ".trunk.plugins.trunk.linters.mypy.test_data.basic",
+        "peekOfCode": "a = printer()\nc: str = 4\nfrom source import Bar\ndef bad_foo(bar: Bar) -> str:\n  return bar.a + bar.b",
+        "detail": ".trunk.plugins.trunk.linters.mypy.test_data.basic",
+        "documentation": {}
+    },
+    {
+        "label": "Bar",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.mypy.test_data.source",
+        "description": ".trunk.plugins.trunk.linters.mypy.test_data.source",
+        "peekOfCode": "class Bar:\n  a: int\n  b: int\ndef bad_function() -> int:\n  print(\"returns nothing\")",
+        "detail": ".trunk.plugins.trunk.linters.mypy.test_data.source",
+        "documentation": {}
+    },
+    {
+        "label": "bad_function",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.mypy.test_data.source",
+        "description": ".trunk.plugins.trunk.linters.mypy.test_data.source",
+        "peekOfCode": "def bad_function() -> int:\n  print(\"returns nothing\")",
+        "detail": ".trunk.plugins.trunk.linters.mypy.test_data.source",
+        "documentation": {}
+    },
+    {
+        "label": "to_result_sarif",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.nancy.parse",
+        "description": ".trunk.plugins.trunk.linters.nancy.parse",
+        "peekOfCode": "def to_result_sarif(\n    path: str, line_number: int, column_number: int, rule_id: str, message: str\n):\n    return {\n        \"level\": \"error\",\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": path,",
+        "detail": ".trunk.plugins.trunk.linters.nancy.parse",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.nancy.parse",
+        "description": ".trunk.plugins.trunk.linters.nancy.parse",
+        "peekOfCode": "def main(argv):\n    results = []\n    nancy_output = json.load(sys.stdin)\n    for vuln_entry in nancy_output.get(\"vulnerable\", []):\n        for vuln in vuln_entry.get(\"Vulnerabilities\", []):\n            results.append(\n                to_result_sarif(\n                    \".\",\n                    0,\n                    0,",
+        "detail": ".trunk.plugins.trunk.linters.nancy.parse",
+        "documentation": {}
+    },
+    {
+        "label": "get_sarif_severity",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "peekOfCode": "def get_sarif_severity(vuln) -> str:\n    \"\"\"Get the SARIF severity appropriate for a given OSV vulnerability entry.\"\"\"\n    if \"database_specific\" not in vuln:\n        return DEFAULT_SARIF_SEVERITY\n    vuln_metadata = vuln[\"database_specific\"]\n    if \"severity\" not in vuln_metadata:\n        return DEFAULT_SARIF_SEVERITY\n    severity = vuln_metadata[\"severity\"].upper()\n    return SARIF_SEVERITY_BY_OSV_SEVERITY.get(severity, DEFAULT_SARIF_SEVERITY)\ndef to_result_sarif(",
+        "detail": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "to_result_sarif",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "peekOfCode": "def to_result_sarif(\n    path: str, lineno: int, vuln_id: str, description: str, severity: str\n):\n    return {\n        \"level\": severity,\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": path,",
+        "detail": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "join_common_sets",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "peekOfCode": "def join_common_sets(lst):\n    init_len = 0\n    final_len = 1\n    while init_len != final_len:\n        init_len = len(lst)\n        ret = []\n        for s in lst:\n            unique = True\n            for stored_set in ret:\n                if len(stored_set.intersection(s)) > 0:",
+        "detail": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "get_preferred_alias",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "peekOfCode": "def get_preferred_alias(aliases):\n    for rx in PREFERRED_ORDER:\n        found_aliases = sorted(alias for alias in aliases if re.match(rx, alias))\n        if len(found_aliases) > 0:\n            return found_aliases[0]\n    return sorted(aliases)[0]\ndef main(argv):\n    try:\n        # On Windows, Unicode characters in the osv-scanner output cause json parsing errors. Filter them out since we don't care about their fields.\n        if sys.platform == \"win32\":",
+        "detail": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "peekOfCode": "def main(argv):\n    try:\n        # On Windows, Unicode characters in the osv-scanner output cause json parsing errors. Filter them out since we don't care about their fields.\n        if sys.platform == \"win32\":\n            filtered_stdin = \"\".join(i for i in sys.stdin.read() if ord(i) < 256)\n            osv_json = json.loads(filtered_stdin)\n        else:\n            osv_json = json.load(sys.stdin)\n    except json.decoder.JSONDecodeError as err:\n        if str(err) == \"Expecting value: line 1 column 1 (char 0)\":",
+        "detail": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "SARIF_SEVERITY_BY_OSV_SEVERITY",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "peekOfCode": "SARIF_SEVERITY_BY_OSV_SEVERITY = {\n    \"CRITICAL\": \"error\",\n    \"HIGH\": \"error\",\n    \"MODERATE\": \"warning\",\n    \"MEDIUM\": \"warning\",\n    \"LOW\": \"note\",\n}\nDEFAULT_SARIF_SEVERITY = \"error\"\ndef get_sarif_severity(vuln) -> str:\n    \"\"\"Get the SARIF severity appropriate for a given OSV vulnerability entry.\"\"\"",
+        "detail": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_SARIF_SEVERITY",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "peekOfCode": "DEFAULT_SARIF_SEVERITY = \"error\"\ndef get_sarif_severity(vuln) -> str:\n    \"\"\"Get the SARIF severity appropriate for a given OSV vulnerability entry.\"\"\"\n    if \"database_specific\" not in vuln:\n        return DEFAULT_SARIF_SEVERITY\n    vuln_metadata = vuln[\"database_specific\"]\n    if \"severity\" not in vuln_metadata:\n        return DEFAULT_SARIF_SEVERITY\n    severity = vuln_metadata[\"severity\"].upper()\n    return SARIF_SEVERITY_BY_OSV_SEVERITY.get(severity, DEFAULT_SARIF_SEVERITY)",
+        "detail": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "PREFERRED_ORDER",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "peekOfCode": "PREFERRED_ORDER = [\"GHSA-.*\", \"CVE-.*\", \"PYSEC-.*\"]\ndef get_preferred_alias(aliases):\n    for rx in PREFERRED_ORDER:\n        found_aliases = sorted(alias for alias in aliases if re.match(rx, alias))\n        if len(found_aliases) > 0:\n            return found_aliases[0]\n    return sorted(aliases)[0]\ndef main(argv):\n    try:\n        # On Windows, Unicode characters in the osv-scanner output cause json parsing errors. Filter them out since we don't care about their fields.",
+        "detail": ".trunk.plugins.trunk.linters.osv-scanner.osv_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "to_result_sarif",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.prettier.prettier_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.prettier.prettier_to_sarif",
+        "peekOfCode": "def to_result_sarif(path: str, description: str, line: int = 0, column: int = 0):\n    return {\n        \"level\": \"error\",\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": path,\n                    },\n                    \"region\": {",
+        "detail": ".trunk.plugins.trunk.linters.prettier.prettier_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.prettier.prettier_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.prettier.prettier_to_sarif",
+        "peekOfCode": "def main(argv):\n    if len(argv) < 2:\n        print(\"Usage: trivy_to_sarif.py <exit_code>)\")\n        sys.exit(1)\n    if argv[1] == \"0\":\n        results = []\n        sarif = {\n            \"$schema\": \"https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json\",\n            \"version\": \"2.1.0\",\n            \"runs\": [{\"results\": results}],",
+        "detail": ".trunk.plugins.trunk.linters.prettier.prettier_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "shift",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "peekOfCode": "shift = 3\nchoice = raw_input(\"would you like to encode or decode?\")\nword = raw_input(\"Please enter text\")\nletters = string.ascii_letters + string.punctuation + string.digits\nencoded = \"\"",
+        "detail": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "choice",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "peekOfCode": "choice = raw_input(\"would you like to encode or decode?\")\nword = raw_input(\"Please enter text\")\nletters = string.ascii_letters + string.punctuation + string.digits\nencoded = \"\"",
+        "detail": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "word",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "peekOfCode": "word = raw_input(\"Please enter text\")\nletters = string.ascii_letters + string.punctuation + string.digits\nencoded = \"\"",
+        "detail": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "letters",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "peekOfCode": "letters = string.ascii_letters + string.punctuation + string.digits\nencoded = \"\"",
+        "detail": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "encoded",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "peekOfCode": "encoded = \"\"",
+        "detail": ".trunk.plugins.trunk.linters.pylint.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "foo",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.pylint.test_data.severity",
+        "description": ".trunk.plugins.trunk.linters.pylint.test_data.severity",
+        "peekOfCode": "def foo():\n    return \"bar\"",
+        "detail": ".trunk.plugins.trunk.linters.pylint.test_data.severity",
+        "documentation": {}
+    },
+    {
+        "label": "A",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "peekOfCode": "class A:\n    def method1(self) -> None:\n        self.x = 1\n    def method2(self) -> None:\n        self.x = \"\" # Mypy treats this as an error because `x` is implicitly declared as `int`\na = A()\nreveal_type(a.x)\na.x = \"\" # Pyright allows this because the type of `x` is `int | str`\na.x = 3.0 # Pyright treats this as an error because the type of `x` is `int | str`\nclass A:",
+        "detail": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "A",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "peekOfCode": "class A:\n    x: int = 0 # Regular class variable\n    y: ClassVar[int] = 0 # Pure class variable\n    def __init__(self):\n        self.z = 0 # Pure instance variable\nprint(A.x)\nprint(A.y)\nprint(A.z) # pyright shows error, mypy shows no error\nclass Color(Enum):\n    RED = 1",
+        "detail": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "Color",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "peekOfCode": "class Color(Enum):\n    RED = 1\n    BLUE = 2\ndef is_red(color: Color) -> bool:\n    if color == Color.RED:\n        return True\n    elif color == Color.BLUE:\n        return False\n    # mypy reports error: Missing return statement\ndef func(val: int | None):",
+        "detail": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "wrong_type",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "peekOfCode": "def wrong_type(x: int) -> str:\n    return x  # error: Incompatible return value type (got \"int\", expected \"str\")\nclass A:\n    def method1(self) -> None:\n        self.x = 1\n    def method2(self) -> None:\n        self.x = \"\" # Mypy treats this as an error because `x` is implicitly declared as `int`\na = A()\nreveal_type(a.x)\na.x = \"\" # Pyright allows this because the type of `x` is `int | str`",
+        "detail": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "is_red",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "peekOfCode": "def is_red(color: Color) -> bool:\n    if color == Color.RED:\n        return True\n    elif color == Color.BLUE:\n        return False\n    # mypy reports error: Missing return statement\ndef func(val: int | None):\n    if val is not None:\n        def inner_1() -> None:\n            reveal_type(val)",
+        "detail": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "func",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "peekOfCode": "def func(val: int | None):\n    if val is not None:\n        def inner_1() -> None:\n            reveal_type(val)\n            print(val + 1)  # mypy produces a false positive error here\n        inner_2 = lambda: reveal_type(val) + 1\n        inner_1()\n        inner_2()",
+        "detail": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "a",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "peekOfCode": "a = A()\nreveal_type(a.x)\na.x = \"\" # Pyright allows this because the type of `x` is `int | str`\na.x = 3.0 # Pyright treats this as an error because the type of `x` is `int | str`\nclass A:\n    x: int = 0 # Regular class variable\n    y: ClassVar[int] = 0 # Pure class variable\n    def __init__(self):\n        self.z = 0 # Pure instance variable\nprint(A.x)",
+        "detail": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "a.x",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "peekOfCode": "a.x = \"\" # Pyright allows this because the type of `x` is `int | str`\na.x = 3.0 # Pyright treats this as an error because the type of `x` is `int | str`\nclass A:\n    x: int = 0 # Regular class variable\n    y: ClassVar[int] = 0 # Pure class variable\n    def __init__(self):\n        self.z = 0 # Pure instance variable\nprint(A.x)\nprint(A.y)\nprint(A.z) # pyright shows error, mypy shows no error",
+        "detail": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "a.x",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "peekOfCode": "a.x = 3.0 # Pyright treats this as an error because the type of `x` is `int | str`\nclass A:\n    x: int = 0 # Regular class variable\n    y: ClassVar[int] = 0 # Pure class variable\n    def __init__(self):\n        self.z = 0 # Pure instance variable\nprint(A.x)\nprint(A.y)\nprint(A.z) # pyright shows error, mypy shows no error\nclass Color(Enum):",
+        "detail": ".trunk.plugins.trunk.linters.pyright.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "results",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.pyright.pyright_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.pyright.pyright_to_sarif",
+        "peekOfCode": "results = []\nfor result in json.load(sys.stdin)[\"generalDiagnostics\"]:\n    parse = {\n        \"level\": result[\"severity\"] if result[\"severity\"] != \"information\" else \"note\",\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": result[\"file\"],\n                    },",
+        "detail": ".trunk.plugins.trunk.linters.pyright.pyright_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "sarif",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.pyright.pyright_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.pyright.pyright_to_sarif",
+        "peekOfCode": "sarif = {\n    \"$schema\": \"https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json\",\n    \"version\": \"2.1.0\",\n    \"runs\": [{\"results\": results}],\n}\nprint(json.dumps(sarif, indent=2))",
+        "detail": ".trunk.plugins.trunk.linters.pyright.pyright_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "to_result_sarif",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.remark-lint.parse",
+        "description": ".trunk.plugins.trunk.linters.remark-lint.parse",
+        "peekOfCode": "def to_result_sarif(\n    path: str, line_number: int, column_number: int, rule_id: str, message: str\n):\n    return {\n        \"level\": \"error\",\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": path,",
+        "detail": ".trunk.plugins.trunk.linters.remark-lint.parse",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.remark-lint.parse",
+        "description": ".trunk.plugins.trunk.linters.remark-lint.parse",
+        "peekOfCode": "def main(argv):\n    results = []\n    content_json = sys.stdin.read()\n    content = json.loads(content_json)\n    for file_content in content:\n        messages = file_content.get(\"messages\", [])\n        if messages:\n            for msg in messages:\n                results.append(\n                    to_result_sarif(",
+        "detail": ".trunk.plugins.trunk.linters.remark-lint.parse",
+        "documentation": {}
+    },
+    {
+        "label": "to_result_sarif",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.renovate.parse",
+        "description": ".trunk.plugins.trunk.linters.renovate.parse",
+        "peekOfCode": "def to_result_sarif(\n    path: str, line_number: int, column_number: int, rule_id: str, message: str\n):\n    return {\n        \"level\": \"error\",\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": path,",
+        "detail": ".trunk.plugins.trunk.linters.renovate.parse",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.renovate.parse",
+        "description": ".trunk.plugins.trunk.linters.renovate.parse",
+        "peekOfCode": "def main(argv):\n    results = []\n    content = sys.stdin.read()\n    parse_reg = \"(.*WARN:.*could not be parsed)(.*)\"\n    error_section = content.find('\"errors\": [')\n    parse_result = re.fullmatch(parse_reg, content, flags=re.DOTALL)\n    if parse_result:\n        warn_section = parse_result.group(2)\n        json_content = \"{\" + warn_section + \"}\"\n        error_output = json.loads(json_content)",
+        "detail": ".trunk.plugins.trunk.linters.renovate.parse",
+        "documentation": {}
+    },
+    {
+        "label": "map_severity",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.rubocop.rubocop_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.rubocop.rubocop_to_sarif",
+        "peekOfCode": "def map_severity(severity):\n    if severity in [\"convention\", \"refactor\", \"info\"]:\n        return \"note\"\n    if severity in [\"warning\"]:\n        return \"warning\"\n    if severity in [\"error\", \"fatal\"]:\n        return \"error\"\n    return \"none\"\nresults = []\nfor file in json.load(sys.stdin)[\"files\"]:",
+        "detail": ".trunk.plugins.trunk.linters.rubocop.rubocop_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "results",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.rubocop.rubocop_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.rubocop.rubocop_to_sarif",
+        "peekOfCode": "results = []\nfor file in json.load(sys.stdin)[\"files\"]:\n    for offense in file[\"offenses\"]:\n        parse = {\n            \"level\": map_severity(offense[\"severity\"]),\n            \"locations\": [\n                {\n                    \"physicalLocation\": {\n                        \"artifactLocation\": {\n                            \"uri\": file[\"path\"],",
+        "detail": ".trunk.plugins.trunk.linters.rubocop.rubocop_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "sarif",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.rubocop.rubocop_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.rubocop.rubocop_to_sarif",
+        "peekOfCode": "sarif = {\n    \"$schema\": \"https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json\",\n    \"version\": \"2.1.0\",\n    \"runs\": [{\"results\": results}],\n}\nprint(json.dumps(sarif, indent=2))",
+        "detail": ".trunk.plugins.trunk.linters.rubocop.rubocop_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "NoDocstring",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.ruff.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.ruff.test_data.basic.in",
+        "peekOfCode": "class NoDocstring(object):\n    def __init__(self, arg1):\n        self._attr1 = arg1\nclass Globe(object):\n    def __init__(self):\n        self.shape = 'spheroid'",
+        "detail": ".trunk.plugins.trunk.linters.ruff.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "Globe",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.ruff.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.ruff.test_data.basic.in",
+        "peekOfCode": "class Globe(object):\n    def __init__(self):\n        self.shape = 'spheroid'",
+        "detail": ".trunk.plugins.trunk.linters.ruff.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.ruff.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.ruff.test_data.basic.in",
+        "peekOfCode": "def main():\n    try:\n        pass\n    except (Exception, TypeError):\n        pass\nimport sys\n# trunk-ignore(ruff/F401)\nimport json\nclass NoDocstring(object):\n    def __init__(self, arg1):",
+        "detail": ".trunk.plugins.trunk.linters.ruff.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "get_region",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.ruff.ruff_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.ruff.ruff_to_sarif",
+        "peekOfCode": "def get_region(entry, column_offset=0):\n    location = entry[\"location\"]\n    region = {\n        \"startColumn\": location[\"column\"] + column_offset,\n        \"startLine\": location[\"row\"],\n    }\n    if \"end_location\" in entry:\n        end_location = entry[\"end_location\"]\n        region[\"endColumn\"] = end_location[\"column\"] + column_offset\n        region[\"endLine\"] = end_location[\"row\"]",
+        "detail": ".trunk.plugins.trunk.linters.ruff.ruff_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "results",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.ruff.ruff_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.ruff.ruff_to_sarif",
+        "peekOfCode": "results = []\ndef get_region(entry, column_offset=0):\n    location = entry[\"location\"]\n    region = {\n        \"startColumn\": location[\"column\"] + column_offset,\n        \"startLine\": location[\"row\"],\n    }\n    if \"end_location\" in entry:\n        end_location = entry[\"end_location\"]\n        region[\"endColumn\"] = end_location[\"column\"] + column_offset",
+        "detail": ".trunk.plugins.trunk.linters.ruff.ruff_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "ruff_column_index",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.ruff.ruff_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.ruff.ruff_to_sarif",
+        "peekOfCode": "ruff_column_index = 1\nif len(sys.argv) > 1:\n    ruff_column_index = int(sys.argv[1])\nfor result in json.load(sys.stdin):\n    # As of ruff v0.0.260, some autofixable diagnostics may appear redundantly\n    if \"location\" not in result:\n        continue\n    filepath = result[\"filename\"]\n    rule_id = result[\"code\"]\n    message = result[\"message\"]",
+        "detail": ".trunk.plugins.trunk.linters.ruff.ruff_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "sarif",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.ruff.ruff_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.ruff.ruff_to_sarif",
+        "peekOfCode": "sarif = {\n    \"$schema\": \"https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json\",\n    \"version\": \"2.1.0\",\n    \"runs\": [{\"results\": results}],\n}\nprint(json.dumps(sarif, indent=2))",
+        "detail": ".trunk.plugins.trunk.linters.ruff.ruff_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "unvalidated_value",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.semgrep.test_data.request",
+        "description": ".trunk.plugins.trunk.linters.semgrep.test_data.request",
+        "peekOfCode": "def unvalidated_value(request):\n    value = request.GET.get('something')\n    function = globals().get(value)\n    if function:\n        return function(request)",
+        "detail": ".trunk.plugins.trunk.linters.semgrep.test_data.request",
+        "documentation": {}
+    },
+    {
+        "label": "test",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.sourcery.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.sourcery.test_data.basic.in",
+        "peekOfCode": "def test():\n  substitution = \"hello %s\" % test\n  my_list = List()\n  try:\n    pass\n  except Exception:\n    raise Exception(\"test\")",
+        "detail": ".trunk.plugins.trunk.linters.sourcery.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "test",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.sourcery.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.sourcery.test_data.basic.in",
+        "peekOfCode": "test = \"world\"\ndef test():\n  substitution = \"hello %s\" % test\n  my_list = List()\n  try:\n    pass\n  except Exception:\n    raise Exception(\"test\")",
+        "detail": ".trunk.plugins.trunk.linters.sourcery.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "to_result_sarif",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.sqlfluff.sqlfluff_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.sqlfluff.sqlfluff_to_sarif",
+        "peekOfCode": "def to_result_sarif(\n    path: str, line_number: int, column_number: int, rule_id: str, message: str\n):\n    return {\n        \"level\": \"error\",\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": path,",
+        "detail": ".trunk.plugins.trunk.linters.sqlfluff.sqlfluff_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.sqlfluff.sqlfluff_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.sqlfluff.sqlfluff_to_sarif",
+        "peekOfCode": "def main(argv):\n    sqlfluff_json = json.load(sys.stdin)\n    results = []\n    for result in sqlfluff_json:\n        filepath = result[\"filepath\"]\n        for violation in result[\"violations\"]:\n            line_number = violation[\"line_no\"]\n            column_number = violation[\"line_pos\"]\n            rule_id = violation[\"code\"]\n            message = violation[\"description\"]",
+        "detail": ".trunk.plugins.trunk.linters.sqlfluff.sqlfluff_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.terrascan.sarif_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.terrascan.sarif_to_sarif",
+        "peekOfCode": "def main(argv):\n    input_sarif = json.load(sys.stdin)\n    # strip \"file:\" from the beginning of each value in the 'file' field in the 'location' object in sarif format\n    for run in input_sarif[\"runs\"]:\n        for result in run[\"results\"]:\n            for location in result[\"locations\"]:\n                location[\"physicalLocation\"][\"artifactLocation\"][\"uri\"] = location[\n                    \"physicalLocation\"\n                ][\"artifactLocation\"][\"uri\"][5:]\n    print(json.dumps(input_sarif, indent=2))",
+        "detail": ".trunk.plugins.trunk.linters.terrascan.sarif_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.tfsec.parse",
+        "description": ".trunk.plugins.trunk.linters.tfsec.parse",
+        "peekOfCode": "def main():\n    original_input = sys.stdin.read()\n    try:\n        index = original_input.index(\"{\")\n        print(original_input[index:])\n    except ValueError:\n        print(original_input)\nif __name__ == \"__main__\":\n    main()",
+        "detail": ".trunk.plugins.trunk.linters.tfsec.parse",
+        "documentation": {}
+    },
+    {
+        "label": "aws_access_key_id",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "description": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "peekOfCode": "aws_access_key_id = \"AKIAXYZDQCEN4EXAMPLE\"\naws_secret_access_key = \"Tg0pz8Jii8hkLx4+PnUisM8GmKs3a2DK+EXAMPLE\"\n# The below keys are copied from https://github.com/dustin-decker/secretsandstuff\ngithub_secret = \"369963c1434c377428ca8531fbc46c0c43d037a0\"\nbasic_auth = \"https://admin:admin@the-internet.herokuapp.com/basic_auth\"\npriv_key = \"\"\"\n-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABAjNIZuun\nxgLkM8KuzfmQuRAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQDe3Al0EMPz\nutVNk5DixaYrGMK56RqUoqGBinke6SWVWmqom1lBcJWzor6HlnMRPPr7YCEsJKL4IpuVwu",
+        "detail": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "documentation": {}
+    },
+    {
+        "label": "aws_secret_access_key",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "description": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "peekOfCode": "aws_secret_access_key = \"Tg0pz8Jii8hkLx4+PnUisM8GmKs3a2DK+EXAMPLE\"\n# The below keys are copied from https://github.com/dustin-decker/secretsandstuff\ngithub_secret = \"369963c1434c377428ca8531fbc46c0c43d037a0\"\nbasic_auth = \"https://admin:admin@the-internet.herokuapp.com/basic_auth\"\npriv_key = \"\"\"\n-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABAjNIZuun\nxgLkM8KuzfmQuRAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQDe3Al0EMPz\nutVNk5DixaYrGMK56RqUoqGBinke6SWVWmqom1lBcJWzor6HlnMRPPr7YCEsJKL4IpuVwu\ninRa5kdtNTyM7yyQTSR2xXCS0fUItNuq8pUktsH8VUggpMeew8hJv7rFA7tnIg3UXCl6iF",
+        "detail": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "documentation": {}
+    },
+    {
+        "label": "github_secret",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "description": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "peekOfCode": "github_secret = \"369963c1434c377428ca8531fbc46c0c43d037a0\"\nbasic_auth = \"https://admin:admin@the-internet.herokuapp.com/basic_auth\"\npriv_key = \"\"\"\n-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABAjNIZuun\nxgLkM8KuzfmQuRAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQDe3Al0EMPz\nutVNk5DixaYrGMK56RqUoqGBinke6SWVWmqom1lBcJWzor6HlnMRPPr7YCEsJKL4IpuVwu\ninRa5kdtNTyM7yyQTSR2xXCS0fUItNuq8pUktsH8VUggpMeew8hJv7rFA7tnIg3UXCl6iF\nOLZKbDA5aa24idpcD8b1I9/RzTOB1fu0of5xd9vgODzGw5JvHQSJ0FaA42aNBMGwrDhDB3\nsgnRNdWf6NNIh8KpXXMKJADf3klsyn6He8L2bPMp8a4wwys2YB35p5zQ0JURovsdewlOxH",
+        "detail": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "documentation": {}
+    },
+    {
+        "label": "basic_auth",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "description": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "peekOfCode": "basic_auth = \"https://admin:admin@the-internet.herokuapp.com/basic_auth\"\npriv_key = \"\"\"\n-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABAjNIZuun\nxgLkM8KuzfmQuRAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQDe3Al0EMPz\nutVNk5DixaYrGMK56RqUoqGBinke6SWVWmqom1lBcJWzor6HlnMRPPr7YCEsJKL4IpuVwu\ninRa5kdtNTyM7yyQTSR2xXCS0fUItNuq8pUktsH8VUggpMeew8hJv7rFA7tnIg3UXCl6iF\nOLZKbDA5aa24idpcD8b1I9/RzTOB1fu0of5xd9vgODzGw5JvHQSJ0FaA42aNBMGwrDhDB3\nsgnRNdWf6NNIh8KpXXMKJADf3klsyn6He8L2bPMp8a4wwys2YB35p5zQ0JURovsdewlOxH\nNT7eP19eVf4dCreibxUmRUaob5DEoHEk8WrxjKWIYUuLeD6AfcW6oXyRU2Yy8Vrt6SqFl5",
+        "detail": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "documentation": {}
+    },
+    {
+        "label": "priv_key",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "description": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "peekOfCode": "priv_key = \"\"\"\n-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABAjNIZuun\nxgLkM8KuzfmQuRAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQDe3Al0EMPz\nutVNk5DixaYrGMK56RqUoqGBinke6SWVWmqom1lBcJWzor6HlnMRPPr7YCEsJKL4IpuVwu\ninRa5kdtNTyM7yyQTSR2xXCS0fUItNuq8pUktsH8VUggpMeew8hJv7rFA7tnIg3UXCl6iF\nOLZKbDA5aa24idpcD8b1I9/RzTOB1fu0of5xd9vgODzGw5JvHQSJ0FaA42aNBMGwrDhDB3\nsgnRNdWf6NNIh8KpXXMKJADf3klsyn6He8L2bPMp8a4wwys2YB35p5zQ0JURovsdewlOxH\nNT7eP19eVf4dCreibxUmRUaob5DEoHEk8WrxjKWIYUuLeD6AfcW6oXyRU2Yy8Vrt6SqFl5\nWAi47VMFTkDZYS/eCvG53q9UBHpCj7Qvb0vSkCZXBvBIhlw193F3PX4WvO1IXsMwvQ1D1X",
+        "detail": ".trunk.plugins.trunk.linters.trivy.test_data.secrets",
+        "documentation": {}
+    },
+    {
+        "label": "to_result_sarif",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.trivy_config_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trivy.trivy_config_to_sarif",
+        "peekOfCode": "def to_result_sarif(path: str, vuln_id: str, description: str, line: int = 0):\n    return {\n        \"level\": \"error\",\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": path,\n                    },\n                    \"region\": {",
+        "detail": ".trunk.plugins.trunk.linters.trivy.trivy_config_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.trivy_config_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trivy.trivy_config_to_sarif",
+        "peekOfCode": "def main(argv):\n    trivy_json = json.load(sys.stdin)\n    results = []\n    for result in trivy_json.get(\"Results\", []):\n        if \"Misconfigurations\" not in result:\n            continue\n        for vuln in result[\"Misconfigurations\"]:\n            vuln_id = vuln[\"ID\"]\n            message = vuln[\"Message\"]\n            line_num = vuln.get(\"CauseMetadata\", {}).get(\"StartLine\", 0)",
+        "detail": ".trunk.plugins.trunk.linters.trivy.trivy_config_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "get_sarif_severity",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "peekOfCode": "def get_sarif_severity(secret) -> str:\n    \"\"\"Get the SARIF severity appropriate for a given OSV vulnerability entry.\"\"\"\n    if \"Severity\" not in secret:\n        return DEFAULT_SARIF_SEVERITY\n    severity = secret[\"Severity\"].upper()\n    return SARIF_SEVERITY_BY_OSV_SEVERITY.get(severity, DEFAULT_SARIF_SEVERITY)\ndef to_result_sarif(path: str, severity: str, code: str, description: str, lineno: int):\n    return {\n        \"level\": severity,\n        \"locations\": [",
+        "detail": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "to_result_sarif",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "peekOfCode": "def to_result_sarif(path: str, severity: str, code: str, description: str, lineno: int):\n    return {\n        \"level\": severity,\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": path,\n                    },\n                    \"region\": {",
+        "detail": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "peekOfCode": "def main(argv):\n    trivy_json = json.load(sys.stdin)\n    results = []\n    for result in trivy_json.get(\"Results\", []):\n        path = trivy_json[\"ArtifactName\"]\n        for secret in result.get(\"Secrets\", []):\n            code = secret[\"RuleID\"]\n            description = secret[\"Title\"]\n            lineno = secret.get(\"StartLine\", 0)\n            results.append(",
+        "detail": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "SARIF_SEVERITY_BY_OSV_SEVERITY",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "peekOfCode": "SARIF_SEVERITY_BY_OSV_SEVERITY = {\n    \"CRITICAL\": \"error\",\n    \"HIGH\": \"error\",\n    \"MODERATE\": \"warning\",\n    \"MEDIUM\": \"warning\",\n    \"LOW\": \"note\",\n}\nDEFAULT_SARIF_SEVERITY = \"error\"\ndef get_sarif_severity(secret) -> str:\n    \"\"\"Get the SARIF severity appropriate for a given OSV vulnerability entry.\"\"\"",
+        "detail": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_SARIF_SEVERITY",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "peekOfCode": "DEFAULT_SARIF_SEVERITY = \"error\"\ndef get_sarif_severity(secret) -> str:\n    \"\"\"Get the SARIF severity appropriate for a given OSV vulnerability entry.\"\"\"\n    if \"Severity\" not in secret:\n        return DEFAULT_SARIF_SEVERITY\n    severity = secret[\"Severity\"].upper()\n    return SARIF_SEVERITY_BY_OSV_SEVERITY.get(severity, DEFAULT_SARIF_SEVERITY)\ndef to_result_sarif(path: str, severity: str, code: str, description: str, lineno: int):\n    return {\n        \"level\": severity,",
+        "detail": ".trunk.plugins.trunk.linters.trivy.trivy_fs_secret_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "get_sarif_severity",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "peekOfCode": "def get_sarif_severity(vuln) -> str:\n    \"\"\"Get the SARIF severity appropriate for a given OSV vulnerability entry.\"\"\"\n    if \"Severity\" not in vuln:\n        return DEFAULT_SARIF_SEVERITY\n    severity = vuln[\"Severity\"].upper()\n    return SARIF_SEVERITY_BY_OSV_SEVERITY.get(severity, DEFAULT_SARIF_SEVERITY)\ndef to_result_sarif(\n    path: str, severity: str, vuln_id: str, description: str, lineno: int\n):\n    return {",
+        "detail": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "to_result_sarif",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "peekOfCode": "def to_result_sarif(\n    path: str, severity: str, vuln_id: str, description: str, lineno: int\n):\n    return {\n        \"level\": severity,\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": path,",
+        "detail": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "peekOfCode": "def main(argv):\n    trivy_json = json.load(sys.stdin)\n    results = []\n    lockfiles = {}\n    for result in trivy_json.get(\"Results\", []):\n        for vuln in result.get(\"Vulnerabilities\", []):\n            pkg_name = vuln[\"PkgName\"]\n            path = trivy_json[\"ArtifactName\"]\n            vuln_id = vuln[\"VulnerabilityID\"]\n            description = vuln[\"Title\"]",
+        "detail": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "SARIF_SEVERITY_BY_OSV_SEVERITY",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "peekOfCode": "SARIF_SEVERITY_BY_OSV_SEVERITY = {\n    \"CRITICAL\": \"error\",\n    \"HIGH\": \"error\",\n    \"MODERATE\": \"warning\",\n    \"MEDIUM\": \"warning\",\n    \"LOW\": \"note\",\n}\nDEFAULT_SARIF_SEVERITY = \"error\"\ndef get_sarif_severity(vuln) -> str:\n    \"\"\"Get the SARIF severity appropriate for a given OSV vulnerability entry.\"\"\"",
+        "detail": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_SARIF_SEVERITY",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "peekOfCode": "DEFAULT_SARIF_SEVERITY = \"error\"\ndef get_sarif_severity(vuln) -> str:\n    \"\"\"Get the SARIF severity appropriate for a given OSV vulnerability entry.\"\"\"\n    if \"Severity\" not in vuln:\n        return DEFAULT_SARIF_SEVERITY\n    severity = vuln[\"Severity\"].upper()\n    return SARIF_SEVERITY_BY_OSV_SEVERITY.get(severity, DEFAULT_SARIF_SEVERITY)\ndef to_result_sarif(\n    path: str, severity: str, vuln_id: str, description: str, lineno: int\n):",
+        "detail": ".trunk.plugins.trunk.linters.trivy.trivy_fs_vuln_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "aws_access_key_id",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "description": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "peekOfCode": "aws_access_key_id = \"AKIAXYZDQCEN4EXAMPLE\"\naws_secret_access_key = \"Tg0pz8Jii8hkLx4+PnUisM8GmKs3a2DK+EXAMPLE\"\n# The below keys are copied from https://github.com/dustin-decker/secretsandstuff\ngithub_secret = \"369963c1434c377428ca8531fbc46c0c43d037a0\"\nbasic_auth = \"https://admin:admin@the-internet.herokuapp.com/basic_auth\"\npriv_key = '''\n-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABAjNIZuun\nxgLkM8KuzfmQuRAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQDe3Al0EMPz\nutVNk5DixaYrGMK56RqUoqGBinke6SWVWmqom1lBcJWzor6HlnMRPPr7YCEsJKL4IpuVwu",
+        "detail": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "documentation": {}
+    },
+    {
+        "label": "aws_secret_access_key",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "description": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "peekOfCode": "aws_secret_access_key = \"Tg0pz8Jii8hkLx4+PnUisM8GmKs3a2DK+EXAMPLE\"\n# The below keys are copied from https://github.com/dustin-decker/secretsandstuff\ngithub_secret = \"369963c1434c377428ca8531fbc46c0c43d037a0\"\nbasic_auth = \"https://admin:admin@the-internet.herokuapp.com/basic_auth\"\npriv_key = '''\n-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABAjNIZuun\nxgLkM8KuzfmQuRAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQDe3Al0EMPz\nutVNk5DixaYrGMK56RqUoqGBinke6SWVWmqom1lBcJWzor6HlnMRPPr7YCEsJKL4IpuVwu\ninRa5kdtNTyM7yyQTSR2xXCS0fUItNuq8pUktsH8VUggpMeew8hJv7rFA7tnIg3UXCl6iF",
+        "detail": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "documentation": {}
+    },
+    {
+        "label": "github_secret",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "description": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "peekOfCode": "github_secret = \"369963c1434c377428ca8531fbc46c0c43d037a0\"\nbasic_auth = \"https://admin:admin@the-internet.herokuapp.com/basic_auth\"\npriv_key = '''\n-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABAjNIZuun\nxgLkM8KuzfmQuRAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQDe3Al0EMPz\nutVNk5DixaYrGMK56RqUoqGBinke6SWVWmqom1lBcJWzor6HlnMRPPr7YCEsJKL4IpuVwu\ninRa5kdtNTyM7yyQTSR2xXCS0fUItNuq8pUktsH8VUggpMeew8hJv7rFA7tnIg3UXCl6iF\nOLZKbDA5aa24idpcD8b1I9/RzTOB1fu0of5xd9vgODzGw5JvHQSJ0FaA42aNBMGwrDhDB3\nsgnRNdWf6NNIh8KpXXMKJADf3klsyn6He8L2bPMp8a4wwys2YB35p5zQ0JURovsdewlOxH",
+        "detail": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "documentation": {}
+    },
+    {
+        "label": "basic_auth",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "description": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "peekOfCode": "basic_auth = \"https://admin:admin@the-internet.herokuapp.com/basic_auth\"\npriv_key = '''\n-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABAjNIZuun\nxgLkM8KuzfmQuRAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQDe3Al0EMPz\nutVNk5DixaYrGMK56RqUoqGBinke6SWVWmqom1lBcJWzor6HlnMRPPr7YCEsJKL4IpuVwu\ninRa5kdtNTyM7yyQTSR2xXCS0fUItNuq8pUktsH8VUggpMeew8hJv7rFA7tnIg3UXCl6iF\nOLZKbDA5aa24idpcD8b1I9/RzTOB1fu0of5xd9vgODzGw5JvHQSJ0FaA42aNBMGwrDhDB3\nsgnRNdWf6NNIh8KpXXMKJADf3klsyn6He8L2bPMp8a4wwys2YB35p5zQ0JURovsdewlOxH\nNT7eP19eVf4dCreibxUmRUaob5DEoHEk8WrxjKWIYUuLeD6AfcW6oXyRU2Yy8Vrt6SqFl5",
+        "detail": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "documentation": {}
+    },
+    {
+        "label": "priv_key",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "description": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "peekOfCode": "priv_key = '''\n-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABAjNIZuun\nxgLkM8KuzfmQuRAAAAEAAAAAEAAAGXAAAAB3NzaC1yc2EAAAADAQABAAABgQDe3Al0EMPz\nutVNk5DixaYrGMK56RqUoqGBinke6SWVWmqom1lBcJWzor6HlnMRPPr7YCEsJKL4IpuVwu\ninRa5kdtNTyM7yyQTSR2xXCS0fUItNuq8pUktsH8VUggpMeew8hJv7rFA7tnIg3UXCl6iF\nOLZKbDA5aa24idpcD8b1I9/RzTOB1fu0of5xd9vgODzGw5JvHQSJ0FaA42aNBMGwrDhDB3\nsgnRNdWf6NNIh8KpXXMKJADf3klsyn6He8L2bPMp8a4wwys2YB35p5zQ0JURovsdewlOxH\nNT7eP19eVf4dCreibxUmRUaob5DEoHEk8WrxjKWIYUuLeD6AfcW6oXyRU2Yy8Vrt6SqFl5\nWAi47VMFTkDZYS/eCvG53q9UBHpCj7Qvb0vSkCZXBvBIhlw193F3PX4WvO1IXsMwvQ1D1X",
+        "detail": ".trunk.plugins.trunk.linters.trufflehog.test_data.secrets.in",
+        "documentation": {}
+    },
+    {
+        "label": "to_result_sarif",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "peekOfCode": "def to_result_sarif(path: str, line_number: int, vuln_id: str, description: str):\n    return {\n        \"level\": \"error\",\n        \"locations\": [\n            {\n                \"physicalLocation\": {\n                    \"artifactLocation\": {\n                        \"uri\": path,\n                    },\n                    \"region\": {",
+        "detail": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "sliding_window",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "peekOfCode": "def sliding_window(iterable, n):\n    # sliding_window('ABCDEFG', 4) --> ABCD BCDE CDEF DEFG\n    it = iter(iterable)\n    window = collections.deque(islice(it, n - 1), maxlen=n)\n    for x in it:\n        window.append(x)\n        yield tuple(window)\nsecret_lineno_cache = {}\nfile_cache = {}\ndef find_line_number(secret, path):",
+        "detail": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "find_line_number",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "peekOfCode": "def find_line_number(secret, path):\n    if path not in file_cache:\n        file_cache[path] = open(path).readlines()\n    if secret not in secret_lineno_cache:\n        secret_lineno_cache[secret] = []\n    secret_length = len(secret.splitlines())\n    lines = file_cache[path]\n    for lineno, window in enumerate(sliding_window(lines, secret_length), 1):\n        # trufflehog can report the same secret multiple times\n        # if it truly appears multiple times, then we want to log different lines for each issue",
+        "detail": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "peekOfCode": "def main(argv):\n    results = []\n    for line in sys.stdin.readlines():\n        vuln_json = json.loads(line)\n        # trufflehog doesn't have vuln IDs\n        # this is the name of the detector that found the error (e.g. AWS, Github, PrivateKey)\n        vuln_id = vuln_json[\"DetectorName\"]\n        # There also isn't description of the error aside from the raw secret, the redacted secret,\n        # and the detector that found it.\n        #",
+        "detail": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "secret_lineno_cache",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "peekOfCode": "secret_lineno_cache = {}\nfile_cache = {}\ndef find_line_number(secret, path):\n    if path not in file_cache:\n        file_cache[path] = open(path).readlines()\n    if secret not in secret_lineno_cache:\n        secret_lineno_cache[secret] = []\n    secret_length = len(secret.splitlines())\n    lines = file_cache[path]\n    for lineno, window in enumerate(sliding_window(lines, secret_length), 1):",
+        "detail": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "file_cache",
+        "kind": 5,
+        "importPath": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "description": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "peekOfCode": "file_cache = {}\ndef find_line_number(secret, path):\n    if path not in file_cache:\n        file_cache[path] = open(path).readlines()\n    if secret not in secret_lineno_cache:\n        secret_lineno_cache[secret] = []\n    secret_length = len(secret.splitlines())\n    lines = file_cache[path]\n    for lineno, window in enumerate(sliding_window(lines, secret_length), 1):\n        # trufflehog can report the same secret multiple times",
+        "detail": ".trunk.plugins.trunk.linters.trufflehog.trufflehog_to_sarif",
+        "documentation": {}
+    },
+    {
+        "label": "NoDocstring",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.yapf.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.yapf.test_data.basic.in",
+        "peekOfCode": "class NoDocstring(object):\n    def __init__(self, arg1):\n        self._attr1 = arg1\nclass Globe(object):\n    def __init__(self):\n        self.shape = 'spheroid'\n#whitespace below vvv\n  #A malindented comment\nif __name__ == \"__main__\" :\n      a=4+1",
+        "detail": ".trunk.plugins.trunk.linters.yapf.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "Globe",
+        "kind": 6,
+        "importPath": ".trunk.plugins.trunk.linters.yapf.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.yapf.test_data.basic.in",
+        "peekOfCode": "class Globe(object):\n    def __init__(self):\n        self.shape = 'spheroid'\n#whitespace below vvv\n  #A malindented comment\nif __name__ == \"__main__\" :\n      a=4+1\n      b=( 2*7 )\n      c = [1,\n           2,",
+        "detail": ".trunk.plugins.trunk.linters.yapf.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".trunk.plugins.trunk.linters.yapf.test_data.basic.in",
+        "description": ".trunk.plugins.trunk.linters.yapf.test_data.basic.in",
+        "peekOfCode": "def main():\n    try:\n        pass\n    except (Exception, TypeError):\n        pass\nimport sys\n# trunk-ignore(flake8/F401): this will trigger a warning to verify that the config is applied\nclass NoDocstring(object):\n    def __init__(self, arg1):\n        self._attr1 = arg1",
+        "detail": ".trunk.plugins.trunk.linters.yapf.test_data.basic.in",
+        "documentation": {}
+    },
+    {
+        "label": "EditProfileForm",
+        "kind": 6,
+        "importPath": "app.auth.forms",
+        "description": "app.auth.forms",
+        "peekOfCode": "class EditProfileForm(FlaskForm):\n    username = StringField('Username', validators=[DataRequired()])\nclass ResetPasswordRequestForm(FlaskForm):\n    email = StringField('Email', validators=[DataRequired(), Email()])\n    submit = SubmitField('Request Password Reset')\nclass ResetPasswordForm(FlaskForm):\n    password = PasswordField('New Password', validators=[DataRequired()])\n    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])\n    submit = SubmitField('Reset Password')\nclass LoginForm(FlaskForm):",
+        "detail": "app.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "ResetPasswordRequestForm",
+        "kind": 6,
+        "importPath": "app.auth.forms",
+        "description": "app.auth.forms",
+        "peekOfCode": "class ResetPasswordRequestForm(FlaskForm):\n    email = StringField('Email', validators=[DataRequired(), Email()])\n    submit = SubmitField('Request Password Reset')\nclass ResetPasswordForm(FlaskForm):\n    password = PasswordField('New Password', validators=[DataRequired()])\n    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])\n    submit = SubmitField('Reset Password')\nclass LoginForm(FlaskForm):\n    username = StringField(\n        \"Username\",",
+        "detail": "app.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "ResetPasswordForm",
+        "kind": 6,
+        "importPath": "app.auth.forms",
+        "description": "app.auth.forms",
+        "peekOfCode": "class ResetPasswordForm(FlaskForm):\n    password = PasswordField('New Password', validators=[DataRequired()])\n    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])\n    submit = SubmitField('Reset Password')\nclass LoginForm(FlaskForm):\n    username = StringField(\n        \"Username\",\n        validators=[DataRequired(), Length(min=4, max=25)],\n        render_kw={\"placeholder\": \"Username\", \"class\": \"form-control\"}\n    )",
+        "detail": "app.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "LoginForm",
+        "kind": 6,
+        "importPath": "app.auth.forms",
+        "description": "app.auth.forms",
+        "peekOfCode": "class LoginForm(FlaskForm):\n    username = StringField(\n        \"Username\",\n        validators=[DataRequired(), Length(min=4, max=25)],\n        render_kw={\"placeholder\": \"Username\", \"class\": \"form-control\"}\n    )\n    password = PasswordField(\n        \"Password\",\n        validators=[DataRequired(), Length(min=6)],\n        render_kw={\"placeholder\": \"Password\", \"class\": \"form-control\"}",
+        "detail": "app.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "RegistrationForm",
+        "kind": 6,
+        "importPath": "app.auth.forms",
+        "description": "app.auth.forms",
+        "peekOfCode": "class RegistrationForm(FlaskForm):\n    username = StringField(\"Username\", validators=[DataRequired(), Length(min=4, max=25), Regexp(\"^[A-Za-z][A-Za-z0-9_.]*$\", 0, \"Usernames must have only letters, numbers, dots or underscores\")], render_kw={\"placeholder\": \"Username\", \"class\": \"form-control\"})\n    email = EmailField(\"Email (Optional)\", validators=[Optional(), Email(message=\"Please enter a valid email address.\")], render_kw={\"placeholder\": \"Email (Optional)\", \"class\": \"form-control\"})\n    password = PasswordField(\"Password\", validators=[DataRequired(), Length(min=6, message=\"Password must be at least 6 characters long.\"), Regexp(\"^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\\W_]).*$\", 0, \"Password must contain a letter, a number, and a special character.\")], render_kw={\"placeholder\": \"Password\", \"class\": \"form-control\"})\n    confirm_password = PasswordField(\"Confirm Password\", validators=[DataRequired(), EqualTo(\"password\", message=\"Passwords must match.\")], render_kw={\"placeholder\": \"Confirm Password\", \"class\": \"form-control\"})\n    submit = SubmitField(\"Sign Up\", render_kw={\"class\": \"btn btn-success\"})\n    def validate_username(self, username):\n        conn = get_db_connection()\n        user = conn.execute('SELECT * FROM users WHERE username = ?', (username.data,)).fetchone()\n        conn.close()",
+        "detail": "app.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "app.auth.forms",
+        "description": "app.auth.forms",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nclass EditProfileForm(FlaskForm):\n    username = StringField('Username', validators=[DataRequired()])\nclass ResetPasswordRequestForm(FlaskForm):\n    email = StringField('Email', validators=[DataRequired(), Email()])\n    submit = SubmitField('Request Password Reset')\nclass ResetPasswordForm(FlaskForm):\n    password = PasswordField('New Password', validators=[DataRequired()])\n    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])\n    submit = SubmitField('Reset Password')",
+        "detail": "app.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "get_user_by_username",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def get_user_by_username(username):\n    conn = get_db_connection()\n    user = conn.execute(\n        \"SELECT * FROM users WHERE username = ?\", (username,)\n    ).fetchone()\n    conn.close()\n    return user\ndef get_user_by_email(email):\n    conn = get_db_connection()\n    user = conn.execute(\"SELECT * FROM users WHERE email = ?\", (email,)).fetchone()",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "get_user_by_email",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def get_user_by_email(email):\n    conn = get_db_connection()\n    user = conn.execute(\"SELECT * FROM users WHERE email = ?\", (email,)).fetchone()\n    conn.close()\n    return user\ndef insert_new_user(username, email, password_hash):\n    conn = get_db_connection()\n    conn.execute(\n        \"INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)\",\n        (username, email, password_hash),",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "insert_new_user",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def insert_new_user(username, email, password_hash):\n    conn = get_db_connection()\n    conn.execute(\n        \"INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)\",\n        (username, email, password_hash),\n    )\n    conn.commit()\n    conn.close()\n@auth.route(\"/login\", methods=[\"GET\", \"POST\"])\ndef login():",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "login",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def login():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.home\"))\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = get_user_by_username(form.username.data)\n        if user and check_password_hash(user[\"password_hash\"], form.password.data):\n            # User class needs adjustment for Flask-Login without SQLAlchemy\n            user_obj = User(\n                id=user[\"id\"], username=user[\"username\"]",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "register",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def register():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.home\"))\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        hashed_password = generate_password_hash(form.password.data)\n        insert_new_user(form.username.data, form.email.data, hashed_password)\n        flash(\"Your account has been created, you can now log in.\", \"success\")\n        return redirect(url_for(\"auth.login\"))\n    return render_template(\"register.html\", title=\"Register\", form=form)",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "logout",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def logout():\n    logout_user()\n    return redirect(url_for(\"main.home\"))\ndef is_safe_url(target):\n    test_url = urlparse(urljoin(request.host_url, target))\n    return (\n        test_url.scheme in (\"http\", \"https\")\n        and urlparse(request.host_url).hostname == test_url.hostname\n    )\n@auth.route(\"/set_language/<language>\")",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "is_safe_url",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def is_safe_url(target):\n    test_url = urlparse(urljoin(request.host_url, target))\n    return (\n        test_url.scheme in (\"http\", \"https\")\n        and urlparse(request.host_url).hostname == test_url.hostname\n    )\n@auth.route(\"/set_language/<language>\")\ndef set_language(language):\n    # Check to ensure the language code is supported\n    supported_languages = [\"en\", \"fr\"]",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "set_language",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def set_language(language):\n    # Check to ensure the language code is supported\n    supported_languages = [\"en\", \"fr\"]\n    if language in supported_languages:\n        session[\"lang\"] = language\n    else:\n        flash(\"Unsupported language.\", \"error\")\n    return redirect(url_for(\"main.home\"))\n@auth.route(\"/profile\", methods=[\"GET\", \"POST\"])\n@login_required",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "profile",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def profile():\n    form = EditProfileForm(current_user.username)\n    if form.validate_on_submit():\n        current_user.username = form.username.data\n        current_user.email = form.email.data\n        db.session.commit()\n        flash(\"Your profile has been updated.\", \"success\")\n        return redirect(url_for(\"auth.profile\"))\n    elif request.method == \"GET\":\n        form.username.data = current_user.username",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "reset_password_request",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def reset_password_request():\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.home\"))\n    form = ResetPasswordRequestForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(email=form.email.data).first()\n        if user:\n            send_password_reset_email(user)\n        flash(\"Check your email for the instructions to reset your password\", \"info\")\n        return redirect(url_for(\"auth.login\"))",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "reset_password",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def reset_password(token):\n    if current_user.is_authenticated:\n        return redirect(url_for(\"main.home\"))\n    user = User.verify_reset_password_token(token)\n    if not user:\n        return redirect(url_for(\"main.home\"))\n    form = ResetPasswordForm()\n    if form.validate_on_submit():\n        user.set_password(form.password.data)\n        db.session.commit()",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "send_password_reset_email",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def send_password_reset_email(user):\n    token = user.get_reset_password_token()\n    send_email(\n        \"[YourApp] Reset Your Password\",\n        sender=config[\"ADMINS\"][0],\n        recipients=[user.email],\n        text_body=render_template(\"email/reset_password.txt\", user=user, token=token),\n        html_body=render_template(\"email/reset_password.html\", user=user, token=token),\n    )\n@auth.route(\"/dashboard\")",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "dashboard",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def dashboard():\n    # Example of extending dashboard functionality\n    if current_user.role == \"admin\":\n        # Fetch admin-specific data or activities\n        activities = ActivityLog.query.all()  # Assuming an ActivityLog model exists\n    else:\n        activities = None\n    return render_template(\"dashboard.html\", activities=activities)\n# Flask application error handlers\n@auth.app_errorhandler(404)",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "not_found_error",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def not_found_error(error):\n    return render_template(\"404.html\"), 404\n@auth.app_errorhandler(500)\ndef internal_error(error):\n    db.session.rollback()\n    return render_template(\"500.html\"), 500",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "internal_error",
+        "kind": 2,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "def internal_error(error):\n    db.session.rollback()\n    return render_template(\"500.html\"), 500",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "auth",
+        "kind": 5,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "auth = Blueprint(\"auth\", __name__)\n# Configure logging\nlogging.basicConfig(level=logging.INFO)\nlogger = logging.getLogger(__name__)\ndef get_user_by_username(username):\n    conn = get_db_connection()\n    user = conn.execute(\n        \"SELECT * FROM users WHERE username = ?\", (username,)\n    ).fetchone()\n    conn.close()",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "app.auth.routes",
+        "description": "app.auth.routes",
+        "peekOfCode": "logger = logging.getLogger(__name__)\ndef get_user_by_username(username):\n    conn = get_db_connection()\n    user = conn.execute(\n        \"SELECT * FROM users WHERE username = ?\", (username,)\n    ).fetchone()\n    conn.close()\n    return user\ndef get_user_by_email(email):\n    conn = get_db_connection()",
+        "detail": "app.auth.routes",
+        "documentation": {}
+    },
+    {
+        "label": "set_language",
+        "kind": 2,
+        "importPath": "app.main.routes",
+        "description": "app.main.routes",
+        "peekOfCode": "def set_language(language):\n    session['lang'] = language\n    return redirect(url_for('home'))\n# Define a blueprint for your Flask application\nmain = Blueprint(\"main\", __name__)\ndef improved_home_with_maintenance_date():\n    \"\"\"\n    Renders the home page with dynamic messages and displays the duration since the maintenance started.\n    This function assumes it's being called within a Flask route.\n    \"\"\"",
+        "detail": "app.main.routes",
+        "documentation": {}
+    },
+    {
+        "label": "improved_home_with_maintenance_date",
+        "kind": 2,
+        "importPath": "app.main.routes",
+        "description": "app.main.routes",
+        "peekOfCode": "def improved_home_with_maintenance_date():\n    \"\"\"\n    Renders the home page with dynamic messages and displays the duration since the maintenance started.\n    This function assumes it's being called within a Flask route.\n    \"\"\"\n    # Get the current date and time\n    now = datetime.now()\n    formatted_now = now.strftime(\"%Y-%m-%d %H:%M:%S\")\n    # Predefined maintenance start date (for illustration, adjust as needed)\n    maintenance_start_date = datetime(2024, 1, 1, 0, 0, 0)",
+        "detail": "app.main.routes",
+        "documentation": {}
+    },
+    {
+        "label": "home",
+        "kind": 2,
+        "importPath": "app.main.routes",
+        "description": "app.main.routes",
+        "peekOfCode": "def home():\n    \"\"\"\n    Renders the home page and displays a maintenance message.\n    This function calls the improved_home_with_maintenance_date function to handle the logic.\n    \"\"\"\n    return improved_home_with_maintenance_date()",
+        "detail": "app.main.routes",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 5,
+        "importPath": "app.main.routes",
+        "description": "app.main.routes",
+        "peekOfCode": "main = Blueprint('main', __name__)\n@main.route('/set_language/<language>')\ndef set_language(language):\n    session['lang'] = language\n    return redirect(url_for('home'))\n# Define a blueprint for your Flask application\nmain = Blueprint(\"main\", __name__)\ndef improved_home_with_maintenance_date():\n    \"\"\"\n    Renders the home page with dynamic messages and displays the duration since the maintenance started.",
+        "detail": "app.main.routes",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 5,
+        "importPath": "app.main.routes",
+        "description": "app.main.routes",
+        "peekOfCode": "main = Blueprint(\"main\", __name__)\ndef improved_home_with_maintenance_date():\n    \"\"\"\n    Renders the home page with dynamic messages and displays the duration since the maintenance started.\n    This function assumes it's being called within a Flask route.\n    \"\"\"\n    # Get the current date and time\n    now = datetime.now()\n    formatted_now = now.strftime(\"%Y-%m-%d %H:%M:%S\")\n    # Predefined maintenance start date (for illustration, adjust as needed)",
+        "detail": "app.main.routes",
+        "documentation": {}
+    },
+    {
+        "label": "get_db_connection",
+        "kind": 2,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "def get_db_connection():\n    conn = sqlite3.connect(DATABASE_URI)\n    conn.row_factory = sqlite3.Row\n    return conn\ndef create_user_table():\n    with get_db_connection() as conn:\n        cursor = conn.cursor()\n        cursor.execute(\"\"\"\n            CREATE TABLE IF NOT EXISTS users (\n                id INTEGER PRIMARY KEY AUTOINCREMENT,",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "create_user_table",
+        "kind": 2,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "def create_user_table():\n    with get_db_connection() as conn:\n        cursor = conn.cursor()\n        cursor.execute(\"\"\"\n            CREATE TABLE IF NOT EXISTS users (\n                id INTEGER PRIMARY KEY AUTOINCREMENT,\n                username TEXT UNIQUE NOT NULL,\n                email TEXT UNIQUE,\n                password_hash TEXT NOT NULL,\n                role_id INTEGER",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "create_role_table",
+        "kind": 2,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "def create_role_table():\n    with get_db_connection() as conn:\n        cursor = conn.cursor()\n        cursor.execute(\"\"\"\n            CREATE TABLE IF NOT EXISTS roles (\n                id INTEGER PRIMARY KEY AUTOINCREMENT,\n                name TEXT UNIQUE NOT NULL\n            );\n        \"\"\")\n        conn.commit()",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "init_db",
+        "kind": 2,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "def init_db():\n    \"\"\"Initializes the database by creating necessary tables.\"\"\"\n    create_user_table()\n    create_role_table()\n    # Add more table creation functions here as needed",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASE_URI",
+        "kind": 5,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "DATABASE_URI = Config.DATABASE_URI.split(\"///\")[-1]\ndef get_db_connection():\n    conn = sqlite3.connect(DATABASE_URI)\n    conn.row_factory = sqlite3.Row\n    return conn\ndef create_user_table():\n    with get_db_connection() as conn:\n        cursor = conn.cursor()\n        cursor.execute(\"\"\"\n            CREATE TABLE IF NOT EXISTS users (",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "send_email",
+        "kind": 2,
+        "importPath": "app.email",
+        "description": "app.email",
+        "peekOfCode": "def send_email(subject, sender, recipients, text_body, html_body):\n    msg = Message(subject, sender=sender, recipients=recipients)\n    msg.body = text_body\n    msg.html = html_body\n    mail.send(msg)",
+        "detail": "app.email",
+        "documentation": {}
+    },
+    {
+        "label": "ActivityLog",
+        "kind": 6,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "class ActivityLog:\n    def __init__(self, activity_id, user_id, activity_data):\n        self.activity_id = activity_id\n        self.user_id = user_id\n        self.activity_data = activity_data\n    @staticmethod\n    def log_activity(user_id, activity_data):\n        conn = get_db_connection()\n        conn.execute(\n            \"INSERT INTO activity_log (user_id, activity_data) VALUES (?, ?)\",",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "Role",
+        "kind": 6,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "class Role:\n    def __init__(self, name):\n        self.name = name\n    @staticmethod\n    def create_role(name):\n        conn = get_db_connection()\n        conn.execute(\"INSERT INTO roles (name) VALUES (?)\", (name,))\n        conn.commit()\n        conn.close()\n    @staticmethod",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "kind": 6,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "class User(UserMixin):\n    def __init__(\n        self,\n        id=None,\n        username=None,\n        email=None,\n        password=None,\n        role_id=None,\n        password_hash=None,\n    ):",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "DBHandler",
+        "kind": 6,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "class DBHandler:\n    @staticmethod\n    def add(user):\n        with get_db_connection() as conn:\n            if isinstance(user, User):\n                conn.execute(\n                    \"INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)\",\n                    (user.username, user.email, user.password_hash),\n                )\n    @staticmethod",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "QueryHandler",
+        "kind": 6,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "class QueryHandler:\n    def filter_by(self, **kwargs):\n        # Simplified example for username lookup\n        if \"username\" in kwargs:\n            with get_db_connection() as conn:\n                user_row = conn.execute(\n                    \"SELECT * FROM users WHERE username = ?\", (kwargs[\"username\"],)\n                ).fetchone()\n                if user_row:\n                    return User(",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "load_user",
+        "kind": 2,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "def load_user(user_id):\n    conn = get_db_connection()\n    user_row = conn.execute(\"SELECT * FROM users WHERE id = ?\", (user_id,)).fetchone()\n    conn.close()\n    if user_row:\n        return User(\n            id=user_row[\"id\"], username=user_row[\"username\"]\n        )  # Adjust according to your User class definition\n    return None\ndef login_user_with_expiration(user, remember=True, duration=365):",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "login_user_with_expiration",
+        "kind": 2,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "def login_user_with_expiration(user, remember=True, duration=365):\n    login_user(user, remember=remember)\n    session.permanent = True\n    current_app.permanent_session_lifetime = timedelta(days=duration)\ndef init_roles():\n    roles = [\"admin\", \"editor\", \"viewer\"]\n    for role_name in roles:\n        if Role.find_by_name(role_name) is None:\n            Role.create_role(role_name)",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "init_roles",
+        "kind": 2,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "def init_roles():\n    roles = [\"admin\", \"editor\", \"viewer\"]\n    for role_name in roles:\n        if Role.find_by_name(role_name) is None:\n            Role.create_role(role_name)",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "db = DBHandler()\n@login_manager.user_loader\ndef load_user(user_id):\n    conn = get_db_connection()\n    user_row = conn.execute(\"SELECT * FROM users WHERE id = ?\", (user_id,)).fetchone()\n    conn.close()\n    if user_row:\n        return User(\n            id=user_row[\"id\"], username=user_row[\"username\"]\n        )  # Adjust according to your User class definition",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "upgrade",
+        "kind": 2,
+        "importPath": "migrations.versions.6fe380a12545_initial_migration",
+        "description": "migrations.versions.6fe380a12545_initial_migration",
+        "peekOfCode": "def upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    op.create_table('user',\n    sa.Column('id', sa.Integer(), nullable=False),\n    sa.Column('username', sa.String(length=64), nullable=True),\n    sa.Column('email', sa.String(length=120), nullable=True),\n    sa.Column('password_hash', sa.String(length=128), nullable=True),\n    sa.PrimaryKeyConstraint('id')\n    )\n    with op.batch_alter_table('user', schema=None) as batch_op:",
+        "detail": "migrations.versions.6fe380a12545_initial_migration",
+        "documentation": {}
+    },
+    {
+        "label": "downgrade",
+        "kind": 2,
+        "importPath": "migrations.versions.6fe380a12545_initial_migration",
+        "description": "migrations.versions.6fe380a12545_initial_migration",
+        "peekOfCode": "def downgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('user', schema=None) as batch_op:\n        batch_op.drop_index(batch_op.f('ix_user_username'))\n        batch_op.drop_index(batch_op.f('ix_user_email'))\n    op.drop_table('user')\n    # ### end Alembic commands ###",
+        "detail": "migrations.versions.6fe380a12545_initial_migration",
+        "documentation": {}
+    },
+    {
+        "label": "revision",
+        "kind": 5,
+        "importPath": "migrations.versions.6fe380a12545_initial_migration",
+        "description": "migrations.versions.6fe380a12545_initial_migration",
+        "peekOfCode": "revision = '6fe380a12545'\ndown_revision = None\nbranch_labels = None\ndepends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    op.create_table('user',\n    sa.Column('id', sa.Integer(), nullable=False),\n    sa.Column('username', sa.String(length=64), nullable=True),\n    sa.Column('email', sa.String(length=120), nullable=True),",
+        "detail": "migrations.versions.6fe380a12545_initial_migration",
+        "documentation": {}
+    },
+    {
+        "label": "down_revision",
+        "kind": 5,
+        "importPath": "migrations.versions.6fe380a12545_initial_migration",
+        "description": "migrations.versions.6fe380a12545_initial_migration",
+        "peekOfCode": "down_revision = None\nbranch_labels = None\ndepends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    op.create_table('user',\n    sa.Column('id', sa.Integer(), nullable=False),\n    sa.Column('username', sa.String(length=64), nullable=True),\n    sa.Column('email', sa.String(length=120), nullable=True),\n    sa.Column('password_hash', sa.String(length=128), nullable=True),",
+        "detail": "migrations.versions.6fe380a12545_initial_migration",
+        "documentation": {}
+    },
+    {
+        "label": "branch_labels",
+        "kind": 5,
+        "importPath": "migrations.versions.6fe380a12545_initial_migration",
+        "description": "migrations.versions.6fe380a12545_initial_migration",
+        "peekOfCode": "branch_labels = None\ndepends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    op.create_table('user',\n    sa.Column('id', sa.Integer(), nullable=False),\n    sa.Column('username', sa.String(length=64), nullable=True),\n    sa.Column('email', sa.String(length=120), nullable=True),\n    sa.Column('password_hash', sa.String(length=128), nullable=True),\n    sa.PrimaryKeyConstraint('id')",
+        "detail": "migrations.versions.6fe380a12545_initial_migration",
+        "documentation": {}
+    },
+    {
+        "label": "depends_on",
+        "kind": 5,
+        "importPath": "migrations.versions.6fe380a12545_initial_migration",
+        "description": "migrations.versions.6fe380a12545_initial_migration",
+        "peekOfCode": "depends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    op.create_table('user',\n    sa.Column('id', sa.Integer(), nullable=False),\n    sa.Column('username', sa.String(length=64), nullable=True),\n    sa.Column('email', sa.String(length=120), nullable=True),\n    sa.Column('password_hash', sa.String(length=128), nullable=True),\n    sa.PrimaryKeyConstraint('id')\n    )",
+        "detail": "migrations.versions.6fe380a12545_initial_migration",
+        "documentation": {}
+    },
+    {
+        "label": "get_engine",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def get_engine():\n    try:\n        # this works with Flask-SQLAlchemy<3 and Alchemical\n        return current_app.extensions['migrate'].db.get_engine()\n    except (TypeError, AttributeError):\n        # this works with Flask-SQLAlchemy>=3\n        return current_app.extensions['migrate'].db.engine\ndef get_engine_url():\n    try:\n        return get_engine().url.render_as_string(hide_password=False).replace(",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "get_engine_url",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def get_engine_url():\n    try:\n        return get_engine().url.render_as_string(hide_password=False).replace(\n            '%', '%%')\n    except AttributeError:\n        return str(get_engine().url).replace('%', '%%')\n# add your model's MetaData object here\n# for 'autogenerate' support\n# from myapp import mymodel\n# target_metadata = mymodel.Base.metadata",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "get_metadata",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def get_metadata():\n    if hasattr(target_db, 'metadatas'):\n        return target_db.metadatas[None]\n    return target_db.metadata\ndef run_migrations_offline():\n    \"\"\"Run migrations in 'offline' mode.\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "run_migrations_offline",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def run_migrations_offline():\n    \"\"\"Run migrations in 'offline' mode.\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.\n    Calls to context.execute() here emit the given string to the\n    script output.\n    \"\"\"\n    url = config.get_main_option(\"sqlalchemy.url\")",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "run_migrations_online",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def run_migrations_online():\n    \"\"\"Run migrations in 'online' mode.\n    In this scenario we need to create an Engine\n    and associate a connection with the context.\n    \"\"\"\n    # this callback is used to prevent an auto-migration from being generated\n    # when there are no changes to the schema\n    # reference: http://alembic.zzzcomputing.com/en/latest/cookbook.html\n    def process_revision_directives(context, revision, directives):\n        if getattr(config.cmd_opts, 'autogenerate', False):",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "kind": 5,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "config = context.config\n# Interpret the config file for Python logging.\n# This line sets up loggers basically.\nfileConfig(config.config_file_name)\nlogger = logging.getLogger('alembic.env')\ndef get_engine():\n    try:\n        # this works with Flask-SQLAlchemy<3 and Alchemical\n        return current_app.extensions['migrate'].db.get_engine()\n    except (TypeError, AttributeError):",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "logger = logging.getLogger('alembic.env')\ndef get_engine():\n    try:\n        # this works with Flask-SQLAlchemy<3 and Alchemical\n        return current_app.extensions['migrate'].db.get_engine()\n    except (TypeError, AttributeError):\n        # this works with Flask-SQLAlchemy>=3\n        return current_app.extensions['migrate'].db.engine\ndef get_engine_url():\n    try:",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "target_db",
+        "kind": 5,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "target_db = current_app.extensions['migrate'].db\n# other values from the config, defined by the needs of env.py,\n# can be acquired:\n# my_important_option = config.get_main_option(\"my_important_option\")\n# ... etc.\ndef get_metadata():\n    if hasattr(target_db, 'metadatas'):\n        return target_db.metadatas[None]\n    return target_db.metadata\ndef run_migrations_offline():",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "kind": 6,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "class Config:\n    SECRET_KEY = secrets.token_hex(32)\n    DATABASE_URI = \"sqlite:///user.db\"\nclass DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "DevelopmentConfig",
+        "kind": 6,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "class DevelopmentConfig(Config):\n    DEBUG = True\nclass TestingConfig(Config):\n    TESTING = True\n    DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "TestingConfig",
+        "kind": 6,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "class TestingConfig(Config):\n    TESTING = True\n    DATABASE_URI = \"sqlite:///test.db\"\nclass ProductionConfig(Config):\n    DEBUG = False",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "ProductionConfig",
+        "kind": 6,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "class ProductionConfig(Config):\n    DEBUG = False",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "run",
+        "description": "run",
+        "peekOfCode": "app = create_app()\nif __name__ == \"__main__\":\n    db.create_all()\n    app.run()",
+        "detail": "run",
+        "documentation": {}
+    }
+]

@@ -1,0 +1,80 @@
+<div class="container mt-4">
+    <!-- Client Dashboard Heading -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Client Dashboard</h2>
+    </div>
+
+    <!-- Recent Activities Section -->
+    <div class="card mb-4">
+        <div class="card-header">
+            Recent Activities
+        </div>
+        <ul class="list-group list-group-flush" id="recentActivitiesList">
+            <!-- Dynamically filled with JavaScript -->
+            <li class="list-group-item">Loading recent activities...</li>
+        </ul>
+    </div>
+
+    <!-- Feedback Form -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Submit Feedback</h5>
+            <form id="feedbackForm">
+                <div class="mb-3">
+                    <label for="feedbackInput" class="form-label">Your Feedback</label>
+                    <textarea class="form-control" id="feedbackInput" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Personalized Recommendations -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Recommendations for You</h5>
+            <div id="recommendationsList">
+                <!-- Dynamically filled with JavaScript -->
+                Loading recommendations...
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fetch and display recent activities
+    function loadRecentActivities() {
+        // Placeholder for fetching data
+        // Simulate fetching data with a timeout
+        setTimeout(() => {
+            document.getElementById('recentActivitiesList').innerHTML = '<li class="list-group-item">Activity 1</li><li class="list-group-item">Activity 2</li>';
+        }, 1000);
+    }
+
+    // Fetch and display personalized recommendations
+    function loadRecommendations() {
+        // Placeholder for fetching data
+        // Simulate fetching data with a timeout
+        setTimeout(() => {
+            document.getElementById('recommendationsList').innerHTML = 'Check out our new services!';
+        }, 1000);
+    }
+
+    // Handle feedback form submission
+    document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const feedback = document.getElementById('feedbackInput').value;
+        // Placeholder for AJAX request
+        console.log('Submitting feedback:', feedback);
+        // Simulate an AJAX response
+        setTimeout(() => {
+            alert('Feedback submitted successfully!');
+            document.getElementById('feedbackInput').value = ''; // Clear the textarea
+        }, 500);
+    });
+
+    loadRecentActivities();
+    loadRecommendations();
+});
+</script>
