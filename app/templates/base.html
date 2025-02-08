@@ -1,42 +1,57 @@
 <!DOCTYPE html>
-<html lang="{{ session['lang'] or 'en' }}">
+<html lang="{{ session.get('lang', 'en') }}">
 <head>
   <!-- Basic Meta Tags -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="Content-Language" content="en">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Kevin Marville alias kvnbbg on GitHub is the Python developer of the website au-garage for Mister Vincent Parrot, a garagiste.">
-  <meta name="keywords" content="Garage V. Parrot, Kevin Marville, kvnbbg, Python Developer, Auto Repair, Toulouse">
+  <meta http-equiv="Content-Language" content="{{ session.get('lang', 'en') }}">
+  <meta name="description" content="Kevin Marville alias kvnbbg on GitHub is the Python developer of the Au Garage web application for Monsieur Parrot.">
+  <meta name="keywords" content="Au Garage, Kevin Marville, kvnbbg, Python Developer, Auto Repair, Toulouse">
   <meta name="author" content="Kevin Marville">
-  <title>Garage V. Parrot</title>
-
   <meta name="msapplication-tap-highlight" content="no">
-<link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet"></head>
-
+  
+  <title>Au garage</title>
+  
   <!-- Favicon -->
-  <link rel="shortcut icon" href="{{ url_for('static', filename='/images/favicon.ico') }}" type="image/x-icon">
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
-
-  <!-- Bootstrap Bundle with Popper -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+  
+  <!-- Stylesheets -->
+  <!-- ArchitectUI CSS (Optional) -->
+  <link rel="stylesheet" href="https://demo.dashboardpack.com/architectui-html-free/main.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+  <!-- Google Fonts: Asian & European typography blend -->
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+  <!-- Inline CSS for Slide Animation -->
+  <style>
+    /* Slide container animation: slides upward while fading in */
+    .slide-container {
+      animation: slideIn 1s ease-out forwards;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+  
   <!-- Structured Data for Rich Snippets -->
   <script type="application/ld+json">
   {
     "@context": "http://schema.org",
     "@type": "AutoRepair",
-    "name": "Garage V. Parrot",
+    "name": "Au garage",
     "url": "https://au-garage-92dd5c42a6c4.herokuapp.com",
     "address": {
       "@type": "PostalAddress",
@@ -50,53 +65,90 @@
   </script>
 </head>
 <body>
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ url_for('main.home') }}">
-      <img src="{{ url_for('static', filename='/images/logo.png') }}" alt="Logo" style="height: 30px;">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav ml-auto">
-        <a class="nav-item nav-link" href="{{ url_for('auth.set_language', language='en') }}">🇺🇸 English</a>
-        <a class="nav-item nav-link" href="{{ url_for('auth.set_language', language='fr') }}">🇫🇷 Français</a>
-        {% if not current_user.is_authenticated %}
-        <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
-        {% else %}
-        <a class="nav-item nav-link" href="{{ url_for('auth.dashboard') }}">Dashboard</a>
-        <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
-        {% endif %}
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('main.home') }}">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="height: 30px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" 
+              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+          <a class="nav-item nav-link" href="{{ url_for('auth.set_language', language='en') }}">🇺🇸 English</a>
+          <a class="nav-item nav-link" href="{{ url_for('auth.set_language', language='fr') }}">🇫🇷 Français</a>
+          {% if not current_user.is_authenticated %}
+            <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
+          {% else %}
+            <a class="nav-item nav-link" href="{{ url_for('auth.dashboard') }}">Dashboard</a>
+            <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+          {% endif %}
+        </div>
       </div>
     </div>
   </nav>
-<!-- Header and Main Content Here -->
-<header class="py-5 bg-image-full" style="background-image: url('{{ url_for('static', filename='images/service-example.jpg') }}');">
-  <div class="text-center my-5">
-    {% if session['lang'] == 'fr' %}
-      <h1 class="text-white" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)">
-        Bienvenue au Garage V. Parrot
-      </h1>
-      <h2 class="text-white-50" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)">
-        Votre centre de service automobile de confiance à Toulouse
-      </h2>
-    {% else %}
-      <h1 class="text-white" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)">
-        Welcome to Garage V. Parrot
-      </h1>
-      <h2 class="text-white-50" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)">
-        Your trusted automobile service center in Toulouse
-      </h2>
-    {% endif %}
-  </div>
-</header>
 
-
-    <!-- Dynamic content injected here from child templates -->
-    <main>
-      <section>
+  <!-- Header with Background Image -->
+  <header class="py-5 bg-image-full" style="background-image: url('{{ url_for('static', filename='images/service-example.jpg') }}');">
+    <div class="container text-center">
+      <div class="my-5">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h1 class="text-white" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);">
+            Bienvenue à Au Garage
+          </h1>
+          <h2 class="text-white-50" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);">
+            Votre centre de service automobile de confiance à Toulouse
+          </h2>
+        {% else %}
+          <h1 class="text-white" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);">
+            Welcome to Au Garage
+          </h1>
+          <h2 class="text-white-50" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);">
+            Your trusted automobile service center in Toulouse
+          </h2>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+  
+  <!-- Main Content with Slide Animation -->
+  <main>
+    <div class="slide-container">
+      <!-- Section slide: About Section -->
+      <section id="about" class="py-5">
         <div class="container">
-          <div class="row">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h3 class="card-title text-center mb-4">This Is Au Garage Web Application</h3>
+              <div class="mb-3">
+                <h5>Introduction</h5>
+                <p>
+                  Hereby, we welcome you to Au Garage—a state-of-the-art web application designed to redefine the automobile service experience. Amidst our journey, this project originally began as a modest endeavor for Monsieur Parrot to excel on his exam day at STUDI (my online web developer school between 2022 and 2024). Today, it has evolved, integrating cutting‑edge VR technology and expanding to include an impressive array of electric vehicles.
+                </p>
+              </div>
+              <div class="mb-3">
+                <h5>Project Origin</h5>
+                <p>
+                  Commissioned by Monsieur Parrot, a distinguished local entrepreneur, this project was conceived to demonstrate excellence during my tenure at STUDI—the premier online French web developer school platform—between 2022 and 2024.
+                </p>
+              </div>
+              <div>
+                <h5>Project Evolution</h5>
+                <p>
+                  Since its inception, the project has blossomed into a dynamic narrative. What began as a localized initiative has transformed into a vibrant saga where a visionary entrepreneur acquires the garage and modernizes it with VR headsets and a fleet of electric vehicles. At Kvnbbg.fr, we wholeheartedly value teamwork and innovation, ensuring that every contribution elevates our shared journey.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Section slide: Content from other featured pages -->
+      <section id="featured" class="py-5">
+        <div class="container">
+          <div class="row justify-content-center">
             <div class="col-lg-6">
               {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
@@ -115,18 +167,50 @@
         </div>
       </section>
       
-      {% block content %} {% endblock %}</main>
+      <!-- Section slide: Child Templates Displayed Here -->
+      <section id="slide-child-template" class="py-5">
+        <div class="container">
+          {% block content %}
+          <!-- Child templates will inject content here -->
+          {% endblock %}
+        </div>
+      </section>
+    </div>
+  </main>
 
+  <!-- Footer with Social Links -->
   <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Kevin, J MARVILLE 2024</p>
+    <div class="container text-center">
+      <div class="social-links mb-3">
+        <a href="https://kvnbbg.fr" target="_blank" class="text-white mx-2">
+          <i class="fas fa-rss"></i> Blog
+        </a>
+        <a href="https://www.instagram.com/techandstream" target="_blank" class="text-white mx-2">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://thread.net/@techandstream" target="_blank" class="text-white mx-2">
+          <i class="fas fa-comment-dots"></i> Thread
+        </a>
+        <a href="https://x.com/techandstream" target="_blank" class="text-white mx-2">
+          <i class="fab fa-twitter"></i> X
+        </a>
+        <a href="https://www.youtube.com/techandstream" target="_blank" class="text-white mx-2">
+          <i class="fab fa-youtube"></i> YouTube
+        </a>
+        <a href="https://www.facebook.com/kvnbbg" target="_blank" class="text-white mx-2">
+          <i class="fab fa-facebook-f"></i> Facebook
+        </a>
+      </div>
+      <p class="m-0 text-white">&copy; Kevin, J MARVILLE 2024</p>
     </div>
   </footer>
 
-  <script src="{{ url_for('static', filename='/js/script.js') }}"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+  <!-- Scripts -->
+  <!-- Custom JavaScript -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <!-- jQuery, Popper.js, and Bootstrap JS (loaded at the end for improved performance) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdXF7F4eTtc4NlW+Op6A7Y2sIo+fG3kPOs9sa5JcI42EEJpTnPSdXb51lBGdK8" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js" integrity="sha384-qLZ8jSTOtyXKZcufjqG4nNsgYj0p9m0U0z2Yx3EOC2JS4cS1OrhqR6Pkdd7cfOJS" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0hA21ZF+8mRr45aGhl6pijW9QCvf1krdfrZ6Kj8NQq4lC14p0eE2V3x4sA" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,132 +1,236 @@
-/* Base Styles */
-body {
-  font-family: "Poppins", sans-serif; /* Updated to Poppins for a cleaner look */
-  background-color: #f0f0f0;
-  color: #333;
+ /* ========================================================================
+   CSS Reset & Global Settings
+   ======================================================================== */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Header Styles */
+html {
+  font-size: 16px; /* Base for rem sizing */
+}
+
+/* ========================================================================
+   CSS Variables (Theme Colors, Spacing, & Animation Ratios)
+   ======================================================================== */
+:root {
+  /* Colors */
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --secondary-color: #6c757d;
+  --background-color: #f0f0f0;
+  --text-color: #333;
+  --btn-success: #28a745;
+  --btn-success-hover: #218838;
+  --link-hover: #d1ecf1;
+
+  /* Spacing & Sizing */
+  --base-padding: 1rem;
+  --container-max-width: 1140px;
+
+  /* Floating Animation Settings */
+  --float-effect: 5px;           /* Displacement distance */
+  --float-duration-header: 8s;    /* Floating speed for header */
+  --float-duration-links: 4s;     /* Floating speed for nav links */
+}
+
+/* ========================================================================
+   Global Styles & Typography
+   ======================================================================== */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  text-align: center;  /* Centering all content */
+  line-height: 1.6;
+  padding: var(--base-padding);
+}
+
+/* Headings use Asian-inspired typography while body text stays European */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+/* ========================================================================
+   Floating Animation (Up and Down)
+   ======================================================================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(calc(-1 * var(--float-effect))); }
+}
+
+/* ========================================================================
+   Header & Navbar (Centered & Dynamic)
+   ======================================================================== */
 header {
-  background: #007bff;
+  background-color: var(--primary-color);
   color: #fff;
-  padding: 20px 0;
-  border-bottom: 3px solid #6c757d;
-  transition: all 0.5s ease; /* Smooth transition for hover effects */
+  padding: 1.5rem;
+  border-bottom: 3px solid var(--secondary-color);
+  position: relative;
+  /* Gentle floating animation for the header */
+  animation: float var(--float-duration-header) ease-in-out infinite;
 }
 
-header:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+/* New, simplified centered navbar */
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1rem 0;
 }
 
-#character, #car {
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  position: relative;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Floating effect on hover for navbar links */
+.navbar a:hover {
+  transform: translateY(calc(-1 * var(--float-effect)));
+  color: var(--link-hover);
+  /* Optional continuous floating animation on hover */
+  animation: float var(--float-duration-links) ease-in-out infinite;
+}
+
+/* ========================================================================
+   Animated Elements (e.g. Character & Car)
+   ======================================================================== */
+#character,
+#car {
   position: absolute;
   bottom: 0;
   width: 50px;
   height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 #character {
-  background: url('character.png') no-repeat;
+  background-image: url('character.png');
   animation: move 5s linear infinite;
 }
 
 #car {
-  background: url('car.png') no-repeat;
+  background-image: url('car.png');
   animation: move 3s linear infinite;
 }
 
 @keyframes move {
-  0% { left: 0; }
+  0%   { left: 0; }
   100% { left: 100%; }
 }
 
-/* Navigation Styles */
-.navbar {
-  padding: 0 20px; /* Ensures padding is present */
+/* ========================================================================
+   Image Hover (Subtle Floating + Scale)
+   ======================================================================== */
+img {
+  transition: transform 0.3s ease;
 }
 
-.nav-link {
-  transition: color 0.3s ease; /* Smooth color transition */
-}
-
-.nav-link:hover, .navbar-brand:hover {
-  color: #d1ecf1; /* Lighter shade on hover */
-}
-
-/* Image Hover Scale */
 img:hover {
-  transform: scale(1.05); /* Scales the image on hover */
-  transition: transform 0.3s ease; /* Smooth scaling transition */
+  transform: translateY(calc(-0.5 * var(--float-effect))) scale(1.05);
 }
 
-/* Container Styles */
-.container, .container-fluid {
-  max-width: 1140px;
-  margin: auto;
-  padding: 0 15px; /* Provides padding on the sides */
+/* ========================================================================
+   Container Styles (Centered Content)
+   ======================================================================== */
+.container,
+.container-fluid {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
-/* Button Styles */
+/* ========================================================================
+   Button Styles (Floating on Hover)
+   ======================================================================== */
 .btn {
-  background: #28a745;
+  display: inline-block;
+  background-color: var(--btn-success);
   color: #fff;
-  transition: background-color 0.3s ease;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #218838; /* Slightly darker green */
+  background-color: var(--btn-success-hover);
+  transform: translateY(calc(-1 * var(--float-effect)));
 }
 
-/* Form Styles */
-form input, form button {
-  margin: 10px 0; /* Ensures spacing between form elements */
+/* ========================================================================
+   Form Elements
+   ======================================================================== */
+form input,
+form button,
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.625rem 0;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
 }
 
-/* Utility Classes */
-.mt-20, .mb-20 {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+/* ========================================================================
+   Utility Classes
+   ======================================================================== */
+.mt-20 { margin-top: 1.25rem; }
+.mb-20 { margin-bottom: 1.25rem; }
 
-/* Responsive Design Adjustments */
-@media (max-width: 992px) {
-  header {
-    padding: 15px 0;
-  }
-
-  .navbar {
-    padding: 0 10px; /* Adjust padding for smaller screens */
-  }
-
-  .container, .container-fluid {
-    padding: 0 10px; /* Adjust container padding */
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar-toggler {
-    display: block; /* Ensure toggler is visible */
-  }
-
-  .navbar-collapse {
-    text-align: center; /* Center navigation items */
-  }
-}
-
-/* Flash Messages Styles */
+/* ========================================================================
+   Flash Messages
+   ======================================================================== */
 .flashes {
   position: fixed;
-  top: 10%; /* Adjusted for better visibility */
+  top: 10%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2000;
-  width: auto;
-  max-width: 90%; /* Ensures it doesn't extend too wide */
+  width: 90%;
+  max-width: 480px;
 }
 
 .flashes li {
-  margin-bottom: 5px; /* Reduced gap between messages */
+  background-color: #fff;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.3125rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+/* ========================================================================
+   Responsive Design Adjustments
+   ======================================================================== */
+@media (max-width: 992px) {
+  header { padding: 1rem; }
+  .navbar {
+    gap: 1rem;
+    padding: 0.5rem 0;
+  }
+  .container,
+  .container-fluid { padding: 0 10px; }
+}
+
+@media (max-width: 768px) {
+  .navbar { flex-direction: column; }
+}
+
+/* ========================================================================
+   Accessibility: Reduced Motion
+   ======================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
 }
