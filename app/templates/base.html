@@ -1,72 +1,147 @@
 <!DOCTYPE html>
 <html lang="{{ session.get('lang', 'en') }}">
 <head>
-  <!-- Basic Meta Tags -->
+  <!-- Meta Information -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Language" content="{{ session.get('lang', 'en') }}">
   <meta name="description" content="Kevin Marville alias kvnbbg on GitHub is the Python developer of the Au Garage web application for Monsieur Parrot.">
-  <meta name="keywords" content="Au Garage, Kevin Marville, kvnbbg, Python Developer, Auto Repair, Toulouse">
+  <meta name="keywords" content="Au Garage, Kevin Marville, kvnbbg, Python Developer, Auto Repair, Martinique, Rivierre-Salée">
   <meta name="author" content="Kevin Marville">
   <meta name="msapplication-tap-highlight" content="no">
-  
   <title>Au garage</title>
   
   <!-- Favicon -->
   <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
   
-  <!-- Stylesheets -->
-  <!-- ArchitectUI CSS (Optional) -->
+  <!-- External Stylesheets -->
   <link rel="stylesheet" href="https://demo.dashboardpack.com/architectui-html-free/main.css">
-  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <!-- Google Fonts: Asian & European typography blend -->
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   
-  <!-- Inline CSS for Slide Animation -->
+  <!-- Inline Styles (for animations, game, and chatbot) -->
   <style>
-    /* Slide container animation: slides upward while fading in */
+    /* Global Slide Animation for Main Content */
     .slide-container {
       animation: slideIn 1s ease-out forwards;
     }
     @keyframes slideIn {
-      from {
-        transform: translateY(20px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      from { transform: translateY(20px); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Navbar Styling Overrides */
+    .navbar {
+      background-color: #333;
+      padding: 10px;
+    }
+    .navbar .navbar-brand,
+    .navbar .nav-link {
+      color: white !important;
+      font-size: 18px;
+    }
+    
+    /* Train Game Styles */
+    .train-card {
+      background: white;
+      padding: 20px;
+      margin: auto;
+      width: 60%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .train-animation {
+      width: 100px;
+      height: 50px;
+      background: red;
+      margin: auto;
+      position: relative;
+      transition: left 0.5s ease-in-out;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: scale(1.1);
+    }
+    
+    /* Progress Bar & Call-to-Action Styles */
+    .progress-container {
+      margin-bottom: 1rem;
+    }
+    progress {
+      width: 100%;
+      height: 20px;
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .centered-text {
+      margin-top: 1rem;
+      font-size: 16px;
+    }
+    
+    /* Chatbot Styles */
+    .chatbot {
+      background: #222;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      margin-top: 1rem;
+    }
+    .terminal-output {
+      min-height: 80px;
+      margin-bottom: 1rem;
+    }
+    .loading-animation span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #0f0;
+      margin-right: 4px;
+      border-radius: 50%;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .matrix-effect canvas {
+      width: 100%;
+      height: 100%;
+      background: black;
     }
   </style>
   
-  <!-- Structured Data for Rich Snippets -->
+  <!-- Structured Data (Updated for 2025) -->
   <script type="application/ld+json">
   {
     "@context": "http://schema.org",
     "@type": "AutoRepair",
     "name": "Au garage",
-    "url": "https://au-garage-92dd5c42a6c4.herokuapp.com",
+    "url": "https://github.com/Kvnbbg/au-garage",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "123 Example Street",
-      "addressLocality": "Toulouse",
-      "postalCode": "31000",
-      "addressCountry": "FR"
+      "streetAddress": "xxxxx",
+      "addressLocality": "Rivierre-Salée, Martinique",
+      "postalCode": "97215",
+      "addressCountry": "MQ"
     },
-    "telephone": "+33123456789"
+    "telephone": "+33634160418"
   }
   </script>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- HEADER: Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
       <a class="navbar-brand" href="{{ url_for('main.home') }}">
         <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="height: 30px;">
@@ -89,34 +164,26 @@
       </div>
     </div>
   </nav>
-
-  <!-- Header with Background Image -->
+  
+  <!-- HEADER: Background Image & Title -->
   <header class="py-5 bg-image-full" style="background-image: url('{{ url_for('static', filename='images/service-example.jpg') }}');">
     <div class="container text-center">
       <div class="my-5">
         {% if session.get('lang', 'en') == 'fr' %}
-          <h1 class="text-white" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);">
-            Bienvenue à Au Garage
-          </h1>
-          <h2 class="text-white-50" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);">
-            Votre centre de service automobile de confiance à Toulouse
-          </h2>
+          <h1 class="text-white" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Bienvenue à Au Garage</h1>
+          <h2 class="text-white-50" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Votre centre de service automobile de confiance à Toulouse</h2>
         {% else %}
-          <h1 class="text-white" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);">
-            Welcome to Au Garage
-          </h1>
-          <h2 class="text-white-50" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);">
-            Your trusted automobile service center in Toulouse
-          </h2>
+          <h1 class="text-white" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Welcome to Au Garage</h1>
+          <h2 class="text-white-50" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Your trusted automobile service center in Toulouse</h2>
         {% endif %}
       </div>
     </div>
   </header>
   
-  <!-- Main Content with Slide Animation -->
+  <!-- MAIN CONTENT: Slide Container -->
   <main>
     <div class="slide-container">
-      <!-- Section slide: About Section -->
+      <!-- SECTION: About -->
       <section id="about" class="py-5">
         <div class="container">
           <div class="card border-0 shadow-sm">
@@ -125,19 +192,19 @@
               <div class="mb-3">
                 <h5>Introduction</h5>
                 <p>
-                  Hereby, we welcome you to Au Garage—a state-of-the-art web application designed to redefine the automobile service experience. Amidst our journey, this project originally began as a modest endeavor for Monsieur Parrot to excel on his exam day at STUDI (my online web developer school between 2022 and 2024). Today, it has evolved, integrating cutting‑edge VR technology and expanding to include an impressive array of electric vehicles.
+                  Hereby, we welcome you to Au Garage—a state-of-the-art web application designed to redefine the automobile service experience. What started as a modest project for Monsieur Parrot during my studies at STUDI (2022–2024) has evolved into a platform that integrates cutting‑edge VR technology with a passion for innovation.
                 </p>
               </div>
               <div class="mb-3">
                 <h5>Project Origin</h5>
                 <p>
-                  Commissioned by Monsieur Parrot, a distinguished local entrepreneur, this project was conceived to demonstrate excellence during my tenure at STUDI—the premier online French web developer school platform—between 2022 and 2024.
+                  Conceived for a distinguished local entrepreneur, this project was intended to showcase excellence during my tenure at STUDI—the premier online French web developer school.
                 </p>
               </div>
               <div>
                 <h5>Project Evolution</h5>
                 <p>
-                  Since its inception, the project has blossomed into a dynamic narrative. What began as a localized initiative has transformed into a vibrant saga where a visionary entrepreneur acquires the garage and modernizes it with VR headsets and a fleet of electric vehicles. At Kvnbbg.fr, we wholeheartedly value teamwork and innovation, ensuring that every contribution elevates our shared journey.
+                  Over time, what began as a localized initiative has transformed into a vibrant saga of innovation. At Kvnbbg.fr, we value teamwork and creativity, ensuring that every contribution enriches our collective journey.
                 </p>
               </div>
             </div>
@@ -145,7 +212,7 @@
         </div>
       </section>
       
-      <!-- Section slide: Content from other featured pages -->
+      <!-- SECTION: Featured Content (Flash Messages) -->
       <section id="featured" class="py-5">
         <div class="container">
           <div class="row justify-content-center">
@@ -167,7 +234,71 @@
         </div>
       </section>
       
-      <!-- Section slide: Child Templates Displayed Here -->
+      <!-- SECTION: Train Chronicles Game -->
+      <section id="game" class="py-5">
+        <div class="container text-center">
+          <h1>Train Chronicles: France-Japan Express</h1>
+          <div class="train-card">
+            <h2>Super Electric Train: Hikari-9000</h2>
+            <p id="story">
+              In the golden age of electric innovation, the legendary Hikari-9000 embarks on its epic journey from Paris. This super electric marvel marries historical grandeur with modern romance. Aboard, refined souls share stories of love and adventure, as the train—powered by futuristic electrical propulsion—transforms every carriage into a sanctuary of dreams and discovery.
+            </p>
+            <div class="train-animation" id="train"></div>
+            <p><strong>Stats:</strong></p>
+            <p>Speed: <span id="speed">10</span></p>
+            <p>Power: <span id="power">20</span></p>
+            <p>Endurance: <span id="endurance">30</span></p>
+            <p>Technology: <span id="technology">40</span></p>
+            <button onclick="trainStat(0)">Train Speed</button>
+            <button onclick="trainStat(1)">Train Power</button>
+            <button onclick="trainStat(2)">Train Endurance</button>
+            <button onclick="trainStat(3)">Train Technology</button>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SECTION: Game Enhancements (Progress Bar & Call-to-Action) -->
+      <section id="game-enhancements" class="py-5">
+        <div class="container text-center">
+          <div class="progress-container mb-4">
+            <div class="progress-label mb-2">Energy Progress</div>
+            <progress id="progressBar" class="energy-effect" value="0" max="100" aria-label="Energy Progress"></progress>
+          </div>
+          <button class="btn btn-primary mb-4" onclick="alert('Game is starting!')">Try The Game Here</button>
+          <div class="centered-text">
+            <span class="flag-fr">Développeur Web</span>
+            <span class="flag-en">Web Developer</span>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SECTION: Chatbot with Matrix Effect -->
+      <section id="chatbot-section" class="py-5">
+        <div class="container">
+          <div class="chatbot">
+            <div class="terminal-output" id="chat-output">
+              <p>
+                <span class="flag-fr">Bienvenue sur mes créations!</span>
+                <span class="flag-en">Welcome to my creations!</span>
+              </p>
+            </div>
+            <div class="loading-animation" id="loading-animation" style="display:none;">
+              <span></span><span></span><span></span>
+            </div>
+            <!-- Matrix Effect Canvas -->
+            <div class="matrix-effect" id="matrix-effect" style="display:none;">
+              <canvas id="matrix-canvas"></canvas>
+            </div>
+            <!-- Chat Input -->
+            <div class="user-input mt-3">
+              <input type="text" id="user-message" placeholder="Type your message here..." onkeydown="checkEnterKey(event)" class="form-control" />
+              <button onclick="sendMessage()" class="btn btn-secondary mt-2">Send</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SECTION: Child Template Content -->
       <section id="slide-child-template" class="py-5">
         <div class="container">
           {% block content %}
@@ -177,8 +308,8 @@
       </section>
     </div>
   </main>
-
-  <!-- Footer with Social Links -->
+  
+  <!-- FOOTER: Social Links & Copyright -->
   <footer class="py-5 bg-dark">
     <div class="container text-center">
       <div class="social-links mb-3">
@@ -189,7 +320,7 @@
           <i class="fab fa-instagram"></i> Instagram
         </a>
         <a href="https://www.threads.net/@techandstream" target="_blank" class="text-white mx-2">
-          <i class="fas fa-comment-dots"></i> Thread
+          <i class="fas fa-comment-dots"></i> Threads
         </a>
         <a href="https://x.com/techandstream" target="_blank" class="text-white mx-2">
           <i class="fab fa-twitter"></i> X
@@ -201,16 +332,120 @@
           <i class="fab fa-facebook-f"></i> Facebook
         </a>
       </div>
-      <p class="m-0 text-white">&copy; Kevin, J MARVILLE 2024</p>
+      <p class="m-0 text-white">&copy; Kevin, J MARVILLE 2025</p>
     </div>
   </footer>
-
-  <!-- Scripts -->
-  <!-- Custom JavaScript -->
+  
+  <!-- SCRIPTS -->
+  <!-- Custom JS -->
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-  <!-- jQuery, Popper.js, and Bootstrap JS (loaded at the end for improved performance) -->
+  <!-- jQuery, Popper, and Bootstrap -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdXF7F4eTtc4NlW+Op6A7Y2sIo+fG3kPOs9sa5JcI42EEJpTnPSdXb51lBGdK8" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js" integrity="sha384-qLZ8jSTOtyXKZcufjqG4nNsgYj0p9m0U0z2Yx3EOC2JS4cS1OrhqR6Pkdd7cfOJS" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0hA21ZF+8mRr45aGhl6pijW9QCvf1krdfrZ6Kj8NQq4lC14p0eE2V3x4sA" crossorigin="anonymous"></script>
+  
+  <!-- Progress Bar Script -->
+  <script>
+    let progress = 0;
+    const progressBar = document.getElementById('progressBar');
+    function updateProgress() {
+      progress = progress < 20 ? progress + 0.2 : 0;
+      progressBar.value = progress;
+      const colorFactor = Math.sin(progress * Math.PI / 20);
+      const energyColor = `rgb(${76 + colorFactor * 50}, ${175 + colorFactor * 80}, 50)`;
+      progressBar.style.backgroundColor = energyColor;
+      requestAnimationFrame(updateProgress);
+    }
+    requestAnimationFrame(updateProgress);
+  </script>
+  
+  <!-- Chatbot & Matrix Effect Script -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder"></script>
+  <script>
+    let matrixEffectTimeout;
+    let typingTimeout;
+    const matrixEffectDuration = 5000;
+    const matrixCanvas = document.getElementById('matrix-canvas');
+    const matrixEffectDiv = document.getElementById('matrix-effect');
+    const chatOutputDiv = document.getElementById('chat-output');
+    const ctx = matrixCanvas.getContext('2d');
+    let matrixColumns;
+    let drops;
+
+    function initMatrixEffect() {
+      matrixCanvas.width = chatOutputDiv.clientWidth;
+      matrixCanvas.height = chatOutputDiv.clientHeight;
+      const fontSize = 14;
+      matrixColumns = matrixCanvas.width / fontSize;
+      drops = Array(Math.floor(matrixColumns)).fill(1);
+    }
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+      ctx.fillStyle = '#00FF00';
+      ctx.font = '14px monospace';
+      drops.forEach((y, x) => {
+        const text = String.fromCharCode(0x30A0 + Math.random() * 96);
+        ctx.fillText(text, x * 14, y * 14);
+        if (y * 14 > matrixCanvas.height && Math.random() > 0.975) { drops[x] = 0; }
+        drops[x]++;
+      });
+    }
+    function startMatrixEffect() {
+      matrixEffectDiv.style.display = 'block';
+      chatOutputDiv.style.display = 'none';
+      initMatrixEffect();
+      matrixEffectTimeout = setInterval(drawMatrix, 50);
+    }
+    function stopMatrixEffect() {
+      matrixEffectDiv.style.display = 'none';
+      chatOutputDiv.style.display = 'block';
+      clearInterval(matrixEffectTimeout);
+    }
+    function resetTypingTimer() {
+      clearTimeout(typingTimeout);
+      stopMatrixEffect();
+      typingTimeout = setTimeout(startMatrixEffect, matrixEffectDuration);
+    }
+    document.getElementById('user-message').addEventListener('input', resetTypingTimer);
+    typingTimeout = setTimeout(startMatrixEffect, matrixEffectDuration);
+    function checkEnterKey(event) {
+      if (event.key === 'Enter') { sendMessage(); }
+    }
+    function sendMessage() {
+      const userMessage = document.getElementById('user-message').value;
+      if(userMessage.trim() !== '') {
+        const newMessage = document.createElement('p');
+        newMessage.textContent = userMessage;
+        chatOutputDiv.appendChild(newMessage);
+        document.getElementById('user-message').value = '';
+      }
+    }
+  </script>
+  
+  <!-- Game Script: Enhanced Train Chronicles -->
+  <script>
+    let arr = [10, 20, 30, 40];
+    let storyProgress = 0;
+    let trainElement = document.getElementById('train');
+    let stories = [
+      "In the golden age of electric innovation, Hikari-9000 departs Paris—a super electric marvel blending historical charm with modern romance.",
+      "As the train glides through picturesque French landscapes, passengers share passionate tales of adventure and hope.",
+      "Empowered by cutting-edge electrical propulsion, Hikari-9000 accelerates with breathtaking speed, its brilliance lighting up every carriage.",
+      "Each mile refines its endurance and power, transforming the journey into a moving sanctuary of dreams and legacy.",
+      "At long last, Hikari-9000 arrives in Tokyo—a triumphant odyssey of engineering, passion, and the timeless allure of travel."
+    ];
+    function trainStat(index) {
+      arr[index] += 5;
+      document.getElementById(['speed', 'power', 'endurance', 'technology'][index]).innerText = arr[index];
+      if (storyProgress < stories.length - 1) {
+        storyProgress++;
+        document.getElementById('story').innerHTML = stories[storyProgress];
+        let moveDistance = (storyProgress + 1) * 50;
+        trainElement.style.left = moveDistance + 'px';
+      }
+    }
+  </script>
 </body>
 </html>
