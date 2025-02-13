@@ -1,41 +1,85 @@
 (function () {
   // ======================================================
-  // GLOBAL SETTINGS & TRANSLATIONS
+  // GLOBAL SETTINGS & TRANSLATIONS (Updated for Mechanisms)
   // ======================================================
   let currentLanguage = "en";
   const translations = {
-    planning: { en: "Planning", fr: "Planification" },
-    save: { en: "Save", fr: "Sauvegarder" },
-    load: { en: "Load", fr: "Charger" },
-    toggleLanguage: { en: "Français", fr: "English" },
+    planning: {
+      en: "Mechanism Analysis",
+      fr: "Analyse des Mécanismes"
+    },
+    save: {
+      en: "Save State",
+      fr: "Sauvegarder l'état"
+    },
+    load: {
+      en: "Load State",
+      fr: "Charger l'état"
+    },
+    toggleLanguage: {
+      en: "Français",
+      fr: "English"
+    },
     mechanicalAdvice: {
-      en: "Always ensure optimal gear alignment and proper lubrication levels to achieve maximum mechanical efficiency and safety during high-load operations.",
-      fr: "Assurez-vous toujours d'un alignement optimal des engrenages et d'un niveau de lubrification approprié pour obtenir une efficacité mécanique maximale et une sécurité optimale lors des opérations à forte charge."
+      en: "For optimal performance, ensure that the electric mechanism is calibrated with proper thermal regulation for diesel drives. Always refer to the principles of Newton and Joule.",
+      fr: "Pour une performance optimale, assurez-vous que le mécanisme électrique est calibré avec une régulation thermique adéquate pour les motorisations diesel. Référez-vous toujours aux principes de Newton et de Joule."
     },
     removeSubstring: {
       en: "Remove All Occurrences of a Substring",
       fr: "Supprimer toutes les occurrences d'une sous-chaîne"
     },
-    submit: { en: "Submit", fr: "Soumettre" },
-    output: { en: "Output", fr: "Résultat" },
+    submit: {
+      en: "Submit",
+      fr: "Soumettre"
+    },
+    output: {
+      en: "Output",
+      fr: "Résultat"
+    },
     textContext: {
-      en: "Welcome to the Platform. Here you can generate structured documents styled like Excel with advanced mechanical insights and planning features.",
-      fr: "Bienvenue sur la plateforme. Ici, vous pouvez générer des documents structurés au style Excel avec des informations mécaniques avancées et des fonctionnalités de planification."
+      en: "Welcome to our Mechanism Analysis Platform. Here, advanced texts from classical mechanics and electric thermal systems guide you through complex calculations.",
+      fr: "Bienvenue sur notre plateforme d'analyse des mécanismes. Ici, des textes avancés de mécanique classique et de systèmes électriques thermiques vous guident à travers des calculs complexes."
     },
-    reset: { en: "Reset UI", fr: "Réinitialiser l'interface" },
-    saveAlert: { en: "State saved!", fr: "État sauvegardé!" },
-    loadAlert: { en: "State loaded!", fr: "État chargé!" },
-    noStateAlert: { en: "No saved state found.", fr: "Aucun état sauvegardé trouvé." },
+    reset: {
+      en: "Reset UI",
+      fr: "Réinitialiser l'interface"
+    },
+    saveAlert: {
+      en: "State saved!",
+      fr: "État sauvegardé!"
+    },
+    loadAlert: {
+      en: "State loaded!",
+      fr: "État chargé!"
+    },
+    noStateAlert: {
+      en: "No saved state found.",
+      fr: "Aucun état sauvegardé trouvé."
+    },
     simulationTitle: {
-      en: "Mechanics Automobile IoT Simulation",
-      fr: "Simulation IoT de Mécanique Automobile"
+      en: "Electric & Thermal Mechanism Simulation",
+      fr: "Simulation des Mécanismes Électriques et Thermiques"
     },
-    startSimulation: { en: "Start", fr: "Démarrer" },
-    stopSimulation: { en: "Stop", fr: "Arrêter" },
-    // --- New translations for Nerd Metrics ---
-    nerdMetrics: { en: "Metrics", fr: "Mesures" },
-    proceed: { en: "Go to Next", fr: "Aller à Suivant" },
-    close: { en: "Close", fr: "Fermer" }
+    startSimulation: {
+      en: "Start",
+      fr: "Démarrer"
+    },
+    stopSimulation: {
+      en: "Stop",
+      fr: "Arrêter"
+    },
+    nerdMetrics: {
+      en: "Performance Metrics",
+      fr: "Mesures de Performance"
+    },
+    proceed: {
+      en: "Proceed to Advanced Analysis",
+      fr: "Passer à l'Analyse Avancée"
+    },
+    close: {
+      en: "Close",
+      fr: "Fermer"
+    }
   };
 
   // ======================================================
@@ -48,14 +92,14 @@
     "Calibrating transmission sensors",
     "Adjusting fuel mixture parameters",
     "Activating diagnostic mode",
-    "Syncing real-time data with cloud",
+    "Syncing real-time data with the cloud",
     "Running predictive maintenance algorithm",
     "Optimizing gear ratios",
     "Monitoring temperature sensors"
   ];
 
   // ======================================================
-  // VERSATILITY: GLOBAL SAFETY WRAPPER & FALLBACK FUNCTIONS
+  // GLOBAL SAFETY WRAPPER & FALLBACK FUNCTIONS
   // ======================================================
   function safeExecute(fn, alternative, fnName) {
     console.log(`Start: ${fnName}`);
@@ -74,17 +118,13 @@
       }
     }
   }
-
-  // Fallback for Drag & Drop: In case the advanced drag/drop fails, we remove draggable attributes.
+  
   function fallbackDragAndDrop() {
     console.warn("Fallback: Basic Drag & Drop not available. Draggables will remain static.");
     const draggables = document.querySelectorAll(".draggable");
-    draggables.forEach((elem) => {
-      elem.removeAttribute("draggable");
-    });
+    draggables.forEach(elem => elem.removeAttribute("draggable"));
   }
-
-  // Fallback for Floating Bubbles: If animation fails, we paint a static background on the canvas.
+  
   function fallbackFloatingBubbles() {
     console.warn("Fallback: Floating bubbles animation failed. Using static background.");
     const canvas = document.getElementById("bubbleCanvas");
@@ -96,66 +136,40 @@
   }
 
   // ======================================================
-  // INSERT CSS STYLES (SELF-CONTAINED)
+  // INSERT INLINE CSS STYLES (for fine-tuning if needed)
   // ======================================================
   function insertStyles() {
     const style = document.createElement("style");
     style.innerHTML = `
-      /* Minimal inline fallback styles for basic layout & interactions */
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      .modal {
-        position: fixed; top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        background: #fff; padding: 20px;
-        border: 2px solid #000; border-radius: 8px;
-        z-index: 10000; max-width: 90%; max-height: 90%; overflow: auto;
+      /* Minimal inline fallback styles */
+      .hover-light:hover {
+        filter: brightness(1.2);
+        transition: filter 0.2s ease;
       }
-      #customModal {
-        background: rgba(0, 0, 0, 0.85); color: #fff;
-        transition: opacity 0.3s ease; text-align: center;
-      }
-      #dropZone {
-        position: fixed; top: 0; left: 50%;
-        transform: translateX(-50%); border: 2px dashed #ccc;
-        padding: 20px; margin: 10px; min-width: 300px;
-        text-align: center; background: #f9f9f9; z-index: 9999;
-      }
-      .bubble-button {
-        position: relative; padding: 10px 15px; margin: 5px;
-        border: none; background: #007BFF; color: #fff;
-        border-radius: 5px; cursor: pointer;
+      .zoom-on-hover {
         transition: transform 0.3s ease;
       }
-      .bubble-button:hover { transform: scale(1.1); }
-      @keyframes buzz {
-        0% { transform: translate(0, 0); }
-        20% { transform: translate(-2px, 2px); }
-        40% { transform: translate(-2px, -2px); }
-        60% { transform: translate(2px, 2px); }
-        80% { transform: translate(2px, -2px); }
-        100% { transform: translate(0, 0); }
+      .zoom-on-hover:hover {
+        transform: scale(1.05);
       }
-      .buzz-effect { animation: buzz 0.5s linear; }
-      .excel-table { width: 100%; border-collapse: collapse; }
-      .excel-table th, .excel-table td {
-        border: 1px solid #999; padding: 8px;
-        text-align: center;
+      .particle-effect {
+        position: relative;
+        overflow: hidden;
       }
-      .excel-table th { background: #e0e0e0; }
-      #mainContainer { padding: 20px; font-family: sans-serif; }
-      #iotSimulation { border: 1px solid #ccc; padding: 10px; margin: 20px 0; }
-      #simulationLog {
-        background: #f4f4f4; height: 150px;
-        overflow-y: auto; padding: 10px; font-size: 14px;
+      .particle-effect::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
       }
-      @media (max-width: 600px) {
-        .bubble-button { font-size: 14px; padding: 8px 12px; }
-        h1 { font-size: 20px; }
-      }
-      #bubbleCanvas {
-        position: fixed; top: 0; left: 0;
-        width: 100%; height: 100%;
-        pointer-events: none; z-index: -1;
+      .particle-effect:hover::after {
+        opacity: 1;
       }
     `;
     document.head.appendChild(style);
@@ -181,14 +195,19 @@
     const mainContainer = document.createElement("div");
     mainContainer.id = "mainContainer";
     document.body.appendChild(mainContainer);
-
+    
+    // Build the various UI sections
     createHeader(mainContainer);
     createButtons(mainContainer);
     createTextContext(mainContainer);
     createRemoveSubstringSection(mainContainer);
     createDraggableElements(mainContainer);
     createIoTSimulationSection(mainContainer);
-    // Add Nerd Metrics toggle button to the header
+    
+    // Optionally, build a horizontal row layout if needed
+    createHorizontalRow(mainContainer);
+    
+    // Initialize Nerd Metrics toggle button
     initNerdMetricsToggle();
   }
 
@@ -201,23 +220,23 @@
     header.style.alignItems = "center";
     header.style.padding = "10px 0";
     parent.appendChild(header);
-
+    
     const title = document.createElement("h1");
-    title.innerText = "Engineering Document SaaS Platform";
+    title.innerText = "Classical & Electric Mechanism Analysis";
     header.appendChild(title);
-
+    
     const controlsContainer = document.createElement("div");
     header.appendChild(controlsContainer);
-
-    // Language toggle
+    
+    // Language toggle button
     const langToggleButton = document.createElement("button");
     langToggleButton.id = "langToggleButton";
     langToggleButton.className = "bubble-button";
     langToggleButton.innerText = translations.toggleLanguage[currentLanguage];
     langToggleButton.addEventListener("click", toggleLanguage);
     controlsContainer.appendChild(langToggleButton);
-
-    // Reset UI
+    
+    // Reset UI button
     const resetButton = document.createElement("button");
     resetButton.id = "resetButton";
     resetButton.className = "bubble-button";
@@ -225,14 +244,14 @@
     resetButton.addEventListener("click", resetUI);
     controlsContainer.appendChild(resetButton);
   }
-
-  // Adds a row of buttons (e.g., planning)
+  
+  // Creates a row of buttons
   function createButtons(parent) {
     const buttonsContainer = document.createElement("div");
     buttonsContainer.id = "buttonsContainer";
     buttonsContainer.style.margin = "20px 0";
     parent.appendChild(buttonsContainer);
-
+    
     const planningButton = document.createElement("button");
     planningButton.id = "planningButton";
     planningButton.className = "bubble-button";
@@ -240,16 +259,16 @@
     planningButton.addEventListener("click", showPlanningDocument);
     buttonsContainer.appendChild(planningButton);
   }
-
-  // Intro text context
+  
+  // Adds a context paragraph
   function createTextContext(parent) {
     const textContext = document.createElement("p");
     textContext.id = "textContext";
     textContext.innerText = translations.textContext[currentLanguage];
     parent.appendChild(textContext);
   }
-
-  // Substring removal section
+  
+  // Creates a section for substring removal functionality
   function createRemoveSubstringSection(parent) {
     const removeContainer = document.createElement("div");
     removeContainer.id = "removeContainer";
@@ -257,45 +276,45 @@
     removeContainer.style.padding = "10px";
     removeContainer.style.margin = "20px 0";
     parent.appendChild(removeContainer);
-
+    
     const removeTitle = document.createElement("h2");
     removeTitle.innerText = translations.removeSubstring[currentLanguage];
     removeContainer.appendChild(removeTitle);
-
+    
     const sLabel = document.createElement("label");
     sLabel.innerText = "Main string:";
     removeContainer.appendChild(sLabel);
-
+    
     const sInput = document.createElement("input");
     sInput.type = "text";
     sInput.id = "sInput";
     sInput.style.display = "block";
     sInput.style.marginBottom = "10px";
     removeContainer.appendChild(sInput);
-
+    
     const partLabel = document.createElement("label");
     partLabel.innerText = "Substring:";
     removeContainer.appendChild(partLabel);
-
+    
     const partInput = document.createElement("input");
     partInput.type = "text";
     partInput.id = "partInput";
     partInput.style.display = "block";
     partInput.style.marginBottom = "10px";
     removeContainer.appendChild(partInput);
-
+    
     const submitButton = document.createElement("button");
     submitButton.innerText = translations.submit[currentLanguage];
     submitButton.className = "bubble-button";
     submitButton.addEventListener("click", processInput);
     removeContainer.appendChild(submitButton);
-
+    
     const outputTitle = document.createElement("h3");
     outputTitle.innerHTML = translations.output[currentLanguage] + ": <span id='output'></span>";
     removeContainer.appendChild(outputTitle);
   }
-
-  // Draggable elements (for demo)
+  
+  // Creates draggable elements for demonstration
   function createDraggableElements(parent) {
     for (let i = 1; i <= 3; i++) {
       const draggable = document.createElement("div");
@@ -307,12 +326,13 @@
       draggable.style.width = "100px";
       draggable.style.textAlign = "center";
       draggable.style.cursor = "move";
+      // Alternate emoji icons for variety
       draggable.innerHTML = i % 2 === 0 ? "🔧" : "⚙️";
       parent.appendChild(draggable);
     }
   }
-
-  // IoT Simulation Section
+  
+  // Creates the IoT simulation section
   function createIoTSimulationSection(parent) {
     const simulationSection = document.createElement("div");
     simulationSection.id = "iotSimulation";
@@ -320,35 +340,48 @@
     simulationSection.style.padding = "10px";
     simulationSection.style.margin = "20px 0";
     parent.appendChild(simulationSection);
-
+    
     const simTitle = document.createElement("h2");
     simTitle.innerText = translations.simulationTitle[currentLanguage];
     simulationSection.appendChild(simTitle);
-
+    
     const startBtn = document.createElement("button");
     startBtn.innerText = translations.startSimulation[currentLanguage];
     startBtn.className = "bubble-button";
     startBtn.addEventListener("click", startIoTSimulation);
     simulationSection.appendChild(startBtn);
-
+    
     const stopBtn = document.createElement("button");
     stopBtn.innerText = translations.stopSimulation[currentLanguage];
     stopBtn.className = "bubble-button";
     stopBtn.addEventListener("click", stopIoTSimulation);
     simulationSection.appendChild(stopBtn);
-
+    
     const logArea = document.createElement("pre");
     logArea.id = "simulationLog";
     logArea.style.marginTop = "10px";
     simulationSection.appendChild(logArea);
   }
-
+  
+  // Creates a horizontal row layout container (if needed)
+  function createHorizontalRow(parent) {
+    const rowContainer = document.createElement("div");
+    rowContainer.className = "horizontal-row";
+    // Example items in horizontal layout
+    for (let i = 1; i <= 2; i++) {
+      const rowItem = document.createElement("div");
+      rowItem.className = "row-item";
+      rowItem.innerText = `Horizontal Item ${i}`;
+      rowContainer.appendChild(rowItem);
+    }
+    parent.appendChild(rowContainer);
+  }
+  
   // ======================================================
   // LANGUAGE & UI UPDATE METHODS
   // ======================================================
   function toggleLanguage() {
     currentLanguage = currentLanguage === "en" ? "fr" : "en";
-    // Update language text in various elements
     document.getElementById("langToggleButton").innerText = translations.toggleLanguage[currentLanguage];
     document.getElementById("planningButton").innerText = translations.planning[currentLanguage];
     document.getElementById("textContext").innerText = translations.textContext[currentLanguage];
@@ -359,8 +392,8 @@
       translations.output[currentLanguage] + ": <span id='output'></span>";
     document.getElementById("resetButton").innerText = translations.reset[currentLanguage];
     document.querySelector("#iotSimulation h2").innerText = translations.simulationTitle[currentLanguage];
-
-    // Update Nerd Metrics button & modal
+    
+    // Update Nerd Metrics if present
     const nerdBtn = document.getElementById("nerdMetricsButton");
     if (nerdBtn) {
       nerdBtn.innerText = translations.nerdMetrics[currentLanguage];
@@ -376,10 +409,10 @@
       }
     }
   }
-
+  
   function resetUI() {
     const mainContainer = document.getElementById("mainContainer");
-    document.querySelectorAll(".draggable").forEach((draggable) => {
+    document.querySelectorAll(".draggable").forEach(draggable => {
       mainContainer.appendChild(draggable);
       draggable.style.opacity = "1";
     });
@@ -388,7 +421,7 @@
     applySecretIndexMapping();
     console.log("UI reset complete.");
   }
-
+  
   // ======================================================
   // STRING PROCESSING METHODS
   // ======================================================
@@ -403,43 +436,43 @@
     const part = document.getElementById("partInput").value;
     document.getElementById("output").innerText = removeOccurrences(s, part);
   }
-
+  
   // ======================================================
   // DOCUMENT GENERATOR (EXCEL-LIKE TABLE WITH ADVICE)
   // ======================================================
   function showPlanningDocument() {
     const modal = document.createElement("div");
     modal.className = "modal";
-
+    
     const table = document.createElement("table");
     table.className = "excel-table";
     const headerRow = document.createElement("tr");
-    ["Task", "Engineer", "Start Date", "End Date", "Status"].forEach((txt) => {
+    ["Task", "Engineer", "Start Date", "End Date", "Status"].forEach(txt => {
       const th = document.createElement("th");
       th.innerText = txt;
       headerRow.appendChild(th);
     });
     table.appendChild(headerRow);
-
+    
     const dummyData = [
       ["Review Design", "Alice", "2025-03-01", "2025-03-02", "Completed"],
       ["Prototype Build", "Bob", "2025-03-03", "2025-03-10", "In Progress"],
       ["Test & Validate", "Charlie", "2025-03-11", "2025-03-15", "Pending"]
     ];
-    dummyData.forEach((rowData) => {
+    dummyData.forEach(rowData => {
       const row = document.createElement("tr");
-      rowData.forEach((cellData) => {
+      rowData.forEach(cellData => {
         const td = document.createElement("td");
         td.innerText = cellData;
         row.appendChild(td);
       });
       table.appendChild(row);
     });
-
+    
     const advice = document.createElement("p");
     advice.style.marginTop = "20px";
     advice.innerText = translations.mechanicalAdvice[currentLanguage];
-
+    
     const closeBtn = document.createElement("button");
     closeBtn.innerText = translations.close[currentLanguage] || "Close";
     closeBtn.className = "bubble-button";
@@ -447,13 +480,13 @@
     closeBtn.addEventListener("click", () => {
       document.body.removeChild(modal);
     });
-
+    
     modal.appendChild(table);
     modal.appendChild(advice);
     modal.appendChild(closeBtn);
     document.body.appendChild(modal);
   }
-
+  
   // ======================================================
   // POPUP MODAL WITH MECHANICAL ADVICE (OPTIONAL)
   // ======================================================
@@ -468,41 +501,37 @@
       </button>
     `;
     document.body.appendChild(modal);
-
-    // Show/hide the modal on .popup-trigger
-    document.querySelectorAll(".popup-trigger").forEach((trigger) => {
-      trigger.addEventListener("click", (e) => {
+    
+    document.querySelectorAll(".popup-trigger").forEach(trigger => {
+      trigger.addEventListener("click", e => {
         e.stopPropagation();
         modal.style.display = "block";
         setTimeout(() => { modal.style.opacity = "1"; }, 100);
       });
     });
-
-    // Close the modal
-    document.getElementById("closeModal").addEventListener("click", (e) => {
+    
+    document.getElementById("closeModal").addEventListener("click", e => {
       e.stopPropagation();
       modal.style.opacity = "0";
       setTimeout(() => { modal.style.display = "none"; }, 300);
     });
-    window.addEventListener("click", (e) => {
+    window.addEventListener("click", e => {
       if (e.target === modal) {
         modal.style.opacity = "0";
         setTimeout(() => { modal.style.display = "none"; }, 300);
       }
     });
   }
-
+  
   // ======================================================
   // DRAG & DROP & BUZZ EFFECT METHODS
   // ======================================================
   function initDragAndDrop() {
     const draggables = document.querySelectorAll(".draggable");
-    draggables.forEach((item) => {
+    draggables.forEach(item => {
       item.setAttribute("draggable", true);
       item.addEventListener("dragstart", dragStart);
-      item.addEventListener("click", () => {
-        buzzElement(item);
-      });
+      item.addEventListener("click", () => { buzzElement(item); });
     });
     let dropZone = document.getElementById("dropZone");
     if (!dropZone) {
@@ -511,14 +540,14 @@
       dropZone.textContent = "Drop items here";
       document.body.appendChild(dropZone);
     }
-    dropZone.addEventListener("dragover", (e) => {
+    dropZone.addEventListener("dragover", e => {
       e.preventDefault();
       dropZone.style.backgroundColor = "#e0e0e0";
     });
     dropZone.addEventListener("dragleave", () => {
       dropZone.style.backgroundColor = "#f9f9f9";
     });
-    dropZone.addEventListener("drop", (e) => {
+    dropZone.addEventListener("drop", e => {
       e.preventDefault();
       dropZone.style.backgroundColor = "#f9f9f9";
       const id = e.dataTransfer.getData("text/plain");
@@ -535,19 +564,15 @@
     e.dataTransfer.setData("text/plain", e.target.id);
   }
   function initBuzzEffect() {
-    document.querySelectorAll(".buzz").forEach((elem) => {
-      elem.addEventListener("click", () => {
-        buzzElement(elem);
-      });
+    document.querySelectorAll(".buzz").forEach(elem => {
+      elem.addEventListener("click", () => { buzzElement(elem); });
     });
   }
   function buzzElement(elem) {
     elem.classList.add("buzz-effect");
-    setTimeout(() => {
-      elem.classList.remove("buzz-effect");
-    }, 500);
+    setTimeout(() => { elem.classList.remove("buzz-effect"); }, 500);
   }
-
+  
   // ======================================================
   // SAVE / LOAD DRAGGABLE STATE METHODS
   // ======================================================
@@ -564,7 +589,7 @@
       cursor: "pointer"
     });
     document.body.appendChild(saveButton);
-
+    
     const loadButton = document.createElement("button");
     loadButton.textContent = translations.load[currentLanguage];
     loadButton.className = "bubble-button";
@@ -577,10 +602,10 @@
       cursor: "pointer"
     });
     document.body.appendChild(loadButton);
-
+    
     saveButton.addEventListener("click", () => {
       const state = [];
-      document.querySelectorAll(".draggable").forEach((elem) => {
+      document.querySelectorAll(".draggable").forEach(elem => {
         state.push({
           id: elem.id,
           parentId: elem.parentElement.id,
@@ -594,7 +619,7 @@
       const stateJSON = localStorage.getItem("draggableState");
       if (stateJSON) {
         const state = JSON.parse(stateJSON);
-        state.forEach((item) => {
+        state.forEach(item => {
           const elem = document.getElementById(item.id);
           if (elem) {
             const parent = document.getElementById(item.parentId);
@@ -609,14 +634,14 @@
       }
     });
   }
-
+  
   // ======================================================
   // PERIODIC UPDATES
   // ======================================================
   function periodicSecretMappingUpdate() {
     setInterval(applySecretIndexMapping, 60000);
   }
-
+  
   // ======================================================
   // FLOATING BUBBLES (BACKGROUND ANIMATION)
   // ======================================================
@@ -631,7 +656,7 @@
     canvas.style.pointerEvents = "none";
     canvas.style.zIndex = "-1";
     document.body.appendChild(canvas);
-
+    
     const ctx = canvas.getContext("2d");
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -639,7 +664,7 @@
     }
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
-
+    
     const bubbles = [];
     const bubbleCount = 15;
     for (let i = 0; i < bubbleCount; i++) {
@@ -653,18 +678,16 @@
         color: `hsla(${Math.random() * 360}, 70%, 70%, 0.7)`
       });
     }
-
+    
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let i = 0; i < bubbles.length; i++) {
         const b = bubbles[i];
         b.x += b.dx;
         b.y += b.dy;
-        // Bounce off edges
         if (b.x + b.radius > canvas.width || b.x - b.radius < 0) b.dx = -b.dx;
         if (b.y + b.radius > canvas.height || b.y - b.radius < 0) b.dy = -b.dy;
-
-        // Simple collision detection among bubbles
+    
         for (let j = i + 1; j < bubbles.length; j++) {
           const b2 = bubbles[j];
           const dx = b2.x - b.x;
@@ -689,12 +712,12 @@
     }
     animate();
   }
-
+  
   // ======================================================
   // MECHANICS AUTOMOBILE IOT SIMULATION METHODS
   // ======================================================
   function startIoTSimulation() {
-    if (simulationIntervalID !== null) return; // Already running
+    if (simulationIntervalID !== null) return;
     simulationIntervalID = setInterval(simulateIoTProcess, 2000);
   }
   function stopIoTSimulation() {
@@ -711,7 +734,6 @@
       logArea.textContent += stepMessage + "\n";
       logArea.scrollTop = logArea.scrollHeight;
     }
-    // Mimic sensor feedback by changing background color of a random draggable
     const draggables = document.querySelectorAll(".draggable");
     if (draggables.length) {
       const randomIndex = Math.floor(Math.random() * draggables.length);
@@ -720,7 +742,7 @@
       setTimeout(() => { elem.style.background = "#ddd"; }, 500);
     }
   }
-
+  
   // ======================================================
   // NERD METRICS TOGGLE & MODAL
   // ======================================================
@@ -741,10 +763,8 @@
   function toggleNerdMetricsModal() {
     let modal = document.getElementById("nerdMetricsModal");
     if (modal) {
-      // Toggle display if modal already exists
       modal.style.display = (modal.style.display === "none" || modal.style.display === "") ? "block" : "none";
     } else {
-      // Create new modal
       modal = document.createElement("div");
       modal.id = "nerdMetricsModal";
       Object.assign(modal.style, {
@@ -771,7 +791,6 @@
       metricsContainer.style.margin = "10px 0";
       modal.appendChild(metricsContainer);
       
-      // Periodically update metrics
       function updateMetrics() {
         const currentTime = new Date().toLocaleTimeString();
         const cpuUsage = (Math.random() * 100).toFixed(2);
@@ -792,7 +811,6 @@
       updateMetrics();
       const metricsInterval = setInterval(updateMetrics, 5000);
       
-      // Close Modal button
       const closeModalBtn = document.createElement("button");
       closeModalBtn.innerText = translations.close[currentLanguage];
       closeModalBtn.className = "bubble-button";
@@ -803,14 +821,13 @@
       });
       modal.appendChild(closeModalBtn);
       
-      // Proceed button (example)
       const proceedButton = document.createElement("button");
       proceedButton.innerText = translations.proceed[currentLanguage];
       proceedButton.className = "bubble-button";
       proceedButton.addEventListener("click", () => {
-        const confirmed = confirm("Do you want to proceed to base-next.html?");
+        const confirmed = confirm("Do you want to proceed to advanced analysis?");
         if (confirmed) {
-          window.location.href = "base-next.html";
+          window.location.href = "advanced-analysis.html";
         }
       });
       modal.appendChild(proceedButton);
@@ -824,7 +841,7 @@
   // ======================================================
   function initEmojiToggle() {
     const draggables = document.querySelectorAll(".draggable");
-    draggables.forEach((draggable) => {
+    draggables.forEach(draggable => {
       let emojiState = draggable.innerHTML === "🔧";
       setInterval(() => {
         draggable.innerHTML = emojiState ? "⚙️" : "🔧";
@@ -832,9 +849,9 @@
       }, 5000);
     });
   }
-
+  
   // ======================================================
-  // INITIALIZATION (ON DOMCONTENTLOADED) WITH GLOBAL SAFETY LOOP
+  // INITIALIZATION (ON DOMCONTENTLOADED) WITH SAFETY LOOP
   // ======================================================
   document.addEventListener("DOMContentLoaded", () => {
     const initFunctions = [
@@ -849,7 +866,7 @@
       { fn: periodicSecretMappingUpdate, name: "periodicSecretMappingUpdate", fallback: null },
       { fn: initFloatingBubbles, name: "initFloatingBubbles", fallback: fallbackFloatingBubbles }
     ];
-
+    
     initFunctions.forEach(item => safeExecute(item.fn, item.fallback, item.name));
   });
 })();
