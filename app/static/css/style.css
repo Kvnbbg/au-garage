@@ -1,311 +1,459 @@
 /* ========================================================================
-   CSS RESET & GLOBAL SETTINGS
+   FULL CSS FOR THE WORLD WIDE WEB CHALLENGE
    ======================================================================== */
-   *, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+/* 1. Reset & Global Settings */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-color, #f0f0f0);
+  color: var(--text-color, #333);
+  line-height: 1.6;
+  padding: var(--base-padding, 1rem);
+  overflow-x: hidden;
+}
+
+/* 2. CSS Variables (Theming, Spacing, & Animations) */
+:root {
+  /* Colors & Theme */
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --secondary-color: #6c757d;
+  --background-color: #f0f0f0;
+  --text-color: #333;
+  --accent-color: #ff4081;
+  --btn-success: #28a745;
+  --btn-success-hover: #218838;
+  --link-hover: #d1ecf1;
+  /* Spacing & Sizing */
+  --base-padding: 1rem;
+  --container-max-width: 1140px;
+  /* Animation Settings */
+  --float-effect: 3px;
+  --float-duration: 8s;
+  --bubble-size: 60px;
+  --bubble-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
+  --tiktok-duration: 3s;
+  --async-delay: 0.3s;
+}
+
+/* 3. Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  margin-bottom: 0.5em;
+}
+p {
+  margin-bottom: 1em;
+}
+
+/* 4. Layout Containers */
+header {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 1.5rem;
+  border-bottom: 3px solid var(--secondary-color);
+  position: relative;
+  animation: float var(--float-duration) ease-in-out infinite;
+  overflow: hidden;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(calc(-1 * var(--float-effect))); }
+}
+
+nav.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+  background-color: #333;
+}
+nav.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+  position: relative;
+}
+nav.navbar a:hover {
+  transform: translateY(calc(-1 * var(--float-effect)));
+  color: var(--link-hover);
+}
+nav.navbar a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -4px;
+  background: var(--accent-color);
+  transition: width 0.3s ease;
+}
+nav.navbar a:hover::after {
+  width: 100%;
+}
+
+.container,
+.container-fluid {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Slide‑In Container: Always matches the viewport */
+.slide-container {
+  width: 100vw;
+  height: 100vh;
+  animation: slideIn 1s ease-out forwards;
+}
+@keyframes slideIn {
+  from { transform: translateY(100vh); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+/* 5. Buttons & Forms */
+.btn {
+  background-color: var(--btn-success);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+.btn:hover::before {
+  width: 200%;
+  height: 200%;
+}
+.btn:hover {
+  background-color: var(--btn-success-hover);
+  transform: translateY(calc(-1 * var(--float-effect)));
+}
+form input,
+form button,
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.625rem 0;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+/* 6. Modals & Pop-Up Components */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  z-index: 10000;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+}
+#customModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  display: none;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  max-width: 80%;
+  text-align: center;
+}
+
+/* 7. Draggable & Buzz Effects */
+.draggable {
+  user-select: none;
+  cursor: move;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  padding: 10px;
+  margin: 10px;
+  background: #ddd;
+  width: 100px;
+  text-align: center;
+}
+.draggable:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+@keyframes buzz {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0, 0); }
+}
+.buzz-effect {
+  animation: buzz 0.5s linear;
+}
+
+/* 8. Excel‑Like Tables & Spreadsheet Styles */
+.excel-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.excel-table th,
+.excel-table td {
+  border: 1px solid #999;
+  padding: 8px;
+}
+.excel-table th {
+  background: #e0e0e0;
+}
+.spreadsheet-container {
+  overflow-x: auto;
+  margin: 20px auto;
+  max-width: 95%;
+}
+.spreadsheet-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.spreadsheet-container th,
+.spreadsheet-container td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  min-width: 80px;
+}
+.spreadsheet-container th {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* 9. Bubble Buttons */
+.bubble-button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  background: var(--primary-color);
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.bubble-button:hover {
+  transform: scale(1.1);
+}
+/* Floating variant for fixed-position buttons (e.g. state save/load) */
+.bubble-button.floating {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  box-shadow: var(--bubble-shadow);
+  font-size: 1.5rem;
+  z-index: 10000;
+  animation: bubbleFloat 4s ease-in-out infinite;
+}
+@keyframes bubbleFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* 10. TikTok‑Inspired Interactive Animation */
+.tiktok-interactive {
+  animation: tiktokLoop var(--tiktok-duration) ease-in-out infinite;
+}
+@keyframes tiktokLoop {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* 11. Asynchronous & Looping Animations */
+.shimmer {
+  position: relative;
+  color: #333;
+  overflow: hidden;
+}
+.shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+  animation: shimmerEffect 2s infinite;
+}
+@keyframes shimmerEffect {
+  0% { left: -150%; }
+  50% { left: 150%; }
+  100% { left: 150%; }
+}
+.async-hover li {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: asyncFadeIn 0.5s forwards;
+  animation-delay: calc(var(--async-delay) * var(--i));
+}
+@keyframes asyncFadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 12. CSS Grid Layouts */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+.grid-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 4px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+.grid-item:hover {
+  transform: translateY(-5px);
+}
+
+/* 13. Additional Components & Pseudo-elements */
+.decorative-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+.decorative-title::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  border-radius: 2px;
+}
+.hover-border {
+  position: relative;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+.hover-border::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  border: 2px solid var(--accent-color);
+  transition: width 0.3s ease;
+}
+.hover-border:hover::before {
+  width: 100%;
+}
+
+/* 14. Responsive Design & Media Queries */
+@media (max-width: 992px) {
+  header { padding: 1rem; }
+  nav.navbar { gap: 1rem; padding: 0.5rem; }
+}
+@media (max-width: 768px) {
+  nav.navbar { flex-direction: column; }
+  html { scroll-snap-type: none; }
+}
+
+/* 15. Accessibility: Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
   }
-  
-  html {
-    font-size: 16px;
-    scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
-  }
-  
-  body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    padding: var(--base-padding);
-  }
-  
-  /* ========================================================================
-     CSS VARIABLES (THEMING, SPACING & ANIMATIONS)
-     ======================================================================== */
-  :root {
-    /* Colors & Theme */
-    --primary-color: #007bff;
-    --primary-hover: #0056b3;
-    --secondary-color: #6c757d;
-    --background-color: #f0f0f0;
-    --text-color: #333;
-    --btn-success: #28a745;
-    --btn-success-hover: #218838;
-    --link-hover: #d1ecf1;
-    
-    /* Sizing & Spacing */
-    --base-padding: 1rem;
-    --container-max-width: 1140px;
-    
-    /* Animation Settings */
-    --float-effect: 3px;
-    --float-duration: 8s;
-    --bubble-size: 60px;
-    --bubble-color: #ff4081;
-    --bubble-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
-    --tiktok-duration: 3s;
-  }
-  
-  /* ========================================================================
-     TYPOGRAPHY
-     ======================================================================== */
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-  }
-  
-  /* ========================================================================
-     SEMANTIC STRUCTURE: HEADER, NAV, MAIN, SECTION, FOOTER
-     ======================================================================== */
-  
-  /* Header & Navbar */
-  header {
-    background-color: var(--primary-color);
-    color: #fff;
-    padding: 1.5rem;
-    border-bottom: 3px solid var(--secondary-color);
-    position: relative;
-    animation: float var(--float-duration) ease-in-out infinite;
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(calc(-1 * var(--float-effect))); }
-  }
-  
-  nav.navbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    padding: 1rem 0;
-    background-color: #333;
-  }
-  
-  nav.navbar a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: transform 0.3s ease, color 0.3s ease;
-  }
-  
-  nav.navbar a:hover {
-    transform: translateY(calc(-1 * var(--float-effect)));
-    color: var(--link-hover);
-  }
-  
-  .navbar-toggler {
-    background-color: var(--primary-color);
-    border: none;
-  }
-  
-  /* Main container & Slide-in Animation */
-  .container,
-  .container-fluid {
-    max-width: var(--container-max-width);
-    margin: 0 auto;
-    padding: 0 15px;
-  }
-  
-  .slide-container {
-    animation: slideIn 1s ease-out forwards;
-  }
-  
-  @keyframes slideIn {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-  
-  /* Footer */
-  footer {
-    background-color: #222;
-    color: #fff;
-    padding: 2rem 0;
-    text-align: center;
-  }
-  
-  /* ========================================================================
-     BUTTONS & FORM ELEMENTS
-     ======================================================================== */
-  .btn {
-    background-color: var(--btn-success);
-    color: #fff;
-    padding: 0.75rem 1.25rem;
-    border: none;
-    border-radius: 0.25rem;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .btn:hover {
-    background-color: var(--btn-success-hover);
-    transform: translateY(calc(-1 * var(--float-effect)));
-  }
-  
-  form input,
-  form button,
-  form select,
-  form textarea {
-    width: 100%;
-    padding: 0.5rem;
-    margin: 0.625rem 0;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-  }
-  
-  /* ========================================================================
-     POP-UP MODAL (MECHANIC ADVICE)
-     ======================================================================== */
-  #customModal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.85);
-    color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    display: none;
-    z-index: 10000;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    max-width: 80%;
-    text-align: center;
-  }
-  
-  /* ========================================================================
-     DRAGGABLE & BUZZ EFFECT ELEMENTS
-     ======================================================================== */
-  .draggable {
-    user-select: none;
-    cursor: move;
-  }
-  
-  @keyframes buzz {
-    0% { transform: translate(0, 0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0, 0); }
-  }
-  
-  .buzz-effect {
-    animation: buzz 0.5s linear;
-  }
-  
-  /* ========================================================================
-     SPREADSHEET: MECHANICAL DATA ACQUISITION PANEL
-     ======================================================================== */
-  .spreadsheet-container {
-    overflow-x: auto;
-    margin: 20px auto;
-    max-width: 95%;
-  }
-  
-  .spreadsheet-container table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .spreadsheet-container th,
-  .spreadsheet-container td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-    min-width: 80px;
-  }
-  
-  .spreadsheet-container th {
-    background-color: var(--primary-color);
-    color: #fff;
-  }
-  
-  /* ========================================================================
-     FLOATING BUBBLE BUTTON (CALL-TO-ACTION)
-     ======================================================================== */
-  .bubble-button {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: var(--bubble-size);
-    height: var(--bubble-size);
-    background-color: var(--bubble-color);
-    border-radius: 50%;
-    box-shadow: var(--bubble-shadow);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: 1.5rem;
-    cursor: pointer;
-    z-index: 10000;
-    animation: bubbleFloat 4s ease-in-out infinite;
-  }
-  
-  @keyframes bubbleFloat {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0); }
-  }
-  
-  /* ========================================================================
-     TIKTOK-INSPIRED INTERACTIVE LOOP ANIMATION
-     ======================================================================== */
-  .tiktok-interactive {
-    animation: tiktokLoop var(--tiktok-duration) ease-in-out infinite;
-  }
-  
-  @keyframes tiktokLoop {
-    0% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.1) rotate(5deg); }
-    100% { transform: scale(1) rotate(0deg); }
-  }
-  
-  /* ========================================================================
-     SEMANTIC ENHANCEMENTS & ADDITIONAL STYLES
-     ======================================================================== */
-  header, main, section, footer, nav {
-    /* Adding semantic spacing for better readability */
-    padding: 1rem;
-  }
-  
-  section {
-    margin-bottom: 2rem;
-  }
-  
-  .social-links a {
-    margin: 0 0.5rem;
-    transition: color 0.3s ease;
-  }
-  
-  .social-links a:hover {
-    color: var(--primary-hover);
-  }
-  
-  /* ========================================================================
-     RESPONSIVE DESIGN & MEDIA QUERIES
-     ======================================================================== */
-  @media (max-width: 992px) {
-    header { padding: 1rem; }
-    nav.navbar { gap: 1rem; padding: 0.5rem 0; }
-  }
-  
-  @media (max-width: 768px) {
-    nav.navbar { flex-direction: column; }
-    html { scroll-snap-type: none; }
-  }
-  
-  /* ========================================================================
-     ACCESSIBILITY: PREFERS-REDUCED-MOTION
-     ======================================================================== */
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation: none !important;
-      transition: none !important;
-    }
-  }
-  
+}
+
+/* 16. Custom Components (Used by JS) */
+#dropZone {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px dashed #ccc;
+  padding: 20px;
+  margin: 10px;
+  min-width: 300px;
+  text-align: center;
+  background: #f9f9f9;
+  z-index: 9999;
+}
+#mainContainer {
+  padding: 20px;
+  font-family: sans-serif;
+}
+#iotSimulation {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 20px 0;
+}
+#simulationLog {
+  background: #f4f4f4;
+  height: 150px;
+  overflow-y: auto;
+  padding: 10px;
+  font-size: 14px;
+}
+#bubbleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
