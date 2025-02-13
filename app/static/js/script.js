@@ -1,853 +1,450 @@
-(function () {
-  // ======================================================
-  // GLOBAL SETTINGS & TRANSLATIONS
-  // ======================================================
-  let currentLanguage = "en";
-  const translations = {
-    planning: { en: "Planning", fr: "Planification" },
-    save: { en: "Save State", fr: "Sauvegarder l'état" },
-    load: { en: "Load State", fr: "Charger l'état" },
-    toggleLanguage: { en: "Français", fr: "English" },
-    mechanicalAdvice: {
-      en: "Always ensure optimal gear alignment and proper lubrication levels to achieve maximum mechanical efficiency and safety during high-load operations.",
-      fr: "Assurez-vous toujours d'un alignement optimal des engrenages et d'un niveau de lubrification approprié pour obtenir une efficacité mécanique maximale et une sécurité optimale lors des opérations à forte charge."
-    },
-    removeSubstring: {
-      en: "Remove All Occurrences of a Substring",
-      fr: "Supprimer toutes les occurrences d'une sous-chaîne"
-    },
-    submit: { en: "Submit", fr: "Soumettre" },
-    output: { en: "Output", fr: "Résultat" },
-    textContext: {
-      en: "Welcome to the Engineering Document SaaS Platform. Here you can generate structured documents styled like Excel with advanced mechanical insights and planning features.",
-      fr: "Bienvenue sur la plateforme SaaS de documents d'ingénierie. Ici, vous pouvez générer des documents structurés au style Excel avec des informations mécaniques avancées et des fonctionnalités de planification."
-    },
-    reset: { en: "Reset UI", fr: "Réinitialiser l'interface" },
-    saveAlert: { en: "State saved!", fr: "État sauvegardé!" },
-    loadAlert: { en: "State loaded!", fr: "État chargé!" },
-    noStateAlert: { en: "No saved state found.", fr: "Aucun état sauvegardé trouvé." },
-    simulationTitle: {
-      en: "Mechanics Automobile IoT Simulation",
-      fr: "Simulation IoT de Mécanique Automobile"
-    },
-    startSimulation: { en: "Start Simulation", fr: "Démarrer la Simulation" },
-    stopSimulation: { en: "Stop Simulation", fr: "Arrêter la Simulation" },
-    // --- New translations for Nerd Metrics ---
-    nerdMetrics: { en: "Nerd Metrics", fr: "Métriques Nerd" },
-    proceed: { en: "Go to Base Next", fr: "Aller à Base Next" },
-    close: { en: "Close", fr: "Fermer" }
-  };
+/* ========================================================================
+   1. CSS RESET & GLOBAL SETTINGS
+   ======================================================================== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  // ======================================================
-  // GLOBAL VARIABLES FOR SIMULATION
-  // ======================================================
-  let simulationIntervalID = null;
-  let simulationStep = 0;
-  const simulationActions = [
-    "Checking engine sensor readings",
-    "Calibrating transmission sensors",
-    "Adjusting fuel mixture parameters",
-    "Activating diagnostic mode",
-    "Syncing real-time data with cloud",
-    "Running predictive maintenance algorithm",
-    "Optimizing gear ratios",
-    "Monitoring temperature sensors"
-  ];
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
 
-  // ======================================================
-  // VERSATILITY: GLOBAL SAFETY WRAPPER & FALLBACK FUNCTIONS
-  // ======================================================
-  function safeExecute(fn, alternative, fnName) {
-    console.log(`Start: ${fnName}`);
-    try {
-      fn();
-      console.log(`End: ${fnName} succeeded.`);
-    } catch (error) {
-      console.error(`Error in ${fnName}: ${error}`);
-      if (typeof alternative === "function") {
-        try {
-          alternative();
-          console.log(`Alternative for ${fnName} succeeded.`);
-        } catch (altError) {
-          console.error(`Alternative for ${fnName} failed: ${altError}`);
-        }
-      }
-    }
-  }
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  padding: var(--base-padding);
+  overflow-x: hidden;
+}
 
-  // Fallback for Drag & Drop: In case the advanced drag/drop fails, we simply remove draggable attributes.
-  function fallbackDragAndDrop() {
-    console.warn("Fallback: Basic Drag & Drop not available. Draggables will remain static.");
-    const draggables = document.querySelectorAll(".draggable");
-    draggables.forEach((elem) => {
-      elem.removeAttribute("draggable");
-    });
-  }
-
-  // Fallback for Floating Bubbles: If animation fails, we paint a static background.
-  function fallbackFloatingBubbles() {
-    console.warn("Fallback: Floating bubbles animation failed. Using static background.");
-    const canvas = document.getElementById("bubbleCanvas");
-    if (canvas) {
-      const ctx = canvas.getContext("2d");
-      ctx.fillStyle = "#e0e0e0";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
-  }
-
-  // ======================================================
-  // INSERT CSS STYLES (SELF-CONTAINED)
-  // ======================================================
-  function insertStyles() {
-    const style = document.createElement("style");
-    style.innerHTML = `
-      /* Global reset & box-sizing */
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      
-      /* Modal */
-      .modal, #nerdMetricsModal {
-        position: fixed;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        background: #fff; padding: 20px;
-        border: 2px solid #000;
-        border-radius: 8px;
-        z-index: 10000;
-        max-width: 90%; max-height: 90%;
-        overflow: auto;
-      }
-      #customModal {
-        background: rgba(0, 0, 0, 0.85);
-        color: #fff;
-        transition: opacity 0.3s ease;
-        text-align: center;
-      }
-      /* Drop Zone */
-      #dropZone {
-        position: fixed;
-        top: 0; left: 50%;
-        transform: translateX(-50%);
-        border: 2px dashed #ccc;
-        padding: 20px; margin: 10px;
-        min-width: 300px; text-align: center;
-        background: #f9f9f9; z-index: 9999;
-      }
-      /* Buttons */
-      .bubble-button {
-        position: relative;
-        padding: 10px 15px;
-        margin: 5px;
-        border: none;
-        background: #007BFF;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-      }
-      .bubble-button:hover { transform: scale(1.1); }
-      @keyframes buzz {
-        0% { transform: translate(0, 0); }
-        20% { transform: translate(-2px, 2px); }
-        40% { transform: translate(-2px, -2px); }
-        60% { transform: translate(2px, 2px); }
-        80% { transform: translate(2px, -2px); }
-        100% { transform: translate(0, 0); }
-      }
-      .buzz-effect { animation: buzz 0.5s linear; }
-      /* Excel-like table */
-      .excel-table { width: 100%; border-collapse: collapse; }
-      .excel-table th, .excel-table td { border: 1px solid #999; padding: 8px; }
-      .excel-table th { background: #e0e0e0; }
-      /* Main container */
-      #mainContainer { padding: 20px; font-family: sans-serif; }
-      /* IoT Simulation Section */
-      #iotSimulation { border: 1px solid #ccc; padding: 10px; margin: 20px 0; }
-      #simulationLog { background: #f4f4f4; height: 150px; overflow-y: auto; padding: 10px; font-size: 14px; }
-      /* Responsive adjustments */
-      @media (max-width: 600px) {
-        .bubble-button { font-size: 14px; padding: 8px 12px; }
-        h1 { font-size: 20px; }
-      }
-      /* Floating Bubbles Canvas */
-      #bubbleCanvas {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        pointer-events: none;
-        z-index: -1;
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  // ======================================================
-  // SECRET INDEX MAPPING (GLOBAL)
-  // ======================================================
-  function applySecretIndexMapping() {
-    const elements = document.querySelectorAll("*");
-    const prime = 37;
-    elements.forEach((el, index) => {
-      const secretIndex = ((index + 1) * prime) % 9973;
-      el.setAttribute("data-secret-index", secretIndex);
-    });
-    console.log("Secret index mapping applied to", elements.length, "elements.");
-  }
-
-  // ======================================================
-  // UI BUILDER METHODS
-  // ======================================================
-  function createUI() {
-    const mainContainer = document.createElement("div");
-    mainContainer.id = "mainContainer";
-    document.body.appendChild(mainContainer);
-
-    createHeader(mainContainer);
-    createButtons(mainContainer);
-    createTextContext(mainContainer);
-    createRemoveSubstringSection(mainContainer);
-    createDraggableElements(mainContainer);
-    createIoTSimulationSection(mainContainer);
-    // Initialize the new Nerd Metrics toggle button.
-    initNerdMetricsToggle();
-  }
-
-  function createHeader(parent) {
-    const header = document.createElement("div");
-    header.id = "header";
-    header.style.display = "flex";
-    header.style.justifyContent = "space-between";
-    header.style.alignItems = "center";
-    header.style.padding = "10px 0";
-    parent.appendChild(header);
-
-    const title = document.createElement("h1");
-    title.innerText = "Engineering Document SaaS Platform";
-    header.appendChild(title);
-
-    const controlsContainer = document.createElement("div");
-    header.appendChild(controlsContainer);
-
-    const langToggleButton = document.createElement("button");
-    langToggleButton.id = "langToggleButton";
-    langToggleButton.className = "bubble-button";
-    langToggleButton.innerText = translations.toggleLanguage[currentLanguage];
-    langToggleButton.addEventListener("click", toggleLanguage);
-    controlsContainer.appendChild(langToggleButton);
-
-    const resetButton = document.createElement("button");
-    resetButton.id = "resetButton";
-    resetButton.className = "bubble-button";
-    resetButton.innerText = translations.reset[currentLanguage];
-    resetButton.addEventListener("click", resetUI);
-    controlsContainer.appendChild(resetButton);
-  }
-
-  function createButtons(parent) {
-    const buttonsContainer = document.createElement("div");
-    buttonsContainer.id = "buttonsContainer";
-    buttonsContainer.style.margin = "20px 0";
-    parent.appendChild(buttonsContainer);
-
-    const planningButton = document.createElement("button");
-    planningButton.id = "planningButton";
-    planningButton.className = "bubble-button";
-    planningButton.innerText = translations.planning[currentLanguage];
-    planningButton.addEventListener("click", showPlanningDocument);
-    buttonsContainer.appendChild(planningButton);
-  }
-
-  function createTextContext(parent) {
-    const textContext = document.createElement("p");
-    textContext.id = "textContext";
-    textContext.innerText = translations.textContext[currentLanguage];
-    parent.appendChild(textContext);
-  }
-
-  function createRemoveSubstringSection(parent) {
-    const removeContainer = document.createElement("div");
-    removeContainer.id = "removeContainer";
-    removeContainer.style.border = "1px solid #ccc";
-    removeContainer.style.padding = "10px";
-    removeContainer.style.margin = "20px 0";
-    parent.appendChild(removeContainer);
-
-    const removeTitle = document.createElement("h2");
-    removeTitle.innerText = translations.removeSubstring[currentLanguage];
-    removeContainer.appendChild(removeTitle);
-
-    const sLabel = document.createElement("label");
-    sLabel.innerText = "Main string:";
-    removeContainer.appendChild(sLabel);
-
-    const sInput = document.createElement("input");
-    sInput.type = "text";
-    sInput.id = "sInput";
-    sInput.style.display = "block";
-    sInput.style.marginBottom = "10px";
-    removeContainer.appendChild(sInput);
-
-    const partLabel = document.createElement("label");
-    partLabel.innerText = "Substring:";
-    removeContainer.appendChild(partLabel);
-
-    const partInput = document.createElement("input");
-    partInput.type = "text";
-    partInput.id = "partInput";
-    partInput.style.display = "block";
-    partInput.style.marginBottom = "10px";
-    removeContainer.appendChild(partInput);
-
-    const submitButton = document.createElement("button");
-    submitButton.innerText = translations.submit[currentLanguage];
-    submitButton.className = "bubble-button";
-    submitButton.addEventListener("click", processInput);
-    removeContainer.appendChild(submitButton);
-
-    const outputTitle = document.createElement("h3");
-    outputTitle.innerHTML = translations.output[currentLanguage] + ": <span id='output'></span>";
-    removeContainer.appendChild(outputTitle);
-  }
-
-  function createDraggableElements(parent) {
-    for (let i = 1; i <= 3; i++) {
-      const draggable = document.createElement("div");
-      draggable.id = "draggable" + i;
-      draggable.className = "draggable buzz bubble-button";
-      draggable.style.padding = "10px";
-      draggable.style.margin = "10px";
-      draggable.style.background = "#ddd";
-      draggable.style.width = "100px";
-      draggable.style.textAlign = "center";
-      draggable.style.cursor = "move";
-      // Alternate emoji icons for variety.
-      draggable.innerHTML = i % 2 === 0 ? "🔧" : "⚙️";
-      parent.appendChild(draggable);
-    }
-  }
-
-  function createIoTSimulationSection(parent) {
-    const simulationSection = document.createElement("div");
-    simulationSection.id = "iotSimulation";
-    simulationSection.style.border = "1px solid #ccc";
-    simulationSection.style.padding = "10px";
-    simulationSection.style.margin = "20px 0";
-    parent.appendChild(simulationSection);
-
-    const simTitle = document.createElement("h2");
-    simTitle.innerText = translations.simulationTitle[currentLanguage];
-    simulationSection.appendChild(simTitle);
-
-    const startBtn = document.createElement("button");
-    startBtn.innerText = translations.startSimulation[currentLanguage];
-    startBtn.className = "bubble-button";
-    startBtn.addEventListener("click", startIoTSimulation);
-    simulationSection.appendChild(startBtn);
-
-    const stopBtn = document.createElement("button");
-    stopBtn.innerText = translations.stopSimulation[currentLanguage];
-    stopBtn.className = "bubble-button";
-    stopBtn.addEventListener("click", stopIoTSimulation);
-    simulationSection.appendChild(stopBtn);
-
-    const logArea = document.createElement("pre");
-    logArea.id = "simulationLog";
-    logArea.style.marginTop = "10px";
-    simulationSection.appendChild(logArea);
-  }
-
-  // ======================================================
-  // LANGUAGE & UI UPDATE METHODS
-  // ======================================================
-  function toggleLanguage() {
-    currentLanguage = currentLanguage === "en" ? "fr" : "en";
-    document.getElementById("langToggleButton").innerText = translations.toggleLanguage[currentLanguage];
-    document.getElementById("planningButton").innerText = translations.planning[currentLanguage];
-    document.getElementById("textContext").innerText = translations.textContext[currentLanguage];
-    document.querySelector("#removeContainer h2").innerText = translations.removeSubstring[currentLanguage];
-    const submitBtn = document.querySelector("#removeContainer button");
-    if (submitBtn) submitBtn.innerText = translations.submit[currentLanguage];
-    document.querySelector("#removeContainer h3").innerHTML =
-      translations.output[currentLanguage] + ": <span id='output'></span>";
-    document.getElementById("resetButton").innerText = translations.reset[currentLanguage];
-    document.querySelector("#iotSimulation h2").innerText = translations.simulationTitle[currentLanguage];
-
-    // Update Nerd Metrics button and modal if they exist.
-    const nerdBtn = document.getElementById("nerdMetricsButton");
-    if (nerdBtn) {
-      nerdBtn.innerText = translations.nerdMetrics[currentLanguage];
-    }
-    const nerdModal = document.getElementById("nerdMetricsModal");
-    if (nerdModal) {
-      const header = nerdModal.querySelector("h2");
-      if (header) header.innerText = translations.nerdMetrics[currentLanguage];
-      const buttons = nerdModal.querySelectorAll("button");
-      if (buttons.length >= 2) {
-        buttons[0].innerText = translations.close[currentLanguage];
-        buttons[1].innerText = translations.proceed[currentLanguage];
-      }
-    }
-  }
-
-  function resetUI() {
-    const mainContainer = document.getElementById("mainContainer");
-    document.querySelectorAll(".draggable").forEach((draggable) => {
-      mainContainer.appendChild(draggable);
-      draggable.style.opacity = "1";
-    });
-    const dropZone = document.getElementById("dropZone");
-    if (dropZone) dropZone.style.backgroundColor = "#f9f9f9";
-    applySecretIndexMapping();
-    console.log("UI reset complete.");
-  }
-
-  // ======================================================
-  // STRING PROCESSING METHODS
-  // ======================================================
-  function removeOccurrences(s, part) {
-    while (s.includes(part)) {
-      s = s.replace(part, "");
-    }
-    return s;
-  }
-  function processInput() {
-    const s = document.getElementById("sInput").value;
-    const part = document.getElementById("partInput").value;
-    document.getElementById("output").innerText = removeOccurrences(s, part);
-  }
-
-  // ======================================================
-  // DOCUMENT GENERATOR (EXCEL-LIKE TABLE WITH ADVICE)
-  // ======================================================
-  function showPlanningDocument() {
-    const modal = document.createElement("div");
-    modal.className = "modal";
-
-    const table = document.createElement("table");
-    table.className = "excel-table";
-    const headerRow = document.createElement("tr");
-    ["Task", "Engineer", "Start Date", "End Date", "Status"].forEach((txt) => {
-      const th = document.createElement("th");
-      th.innerText = txt;
-      headerRow.appendChild(th);
-    });
-    table.appendChild(headerRow);
-
-    const dummyData = [
-      ["Review Design", "Alice", "2025-03-01", "2025-03-02", "Completed"],
-      ["Prototype Build", "Bob", "2025-03-03", "2025-03-10", "In Progress"],
-      ["Test & Validate", "Charlie", "2025-03-11", "2025-03-15", "Pending"]
-    ];
-    dummyData.forEach((rowData) => {
-      const row = document.createElement("tr");
-      rowData.forEach((cellData) => {
-        const td = document.createElement("td");
-        td.innerText = cellData;
-        row.appendChild(td);
-      });
-      table.appendChild(row);
-    });
-
-    const advice = document.createElement("p");
-    advice.style.marginTop = "20px";
-    advice.innerText = translations.mechanicalAdvice[currentLanguage];
-
-    const closeBtn = document.createElement("button");
-    closeBtn.innerText = translations.close[currentLanguage] || "Close";
-    closeBtn.className = "bubble-button";
-    closeBtn.style.marginTop = "10px";
-    closeBtn.addEventListener("click", () => {
-      document.body.removeChild(modal);
-    });
-
-    modal.appendChild(table);
-    modal.appendChild(advice);
-    modal.appendChild(closeBtn);
-    document.body.appendChild(modal);
-  }
-
-  // ======================================================
-  // POPUP MODAL WITH MECHANICAL ADVICE (OPTIONAL)
-  // ======================================================
-  function initPopup() {
-    const modal = document.createElement("div");
-    modal.id = "customModal";
-    Object.assign(modal.style, { top: "50%", left: "50%", transform: "translate(-50%, -50%)" });
-    modal.innerHTML = `
-      <p><strong>Mechanical Advice:</strong> ${translations.mechanicalAdvice[currentLanguage]}</p>
-      <button id="closeModal" style="padding: 8px 12px; cursor: pointer;">${translations.close[currentLanguage] || "Close Advice"}</button>
-    `;
-    document.body.appendChild(modal);
-
-    document.querySelectorAll(".popup-trigger").forEach((trigger) => {
-      trigger.addEventListener("click", (e) => {
-        e.stopPropagation();
-        modal.style.display = "block";
-        setTimeout(() => { modal.style.opacity = "1"; }, 100);
-      });
-    });
-    document.getElementById("closeModal").addEventListener("click", (e) => {
-      e.stopPropagation();
-      modal.style.opacity = "0";
-      setTimeout(() => { modal.style.display = "none"; }, 300);
-    });
-    window.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        modal.style.opacity = "0";
-        setTimeout(() => { modal.style.display = "none"; }, 300);
-      }
-    });
-  }
-
-  // ======================================================
-  // DRAG & DROP & BUZZ EFFECT METHODS
-  // ======================================================
-  function initDragAndDrop() {
-    const draggables = document.querySelectorAll(".draggable");
-    draggables.forEach((item) => {
-      item.setAttribute("draggable", true);
-      item.addEventListener("dragstart", dragStart);
-      item.addEventListener("click", () => {
-        buzzElement(item);
-      });
-    });
-    let dropZone = document.getElementById("dropZone");
-    if (!dropZone) {
-      dropZone = document.createElement("div");
-      dropZone.id = "dropZone";
-      dropZone.textContent = "Drop items here";
-      document.body.appendChild(dropZone);
-    }
-    dropZone.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      dropZone.style.backgroundColor = "#e0e0e0";
-    });
-    dropZone.addEventListener("dragleave", () => {
-      dropZone.style.backgroundColor = "#f9f9f9";
-    });
-    dropZone.addEventListener("drop", (e) => {
-      e.preventDefault();
-      dropZone.style.backgroundColor = "#f9f9f9";
-      const id = e.dataTransfer.getData("text/plain");
-      const draggableElem = document.getElementById(id);
-      if (draggableElem) {
-        dropZone.appendChild(draggableElem);
-        draggableElem.style.transition = "opacity 0.5s";
-        draggableElem.style.opacity = "0.5";
-        setTimeout(() => { draggableElem.style.opacity = "1"; }, 500);
-      }
-    });
-  }
-  function dragStart(e) {
-    e.dataTransfer.setData("text/plain", e.target.id);
-  }
-  function initBuzzEffect() {
-    document.querySelectorAll(".buzz").forEach((elem) => {
-      elem.addEventListener("click", () => {
-        buzzElement(elem);
-      });
-    });
-  }
-  function buzzElement(elem) {
-    elem.classList.add("buzz-effect");
-    setTimeout(() => {
-      elem.classList.remove("buzz-effect");
-    }, 500);
-  }
-
-  // ======================================================
-  // SAVE / LOAD DRAGGABLE STATE METHODS
-  // ======================================================
-  function initStateSaveLoad() {
-    const saveButton = document.createElement("button");
-    saveButton.textContent = translations.save[currentLanguage];
-    saveButton.className = "bubble-button";
-    Object.assign(saveButton.style, {
-      position: "fixed",
-      bottom: "20px",
-      right: "20px",
-      padding: "10px 20px",
-      zIndex: "9999",
-      cursor: "pointer"
-    });
-    document.body.appendChild(saveButton);
-
-    const loadButton = document.createElement("button");
-    loadButton.textContent = translations.load[currentLanguage];
-    loadButton.className = "bubble-button";
-    Object.assign(loadButton.style, {
-      position: "fixed",
-      bottom: "20px",
-      right: "150px",
-      padding: "10px 20px",
-      zIndex: "9999",
-      cursor: "pointer"
-    });
-    document.body.appendChild(loadButton);
-
-    saveButton.addEventListener("click", () => {
-      const state = [];
-      document.querySelectorAll(".draggable").forEach((elem) => {
-        state.push({
-          id: elem.id,
-          parentId: elem.parentElement.id,
-          secretIndex: elem.getAttribute("data-secret-index")
-        });
-      });
-      localStorage.setItem("draggableState", JSON.stringify(state));
-      alert(translations.saveAlert[currentLanguage]);
-    });
-    loadButton.addEventListener("click", () => {
-      const stateJSON = localStorage.getItem("draggableState");
-      if (stateJSON) {
-        const state = JSON.parse(stateJSON);
-        state.forEach((item) => {
-          const elem = document.getElementById(item.id);
-          if (elem) {
-            const parent = document.getElementById(item.parentId);
-            if (parent) {
-              parent.appendChild(elem);
-            }
-          }
-        });
-        alert(translations.loadAlert[currentLanguage]);
-      } else {
-        alert(translations.noStateAlert[currentLanguage]);
-      }
-    });
-  }
-
-  // ======================================================
-  // PERIODIC UPDATES
-  // ======================================================
-  function periodicSecretMappingUpdate() {
-    setInterval(applySecretIndexMapping, 60000);
-  }
-
-  // ======================================================
-  // FLOATING BUBBLES (BACKGROUND ANIMATION)
-  // ======================================================
-  function initFloatingBubbles() {
-    const canvas = document.createElement("canvas");
-    canvas.id = "bubbleCanvas";
-    canvas.style.position = "fixed";
-    canvas.style.top = "0";
-    canvas.style.left = "0";
-    canvas.style.width = "100%";
-    canvas.style.height = "100%";
-    canvas.style.pointerEvents = "none";
-    canvas.style.zIndex = "-1";
-    document.body.appendChild(canvas);
-
-    const ctx = canvas.getContext("2d");
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    const bubbles = [];
-    const bubbleCount = 15;
-    for (let i = 0; i < bubbleCount; i++) {
-      const radius = Math.random() * 20 + 10;
-      bubbles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: radius,
-        dx: (Math.random() - 0.5) * 2,
-        dy: (Math.random() - 0.5) * 2,
-        color: `hsla(${Math.random() * 360}, 70%, 70%, 0.7)`
-      });
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < bubbles.length; i++) {
-        const b = bubbles[i];
-        b.x += b.dx;
-        b.y += b.dy;
-        if (b.x + b.radius > canvas.width || b.x - b.radius < 0) b.dx = -b.dx;
-        if (b.y + b.radius > canvas.height || b.y - b.radius < 0) b.dy = -b.dy;
-
-        for (let j = i + 1; j < bubbles.length; j++) {
-          const b2 = bubbles[j];
-          const dx = b2.x - b.x;
-          const dy = b2.y - b.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < b.radius + b2.radius) {
-            const tempDx = b.dx;
-            const tempDy = b.dy;
-            b.dx = b2.dx;
-            b.dy = b2.dy;
-            b2.dx = tempDx;
-            b2.dy = tempDy;
-          }
-        }
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
-        ctx.fillStyle = b.color;
-        ctx.fill();
-        ctx.closePath();
-      }
-      requestAnimationFrame(animate);
-    }
-    animate();
-  }
-
-  // ======================================================
-  // MECHANICS AUTOMOBILE IOT SIMULATION METHODS
-  // ======================================================
-  function startIoTSimulation() {
-    if (simulationIntervalID !== null) return;
-    simulationIntervalID = setInterval(simulateIoTProcess, 2000);
-  }
-  function stopIoTSimulation() {
-    clearInterval(simulationIntervalID);
-    simulationIntervalID = null;
-  }
-  function simulateIoTProcess() {
-    simulationStep++;
-    const action = simulationActions[Math.floor(Math.random() * simulationActions.length)];
-    const sensorValue = (Math.random() * 100).toFixed(2);
-    const stepMessage = `Step ${simulationStep}: ${action}. Sensor reading: ${sensorValue}`;
-    const logArea = document.getElementById("simulationLog");
-    if (logArea) {
-      logArea.textContent += stepMessage + "\n";
-      logArea.scrollTop = logArea.scrollHeight;
-    }
-    const draggables = document.querySelectorAll(".draggable");
-    if (draggables.length) {
-      const randomIndex = Math.floor(Math.random() * draggables.length);
-      const elem = draggables[randomIndex];
-      elem.style.background = sensorValue > 50 ? "#cfc" : "#fcc";
-      setTimeout(() => { elem.style.background = "#ddd"; }, 500);
-    }
-  }
-
-  // ======================================================
-  // NERD METRICS TOGGLE & MODAL
-  // ======================================================
-  function initNerdMetricsToggle() {
-    const nerdButton = document.createElement("button");
-    nerdButton.id = "nerdMetricsButton";
-    nerdButton.className = "bubble-button";
-    nerdButton.innerText = translations.nerdMetrics[currentLanguage];
-    const header = document.getElementById("header");
-    if (header) {
-      header.appendChild(nerdButton);
-    } else {
-      document.body.appendChild(nerdButton);
-    }
-    nerdButton.addEventListener("click", toggleNerdMetricsModal);
-  }
+/* ========================================================================
+   2. CSS VARIABLES (THEMING, SPACING & ANIMATIONS)
+   ======================================================================== */
+:root {
+  /* Colors & Theme */
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --secondary-color: #6c757d;
+  --background-color: #f0f0f0;
+  --text-color: #333;
+  --accent-color: #ff4081;
+  --btn-success: #28a745;
+  --btn-success-hover: #218838;
+  --link-hover: #d1ecf1;
   
-  function toggleNerdMetricsModal() {
-    let modal = document.getElementById("nerdMetricsModal");
-    if (modal) {
-      modal.style.display = modal.style.display === "none" ? "block" : "none";
-    } else {
-      modal = document.createElement("div");
-      modal.id = "nerdMetricsModal";
-      Object.assign(modal.style, {
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        background: "#fff",
-        padding: "20px",
-        border: "2px solid #000",
-        borderRadius: "8px",
-        zIndex: "10000",
-        maxWidth: "90%",
-        maxHeight: "90%",
-        overflow: "auto"
-      });
-      
-      const modalHeader = document.createElement("h2");
-      modalHeader.innerText = translations.nerdMetrics[currentLanguage];
-      modal.appendChild(modalHeader);
-      
-      const metricsContainer = document.createElement("div");
-      metricsContainer.id = "metricsContainer";
-      metricsContainer.style.margin = "10px 0";
-      modal.appendChild(metricsContainer);
-      
-      function updateMetrics() {
-        const currentTime = new Date().toLocaleTimeString();
-        const cpuUsage = (Math.random() * 100).toFixed(2);
-        const gpuUsage = (Math.random() * 100).toFixed(2);
-        const powerConsumption = (Math.random() * 50 + 50).toFixed(2);
-        const dataConsumption = (Math.random() * 500).toFixed(2);
-        const timeToday = new Date().toLocaleString();
-        
-        metricsContainer.innerHTML = `
-          <p>Current Time: ${currentTime}</p>
-          <p>CPU Usage: ${cpuUsage}%</p>
-          <p>GPU Usage: ${gpuUsage}%</p>
-          <p>Power Consumption: ${powerConsumption}W</p>
-          <p>Data Consumption: ${dataConsumption} MB</p>
-          <p>Time Today: ${timeToday}</p>
-        `;
-      }
-      updateMetrics();
-      const metricsInterval = setInterval(updateMetrics, 5000);
-      
-      const closeModalBtn = document.createElement("button");
-      closeModalBtn.innerText = translations.close[currentLanguage];
-      closeModalBtn.className = "bubble-button";
-      closeModalBtn.style.marginRight = "10px";
-      closeModalBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-        clearInterval(metricsInterval);
-      });
-      modal.appendChild(closeModalBtn);
-      
-      const proceedButton = document.createElement("button");
-      proceedButton.innerText = translations.proceed[currentLanguage];
-      proceedButton.className = "bubble-button";
-      proceedButton.addEventListener("click", () => {
-        const confirmed = confirm("Do you want to proceed to base-next.html?");
-        if (confirmed) {
-          window.location.href = "base-next.html";
-        }
-      });
-      modal.appendChild(proceedButton);
-      
-      document.body.appendChild(modal);
-    }
-  }
+  /* Spacing & Sizing */
+  --base-padding: 1rem;
+  --container-max-width: 1140px;
   
-  // ======================================================
-  // UTILITY: Toggle Emoji for Draggable Elements
-  // ======================================================
-  function initEmojiToggle() {
-    const draggables = document.querySelectorAll(".draggable");
-    draggables.forEach((draggable) => {
-      let emojiState = draggable.innerHTML === "🔧";
-      setInterval(() => {
-        draggable.innerHTML = emojiState ? "⚙️" : "🔧";
-        emojiState = !emojiState;
-      }, 5000);
-    });
+  /* Animation Settings */
+  --float-effect: 3px;
+  --float-duration: 8s;
+  --bubble-size: 60px;
+  --bubble-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
+  --tiktok-duration: 3s;
+  --async-delay: 0.3s;
+}
+
+/* ========================================================================
+   3. TYPOGRAPHY & GLOBAL ELEMENTS
+   ======================================================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  margin-bottom: 0.5em;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+/* ========================================================================
+   4. LAYOUT CONTAINERS (HEADER, NAV, MAIN, FOOTER)
+   ======================================================================== */
+header {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 1.5rem;
+  border-bottom: 3px solid var(--secondary-color);
+  position: relative;
+  animation: float var(--float-duration) ease-in-out infinite;
+  overflow: hidden;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(calc(-1 * var(--float-effect))); }
+}
+
+nav.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+  background-color: #333;
+}
+
+nav.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+  position: relative;
+}
+
+nav.navbar a:hover {
+  transform: translateY(calc(-1 * var(--float-effect)));
+  color: var(--link-hover);
+}
+
+/* Animated pseudo-element for navbar links */
+nav.navbar a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -4px;
+  background: var(--accent-color);
+  transition: width 0.3s ease;
+}
+nav.navbar a:hover::after {
+  width: 100%;
+}
+
+/* Container for content */
+.container,
+.container-fluid {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Slide-in animation for main content */
+.slide-container {
+  animation: slideIn 1s ease-out forwards;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Footer */
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+/* ========================================================================
+   5. BUTTONS, FORMS & INTERACTIVE ELEMENTS
+   ======================================================================== */
+.btn {
+  background-color: var(--btn-success);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Experiment: button hover with before pseudo-element expanding */
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.btn:hover::before {
+  width: 200%;
+  height: 200%;
+}
+
+.btn:hover {
+  background-color: var(--btn-success-hover);
+  transform: translateY(calc(-1 * var(--float-effect)));
+}
+
+/* Form Elements */
+form input,
+form button,
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.625rem 0;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+/* ========================================================================
+   6. MODALS & POP-UP COMPONENTS
+   ======================================================================== */
+#customModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  display: none;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  max-width: 80%;
+  text-align: center;
+}
+
+/* ========================================================================
+   7. DRAGGABLE & BUZZ EFFECT ELEMENTS
+   ======================================================================== */
+.draggable {
+  user-select: none;
+  cursor: move;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.draggable:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes buzz {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0, 0); }
+}
+
+.buzz-effect {
+  animation: buzz 0.5s linear;
+}
+
+/* ========================================================================
+   8. SPREADSHEET & DATA TABLE STYLES
+   ======================================================================== */
+.spreadsheet-container {
+  overflow-x: auto;
+  margin: 20px auto;
+  max-width: 95%;
+}
+
+.spreadsheet-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.spreadsheet-container th,
+.spreadsheet-container td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  min-width: 80px;
+}
+
+.spreadsheet-container th {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* ========================================================================
+   9. FLOATING BUBBLE BUTTON & BACKGROUND ANIMATION
+   ======================================================================== */
+.bubble-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  box-shadow: var(--bubble-shadow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10000;
+  animation: bubbleFloat 4s ease-in-out infinite;
+}
+
+@keyframes bubbleFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* ========================================================================
+   10. TIKTOK-INSPIRED INTERACTIVE LOOP ANIMATION
+   ======================================================================== */
+.tiktok-interactive {
+  animation: tiktokLoop var(--tiktok-duration) ease-in-out infinite;
+}
+
+@keyframes tiktokLoop {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* ========================================================================
+   11. EXPERIMENTAL: ASYNCHRONOUS & LOOPING ANIMATIONS
+   ======================================================================== */
+/* Example: a text shimmer effect using before/after with delay */
+.shimmer {
+  position: relative;
+  color: #333;
+  overflow: hidden;
+}
+.shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+  animation: shimmerEffect 2s infinite;
+}
+
+@keyframes shimmerEffect {
+  0% {
+    left: -150%;
   }
+  50% {
+    left: 150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
 
-  // ======================================================
-  // INITIALIZATION (ON DOMCONTENTLOADED) WITH GLOBAL SAFETY LOOP
-  // ======================================================
-  document.addEventListener("DOMContentLoaded", () => {
-    const initFunctions = [
-      { fn: insertStyles, name: "insertStyles", fallback: null },
-      { fn: createUI, name: "createUI", fallback: null },
-      { fn: applySecretIndexMapping, name: "applySecretIndexMapping", fallback: null },
-      { fn: initPopup, name: "initPopup", fallback: null },
-      { fn: initDragAndDrop, name: "initDragAndDrop", fallback: fallbackDragAndDrop },
-      { fn: initEmojiToggle, name: "initEmojiToggle", fallback: null },
-      { fn: initBuzzEffect, name: "initBuzzEffect", fallback: null },
-      { fn: initStateSaveLoad, name: "initStateSaveLoad", fallback: null },
-      { fn: periodicSecretMappingUpdate, name: "periodicSecretMappingUpdate", fallback: null },
-      { fn: initFloatingBubbles, name: "initFloatingBubbles", fallback: fallbackFloatingBubbles }
-    ];
+/* Asynchronous style: delays on hover for a list of items */
+.async-hover li {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: asyncFadeIn 0.5s forwards;
+  animation-delay: calc(var(--async-delay) * var(--i));
+}
 
-    initFunctions.forEach(item => safeExecute(item.fn, item.fallback, item.name));
-  });
-})();
+@keyframes asyncFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================================================
+   12. CSS GRID EXPERIMENTS FOR LAYOUTS
+   ======================================================================== */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.grid-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 4px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.grid-item:hover {
+  transform: translateY(-5px);
+}
+
+/* ========================================================================
+   13. ADDITIONAL COMPONENTS & PSEUDO-ELEMENT EXPERIMENTS
+   ======================================================================== */
+/* Decorative title with a gradient underline using ::after */
+.decorative-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.decorative-title::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  border-radius: 2px;
+}
+
+/* Experiment: Animated border around a container on hover */
+.hover-border {
+  position: relative;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.hover-border::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  border: 2px solid var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+.hover-border:hover::before {
+  width: 100%;
+}
+
+/* ========================================================================
+   14. RESPONSIVE DESIGN & MEDIA QUERIES
+   ======================================================================== */
+@media (max-width: 992px) {
+  header { padding: 1rem; }
+  nav.navbar { gap: 1rem; padding: 0.5rem; }
+}
+
+@media (max-width: 768px) {
+  nav.navbar { flex-direction: column; }
+  html { scroll-snap-type: none; }
+}
+
+/* ========================================================================
+   15. ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ======================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
