@@ -1,8 +1,10 @@
 /* ========================================================================
-   FULL CSS – DYNAMIC UI & INTERACTION SUPPORT
+   EXTENSIVE CSS – AU GARAGE DYNAMIC UI & UX MASTER STYLE
    ======================================================================== */
 
-/* 1. Reset & Global Settings */
+/* ------------------------------------------------------------------------
+   1. RESET & GLOBAL SETTINGS
+   ------------------------------------------------------------------------ */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -17,49 +19,169 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: #f0f0f0;
-  color: #333;
+  background: var(--background-color, #f0f0f0);
+  color: var(--text-color, #333);
   line-height: 1.6;
-  padding: 1rem;
+  padding: var(--base-padding, 1rem);
   overflow-x: hidden;
+  position: relative;
 }
 
-/* 2. CSS VARIABLES (Theming, Sizing & Animations) */
+/* ------------------------------------------------------------------------
+   2. CSS VARIABLES (THEMING, SIZING, & ANIMATION SETTINGS)
+   ------------------------------------------------------------------------ */
 :root {
-  /* Colors & Theme */
+  /* Colors */
   --primary-color: #007BFF;
   --primary-hover: #0056b3;
   --accent-color: #ff4081;
+  --neon-green: #39ff14;
   --background-color: #f0f0f0;
   --text-color: #333;
-  /* Sizing */
+  --modal-bg: #fff;
+  --modal-border: #000;
+  --modal-shadow: rgba(0, 0, 0, 0.2);
+  
+  /* Spacing & Sizing */
   --base-padding: 1rem;
   --container-max-width: 1140px;
   --bubble-size: 60px;
-  /* Animation Settings */
-  --float-effect: 3px;
+  
+  /* Animation Durations */
   --float-duration: 8s;
   --tiktok-duration: 3s;
+  --shimmer-duration: 2s;
+  --neon-pulse-duration: 5s;
+  --emoji-toggle-interval: 5000ms;
+  
+  /* Effects */
+  --float-effect: 3px;
 }
 
-/* 3. MODAL & POP-UP STYLES */
-/* Standard modal and nerd metrics modal share these rules */
-.modal,
-#nerdMetricsModal {
+/* ------------------------------------------------------------------------
+   3. TYPOGRAPHY & TEXT UTILITIES
+   ------------------------------------------------------------------------ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  /* Neon glow effect */
+  text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
+}
+
+p {
+  margin-bottom: 1em;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Utility text classes */
+.text-center { text-align: center; }
+.text-white { color: #fff !important; }
+.text-muted { color: #777 !important; }
+
+/* ------------------------------------------------------------------------
+   4. LAYOUT & STRUCTURAL CONTAINERS
+   ------------------------------------------------------------------------ */
+/* Global container */
+.container, .container-fluid {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Header Section */
+header {
+  position: relative;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  border-bottom: 3px solid var(--primary-hover);
+  overflow: hidden;
+}
+
+.bg-image-full {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+/* Slide-in container for main content */
+.slide-container {
+  width: 100vw;
+  min-height: 100vh;
+  animation: slideIn 1s ease-out forwards;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(100vh); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* Footer */
+footer {
+  background: #000;
+  color: #fff;
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* ------------------------------------------------------------------------
+   5. NAVIGATION & HEADER ELEMENTS (OVERRIDES FOR BOOTSTRAP)
+   ------------------------------------------------------------------------ */
+.navbar {
+  background-color: #222;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.navbar-brand img { height: 30px; }
+
+.navbar-nav .nav-link {
+  margin-left: 1rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+/* Navbar toggler (for mobile) */
+.navbar-toggler {
+  background-color: var(--primary-color);
+  border: none;
+}
+
+/* ------------------------------------------------------------------------
+   6. MODALS & POP-UP COMPONENTS
+   ------------------------------------------------------------------------ */
+.modal, #nerdMetricsModal {
   position: fixed;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
+  background: var(--modal-bg);
   padding: 20px;
-  border: 2px solid #000;
+  border: 2px solid var(--modal-border);
   border-radius: 8px;
+  box-shadow: 0 4px 15px var(--modal-shadow);
   z-index: 10000;
   max-width: 90%;
   max-height: 90%;
   overflow: auto;
 }
 
-/* Custom modal (mechanical advice) overrides */
 #customModal {
   background: rgba(0, 0, 0, 0.85);
   color: #fff;
@@ -67,7 +189,330 @@ body {
   text-align: center;
 }
 
-/* 4. DROP ZONE */
+/* ------------------------------------------------------------------------
+   7. BUTTONS, LINKS & INTERACTIVE ELEMENTS
+   ------------------------------------------------------------------------ */
+.btn, .bubble-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn {
+  background-color: var(--neon-green);
+  color: #000;
+}
+
+.btn:hover, .bubble-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+/* Floating bubble buttons (e.g., Save/Load) */
+.bubble-button.floating {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+  background: var(--accent-color);
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
+  font-size: 1.5rem;
+  z-index: 10000;
+  animation: bubbleFloat 4s ease-in-out infinite;
+}
+
+@keyframes bubbleFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* Hover border utility */
+.hover-border {
+  position: relative;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.hover-border::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  border: 2px solid var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+.hover-border:hover::before {
+  width: 100%;
+}
+
+/* ------------------------------------------------------------------------
+   8. FORMS & INPUT FIELDS
+   ------------------------------------------------------------------------ */
+form input,
+form button,
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.625rem 0;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+/* ------------------------------------------------------------------------
+   9. DRAGGABLE ELEMENTS & BUZZ EFFECT
+   ------------------------------------------------------------------------ */
+.draggable {
+  user-select: none;
+  cursor: move;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 10px;
+  margin: 10px;
+  background: #ddd;
+  width: 100px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.draggable:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+@keyframes buzz {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0, 0); }
+}
+
+.buzz-effect {
+  animation: buzz 0.5s linear;
+}
+
+/* ------------------------------------------------------------------------
+   10. EXCEL-LIKE TABLES & SPREADSHEET PANEL
+   ------------------------------------------------------------------------ */
+.excel-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.excel-table th,
+.excel-table td {
+  border: 1px solid #999;
+  padding: 8px;
+  text-align: center;
+}
+
+.excel-table th {
+  background: #e0e0e0;
+}
+
+/* ------------------------------------------------------------------------
+   11. IOT SIMULATION & DYNAMIC DATA PANEL
+   ------------------------------------------------------------------------ */
+#iotSimulation {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 20px 0;
+}
+
+#simulationLog {
+  background: #f4f4f4;
+  height: 150px;
+  overflow-y: auto;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* ------------------------------------------------------------------------
+   12. FLOATING BUBBLES BACKGROUND ANIMATION
+   ------------------------------------------------------------------------ */
+#bubbleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ------------------------------------------------------------------------
+   13. NERD METRICS MODAL & TOGGLE BUTTON
+   ------------------------------------------------------------------------ */
+#nerdMetricsModal {
+  /* Inherits modal styles from section 6 */
+}
+
+#nerdMetricsButton {
+  margin-left: 10px;
+}
+
+/* ------------------------------------------------------------------------
+   14. THREE.JS SIMULATION CONTROLS
+   ------------------------------------------------------------------------ */
+#threejs-simulation {
+  padding: 20px;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------------------
+   15. CSS GRID LAYOUTS (FOR DYNAMIC UI COMPONENTS)
+   ------------------------------------------------------------------------ */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.grid-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.grid-item:hover {
+  transform: translateY(-5px);
+}
+
+/* ------------------------------------------------------------------------
+   16. DECORATIVE TITLES & VISUAL PSEUDO-ELEMENTS
+   ------------------------------------------------------------------------ */
+.decorative-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+.decorative-title::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  border-radius: 2px;
+}
+
+/* ------------------------------------------------------------------------
+   17. ANIMATION & SPECIAL EFFECTS
+   ------------------------------------------------------------------------ */
+/* Neon pulse for overall UI */
+@keyframes neonPulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5); }
+}
+
+/* Shimmer effect for text or panels */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+  animation: shimmerEffect var(--shimmer-duration) infinite;
+}
+
+@keyframes shimmerEffect {
+  0% { left: -150%; }
+  50% { left: 150%; }
+  100% { left: 150%; }
+}
+
+/* TikTok-inspired loop effect */
+.tiktok-interactive {
+  animation: tiktokLoop var(--tiktok-duration) ease-in-out infinite;
+}
+
+@keyframes tiktokLoop {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* ------------------------------------------------------------------------
+   18. RESPONSIVE DESIGN & MEDIA QUERIES
+   ------------------------------------------------------------------------ */
+/* Extra large screens */
+@media (min-width: 1200px) {
+  html { font-size: 18px; }
+  .container { max-width: 1140px; }
+}
+
+/* Large screens */
+@media (max-width: 1199px) and (min-width: 992px) {
+  html { font-size: 17px; }
+  header { padding: 1rem; }
+  .navbar-nav .nav-link { margin-left: 0.75rem; }
+}
+
+/* Medium screens (tablets) */
+@media (max-width: 991px) and (min-width: 768px) {
+  html { font-size: 16px; }
+  header { padding: 0.75rem; }
+  .navbar { padding: 0.5rem 1rem; }
+  .grid-container { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+}
+
+/* Small screens (phones) */
+@media (max-width: 767px) {
+  html { font-size: 15px; }
+  header { padding: 0.5rem; }
+  .navbar { flex-direction: column; }
+  .bubble-button { font-size: 14px; padding: 8px 12px; }
+  .grid-container { grid-template-columns: 1fr; }
+  #mainContainer { padding: 10px; }
+}
+
+/* Extra small screens */
+@media (max-width: 576px) {
+  html { font-size: 14px; }
+  .navbar-nav .nav-link { margin-left: 0.5rem; }
+  .btn, .bubble-button { padding: 0.5rem 1rem; }
+}
+
+/* ------------------------------------------------------------------------
+   19. ACCESSIBILITY: PREFERS-REDUCED MOTION
+   ------------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------------
+   20. CUSTOM UTILITY CLASSES & JS COMPONENTS SUPPORT
+   ------------------------------------------------------------------------ */
 #dropZone {
   position: fixed;
   top: 0;
@@ -82,54 +527,6 @@ body {
   z-index: 9999;
 }
 
-/* 5. BUTTONS & INTERACTIVE ELEMENTS */
-.bubble-button {
-  position: relative;
-  padding: 10px 15px;
-  margin: 5px;
-  border: none;
-  background: var(--primary-color);
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.bubble-button:hover {
-  transform: scale(1.1);
-}
-
-/* Buzz effect (for draggables and click interaction) */
-@keyframes buzz {
-  0% { transform: translate(0, 0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0, 0); }
-}
-
-.buzz-effect {
-  animation: buzz 0.5s linear;
-}
-
-/* 6. EXCEL-LIKE TABLE STYLES */
-.excel-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.excel-table th,
-.excel-table td {
-  border: 1px solid #999;
-  padding: 8px;
-}
-
-.excel-table th {
-  background: #e0e0e0;
-}
-
-/* 7. MAIN CONTAINER & SIMULATION SECTION */
 #mainContainer {
   padding: 20px;
   font-family: sans-serif;
@@ -149,7 +546,6 @@ body {
   font-size: 14px;
 }
 
-/* 8. FLOATING BUBBLES CANVAS */
 #bubbleCanvas {
   position: fixed;
   top: 0;
@@ -160,43 +556,6 @@ body {
   z-index: -1;
 }
 
-/* 9. RESPONSIVE ADJUSTMENTS */
-@media (max-width: 600px) {
-  .bubble-button {
-    font-size: 14px;
-    padding: 8px 12px;
-  }
-  h1 {
-    font-size: 20px;
-  }
-}
-
-/* 10. ADDITIONAL UTILITY & DYNAMIC ELEMENTS */
-/* (For drag & drop, emoji toggling, and secret index mapping) */
-.draggable {
-  user-select: none;
-  cursor: move;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  padding: 10px;
-  margin: 10px;
-  background: #ddd;
-  width: 100px;
-  text-align: center;
-  border-radius: 4px;
-}
-
-.draggable:hover {
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
-
-/* 11. SMOOTH SLIDE-IN FOR MAIN CONTENT */
-.slide-container {
-  width: 100vw;
-  min-height: 100vh;
-  animation: slideIn 1s ease-out forwards;
-}
-
-@keyframes slideIn {
-  from { transform: translateY(100vh); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
-}
+/* ========================================================================
+   END OF EXTENSIVE CSS FILE
+   ======================================================================== */
