@@ -19,8 +19,8 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: var(--background-color, #f0f0f0);
-  color: var(--text-color, #333);
+  background: var(--background-color, #ffffff);
+  color: var(--text-color, #333333);
   line-height: 1.6;
   padding: var(--base-padding, 1rem);
   overflow-x: hidden;
@@ -32,15 +32,15 @@ body {
    ------------------------------------------------------------------------ */
 :root {
   /* Colors */
-  --primary-color: #007BFF;
-  --primary-hover: #0056b3;
-  --accent-color: #ff4081;
-  --neon-green: #39ff14;
-  --background-color: #f0f0f0;
-  --text-color: #333;
-  --modal-bg: #fff;
-  --modal-border: #000;
-  --modal-shadow: rgba(0, 0, 0, 0.2);
+  --primary-color: #007BFF;       /* Professional blue */
+  --primary-hover: #0056b3;       /* Darker blue on hover */
+  --accent-color: #ff4081;        /* Vibrant accent for interactive elements */
+  --neutral-color: #555555;       /* Neutral tone for supplementary text */
+  --background-color: #ffffff;    /* Clear background */
+  --text-color: #333333;          /* Dark, professional text */
+  --modal-bg: #ffffff;
+  --modal-border: #cccccc;
+  --modal-shadow: rgba(0, 0, 0, 0.1);
   
   /* Spacing & Sizing */
   --base-padding: 1rem;
@@ -66,7 +66,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.5em;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  /* Neon glow effect */
+  /* Subtle neon glow for a gamified touch */
   text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
 }
 
@@ -78,8 +78,8 @@ p {
 
 /* Utility text classes */
 .text-center { text-align: center; }
-.text-white { color: #fff !important; }
-.text-muted { color: #777 !important; }
+.text-white { color: #ffffff !important; }
+.text-muted { color: #777777 !important; }
 
 /* ------------------------------------------------------------------------
    4. LAYOUT & STRUCTURAL CONTAINERS
@@ -112,7 +112,7 @@ header::after {
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -130,8 +130,8 @@ header::after {
 
 /* Footer */
 footer {
-  background: #000;
-  color: #fff;
+  background: #000000;
+  color: #ffffff;
   padding: 2rem 0;
   text-align: center;
   font-size: 0.9rem;
@@ -141,12 +141,14 @@ footer {
    5. NAVIGATION & HEADER ELEMENTS (OVERRIDES FOR BOOTSTRAP)
    ------------------------------------------------------------------------ */
 .navbar {
-  background-color: #222;
+  background-color: #222222;
   padding: 0.75rem 1rem;
   box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
-.navbar-brand img { height: 30px; }
+.navbar-brand img { 
+  height: 30px; 
+}
 
 .navbar-nav .nav-link {
   margin-left: 1rem;
@@ -184,7 +186,7 @@ footer {
 
 #customModal {
   background: rgba(0, 0, 0, 0.85);
-  color: #fff;
+  color: #ffffff;
   transition: opacity 0.3s ease;
   text-align: center;
 }
@@ -206,7 +208,7 @@ footer {
 
 .btn {
   background-color: var(--neon-green);
-  color: #000;
+  color: #000000;
 }
 
 .btn:hover, .bubble-button:hover {
@@ -214,7 +216,7 @@ footer {
   box-shadow: 0 0 10px var(--accent-color);
 }
 
-/* Floating bubble buttons (e.g., Save/Load) */
+/* Floating bubble buttons (e.g., Save/Load state) */
 .bubble-button.floating {
   position: fixed;
   bottom: 30px;
@@ -267,7 +269,7 @@ form textarea {
   width: 100%;
   padding: 0.5rem;
   margin: 0.625rem 0;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border-radius: 0.25rem;
   font-size: 1rem;
 }
@@ -281,7 +283,7 @@ form textarea {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   padding: 10px;
   margin: 10px;
-  background: #ddd;
+  background: #dddddd;
   width: 100px;
   text-align: center;
   border-radius: 4px;
@@ -314,7 +316,7 @@ form textarea {
 
 .excel-table th,
 .excel-table td {
-  border: 1px solid #999;
+  border: 1px solid #999999;
   padding: 8px;
   text-align: center;
 }
@@ -327,7 +329,7 @@ form textarea {
    11. IOT SIMULATION & DYNAMIC DATA PANEL
    ------------------------------------------------------------------------ */
 #iotSimulation {
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   padding: 10px;
   margin: 20px 0;
 }
@@ -383,8 +385,8 @@ form textarea {
 }
 
 .grid-item {
-  background: #fff;
-  border: 1px solid #ddd;
+  background: #ffffff;
+  border: 1px solid #dddddd;
   padding: 1rem;
   border-radius: 4px;
   transition: transform 0.3s ease;
@@ -518,7 +520,7 @@ form textarea {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  border: 2px dashed #ccc;
+  border: 2px dashed #cccccc;
   padding: 20px;
   margin: 10px;
   min-width: 300px;
@@ -533,7 +535,7 @@ form textarea {
 }
 
 #iotSimulation {
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   padding: 10px;
   margin: 20px 0;
 }
