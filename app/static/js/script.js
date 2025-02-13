@@ -31,7 +31,11 @@
       fr: "Simulation IoT de Mécanique Automobile"
     },
     startSimulation: { en: "Start Simulation", fr: "Démarrer la Simulation" },
-    stopSimulation: { en: "Stop Simulation", fr: "Arrêter la Simulation" }
+    stopSimulation: { en: "Stop Simulation", fr: "Arrêter la Simulation" },
+    // --- New translations for Nerd Metrics ---
+    nerdMetrics: { en: "Nerd Metrics", fr: "Métriques Nerd" },
+    proceed: { en: "Go to Base Next", fr: "Aller à Base Next" },
+    close: { en: "Close", fr: "Fermer" }
   };
 
   // ======================================================
@@ -51,6 +55,47 @@
   ];
 
   // ======================================================
+  // VERSATILITY: GLOBAL SAFETY WRAPPER & FALLBACK FUNCTIONS
+  // ======================================================
+  function safeExecute(fn, alternative, fnName) {
+    console.log(`Start: ${fnName}`);
+    try {
+      fn();
+      console.log(`End: ${fnName} succeeded.`);
+    } catch (error) {
+      console.error(`Error in ${fnName}: ${error}`);
+      if (typeof alternative === "function") {
+        try {
+          alternative();
+          console.log(`Alternative for ${fnName} succeeded.`);
+        } catch (altError) {
+          console.error(`Alternative for ${fnName} failed: ${altError}`);
+        }
+      }
+    }
+  }
+
+  // Fallback for Drag & Drop: In case the advanced drag/drop fails, we simply remove draggable attributes.
+  function fallbackDragAndDrop() {
+    console.warn("Fallback: Basic Drag & Drop not available. Draggables will remain static.");
+    const draggables = document.querySelectorAll(".draggable");
+    draggables.forEach((elem) => {
+      elem.removeAttribute("draggable");
+    });
+  }
+
+  // Fallback for Floating Bubbles: If animation fails, we paint a static background.
+  function fallbackFloatingBubbles() {
+    console.warn("Fallback: Floating bubbles animation failed. Using static background.");
+    const canvas = document.getElementById("bubbleCanvas");
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#e0e0e0";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
+  // ======================================================
   // INSERT CSS STYLES (SELF-CONTAINED)
   // ======================================================
   function insertStyles() {
@@ -60,7 +105,7 @@
       * { box-sizing: border-box; margin: 0; padding: 0; }
       
       /* Modal */
-      .modal {
+      .modal, #nerdMetricsModal {
         position: fixed;
         top: 50%; left: 50%;
         transform: translate(-50%, -50%);
@@ -72,16 +117,10 @@
         overflow: auto;
       }
       #customModal {
-        position: fixed;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
         background: rgba(0, 0, 0, 0.85);
-        color: #fff; padding: 20px;
-        border-radius: 8px;
-        display: none; z-index: 10000;
-        opacity: 0;
+        color: #fff;
         transition: opacity 0.3s ease;
-        max-width: 80%; text-align: center;
+        text-align: center;
       }
       /* Drop Zone */
       #dropZone {
@@ -168,6 +207,8 @@
     createRemoveSubstringSection(mainContainer);
     createDraggableElements(mainContainer);
     createIoTSimulationSection(mainContainer);
+    // Initialize the new Nerd Metrics toggle button.
+    initNerdMetricsToggle();
   }
 
   function createHeader(parent) {
@@ -268,7 +309,6 @@
   }
 
   function createDraggableElements(parent) {
-    // Create several draggable elements using a loop.
     for (let i = 1; i <= 3; i++) {
       const draggable = document.createElement("div");
       draggable.id = "draggable" + i;
@@ -286,7 +326,6 @@
   }
 
   function createIoTSimulationSection(parent) {
-    // New section for simulating infinite IoT steps.
     const simulationSection = document.createElement("div");
     simulationSection.id = "iotSimulation";
     simulationSection.style.border = "1px solid #ccc";
@@ -298,7 +337,6 @@
     simTitle.innerText = translations.simulationTitle[currentLanguage];
     simulationSection.appendChild(simTitle);
 
-    // Buttons to start/stop simulation.
     const startBtn = document.createElement("button");
     startBtn.innerText = translations.startSimulation[currentLanguage];
     startBtn.className = "bubble-button";
@@ -311,7 +349,6 @@
     stopBtn.addEventListener("click", stopIoTSimulation);
     simulationSection.appendChild(stopBtn);
 
-    // Log area for simulation steps.
     const logArea = document.createElement("pre");
     logArea.id = "simulationLog";
     logArea.style.marginTop = "10px";
@@ -333,7 +370,22 @@
       translations.output[currentLanguage] + ": <span id='output'></span>";
     document.getElementById("resetButton").innerText = translations.reset[currentLanguage];
     document.querySelector("#iotSimulation h2").innerText = translations.simulationTitle[currentLanguage];
-    // Update simulation buttons as well.
+
+    // Update Nerd Metrics button and modal if they exist.
+    const nerdBtn = document.getElementById("nerdMetricsButton");
+    if (nerdBtn) {
+      nerdBtn.innerText = translations.nerdMetrics[currentLanguage];
+    }
+    const nerdModal = document.getElementById("nerdMetricsModal");
+    if (nerdModal) {
+      const header = nerdModal.querySelector("h2");
+      if (header) header.innerText = translations.nerdMetrics[currentLanguage];
+      const buttons = nerdModal.querySelectorAll("button");
+      if (buttons.length >= 2) {
+        buttons[0].innerText = translations.close[currentLanguage];
+        buttons[1].innerText = translations.proceed[currentLanguage];
+      }
+    }
   }
 
   function resetUI() {
@@ -400,7 +452,7 @@
     advice.innerText = translations.mechanicalAdvice[currentLanguage];
 
     const closeBtn = document.createElement("button");
-    closeBtn.innerText = "Close";
+    closeBtn.innerText = translations.close[currentLanguage] || "Close";
     closeBtn.className = "bubble-button";
     closeBtn.style.marginTop = "10px";
     closeBtn.addEventListener("click", () => {
@@ -422,7 +474,7 @@
     Object.assign(modal.style, { top: "50%", left: "50%", transform: "translate(-50%, -50%)" });
     modal.innerHTML = `
       <p><strong>Mechanical Advice:</strong> ${translations.mechanicalAdvice[currentLanguage]}</p>
-      <button id="closeModal" style="padding: 8px 12px; cursor: pointer;">Close Advice</button>
+      <button id="closeModal" style="padding: 8px 12px; cursor: pointer;">${translations.close[currentLanguage] || "Close Advice"}</button>
     `;
     document.body.appendChild(modal);
 
@@ -582,7 +634,7 @@
     canvas.style.left = "0";
     canvas.style.width = "100%";
     canvas.style.height = "100%";
-    canvas.style.pointerEvents = "none"; // Allow UI clicks
+    canvas.style.pointerEvents = "none";
     canvas.style.zIndex = "-1";
     document.body.appendChild(canvas);
 
@@ -617,7 +669,6 @@
         if (b.x + b.radius > canvas.width || b.x - b.radius < 0) b.dx = -b.dx;
         if (b.y + b.radius > canvas.height || b.y - b.radius < 0) b.dy = -b.dy;
 
-        // Simple collision detection with other bubbles
         for (let j = i + 1; j < bubbles.length; j++) {
           const b2 = bubbles[j];
           const dx = b2.x - b.x;
@@ -647,7 +698,7 @@
   // MECHANICS AUTOMOBILE IOT SIMULATION METHODS
   // ======================================================
   function startIoTSimulation() {
-    if (simulationIntervalID !== null) return; // Already running
+    if (simulationIntervalID !== null) return;
     simulationIntervalID = setInterval(simulateIoTProcess, 2000);
   }
   function stopIoTSimulation() {
@@ -656,43 +707,116 @@
   }
   function simulateIoTProcess() {
     simulationStep++;
-    // Pick a random action from the simulationActions array.
     const action = simulationActions[Math.floor(Math.random() * simulationActions.length)];
-    // Generate random sensor readings.
     const sensorValue = (Math.random() * 100).toFixed(2);
     const stepMessage = `Step ${simulationStep}: ${action}. Sensor reading: ${sensorValue}`;
-    // Append the message to the simulation log.
     const logArea = document.getElementById("simulationLog");
     if (logArea) {
       logArea.textContent += stepMessage + "\n";
       logArea.scrollTop = logArea.scrollHeight;
     }
-    // OPTIONAL: Update one of the draggable elements randomly to mimic sensor feedback.
     const draggables = document.querySelectorAll(".draggable");
     if (draggables.length) {
       const randomIndex = Math.floor(Math.random() * draggables.length);
       const elem = draggables[randomIndex];
-      elem.style.background = sensorValue > 50 ? "#cfc" : "#fcc"; // Green if OK, red if warning.
+      elem.style.background = sensorValue > 50 ? "#cfc" : "#fcc";
       setTimeout(() => { elem.style.background = "#ddd"; }, 500);
     }
   }
 
   // ======================================================
-  // INITIALIZATION (ON DOMCONTENTLOADED)
+  // NERD METRICS TOGGLE & MODAL
   // ======================================================
-  document.addEventListener("DOMContentLoaded", () => {
-    insertStyles();
-    createUI();
-    applySecretIndexMapping();
-    initPopup();
-    initDragAndDrop();
-    initEmojiToggle();
-    initBuzzEffect();
-    initStateSaveLoad();
-    periodicSecretMappingUpdate();
-    initFloatingBubbles();
-  });
-
+  function initNerdMetricsToggle() {
+    const nerdButton = document.createElement("button");
+    nerdButton.id = "nerdMetricsButton";
+    nerdButton.className = "bubble-button";
+    nerdButton.innerText = translations.nerdMetrics[currentLanguage];
+    const header = document.getElementById("header");
+    if (header) {
+      header.appendChild(nerdButton);
+    } else {
+      document.body.appendChild(nerdButton);
+    }
+    nerdButton.addEventListener("click", toggleNerdMetricsModal);
+  }
+  
+  function toggleNerdMetricsModal() {
+    let modal = document.getElementById("nerdMetricsModal");
+    if (modal) {
+      modal.style.display = modal.style.display === "none" ? "block" : "none";
+    } else {
+      modal = document.createElement("div");
+      modal.id = "nerdMetricsModal";
+      Object.assign(modal.style, {
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        background: "#fff",
+        padding: "20px",
+        border: "2px solid #000",
+        borderRadius: "8px",
+        zIndex: "10000",
+        maxWidth: "90%",
+        maxHeight: "90%",
+        overflow: "auto"
+      });
+      
+      const modalHeader = document.createElement("h2");
+      modalHeader.innerText = translations.nerdMetrics[currentLanguage];
+      modal.appendChild(modalHeader);
+      
+      const metricsContainer = document.createElement("div");
+      metricsContainer.id = "metricsContainer";
+      metricsContainer.style.margin = "10px 0";
+      modal.appendChild(metricsContainer);
+      
+      function updateMetrics() {
+        const currentTime = new Date().toLocaleTimeString();
+        const cpuUsage = (Math.random() * 100).toFixed(2);
+        const gpuUsage = (Math.random() * 100).toFixed(2);
+        const powerConsumption = (Math.random() * 50 + 50).toFixed(2);
+        const dataConsumption = (Math.random() * 500).toFixed(2);
+        const timeToday = new Date().toLocaleString();
+        
+        metricsContainer.innerHTML = `
+          <p>Current Time: ${currentTime}</p>
+          <p>CPU Usage: ${cpuUsage}%</p>
+          <p>GPU Usage: ${gpuUsage}%</p>
+          <p>Power Consumption: ${powerConsumption}W</p>
+          <p>Data Consumption: ${dataConsumption} MB</p>
+          <p>Time Today: ${timeToday}</p>
+        `;
+      }
+      updateMetrics();
+      const metricsInterval = setInterval(updateMetrics, 5000);
+      
+      const closeModalBtn = document.createElement("button");
+      closeModalBtn.innerText = translations.close[currentLanguage];
+      closeModalBtn.className = "bubble-button";
+      closeModalBtn.style.marginRight = "10px";
+      closeModalBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+        clearInterval(metricsInterval);
+      });
+      modal.appendChild(closeModalBtn);
+      
+      const proceedButton = document.createElement("button");
+      proceedButton.innerText = translations.proceed[currentLanguage];
+      proceedButton.className = "bubble-button";
+      proceedButton.addEventListener("click", () => {
+        const confirmed = confirm("Do you want to proceed to base-next.html?");
+        if (confirmed) {
+          window.location.href = "base-next.html";
+        }
+      });
+      modal.appendChild(proceedButton);
+      
+      document.body.appendChild(modal);
+    }
+  }
+  
   // ======================================================
   // UTILITY: Toggle Emoji for Draggable Elements
   // ======================================================
@@ -706,4 +830,24 @@
       }, 5000);
     });
   }
+
+  // ======================================================
+  // INITIALIZATION (ON DOMCONTENTLOADED) WITH GLOBAL SAFETY LOOP
+  // ======================================================
+  document.addEventListener("DOMContentLoaded", () => {
+    const initFunctions = [
+      { fn: insertStyles, name: "insertStyles", fallback: null },
+      { fn: createUI, name: "createUI", fallback: null },
+      { fn: applySecretIndexMapping, name: "applySecretIndexMapping", fallback: null },
+      { fn: initPopup, name: "initPopup", fallback: null },
+      { fn: initDragAndDrop, name: "initDragAndDrop", fallback: fallbackDragAndDrop },
+      { fn: initEmojiToggle, name: "initEmojiToggle", fallback: null },
+      { fn: initBuzzEffect, name: "initBuzzEffect", fallback: null },
+      { fn: initStateSaveLoad, name: "initStateSaveLoad", fallback: null },
+      { fn: periodicSecretMappingUpdate, name: "periodicSecretMappingUpdate", fallback: null },
+      { fn: initFloatingBubbles, name: "initFloatingBubbles", fallback: fallbackFloatingBubbles }
+    ];
+
+    initFunctions.forEach(item => safeExecute(item.fn, item.fallback, item.name));
+  });
 })();
