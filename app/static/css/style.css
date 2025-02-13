@@ -1,5 +1,5 @@
 /* ========================================================================
-   CSS Reset & Global Settings
+   CSS RESET & GLOBAL SETTINGS
    ======================================================================== */
    *, *::before, *::after {
     margin: 0;
@@ -8,23 +8,24 @@
   }
   
   html {
-    font-size: 16px; /* Base for rem sizing */
-    /* Enable smooth scrolling */
+    font-size: 16px;
     scroll-behavior: smooth;
-    /* Enable vertical scroll snapping (if using full-page sections) */
     scroll-snap-type: y mandatory;
   }
   
-  /* If you have sections that should snap into place, add this: */
-  section {
-    scroll-snap-align: start;
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: var(--base-padding);
   }
   
   /* ========================================================================
-     CSS Variables (Theme Colors, Spacing, & Animation Ratios)
+     CSS VARIABLES (THEMING, SPACING & ANIMATIONS)
      ======================================================================== */
   :root {
-    /* Colors */
+    /* Colors & Theme */
     --primary-color: #007bff;
     --primary-hover: #0056b3;
     --secondary-color: #6c757d;
@@ -33,122 +34,74 @@
     --btn-success: #28a745;
     --btn-success-hover: #218838;
     --link-hover: #d1ecf1;
-  
-    /* Spacing & Sizing */
+    
+    /* Sizing & Spacing */
     --base-padding: 1rem;
     --container-max-width: 1140px;
-  
-    /* Floating Animation Settings */
-    --float-effect: 3px;           /* Reduced displacement for a calmer effect */
-    --float-duration-header: 8s;    /* Floating speed for header */
-    --float-duration-links: 4s;     /* Floating speed for nav links */
+    
+    /* Animation Settings */
+    --float-effect: 3px;
+    --float-duration: 8s;
+    --bubble-size: 60px;
+    --bubble-color: #ff4081;
+    --bubble-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
+    --tiktok-duration: 3s;
   }
   
   /* ========================================================================
-     Global Styles & Typography
+     TYPOGRAPHY
      ======================================================================== */
-  body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    text-align: center;  /* Centering all content */
-    line-height: 1.6;
-    padding: var(--base-padding);
-  }
-  
-  /* Headings use Asian-inspired typography while body text stays European */
   h1, h2, h3, h4, h5, h6 {
     font-family: 'M PLUS Rounded 1c', sans-serif;
   }
   
   /* ========================================================================
-     Floating Animation (Up and Down)
+     SEMANTIC STRUCTURE: HEADER, NAV, MAIN, SECTION, FOOTER
      ======================================================================== */
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(calc(-1 * var(--float-effect))); }
-  }
   
-  /* ========================================================================
-     Header & Navbar (Centered & Dynamic)
-     ======================================================================== */
+  /* Header & Navbar */
   header {
     background-color: var(--primary-color);
     color: #fff;
     padding: 1.5rem;
     border-bottom: 3px solid var(--secondary-color);
     position: relative;
-    /* Gentle floating animation for the header */
-    animation: float var(--float-duration-header) ease-in-out infinite;
+    animation: float var(--float-duration) ease-in-out infinite;
   }
   
-  /* New, simplified centered navbar */
-  .navbar {
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(calc(-1 * var(--float-effect))); }
+  }
+  
+  nav.navbar {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 2rem;
     flex-wrap: wrap;
     padding: 1rem 0;
+    background-color: #333;
   }
   
-  .navbar a {
+  nav.navbar a {
     color: #fff;
     text-decoration: none;
     font-size: 1.1rem;
-    position: relative;
     transition: transform 0.3s ease, color 0.3s ease;
   }
   
-  /* On hover, simply translate up by the float amount – no continuous animation */
-  .navbar a:hover {
+  nav.navbar a:hover {
     transform: translateY(calc(-1 * var(--float-effect)));
     color: var(--link-hover);
-    /* Removed continuous animation to keep the motion step-by-step */
   }
   
-  /* ========================================================================
-     Animated Elements (e.g. Character & Car)
-     ======================================================================== */
-  #character,
-  #car {
-    position: absolute;
-    bottom: 0;
-    width: 50px;
-    height: 50px;
-    background-size: contain;
-    background-repeat: no-repeat;
+  .navbar-toggler {
+    background-color: var(--primary-color);
+    border: none;
   }
   
-  #character {
-    background-image: url('character.png');
-    animation: move 5s linear infinite;
-  }
-  
-  #car {
-    background-image: url('car.png');
-    animation: move 3s linear infinite;
-  }
-  
-  @keyframes move {
-    0%   { left: 0; }
-    100% { left: 100%; }
-  }
-  
-  /* ========================================================================
-     Image Hover (Subtle Floating + Scale)
-     ======================================================================== */
-  img {
-    transition: transform 0.3s ease;
-  }
-  
-  img:hover {
-    transform: translateY(calc(-0.5 * var(--float-effect))) scale(1.05);
-  }
-  
-  /* ========================================================================
-     Container Styles (Centered Content)
-     ======================================================================== */
+  /* Main container & Slide-in Animation */
   .container,
   .container-fluid {
     max-width: var(--container-max-width);
@@ -156,11 +109,27 @@
     padding: 0 15px;
   }
   
+  .slide-container {
+    animation: slideIn 1s ease-out forwards;
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #222;
+    color: #fff;
+    padding: 2rem 0;
+    text-align: center;
+  }
+  
   /* ========================================================================
-     Button Styles (Floating on Hover)
+     BUTTONS & FORM ELEMENTS
      ======================================================================== */
   .btn {
-    display: inline-block;
     background-color: var(--btn-success);
     color: #fff;
     padding: 0.75rem 1.25rem;
@@ -168,6 +137,7 @@
     border-radius: 0.25rem;
     text-decoration: none;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
   }
   
   .btn:hover {
@@ -175,9 +145,6 @@
     transform: translateY(calc(-1 * var(--float-effect)));
   }
   
-  /* ========================================================================
-     Form Elements
-     ======================================================================== */
   form input,
   form button,
   form select,
@@ -190,53 +157,150 @@
   }
   
   /* ========================================================================
-     Utility Classes
+     POP-UP MODAL (MECHANIC ADVICE)
      ======================================================================== */
-  .mt-20 { margin-top: 1.25rem; }
-  .mb-20 { margin-bottom: 1.25rem; }
-  
-  /* ========================================================================
-     Flash Messages
-     ======================================================================== */
-  .flashes {
+  #customModal {
     position: fixed;
-    top: 10%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    z-index: 2000;
-    width: 90%;
-    max-width: 480px;
-  }
-  
-  .flashes li {
-    background-color: #fff;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.3125rem;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    display: none;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    max-width: 80%;
+    text-align: center;
   }
   
   /* ========================================================================
-     Responsive Design Adjustments
+     DRAGGABLE & BUZZ EFFECT ELEMENTS
+     ======================================================================== */
+  .draggable {
+    user-select: none;
+    cursor: move;
+  }
+  
+  @keyframes buzz {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0, 0); }
+  }
+  
+  .buzz-effect {
+    animation: buzz 0.5s linear;
+  }
+  
+  /* ========================================================================
+     SPREADSHEET: MECHANICAL DATA ACQUISITION PANEL
+     ======================================================================== */
+  .spreadsheet-container {
+    overflow-x: auto;
+    margin: 20px auto;
+    max-width: 95%;
+  }
+  
+  .spreadsheet-container table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .spreadsheet-container th,
+  .spreadsheet-container td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    min-width: 80px;
+  }
+  
+  .spreadsheet-container th {
+    background-color: var(--primary-color);
+    color: #fff;
+  }
+  
+  /* ========================================================================
+     FLOATING BUBBLE BUTTON (CALL-TO-ACTION)
+     ======================================================================== */
+  .bubble-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: var(--bubble-size);
+    height: var(--bubble-size);
+    background-color: var(--bubble-color);
+    border-radius: 50%;
+    box-shadow: var(--bubble-shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10000;
+    animation: bubbleFloat 4s ease-in-out infinite;
+  }
+  
+  @keyframes bubbleFloat {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+  
+  /* ========================================================================
+     TIKTOK-INSPIRED INTERACTIVE LOOP ANIMATION
+     ======================================================================== */
+  .tiktok-interactive {
+    animation: tiktokLoop var(--tiktok-duration) ease-in-out infinite;
+  }
+  
+  @keyframes tiktokLoop {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+  
+  /* ========================================================================
+     SEMANTIC ENHANCEMENTS & ADDITIONAL STYLES
+     ======================================================================== */
+  header, main, section, footer, nav {
+    /* Adding semantic spacing for better readability */
+    padding: 1rem;
+  }
+  
+  section {
+    margin-bottom: 2rem;
+  }
+  
+  .social-links a {
+    margin: 0 0.5rem;
+    transition: color 0.3s ease;
+  }
+  
+  .social-links a:hover {
+    color: var(--primary-hover);
+  }
+  
+  /* ========================================================================
+     RESPONSIVE DESIGN & MEDIA QUERIES
      ======================================================================== */
   @media (max-width: 992px) {
     header { padding: 1rem; }
-    .navbar {
-      gap: 1rem;
-      padding: 0.5rem 0;
-    }
-    .container,
-    .container-fluid { padding: 0 10px; }
+    nav.navbar { gap: 1rem; padding: 0.5rem 0; }
   }
   
   @media (max-width: 768px) {
-    .navbar { flex-direction: column; }
-    /* Optionally disable snap behavior on smaller screens if needed */
+    nav.navbar { flex-direction: column; }
     html { scroll-snap-type: none; }
   }
   
   /* ========================================================================
-     Accessibility: Reduced Motion
+     ACCESSIBILITY: PREFERS-REDUCED-MOTION
      ======================================================================== */
   @media (prefers-reduced-motion: reduce) {
     * {
