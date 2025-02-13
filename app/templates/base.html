@@ -63,6 +63,8 @@
         <div class="navbar-nav ml-auto">
           <a class="nav-item nav-link" href="{{ url_for('auth.set_language', language='en') }}">🇺🇸 English</a>
           <a class="nav-item nav-link" href="{{ url_for('auth.set_language', language='fr') }}">🇫🇷 Français</a>
+          <!-- NEW: Version Button -->
+          <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#versionModal">Version</a>
           {% if not current_user.is_authenticated %}
             <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
           {% else %}
@@ -100,15 +102,9 @@
         simulation, and calibration tools to deliver reliable service performance data. Every component on this page is mapped 
         with a secret index to facilitate seamless, modular expansion.
       </p>
-   <!-- Mechanic Advice Popup Trigger -->
-<button class="btn popup-trigger" id="examplePopup">Open Mechanic Advice</button>
-
-<!-- Draggable Element with Auto-Swapping Emoji -->
-<div class="draggable buzz" id="draggable1" 
-     style="margin:20px; padding:10px; background:#eee; display:inline-block; cursor:move; font-size:2rem;">
-  ⚙️
-</div>
-
+      <!-- Mechanic Advice Popup Trigger -->
+      <button class="btn popup-trigger" id="examplePopup">Open Mechanic Advice</button>
+    </section>
 
     <!-- Interactive Mechanical Engineering Spreadsheet Section -->
     <section id="spreadsheet">
@@ -154,6 +150,21 @@
         </div>
       </div>
     </section>
+
+    <!-- Container for dynamically created UI from JS (e.g., mainContainer, IoT Simulation, etc.) -->
+    <section id="dynamic-ui"></section>
+
+    <!-- Three.js Car Simulation Controls -->
+    <section id="threejs-simulation" style="padding:20px; text-align:center;">
+      <h2>3D Car Simulation Controls</h2>
+      <div id="threejs-controls" style="margin-bottom:20px;">
+        <button id="left-btn" class="btn btn-secondary mx-1">Left</button>
+        <button id="right-btn" class="btn btn-secondary mx-1">Right</button>
+        <button id="up-btn" class="btn btn-success mx-1">Accelerate</button>
+        <button id="stop-btn" class="btn btn-danger mx-1">Stop</button>
+      </div>
+      <p>The Three.js simulation will be rendered below.</p>
+    </section>
     {% endblock %}
   </main>
 
@@ -184,6 +195,26 @@
     </div>
   </footer>
 
+  <!-- Version Modal -->
+  <div class="modal fade" id="versionModal" tabindex="-1" role="dialog" aria-labelledby="versionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="versionModalLabel">Version Information</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Product Version: <strong id="product-version">v1.0.0</strong></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- JavaScript Libraries -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
           integrity="sha384-DfXdXF7F4eTtc4NlW+Op6A7Y2sIo+fG3kPOs9sa5JcI42EEJpTnPSdXb51lBGdK8" 
@@ -197,7 +228,121 @@
   
   <!-- Custom JavaScript -->
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+  <!-- Three.js and Car Simulation Script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // Setup scene, camera, and renderer for car simulation
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    document.body.appendChild(renderer.domElement);
+
+    // Add lighting
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(5, 10, 7.5);
+    light.castShadow = true;
+    scene.add(light);
+
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    scene.add(ambientLight);
+
+    // Car geometry and material
+    const carGeometry = new THREE.BoxGeometry(2, 0.5, 1);
+    const carMaterial = new THREE.MeshPhongMaterial({ color: 0x0077ff, shininess: 100 });
+    const car = new THREE.Mesh(carGeometry, carMaterial);
+    car.castShadow = true;
+    scene.add(car);
+
+    // Create wheels
+    const wheelGeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.1, 32);
+    const wheelMaterial = new THREE.MeshPhongMaterial({ color: 0x333333 });
+    const wheelPositions = [
+      [-0.9, -0.3, 0.5],
+      [0.9, -0.3, 0.5],
+      [-0.9, -0.3, -0.5],
+      [0.9, -0.3, -0.5]
+    ];
+    wheelPositions.forEach(pos => {
+      const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
+      wheel.position.set(...pos);
+      wheel.rotation.z = Math.PI/2;
+      wheel.castShadow = true;
+      scene.add(wheel);
+    });
+
+    // Ground plane
+    const groundGeometry = new THREE.PlaneGeometry(50, 50);
+    const groundMaterial = new THREE.MeshPhongMaterial({ color: 0x999999 });
+    const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+    ground.rotation.x = -Math.PI/2;
+    ground.position.y = -0.4;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    // Camera setup
+    camera.position.set(0, 2, 6);
+    camera.lookAt(0, 0, 0);
+
+    let carSpeed = 0;
+    let carRotation = 0;
+    const maxSpeed = 0.1;
+    const acceleration = 0.002;
+    const deceleration = 0.001;
+
+    // Button controls
+    document.getElementById('left-btn').addEventListener('click', () => { carRotation -= 0.05; });
+    document.getElementById('right-btn').addEventListener('click', () => { carRotation += 0.05; });
+    document.getElementById('up-btn').addEventListener('click', () => { if(carSpeed < maxSpeed) carSpeed += acceleration; });
+    document.getElementById('stop-btn').addEventListener('click', () => { carSpeed = 0; });
+
+    // Mouse-based movement (optional)
+    document.addEventListener('mousemove', (event) => {
+      const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+      const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+      car.position.x = THREE.MathUtils.lerp(car.position.x, mouseX * 3, 0.1);
+      car.position.y = THREE.MathUtils.lerp(car.position.y, mouseY, 0.1);
+    });
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      car.rotation.y = THREE.MathUtils.lerp(car.rotation.y, carRotation, 0.1);
+      car.position.z -= carSpeed;
+      if(carSpeed > 0) { carSpeed -= deceleration; }
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Adjust on window resize
+    window.addEventListener('resize', () => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth/window.innerHeight;
+      camera.updateProjectionMatrix();
+    });
+  </script>
+
+  <!-- Version Module: Modularized Version Info -->
+  <script>
+    const VersionModule = (() => {
+      const version = "v1.0.0"; // Update this value as your product version evolves.
+      function getVersion() {
+        return version;
+      }
+      return { getVersion };
+    })();
+
+    // Populate version info into the modal once the DOM is ready.
+    document.addEventListener('DOMContentLoaded', () => {
+      const versionSpan = document.getElementById('product-version');
+      if (versionSpan) {
+        versionSpan.textContent = VersionModule.getVersion();
+      }
+    });
+  </script>
+  
   {% block scripts %}{% endblock %}
 </body>
 </html>
-
