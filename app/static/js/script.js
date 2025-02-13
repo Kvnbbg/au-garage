@@ -75,7 +75,7 @@
     }
   }
 
-  // Fallback for Drag & Drop: In case the advanced drag/drop fails, we simply remove draggable attributes.
+  // Fallback for Drag & Drop: In case the advanced drag/drop fails, we remove draggable attributes.
   function fallbackDragAndDrop() {
     console.warn("Fallback: Basic Drag & Drop not available. Draggables will remain static.");
     const draggables = document.querySelectorAll(".draggable");
@@ -84,7 +84,7 @@
     });
   }
 
-  // Fallback for Floating Bubbles: If animation fails, we paint a static background.
+  // Fallback for Floating Bubbles: If animation fails, we paint a static background on the canvas.
   function fallbackFloatingBubbles() {
     console.warn("Fallback: Floating bubbles animation failed. Using static background.");
     const canvas = document.getElementById("bubbleCanvas");
@@ -101,47 +101,29 @@
   function insertStyles() {
     const style = document.createElement("style");
     style.innerHTML = `
-      /* Global reset & box-sizing */
+      /* Minimal inline fallback styles for basic layout & interactions */
       * { box-sizing: border-box; margin: 0; padding: 0; }
-      
-      /* Modal */
-      .modal, #nerdMetricsModal {
-        position: fixed;
-        top: 50%; left: 50%;
+      .modal {
+        position: fixed; top: 50%; left: 50%;
         transform: translate(-50%, -50%);
         background: #fff; padding: 20px;
-        border: 2px solid #000;
-        border-radius: 8px;
-        z-index: 10000;
-        max-width: 90%; max-height: 90%;
-        overflow: auto;
+        border: 2px solid #000; border-radius: 8px;
+        z-index: 10000; max-width: 90%; max-height: 90%; overflow: auto;
       }
       #customModal {
-        background: rgba(0, 0, 0, 0.85);
-        color: #fff;
-        transition: opacity 0.3s ease;
-        text-align: center;
+        background: rgba(0, 0, 0, 0.85); color: #fff;
+        transition: opacity 0.3s ease; text-align: center;
       }
-      /* Drop Zone */
       #dropZone {
-        position: fixed;
-        top: 0; left: 50%;
-        transform: translateX(-50%);
-        border: 2px dashed #ccc;
-        padding: 20px; margin: 10px;
-        min-width: 300px; text-align: center;
-        background: #f9f9f9; z-index: 9999;
+        position: fixed; top: 0; left: 50%;
+        transform: translateX(-50%); border: 2px dashed #ccc;
+        padding: 20px; margin: 10px; min-width: 300px;
+        text-align: center; background: #f9f9f9; z-index: 9999;
       }
-      /* Buttons */
       .bubble-button {
-        position: relative;
-        padding: 10px 15px;
-        margin: 5px;
-        border: none;
-        background: #007BFF;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
+        position: relative; padding: 10px 15px; margin: 5px;
+        border: none; background: #007BFF; color: #fff;
+        border-radius: 5px; cursor: pointer;
         transition: transform 0.3s ease;
       }
       .bubble-button:hover { transform: scale(1.1); }
@@ -154,27 +136,26 @@
         100% { transform: translate(0, 0); }
       }
       .buzz-effect { animation: buzz 0.5s linear; }
-      /* Excel-like table */
       .excel-table { width: 100%; border-collapse: collapse; }
-      .excel-table th, .excel-table td { border: 1px solid #999; padding: 8px; }
+      .excel-table th, .excel-table td {
+        border: 1px solid #999; padding: 8px;
+        text-align: center;
+      }
       .excel-table th { background: #e0e0e0; }
-      /* Main container */
       #mainContainer { padding: 20px; font-family: sans-serif; }
-      /* IoT Simulation Section */
       #iotSimulation { border: 1px solid #ccc; padding: 10px; margin: 20px 0; }
-      #simulationLog { background: #f4f4f4; height: 150px; overflow-y: auto; padding: 10px; font-size: 14px; }
-      /* Responsive adjustments */
+      #simulationLog {
+        background: #f4f4f4; height: 150px;
+        overflow-y: auto; padding: 10px; font-size: 14px;
+      }
       @media (max-width: 600px) {
         .bubble-button { font-size: 14px; padding: 8px 12px; }
         h1 { font-size: 20px; }
       }
-      /* Floating Bubbles Canvas */
       #bubbleCanvas {
-        position: fixed;
-        top: 0; left: 0;
+        position: fixed; top: 0; left: 0;
         width: 100%; height: 100%;
-        pointer-events: none;
-        z-index: -1;
+        pointer-events: none; z-index: -1;
       }
     `;
     document.head.appendChild(style);
@@ -207,10 +188,11 @@
     createRemoveSubstringSection(mainContainer);
     createDraggableElements(mainContainer);
     createIoTSimulationSection(mainContainer);
-    // Initialize the new Nerd Metrics toggle button.
+    // Add Nerd Metrics toggle button to the header
     initNerdMetricsToggle();
   }
 
+  // Creates a header area with language toggle and reset
   function createHeader(parent) {
     const header = document.createElement("div");
     header.id = "header";
@@ -227,6 +209,7 @@
     const controlsContainer = document.createElement("div");
     header.appendChild(controlsContainer);
 
+    // Language toggle
     const langToggleButton = document.createElement("button");
     langToggleButton.id = "langToggleButton";
     langToggleButton.className = "bubble-button";
@@ -234,6 +217,7 @@
     langToggleButton.addEventListener("click", toggleLanguage);
     controlsContainer.appendChild(langToggleButton);
 
+    // Reset UI
     const resetButton = document.createElement("button");
     resetButton.id = "resetButton";
     resetButton.className = "bubble-button";
@@ -242,6 +226,7 @@
     controlsContainer.appendChild(resetButton);
   }
 
+  // Adds a row of buttons (e.g., planning)
   function createButtons(parent) {
     const buttonsContainer = document.createElement("div");
     buttonsContainer.id = "buttonsContainer";
@@ -256,6 +241,7 @@
     buttonsContainer.appendChild(planningButton);
   }
 
+  // Intro text context
   function createTextContext(parent) {
     const textContext = document.createElement("p");
     textContext.id = "textContext";
@@ -263,6 +249,7 @@
     parent.appendChild(textContext);
   }
 
+  // Substring removal section
   function createRemoveSubstringSection(parent) {
     const removeContainer = document.createElement("div");
     removeContainer.id = "removeContainer";
@@ -308,6 +295,7 @@
     removeContainer.appendChild(outputTitle);
   }
 
+  // Draggable elements (for demo)
   function createDraggableElements(parent) {
     for (let i = 1; i <= 3; i++) {
       const draggable = document.createElement("div");
@@ -319,12 +307,12 @@
       draggable.style.width = "100px";
       draggable.style.textAlign = "center";
       draggable.style.cursor = "move";
-      // Alternate emoji icons for variety.
       draggable.innerHTML = i % 2 === 0 ? "🔧" : "⚙️";
       parent.appendChild(draggable);
     }
   }
 
+  // IoT Simulation Section
   function createIoTSimulationSection(parent) {
     const simulationSection = document.createElement("div");
     simulationSection.id = "iotSimulation";
@@ -360,6 +348,7 @@
   // ======================================================
   function toggleLanguage() {
     currentLanguage = currentLanguage === "en" ? "fr" : "en";
+    // Update language text in various elements
     document.getElementById("langToggleButton").innerText = translations.toggleLanguage[currentLanguage];
     document.getElementById("planningButton").innerText = translations.planning[currentLanguage];
     document.getElementById("textContext").innerText = translations.textContext[currentLanguage];
@@ -371,7 +360,7 @@
     document.getElementById("resetButton").innerText = translations.reset[currentLanguage];
     document.querySelector("#iotSimulation h2").innerText = translations.simulationTitle[currentLanguage];
 
-    // Update Nerd Metrics button and modal if they exist.
+    // Update Nerd Metrics button & modal
     const nerdBtn = document.getElementById("nerdMetricsButton");
     if (nerdBtn) {
       nerdBtn.innerText = translations.nerdMetrics[currentLanguage];
@@ -474,10 +463,13 @@
     Object.assign(modal.style, { top: "50%", left: "50%", transform: "translate(-50%, -50%)" });
     modal.innerHTML = `
       <p><strong>Mechanical Advice:</strong> ${translations.mechanicalAdvice[currentLanguage]}</p>
-      <button id="closeModal" style="padding: 8px 12px; cursor: pointer;">${translations.close[currentLanguage] || "Close Advice"}</button>
+      <button id="closeModal" style="padding: 8px 12px; cursor: pointer;">
+        ${translations.close[currentLanguage] || "Close Advice"}
+      </button>
     `;
     document.body.appendChild(modal);
 
+    // Show/hide the modal on .popup-trigger
     document.querySelectorAll(".popup-trigger").forEach((trigger) => {
       trigger.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -485,6 +477,8 @@
         setTimeout(() => { modal.style.opacity = "1"; }, 100);
       });
     });
+
+    // Close the modal
     document.getElementById("closeModal").addEventListener("click", (e) => {
       e.stopPropagation();
       modal.style.opacity = "0";
@@ -666,9 +660,11 @@
         const b = bubbles[i];
         b.x += b.dx;
         b.y += b.dy;
+        // Bounce off edges
         if (b.x + b.radius > canvas.width || b.x - b.radius < 0) b.dx = -b.dx;
         if (b.y + b.radius > canvas.height || b.y - b.radius < 0) b.dy = -b.dy;
 
+        // Simple collision detection among bubbles
         for (let j = i + 1; j < bubbles.length; j++) {
           const b2 = bubbles[j];
           const dx = b2.x - b.x;
@@ -698,7 +694,7 @@
   // MECHANICS AUTOMOBILE IOT SIMULATION METHODS
   // ======================================================
   function startIoTSimulation() {
-    if (simulationIntervalID !== null) return;
+    if (simulationIntervalID !== null) return; // Already running
     simulationIntervalID = setInterval(simulateIoTProcess, 2000);
   }
   function stopIoTSimulation() {
@@ -715,6 +711,7 @@
       logArea.textContent += stepMessage + "\n";
       logArea.scrollTop = logArea.scrollHeight;
     }
+    // Mimic sensor feedback by changing background color of a random draggable
     const draggables = document.querySelectorAll(".draggable");
     if (draggables.length) {
       const randomIndex = Math.floor(Math.random() * draggables.length);
@@ -744,8 +741,10 @@
   function toggleNerdMetricsModal() {
     let modal = document.getElementById("nerdMetricsModal");
     if (modal) {
-      modal.style.display = modal.style.display === "none" ? "block" : "none";
+      // Toggle display if modal already exists
+      modal.style.display = (modal.style.display === "none" || modal.style.display === "") ? "block" : "none";
     } else {
+      // Create new modal
       modal = document.createElement("div");
       modal.id = "nerdMetricsModal";
       Object.assign(modal.style, {
@@ -772,6 +771,7 @@
       metricsContainer.style.margin = "10px 0";
       modal.appendChild(metricsContainer);
       
+      // Periodically update metrics
       function updateMetrics() {
         const currentTime = new Date().toLocaleTimeString();
         const cpuUsage = (Math.random() * 100).toFixed(2);
@@ -792,6 +792,7 @@
       updateMetrics();
       const metricsInterval = setInterval(updateMetrics, 5000);
       
+      // Close Modal button
       const closeModalBtn = document.createElement("button");
       closeModalBtn.innerText = translations.close[currentLanguage];
       closeModalBtn.className = "bubble-button";
@@ -802,6 +803,7 @@
       });
       modal.appendChild(closeModalBtn);
       
+      // Proceed button (example)
       const proceedButton = document.createElement("button");
       proceedButton.innerText = translations.proceed[currentLanguage];
       proceedButton.className = "bubble-button";
