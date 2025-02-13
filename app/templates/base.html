@@ -320,39 +320,7 @@
           </a>
         </div>
       </section>
-    </div>
-  </main>
-  
-  <!-- VERSION MODAL -->
-  <div class="modal fade" id="versionModal" tabindex="-1" role="dialog" aria-labelledby="versionModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <header class="modal-header">
-          <h5 class="modal-title" id="versionModalLabel">
-            {% if session.get('lang', 'en') == 'fr' %}Information de Version{% else %}Version Information{% endif %}
-          </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </header>
-        <div class="modal-body">
-          <p>
-            {% if session.get('lang', 'en') == 'fr' %}
-              Version du produit : <strong id="product-version">v1.0.0</strong>
-            {% else %}
-              Product Version: <strong id="product-version">v1.0.0</strong>
-            {% endif %}
-          </p>
-        </div>
-        <footer class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            {% if session.get('lang', 'en') == 'fr' %}Fermer{% else %}Close{% endif %}
-          </button>
-        </footer>
-      </div>
-    </div>
-  </div>
-
+      
   <!-- JavaScript Libraries -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
           integrity="sha384-DfXdXF7F4eTtc4NlW+Op6A7Y2sIo+fG3kPOs9sa5JcI42EEJpTnPSdXb51lBGdK8" 
@@ -508,8 +476,43 @@
       }
     });
   </script>
+    </div>
+  </main>
+  <aside>
+    
   
-  {% block scripts %}{% endblock %}
+  <!-- VERSION MODAL -->
+  <div class="modal fade" id="versionModal" tabindex="-1" role="dialog" aria-labelledby="versionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <section class="modal-header">
+          <h5 class="modal-title" id="versionModalLabel">
+            {% if session.get('lang', 'en') == 'fr' %}Information de Version{% else %}Version Information{% endif %}
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </section>
+        <div class="modal-body">
+          <p>
+            {% if session.get('lang', 'en') == 'fr' %}
+              Version du produit : <strong id="product-version">v1.0.0</strong>
+            {% else %}
+              Product Version: <strong id="product-version">v1.0.0</strong>
+            {% endif %}
+          </p>
+        </div>
+        <section class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            {% if session.get('lang', 'en') == 'fr' %}Fermer{% else %}Close{% endif %}
+          </button>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  </aside>
+  
     <!-- FOOTER: Sticky Footer -->
   <footer class="bg-dark text-white mt-auto" style="position: relative;">
     <div class="container">
@@ -541,6 +544,6 @@
      <p class="m-0">&copy; 2025 Kevin Marville. All rights reserved.</p>
     </div>
   </footer>
-  
+  {% block scripts %}{% endblock %}
 </body>
 </html>
