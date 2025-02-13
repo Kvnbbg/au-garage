@@ -31,13 +31,13 @@ body {
    2. CSS VARIABLES (THEMING, SIZING, & ANIMATION SETTINGS)
    ------------------------------------------------------------------------ */
 :root {
-  /* Colors – a calm, professional palette */
+  /* Colors – calm and professional neutral tones */
   --primary-color: #007BFF;       /* Professional blue */
   --primary-hover: #0056b3;
   --accent-color: #6C7B8B;        /* Gray-blue tone for accents */
-  --neon-green: #A8DADC;          /* Calm pastel blue (used for buttons) */
+  --neon-green: #A8DADC;          /* Calm pastel blue for interactive buttons */
   --background-color: #f0f0f0;    /* Light neutral background */
-  --text-color: #333333;          /* Dark, clear text */
+  --text-color: #333333;          /* Clear dark text */
   --modal-bg: #ffffff;
   --modal-border: #cccccc;
   --modal-shadow: rgba(0, 0, 0, 0.1);
@@ -76,7 +76,7 @@ p {
   line-height: 1.5;
 }
 
-/* Utility text classes */
+/* Utility classes */
 .text-center { text-align: center; }
 .text-white { color: #ffffff !important; }
 .text-muted { color: #777777 !important; }
@@ -91,9 +91,11 @@ p {
   padding: 0 15px;
 }
 
-/* Header Section */
+/* Sticky Navigation Header */
 header {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 1050;
   padding: 1.5rem;
   background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
   border-bottom: 3px solid var(--primary-hover);
@@ -106,6 +108,7 @@ header {
   background-repeat: no-repeat;
 }
 
+/* Dark overlay for hero image */
 header::after {
   content: "";
   position: absolute;
@@ -160,7 +163,6 @@ footer {
   transform: translateY(-2px);
 }
 
-/* Navbar toggler (for mobile) */
 .navbar-toggler {
   background-color: var(--primary-color);
   border: none;
@@ -207,7 +209,7 @@ footer {
 }
 
 .btn {
-  background-color: var(--neon-green);  /* Calm pastel blue */
+  background-color: var(--neon-green);
   color: #000000;
 }
 
@@ -216,7 +218,6 @@ footer {
   box-shadow: 0 0 10px var(--accent-color);
 }
 
-/* Floating bubble buttons (e.g., Save/Load state) */
 .bubble-button.floating {
   position: fixed;
   bottom: 30px;
@@ -237,7 +238,6 @@ footer {
   100% { transform: translateY(0); }
 }
 
-/* Hover border utility */
 .hover-border {
   position: relative;
   padding: 1rem;
@@ -462,7 +462,7 @@ form textarea {
 }
 
 /* ------------------------------------------------------------------------
-   18. RESPONSIVE DESIGN & MEDIA QUERIES
+   18. RESPONSIVE DESIGN, ORIENTATION & MEDIA QUERIES
    ------------------------------------------------------------------------ */
 /* Extra large screens */
 @media (min-width: 1200px) {
@@ -500,6 +500,29 @@ form textarea {
   html { font-size: 14px; }
   .navbar-nav .nav-link { margin-left: 0.5rem; }
   .btn, .bubble-button { padding: 0.5rem 1rem; }
+}
+
+/* Orientation-based adjustments */
+@media (orientation: landscape) {
+  /* In landscape, hero section takes full viewport height */
+  .bg-image-full {
+    height: 100vh;
+  }
+  /* Three.js canvas container occupies half the viewport height */
+  #threejs-canvas-container {
+    height: 50vh;
+  }
+}
+
+@media (orientation: portrait) {
+  /* In portrait, reduce hero section height for clarity */
+  .bg-image-full {
+    height: 50vh;
+  }
+  /* Three.js canvas container becomes shorter */
+  #threejs-canvas-container {
+    height: 30vh;
+  }
 }
 
 /* ------------------------------------------------------------------------
