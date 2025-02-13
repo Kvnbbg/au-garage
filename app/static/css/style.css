@@ -1,5 +1,5 @@
 /* ========================================================================
-   EXTENSIVE CSS – AU GARAGE DYNAMIC UI & UX MASTER STYLE
+   EXTENSIVE CSS – AU GARAGE DYNAMIC UI & UX (HORIZONTAL & VERTICAL LAYOUT)
    ======================================================================== */
 
 /* ------------------------------------------------------------------------
@@ -23,7 +23,7 @@ body {
   color: var(--text-color, #333333);
   line-height: 1.6;
   padding: var(--base-padding, 1rem);
-  overflow-x: hidden;
+  overflow-x: hidden; /* Horizontal overflow hidden for clarity */
   position: relative;
 }
 
@@ -31,13 +31,13 @@ body {
    2. CSS VARIABLES (THEMING, SIZING, & ANIMATION SETTINGS)
    ------------------------------------------------------------------------ */
 :root {
-  /* Colors – calm and professional neutral tones */
+  /* Colors – calm, professional palette */
   --primary-color: #007BFF;       /* Professional blue */
   --primary-hover: #0056b3;
   --accent-color: #6C7B8B;        /* Gray-blue tone for accents */
-  --neon-green: #A8DADC;          /* Calm pastel blue for interactive buttons */
+  --neon-green: #A8DADC;          /* Calm pastel blue (used for buttons) */
   --background-color: #f0f0f0;    /* Light neutral background */
-  --text-color: #333333;          /* Clear dark text */
+  --text-color: #333333;          /* Dark, clear text */
   --modal-bg: #ffffff;
   --modal-border: #cccccc;
   --modal-shadow: rgba(0, 0, 0, 0.1);
@@ -76,7 +76,7 @@ p {
   line-height: 1.5;
 }
 
-/* Utility classes */
+/* Utility text classes */
 .text-center { text-align: center; }
 .text-white { color: #ffffff !important; }
 .text-muted { color: #777777 !important; }
@@ -84,14 +84,14 @@ p {
 /* ------------------------------------------------------------------------
    4. LAYOUT & STRUCTURAL CONTAINERS
    ------------------------------------------------------------------------ */
-/* Global container */
+/* Bootstrap-like containers */
 .container, .container-fluid {
   max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 15px;
 }
 
-/* Sticky Navigation Header */
+/* Sticky Navigation Header (always visible on top) */
 header {
   position: sticky;
   top: 0;
@@ -102,13 +102,13 @@ header {
   overflow: hidden;
 }
 
+/* Hero backgrounds, fully covering area */
 .bg-image-full {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-/* Dark overlay for hero image */
 header::after {
   content: "";
   position: absolute;
@@ -119,16 +119,22 @@ header::after {
   z-index: 1;
 }
 
-/* Slide-in container for main content */
+/* Main slide-in container for content */
 .slide-container {
   width: 100vw;
   min-height: 100vh;
   animation: slideIn 1s ease-out forwards;
+  padding: 2rem 0; /* Extra spacing around main content */
 }
 
 @keyframes slideIn {
   from { transform: translateY(100vh); opacity: 0; }
   to   { transform: translateY(0); opacity: 1; }
+}
+
+/* Additional spacing for sections to avoid overlap */
+section {
+  margin-bottom: 3rem;
 }
 
 /* Footer */
@@ -138,6 +144,7 @@ footer {
   padding: 2rem 0;
   text-align: center;
   font-size: 0.9rem;
+  margin-top: 2rem; /* Ensures clear separation from content */
 }
 
 /* ------------------------------------------------------------------------
@@ -372,6 +379,7 @@ form textarea {
 #threejs-simulation {
   padding: 20px;
   text-align: center;
+  margin-bottom: 3rem; /* Extra space below the simulation area */
 }
 
 /* ------------------------------------------------------------------------
@@ -394,6 +402,24 @@ form textarea {
 
 .grid-item:hover {
   transform: translateY(-5px);
+}
+
+/* Horizontal row layout for certain features (if you want items side by side) */
+.horizontal-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  margin-bottom: 3rem; /* Extra spacing from next section */
+}
+
+/* Child elements in .horizontal-row can be sized proportionally. 
+   Example: 50% width each on large screens. */
+.horizontal-row > .row-item {
+  flex: 1 1 45%;
+  min-width: 280px; /* Ensures item doesn't get too narrow */
+  margin: 0.5rem 0;
 }
 
 /* ------------------------------------------------------------------------
@@ -421,7 +447,6 @@ form textarea {
 /* ------------------------------------------------------------------------
    17. ANIMATION & SPECIAL EFFECTS
    ------------------------------------------------------------------------ */
-/* Neon pulse for overall UI (calm and professional) */
 @keyframes neonPulse {
   0%, 100% { filter: brightness(1); }
   50% { filter: brightness(1.5); }
@@ -493,6 +518,9 @@ form textarea {
   .bubble-button { font-size: 14px; padding: 8px 12px; }
   .grid-container { grid-template-columns: 1fr; }
   #mainContainer { padding: 10px; }
+  .horizontal-row > .row-item {
+    flex: 1 1 100%; /* Stack horizontally row items vertically on small screens */
+  }
 }
 
 /* Extra small screens */
@@ -502,24 +530,24 @@ form textarea {
   .btn, .bubble-button { padding: 0.5rem 1rem; }
 }
 
-/* Orientation-based adjustments */
+/* Orientation-based layout adjustments */
 @media (orientation: landscape) {
-  /* In landscape, hero section takes full viewport height */
+  /* In landscape, hero section can be full viewport height */
   .bg-image-full {
     height: 100vh;
   }
-  /* Three.js canvas container occupies half the viewport height */
+  /* Three.js container half the viewport height in landscape */
   #threejs-canvas-container {
     height: 50vh;
   }
 }
 
 @media (orientation: portrait) {
-  /* In portrait, reduce hero section height for clarity */
+  /* In portrait, hero is shorter */
   .bg-image-full {
     height: 50vh;
   }
-  /* Three.js canvas container becomes shorter */
+  /* Three.js container becomes 30% of viewport height in portrait */
   #threejs-canvas-container {
     height: 30vh;
   }
@@ -555,6 +583,8 @@ form textarea {
 #mainContainer {
   padding: 20px;
   font-family: sans-serif;
+  margin-top: 2rem; /* Space below sticky header */
+  margin-bottom: 2rem; /* Space above footer */
 }
 
 #iotSimulation {
@@ -571,6 +601,7 @@ form textarea {
   font-size: 14px;
 }
 
+/* Floating bubble canvas behind everything else */
 #bubbleCanvas {
   position: fixed;
   top: 0;
@@ -582,5 +613,5 @@ form textarea {
 }
 
 /* ========================================================================
-   END OF EXTENSIVE CSS FILE
+   END OF EXTENSIVE CSS – HORIZONTAL & VERTICAL LAYOUT
    ======================================================================== */
