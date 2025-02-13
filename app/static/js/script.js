@@ -5,8 +5,8 @@
   let currentLanguage = "en";
   const translations = {
     planning: { en: "Planning", fr: "Planification" },
-    save: { en: "Save State", fr: "Sauvegarder l'état" },
-    load: { en: "Load State", fr: "Charger l'état" },
+    save: { en: "Save", fr: "Sauvegarder" },
+    load: { en: "Load", fr: "Charger" },
     toggleLanguage: { en: "Français", fr: "English" },
     mechanicalAdvice: {
       en: "Always ensure optimal gear alignment and proper lubrication levels to achieve maximum mechanical efficiency and safety during high-load operations.",
@@ -19,8 +19,8 @@
     submit: { en: "Submit", fr: "Soumettre" },
     output: { en: "Output", fr: "Résultat" },
     textContext: {
-      en: "Welcome to the Engineering Document SaaS Platform. Here you can generate structured documents styled like Excel with advanced mechanical insights and planning features.",
-      fr: "Bienvenue sur la plateforme SaaS de documents d'ingénierie. Ici, vous pouvez générer des documents structurés au style Excel avec des informations mécaniques avancées et des fonctionnalités de planification."
+      en: "Welcome to the Platform. Here you can generate structured documents styled like Excel with advanced mechanical insights and planning features.",
+      fr: "Bienvenue sur la plateforme. Ici, vous pouvez générer des documents structurés au style Excel avec des informations mécaniques avancées et des fonctionnalités de planification."
     },
     reset: { en: "Reset UI", fr: "Réinitialiser l'interface" },
     saveAlert: { en: "State saved!", fr: "État sauvegardé!" },
@@ -30,11 +30,11 @@
       en: "Mechanics Automobile IoT Simulation",
       fr: "Simulation IoT de Mécanique Automobile"
     },
-    startSimulation: { en: "Start Simulation", fr: "Démarrer la Simulation" },
-    stopSimulation: { en: "Stop Simulation", fr: "Arrêter la Simulation" },
+    startSimulation: { en: "Start", fr: "Démarrer" },
+    stopSimulation: { en: "Stop", fr: "Arrêter" },
     // --- New translations for Nerd Metrics ---
-    nerdMetrics: { en: "Nerd Metrics", fr: "Métriques Nerd" },
-    proceed: { en: "Go to Base Next", fr: "Aller à Base Next" },
+    nerdMetrics: { en: "Metrics", fr: "Mesures" },
+    proceed: { en: "Go to Next", fr: "Aller à Suivant" },
     close: { en: "Close", fr: "Fermer" }
   };
 
