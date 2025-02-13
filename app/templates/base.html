@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Language" content="{{ session.get('lang', 'en') }}">
-  <meta name="description" content="Kevin Marville alias kvnbbg on GitHub is the Python developer of the Au Garage web application for Monsieur Parrot.">
-  <meta name="keywords" content="Au Garage, Kevin Marville, kvnbbg, Python Developer, Auto Repair, Mechanical Engineering, Calibration, Simulation">
+  <meta name="description" content="Au Garage – A hub for automotive and mechanical excellence.">
+  <meta name="keywords" content="Mechanics, Classical Mechanics, Engineering, Simulation, Calibration">
   <meta name="author" content="Kevin Marville">
   <meta name="msapplication-tap-highlight" content="no">
   <title>{% block title %}Au Garage{% endblock %}</title>
@@ -20,8 +20,44 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Custom CSS -->
+  
+  <!-- Custom Extended CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <!-- Inline Fine-Tune Styles -->
+  <style>
+    /* Additional fine-tuning for interactive details */
+    .hover-light:hover {
+      filter: brightness(1.2);
+      transition: filter 0.2s ease;
+    }
+    .zoom-on-hover {
+      transition: transform 0.3s ease;
+    }
+    .zoom-on-hover:hover {
+      transform: scale(1.05);
+    }
+    /* Particles container for subtle particle effect on buttons */
+    .particle-effect {
+      position: relative;
+      overflow: hidden;
+    }
+    .particle-effect::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .particle-effect:hover::after {
+      opacity: 1;
+    }
+  </style>
   
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -41,183 +77,314 @@
   }
   </script>
   {% block head %}{% endblock %}
-  
-  <!--
-    Future CSS enhancements:
-      - Mobile-friendly floating bubble effects
-      - Responsive animations for tablets, iPads, TVs, PCs, MacBooks, Android, etc.
-  -->
 </head>
-<body>
-  <!-- HEADER: Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-      <a class="navbar-brand" href="{{ url_for('main.home') }}">
-        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="height: 30px;">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" 
-              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ml-auto">
-          <a class="nav-item nav-link" href="{{ url_for('auth.set_language', language='en') }}">🇺🇸 English</a>
-          <a class="nav-item nav-link" href="{{ url_for('auth.set_language', language='fr') }}">🇫🇷 Français</a>
-          <!-- NEW: Version Button -->
-          <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#versionModal">Version</a>
-          {% if not current_user.is_authenticated %}
-            <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
-          <a class="nav-item nav-link" href="https://kvnbbg.github.io/500Discount/">5D</a>
-          {% else %}
-            <a class="nav-item nav-link" href="{{ url_for('auth.dashboard') }}">Dashboard</a>
-            <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
-          {% endif %}
+<body class="d-flex flex-column" style="min-height: 100vh;">
+  <!-- HEADER: Navigation -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="{{ url_for('main.home') }}">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.set_language', language='en') }}">🇺🇸 English</a></li>
+            <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.set_language', language='fr') }}">🇫🇷 Français</a></li>
+            <li class="nav-item"><a class="nav-link hover-light" href="#" data-toggle="modal" data-target="#versionModal">Version</a></li>
+            {% if not current_user.is_authenticated %}
+              <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.login') }}">Login</a></li>
+              <li class="nav-item"><a class="nav-link hover-light" href="https://kvnbbg.github.io/500Discount/">5D</a></li>
+            {% else %}
+              <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.dashboard') }}">Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.logout') }}">Logout</a></li>
+            {% endif %}
+          </ul>
         </div>
       </div>
-    </div>
-  </nav>
-
-  <!-- HEADER: Background Image & Title -->
-  <header class="py-5 bg-image-full" style="background-image: url('{{ url_for('static', filename='images/service-example.jpg') }}');">
+    </nav>
+  </header>
+  
+  <!-- HERO SECTION: Background Image & Title -->
+  <section class="py-5 bg-image-full" style="background-image: url('{{ url_for('static', filename='images/service-example.jpg') }}');">
     <div class="container text-center">
       <div class="my-5">
         {% if session.get('lang', 'en') == 'fr' %}
-          <h1 class="text-white" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Bienvenue Au Garage</h1>
-          <h2 class="text-white-50" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Votre centre de service automobile</h2>
+          <h1 class="text-white zoom-on-hover" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Laboratoire de Mécanique</h1>
+          <h2 class="text-white-50 zoom-on-hover" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Fondements et applications de la mécanique classique</h2>
         {% else %}
-          <h1 class="text-white" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Welcome Au Garage</h1>
-          <h2 class="text-white-50" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Your trusted automobile service</h2>
+          <h1 class="text-white zoom-on-hover" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Mechanics Laboratory</h1>
+          <h2 class="text-white-50 zoom-on-hover" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Fundamentals and Applications of Classical Mechanics</h2>
         {% endif %}
       </div>
     </div>
-  </header>
-
-  <!-- MAIN CONTENT -->
-  <main class="slide-container">
-    {% block content %}
-    <!-- About Section -->
-    <section>
-      <h2>About Au Garage</h2>
-      <p>
-        Welcome to Au Garage—your hub for automotive and mechanical excellence. Our platform combines advanced diagnostics,
-        simulation, and calibration tools to deliver reliable service performance data. Every component on this page is mapped 
-        with a secret index to facilitate seamless, modular expansion.
-      </p>
-      <!-- Mechanic Advice Popup Trigger -->
-      <button class="btn popup-trigger" id="examplePopup">Open Mechanic Advice</button>
-    </section>
-
-    <!-- Interactive Mechanical Engineering Spreadsheet Section -->
-    <section id="spreadsheet">
-      <h2>Mechanical Data Acquisition & Simulation Panel</h2>
-      <p>
-        This interactive panel captures key performance metrics for mechanical systems. Record measurements such as 
-        <strong>Torque (Nm)</strong>, <strong>Force (N)</strong>, <strong>Pressure (Pa)</strong>, and <strong>Temperature (°C)</strong>
-        for real-time calibration and simulation. Utilize the controls below to add new measurement rows, remove invalid data,
-        calibrate readings, and simulate system performance under various load conditions.
-      </p>
-      <div class="spreadsheet-container" style="overflow-x:auto; margin:20px auto; max-width:95%;">
-        <table id="spreadsheetTable" class="table table-bordered">
-          <thead>
-            <tr>
-              <th contenteditable="true">Torque (Nm)</th>
-              <th contenteditable="true">Force (N)</th>
-              <th contenteditable="true">Pressure (Pa)</th>
-              <th contenteditable="true">Temperature (°C)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td contenteditable="true">150</td>
-              <td contenteditable="true">1200</td>
-              <td contenteditable="true">101325</td>
-              <td contenteditable="true">85</td>
-            </tr>
-            <tr>
-              <td contenteditable="true">200</td>
-              <td contenteditable="true">1500</td>
-              <td contenteditable="true">100000</td>
-              <td contenteditable="true">90</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="spreadsheet-controls" style="margin-top:10px;">
-          <button id="addRow" class="btn btn-secondary">Add Measurement</button>
-          <button id="removeRow" class="btn btn-danger">Remove Measurement</button>
-          <button id="calibrateData" class="btn btn-warning">Calibrate Data</button>
-          <button id="simulatePerf" class="btn btn-primary">Simulate Performance</button>
-          <button id="saveSheet" class="btn btn-success">Save Data</button>
-          <button id="loadSheet" class="btn btn-info">Load Data</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Container for dynamically created UI from JS (e.g., mainContainer, IoT Simulation, etc.) -->
-    <section id="dynamic-ui"></section>
-
-    <!-- Three.js Car Simulation Controls -->
-    <section id="threejs-simulation" style="padding:20px; text-align:center;">
-      <h2>3D Car Simulation Controls</h2>
-      <div id="threejs-controls" style="margin-bottom:20px;">
-        <button id="left-btn" class="btn btn-secondary mx-1">Left</button>
-        <button id="right-btn" class="btn btn-secondary mx-1">Right</button>
-        <button id="up-btn" class="btn btn-success mx-1">Accelerate</button>
-        <button id="stop-btn" class="btn btn-danger mx-1">Stop</button>
-      </div>
-      <p>The simulation will be rendered <a href="https://kvnbbg.github.io/500Discount/">here</a>.</p>
-    </section>
-    {% endblock %}
-  </main>
-
+  </section>
   
-  <!-- Version Modal -->
+  <!-- MAIN CONTENT: Structured, Clear & Spacious -->
+  <main class="slide-container flex-grow-1">
+    <div class="container my-5">
+      <!-- About Section -->
+      <section id="about" class="mb-5">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h2 class="decorative-title">Principes de la Mécanique</h2>
+          <p>
+            La mécanique classique étudie le mouvement des corps et les forces agissant sur eux. Selon Newton, les lois du mouvement gouvernent 
+            l'équilibre et l'accélération. Ces principes fondent toute analyse des systèmes physiques.
+          </p>
+        {% else %}
+          <h2 class="decorative-title">Principles of Mechanics</h2>
+          <p>
+            Classical mechanics examines the motion of bodies and the forces acting upon them. According to Newton, the laws of motion govern 
+            equilibrium and acceleration. These principles form the foundation of all physical system analysis.
+          </p>
+        {% endif %}
+        <button class="btn popup-trigger particle-effect" id="examplePopup">
+          {% if session.get('lang', 'en') == 'fr' %}Ouvrir le conseil mécanique{% else %}Open Mechanic Advice{% endif %}
+        </button>
+      </section>
+      
+      <!-- Mechanical Data Acquisition Section -->
+      <section id="spreadsheet" class="mb-5">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h2 class="decorative-title">Acquisition de Données Mécaniques</h2>
+          <p>
+            La mécanique expérimentale consiste à mesurer des grandeurs physiques pour valider des modèles théoriques. Enregistrez des mesures telles que 
+            le couple, la force, la pression et la température pour calibrer et simuler le comportement des systèmes.
+          </p>
+        {% else %}
+          <h2 class="decorative-title">Mechanical Data Acquisition</h2>
+          <p>
+            Experimental mechanics involves measuring physical quantities to validate theoretical models. Record measurements such as torque, 
+            force, pressure, and temperature to calibrate and simulate system performance.
+          </p>
+        {% endif %}
+        <div class="spreadsheet-container">
+          <table id="spreadsheetTable" class="table table-bordered excel-table">
+            <thead>
+              <tr>
+                <th contenteditable="true">{% if session.get('lang', 'en') == 'fr' %}Couple (Nm){% else %}Torque (Nm){% endif %}</th>
+                <th contenteditable="true">{% if session.get('lang', 'en') == 'fr' %}Force (N){% else %}Force (N){% endif %}</th>
+                <th contenteditable="true">{% if session.get('lang', 'en') == 'fr' %}Pression (Pa){% else %}Pressure (Pa){% endif %}</th>
+                <th contenteditable="true">{% if session.get('lang', 'en') == 'fr' %}Température (°C){% else %}Temperature (°C){% endif %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td contenteditable="true">150</td>
+                <td contenteditable="true">1200</td>
+                <td contenteditable="true">101325</td>
+                <td contenteditable="true">85</td>
+              </tr>
+              <tr>
+                <td contenteditable="true">200</td>
+                <td contenteditable="true">1500</td>
+                <td contenteditable="true">100000</td>
+                <td contenteditable="true">90</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="spreadsheet-controls mt-3">
+            <button id="addRow" class="btn btn-secondary"> 
+              {% if session.get('lang', 'en') == 'fr' %}Ajouter une mesure{% else %}Add Measurement{% endif %}
+            </button>
+            <button id="removeRow" class="btn btn-danger">
+              {% if session.get('lang', 'en') == 'fr' %}Supprimer une mesure{% else %}Remove Measurement{% endif %}
+            </button>
+            <button id="calibrateData" class="btn btn-warning">
+              {% if session.get('lang', 'en') == 'fr' %}Calibrer les données{% else %}Calibrate Data{% endif %}
+            </button>
+            <button id="simulatePerf" class="btn btn-primary">
+              {% if session.get('lang', 'en') == 'fr' %}Simuler la performance{% else %}Simulate Performance{% endif %}
+            </button>
+            <button id="saveSheet" class="btn btn-success">
+              {% if session.get('lang', 'en') == 'fr' %}Sauvegarder{% else %}Save Data{% endif %}
+            </button>
+            <button id="loadSheet" class="btn btn-info">
+              {% if session.get('lang', 'en') == 'fr' %}Charger{% else %}Load Data{% endif %}
+            </button>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Dynamic UI Container -->
+      <section id="dynamic-ui" class="mb-5">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h2 class="decorative-title">Fonctionnalités Dynamiques</h2>
+          <p>Les éléments interactifs se génèrent dynamiquement pour illustrer des concepts avancés en mécanique.</p>
+        {% else %}
+          <h2 class="decorative-title">Dynamic Features</h2>
+          <p>Interactive elements are dynamically generated to illustrate advanced concepts in mechanics.</p>
+        {% endif %}
+      </section>
+      
+      <!-- Three.js Car Simulation Section -->
+      <section id="threejs-simulation" class="mb-5 text-center">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h2 class="decorative-title">Simulation 3D de Voiture</h2>
+          <p>Cette simulation s'appuie sur les principes newtoniens pour illustrer le mouvement et la force.</p>
+        {% else %}
+          <h2 class="decorative-title">3D Car Simulation</h2>
+          <p>This simulation uses Newtonian principles to illustrate motion and force.</p>
+        {% endif %}
+        <div id="threejs-controls" class="mb-3">
+          <button id="left-btn" class="btn btn-secondary mx-1">
+            {% if session.get('lang', 'en') == 'fr' %}Gauche{% else %}Left{% endif %}
+          </button>
+          <button id="right-btn" class="btn btn-secondary mx-1">
+            {% if session.get('lang', 'en') == 'fr' %}Droite{% else %}Right{% endif %}
+          </button>
+          <button id="up-btn" class="btn btn-success mx-1">
+            {% if session.get('lang', 'en') == 'fr' %}Accélérer{% else %}Accelerate{% endif %}
+          </button>
+          <button id="stop-btn" class="btn btn-danger mx-1">
+            {% if session.get('lang', 'en') == 'fr' %}Arrêter{% else %}Stop{% endif %}
+          </button>
+        </div>
+        <!-- Three.js Canvas Container -->
+        <div id="threejs-canvas-container" style="position: relative; width: 100%; height: 400px; margin: 0 auto;"></div>
+        <p>
+          {% if session.get('lang', 'en') == 'fr' %}
+            La simulation est affichée ci-dessus.
+          {% else %}
+            The simulation is rendered above.
+          {% endif %}
+        </p>
+      </section>
+      
+      <!-- Carousel / Featured Content Section -->
+      <section id="carousel" class="mb-5">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h2 class="decorative-title">Contenu Mis en Avant</h2>
+        {% else %}
+          <h2 class="decorative-title">Featured Content</h2>
+        {% endif %}
+        <div id="featuredCarousel" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#featuredCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#featuredCarousel" data-slide-to="1"></li>
+            <li data-target="#featuredCarousel" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="{{ url_for('static', filename='images/slide1.jpg') }}" class="d-block w-100" alt="Slide 1">
+              <div class="carousel-caption d-none d-md-block">
+                {% if session.get('lang', 'en') == 'fr' %}
+                  <h5>Étude de Mécanique 1</h5>
+                  <p>Description de l'étude de mécanique 1.</p>
+                {% else %}
+                  <h5>Mechanics Study 1</h5>
+                  <p>Description of Mechanics Study 1.</p>
+                {% endif %}
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="{{ url_for('static', filename='images/slide2.jpg') }}" class="d-block w-100" alt="Slide 2">
+              <div class="carousel-caption d-none d-md-block">
+                {% if session.get('lang', 'en') == 'fr' %}
+                  <h5>Étude de Mécanique 2</h5>
+                  <p>Description de l'étude de mécanique 2.</p>
+                {% else %}
+                  <h5>Mechanics Study 2</h5>
+                  <p>Description of Mechanics Study 2.</p>
+                {% endif %}
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="{{ url_for('static', filename='images/slide3.jpg') }}" class="d-block w-100" alt="Slide 3">
+              <div class="carousel-caption d-none d-md-block">
+                {% if session.get('lang', 'en') == 'fr' %}
+                  <h5>Étude de Mécanique 3</h5>
+                  <p>Description de l'étude de mécanique 3.</p>
+                {% else %}
+                  <h5>Mechanics Study 3</h5>
+                  <p>Description of Mechanics Study 3.</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">
+              {% if session.get('lang', 'en') == 'fr' %}Précédent{% else %}Previous{% endif %}
+            </span>
+          </a>
+          <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">
+              {% if session.get('lang', 'en') == 'fr' %}Suivant{% else %}Next{% endif %}
+            </span>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+  
+  <!-- VERSION MODAL -->
   <div class="modal fade" id="versionModal" tabindex="-1" role="dialog" aria-labelledby="versionModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="versionModalLabel">Version Information</h5>
+        <header class="modal-header">
+          <h5 class="modal-title" id="versionModalLabel">
+            {% if session.get('lang', 'en') == 'fr' %}Information de Version{% else %}Version Information{% endif %}
+          </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-        </div>
+        </header>
         <div class="modal-body">
-          <p>Product Version: <strong id="product-version">v1.0.0</strong></p>
+          <p>
+            {% if session.get('lang', 'en') == 'fr' %}
+              Version du produit : <strong id="product-version">v1.0.0</strong>
+            {% else %}
+              Product Version: <strong id="product-version">v1.0.0</strong>
+            {% endif %}
+          </p>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+        <footer class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            {% if session.get('lang', 'en') == 'fr' %}Fermer{% else %}Close{% endif %}
+          </button>
+        </footer>
       </div>
     </div>
   </div>
-
-  <!-- FOOTER -->
-  <footer class="py-5 bg-dark text-white">
+  
+  <!-- FOOTER: Sticky Footer -->
+  <footer class="bg-dark text-white mt-auto" style="position: relative;">
     <div class="container">
-      <div class="social-links mb-3">
-        <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-          <i class="fas fa-rss"></i> Blog
-        </a>
-        <a href="https://www.instagram.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-          <i class="fab fa-instagram"></i> Instagram
-        </a>
-        <a href="https://www.threads.net/@techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-          <i class="fas fa-comment-dots"></i> Threads
-        </a>
-        <a href="https://x.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-          <i class="fab fa-twitter"></i> X
-        </a>
-        <a href="https://www.youtube.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-          <i class="fab fa-youtube"></i> YouTube
-        </a>
-        <a href="https://www.facebook.com/kvnbbg" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-          <i class="fab fa-facebook-f"></i> Facebook
-        </a>
-      </div>
+      <aside class="mb-3">
+        <h3 class="decorative-title">
+          {% if session.get('lang', 'en') == 'fr' %}Suivez-nous{% else %}Follow Us{% endif %}
+        </h3>
+        <div class="social-links">
+          <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fas fa-rss"></i> Blog
+          </a>
+          <a href="https://www.instagram.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+          <a href="https://www.threads.net/@techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fas fa-comment-dots"></i> Threads
+          </a>
+          <a href="https://x.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fab fa-twitter"></i> X
+          </a>
+          <a href="https://www.youtube.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fab fa-youtube"></i> YouTube
+          </a>
+          <a href="https://www.facebook.com/kvnbbg" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fab fa-facebook-f"></i> Facebook
+          </a>
+        </div>
+      </aside>
       <p class="m-0">&copy; 2025 Kevin Marville. All rights reserved.</p>
     </div>
   </footer>
-
-
+  
   <!-- JavaScript Libraries -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
           integrity="sha384-DfXdXF7F4eTtc4NlW+Op6A7Y2sIo+fG3kPOs9sa5JcI42EEJpTnPSdXb51lBGdK8" 
@@ -231,34 +398,62 @@
   
   <!-- Custom JavaScript -->
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
+  
+  <!-- Inline Script: Fine-Tuning Interactive Effects -->
+  <script>
+    // Example: Add a subtle particle effect on hover for elements with the "particle-effect" class
+    document.querySelectorAll('.particle-effect').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        el.style.boxShadow = "0 0 15px rgba(0, 123, 255, 0.5)";
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.boxShadow = "none";
+      });
+    });
+    
+    // Example: Zoom effect for images with the "zoom-on-hover" class is handled via CSS.
+    // You can add further JS if needed for more complex interactions.
+    
+    // Inline script for additional fine details (if any additional events are needed)
+    console.log("Inline interactive fine-tuning is active.");
+  </script>
+  
   <!-- Three.js and Car Simulation Script -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    // Setup scene, camera, and renderer for car simulation
+    // -------------------------------
+    // Three.js Car Simulation Setup
+    // -------------------------------
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
-    document.body.appendChild(renderer.domElement);
-
-    // Add lighting
+    
+    // Append canvas to dedicated container if available
+    const canvasContainer = document.getElementById('threejs-canvas-container');
+    if (canvasContainer) {
+      canvasContainer.appendChild(renderer.domElement);
+    } else {
+      document.body.appendChild(renderer.domElement);
+    }
+    
+    // Lighting
     const light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(5, 10, 7.5);
     light.castShadow = true;
     scene.add(light);
-
+    
     const ambientLight = new THREE.AmbientLight(0x404040);
     scene.add(ambientLight);
-
-    // Car geometry and material
+    
+    // Car creation
     const carGeometry = new THREE.BoxGeometry(2, 0.5, 1);
     const carMaterial = new THREE.MeshPhongMaterial({ color: 0x0077ff, shininess: 100 });
     const car = new THREE.Mesh(carGeometry, carMaterial);
     car.castShadow = true;
     scene.add(car);
-
+    
     // Create wheels
     const wheelGeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.1, 32);
     const wheelMaterial = new THREE.MeshPhongMaterial({ color: 0x333333 });
@@ -275,7 +470,7 @@
       wheel.castShadow = true;
       scene.add(wheel);
     });
-
+    
     // Ground plane
     const groundGeometry = new THREE.PlaneGeometry(50, 50);
     const groundMaterial = new THREE.MeshPhongMaterial({ color: 0x999999 });
@@ -284,31 +479,32 @@
     ground.position.y = -0.4;
     ground.receiveShadow = true;
     scene.add(ground);
-
+    
     // Camera setup
     camera.position.set(0, 2, 6);
     camera.lookAt(0, 0, 0);
-
+    
+    // Car control variables
     let carSpeed = 0;
     let carRotation = 0;
     const maxSpeed = 0.1;
     const acceleration = 0.002;
     const deceleration = 0.001;
-
-    // Button controls
+    
+    // Button control events
     document.getElementById('left-btn').addEventListener('click', () => { carRotation -= 0.05; });
     document.getElementById('right-btn').addEventListener('click', () => { carRotation += 0.05; });
     document.getElementById('up-btn').addEventListener('click', () => { if(carSpeed < maxSpeed) carSpeed += acceleration; });
     document.getElementById('stop-btn').addEventListener('click', () => { carSpeed = 0; });
-
-    // Mouse-based movement (optional)
+    
+    // Optional mouse-based movement
     document.addEventListener('mousemove', (event) => {
       const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
       const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
       car.position.x = THREE.MathUtils.lerp(car.position.x, mouseX * 3, 0.1);
       car.position.y = THREE.MathUtils.lerp(car.position.y, mouseY, 0.1);
     });
-
+    
     // Animation loop
     function animate() {
       requestAnimationFrame(animate);
@@ -318,26 +514,25 @@
       renderer.render(scene, camera);
     }
     animate();
-
-    // Adjust on window resize
+    
+    // Responsive resize handler
     window.addEventListener('resize', () => {
       renderer.setSize(window.innerWidth, window.innerHeight);
-      camera.aspect = window.innerWidth/window.innerHeight;
+      camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
     });
   </script>
-
-  <!-- Version Module: Modularized Version Info -->
+  
+  <!-- Version Module -->
   <script>
     const VersionModule = (() => {
-      const version = "v1.0.0"; // Update this value as your product version evolves.
+      const version = "v1.0.0"; // Update as needed.
       function getVersion() {
         return version;
       }
       return { getVersion };
     })();
-
-    // Populate version info into the modal once the DOM is ready.
+    
     document.addEventListener('DOMContentLoaded', () => {
       const versionSpan = document.getElementById('product-version');
       if (versionSpan) {
