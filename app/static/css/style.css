@@ -19,7 +19,7 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: var(--background-color, #ffffff);
+  background: var(--background-color, #f0f0f0);
   color: var(--text-color, #333333);
   line-height: 1.6;
   padding: var(--base-padding, 1rem);
@@ -31,13 +31,13 @@ body {
    2. CSS VARIABLES (THEMING, SIZING, & ANIMATION SETTINGS)
    ------------------------------------------------------------------------ */
 :root {
-  /* Colors */
+  /* Colors – a calm, professional palette */
   --primary-color: #007BFF;       /* Professional blue */
-  --primary-hover: #0056b3;       /* Darker blue on hover */
-  --accent-color: #ff4081;        /* Vibrant accent for interactive elements */
-  --neutral-color: #555555;       /* Neutral tone for supplementary text */
-  --background-color: #ffffff;    /* Clear background */
-  --text-color: #333333;          /* Dark, professional text */
+  --primary-hover: #0056b3;
+  --accent-color: #6C7B8B;        /* Gray-blue tone for accents */
+  --neon-green: #A8DADC;          /* Calm pastel blue (used for buttons) */
+  --background-color: #f0f0f0;    /* Light neutral background */
+  --text-color: #333333;          /* Dark, clear text */
   --modal-bg: #ffffff;
   --modal-border: #cccccc;
   --modal-shadow: rgba(0, 0, 0, 0.1);
@@ -66,7 +66,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.5em;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  /* Subtle neon glow for a gamified touch */
+  /* Subtle neon glow for a gamified yet calm effect */
   text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
 }
 
@@ -207,7 +207,7 @@ footer {
 }
 
 .btn {
-  background-color: var(--neon-green);
+  background-color: var(--neon-green);  /* Calm pastel blue */
   color: #000000;
 }
 
@@ -225,7 +225,7 @@ footer {
   height: var(--bubble-size);
   background: var(--accent-color);
   border-radius: 50%;
-  box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
+  box-shadow: 0 4px 15px rgba(102, 123, 139, 0.4);
   font-size: 1.5rem;
   z-index: 10000;
   animation: bubbleFloat 4s ease-in-out infinite;
@@ -421,7 +421,7 @@ form textarea {
 /* ------------------------------------------------------------------------
    17. ANIMATION & SPECIAL EFFECTS
    ------------------------------------------------------------------------ */
-/* Neon pulse for overall UI */
+/* Neon pulse for overall UI (calm and professional) */
 @keyframes neonPulse {
   0%, 100% { filter: brightness(1); }
   50% { filter: brightness(1.5); }
