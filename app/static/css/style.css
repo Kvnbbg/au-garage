@@ -1,9 +1,14 @@
 /* ========================================================================
-   EXTENSIVE CSS – AU GARAGE DYNAMIC UI & UX (HORIZONTAL & VERTICAL LAYOUT)
+   EXTENDED IMPROVED CSS – FUSION OF CUSTOM STYLES & TAILWIND UTILITIES
    ======================================================================== */
 
+/* 
+  NOTE: Tailwind CSS is assumed to be imported first.
+  This file further extends global resets, layout rules, and interactive effects.
+*/
+
 /* ------------------------------------------------------------------------
-   1. RESET & GLOBAL SETTINGS
+   1. RESET & GLOBAL SETTINGS (complementing Tailwind’s Preflight)
    ------------------------------------------------------------------------ */
 *, *::before, *::after {
   margin: 0;
@@ -23,8 +28,14 @@ body {
   color: var(--text-color, #333333);
   line-height: 1.6;
   padding: var(--base-padding, 1rem);
-  overflow-x: hidden; /* Horizontal overflow hidden for clarity */
+  overflow-x: hidden;
   position: relative;
+}
+
+/* Additional focus styling for accessibility */
+:focus {
+  outline: 2px dashed var(--primary-color);
+  outline-offset: 4px;
 }
 
 /* ------------------------------------------------------------------------
@@ -32,12 +43,12 @@ body {
    ------------------------------------------------------------------------ */
 :root {
   /* Colors – calm, professional palette */
-  --primary-color: #007BFF;       /* Professional blue */
+  --primary-color: #007BFF;
   --primary-hover: #0056b3;
-  --accent-color: #6C7B8B;        /* Gray-blue tone for accents */
-  --neon-green: #A8DADC;          /* Calm pastel blue (used for buttons) */
-  --background-color: #f0f0f0;    /* Light neutral background */
-  --text-color: #333333;          /* Dark, clear text */
+  --accent-color: #6C7B8B;
+  --neon-green: #A8DADC;
+  --background-color: #f0f0f0;
+  --text-color: #333333;
   --modal-bg: #ffffff;
   --modal-border: #cccccc;
   --modal-shadow: rgba(0, 0, 0, 0.1);
@@ -66,7 +77,6 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.5em;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  /* Subtle neon glow for a gamified yet calm effect */
   text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
 }
 
@@ -76,7 +86,7 @@ p {
   line-height: 1.5;
 }
 
-/* Utility text classes */
+/* Utility classes for text alignment */
 .text-center { text-align: center; }
 .text-white { color: #ffffff !important; }
 .text-muted { color: #777777 !important; }
@@ -84,14 +94,13 @@ p {
 /* ------------------------------------------------------------------------
    4. LAYOUT & STRUCTURAL CONTAINERS
    ------------------------------------------------------------------------ */
-/* Bootstrap-like containers */
 .container, .container-fluid {
   max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 15px;
 }
 
-/* Sticky Navigation Header (always visible on top) */
+/* Sticky header */
 header {
   position: sticky;
   top: 0;
@@ -102,7 +111,6 @@ header {
   overflow: hidden;
 }
 
-/* Hero backgrounds, fully covering area */
 .bg-image-full {
   background-size: cover;
   background-position: center;
@@ -119,12 +127,12 @@ header::after {
   z-index: 1;
 }
 
-/* Main slide-in container for content */
+/* Slide-in container for main content */
 .slide-container {
   width: 100vw;
   min-height: 100vh;
   animation: slideIn 1s ease-out forwards;
-  padding: 2rem 0; /* Extra spacing around main content */
+  padding: 2rem 0;
 }
 
 @keyframes slideIn {
@@ -132,23 +140,21 @@ header::after {
   to   { transform: translateY(0); opacity: 1; }
 }
 
-/* Additional spacing for sections to avoid overlap */
 section {
   margin-bottom: 3rem;
 }
 
-/* Footer */
 footer {
   background: #000000;
   color: #ffffff;
   padding: 2rem 0;
   text-align: center;
   font-size: 0.9rem;
-  margin-top: 2rem; /* Ensures clear separation from content */
+  margin-top: 2rem;
 }
 
 /* ------------------------------------------------------------------------
-   5. NAVIGATION & HEADER ELEMENTS (OVERRIDES FOR BOOTSTRAP)
+   5. NAVIGATION & HEADER ELEMENTS (Custom Overrides)
    ------------------------------------------------------------------------ */
 .navbar {
   background-color: #222222;
@@ -220,6 +226,10 @@ footer {
   color: #000000;
 }
 
+.btn:active, .bubble-button:active {
+  transform: scale(0.98);
+}
+
 .btn:hover, .bubble-button:hover {
   transform: scale(1.1);
   box-shadow: 0 0 10px var(--accent-color);
@@ -285,7 +295,12 @@ form textarea {
    9. DRAGGABLE ELEMENTS & BUZZ EFFECT
    ------------------------------------------------------------------------ */
 .draggable {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
   user-select: none;
+  
   cursor: move;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   padding: 10px;
@@ -366,7 +381,7 @@ form textarea {
    13. NERD METRICS MODAL & TOGGLE BUTTON
    ------------------------------------------------------------------------ */
 #nerdMetricsModal {
-  /* Inherits modal styles from section 6 */
+  /* Inherits modal styles */
 }
 
 #nerdMetricsButton {
@@ -379,7 +394,7 @@ form textarea {
 #threejs-simulation {
   padding: 20px;
   text-align: center;
-  margin-bottom: 3rem; /* Extra space below the simulation area */
+  margin-bottom: 3rem;
 }
 
 /* ------------------------------------------------------------------------
@@ -404,21 +419,18 @@ form textarea {
   transform: translateY(-5px);
 }
 
-/* Horizontal row layout for certain features (if you want items side by side) */
 .horizontal-row {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
   align-items: flex-start;
   justify-content: space-evenly;
-  margin-bottom: 3rem; /* Extra spacing from next section */
+  margin-bottom: 3rem;
 }
 
-/* Child elements in .horizontal-row can be sized proportionally. 
-   Example: 50% width each on large screens. */
 .horizontal-row > .row-item {
   flex: 1 1 45%;
-  min-width: 280px; /* Ensures item doesn't get too narrow */
+  min-width: 280px;
   margin: 0.5rem 0;
 }
 
@@ -452,7 +464,6 @@ form textarea {
   50% { filter: brightness(1.5); }
 }
 
-/* Shimmer effect for text or panels */
 .shimmer {
   position: relative;
   overflow: hidden;
@@ -475,7 +486,6 @@ form textarea {
   100% { left: 150%; }
 }
 
-/* TikTok-inspired loop effect */
 .tiktok-interactive {
   animation: tiktokLoop var(--tiktok-duration) ease-in-out infinite;
 }
@@ -489,20 +499,17 @@ form textarea {
 /* ------------------------------------------------------------------------
    18. RESPONSIVE DESIGN, ORIENTATION & MEDIA QUERIES
    ------------------------------------------------------------------------ */
-/* Extra large screens */
 @media (min-width: 1200px) {
   html { font-size: 18px; }
   .container { max-width: 1140px; }
 }
 
-/* Large screens */
 @media (max-width: 1199px) and (min-width: 992px) {
   html { font-size: 17px; }
   header { padding: 1rem; }
   .navbar-nav .nav-link { margin-left: 0.75rem; }
 }
 
-/* Medium screens (tablets) */
 @media (max-width: 991px) and (min-width: 768px) {
   html { font-size: 16px; }
   header { padding: 0.75rem; }
@@ -510,7 +517,6 @@ form textarea {
   .grid-container { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
 }
 
-/* Small screens (phones) */
 @media (max-width: 767px) {
   html { font-size: 15px; }
   header { padding: 0.5rem; }
@@ -519,38 +525,24 @@ form textarea {
   .grid-container { grid-template-columns: 1fr; }
   #mainContainer { padding: 10px; }
   .horizontal-row > .row-item {
-    flex: 1 1 100%; /* Stack horizontally row items vertically on small screens */
+    flex: 1 1 100%;
   }
 }
 
-/* Extra small screens */
 @media (max-width: 576px) {
   html { font-size: 14px; }
   .navbar-nav .nav-link { margin-left: 0.5rem; }
   .btn, .bubble-button { padding: 0.5rem 1rem; }
 }
 
-/* Orientation-based layout adjustments */
 @media (orientation: landscape) {
-  /* In landscape, hero section can be full viewport height */
-  .bg-image-full {
-    height: 100vh;
-  }
-  /* Three.js container half the viewport height in landscape */
-  #threejs-canvas-container {
-    height: 50vh;
-  }
+  .bg-image-full { height: 100vh; }
+  #threejs-canvas-container { height: 50vh; }
 }
 
 @media (orientation: portrait) {
-  /* In portrait, hero is shorter */
-  .bg-image-full {
-    height: 50vh;
-  }
-  /* Three.js container becomes 30% of viewport height in portrait */
-  #threejs-canvas-container {
-    height: 30vh;
-  }
+  .bg-image-full { height: 50vh; }
+  #threejs-canvas-container { height: 30vh; }
 }
 
 /* ------------------------------------------------------------------------
@@ -583,8 +575,8 @@ form textarea {
 #mainContainer {
   padding: 20px;
   font-family: sans-serif;
-  margin-top: 2rem; /* Space below sticky header */
-  margin-bottom: 2rem; /* Space above footer */
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 #iotSimulation {
@@ -601,7 +593,6 @@ form textarea {
   font-size: 14px;
 }
 
-/* Floating bubble canvas behind everything else */
 #bubbleCanvas {
   position: fixed;
   top: 0;
@@ -612,6 +603,41 @@ form textarea {
   z-index: -1;
 }
 
+/* ------------------------------------------------------------------------
+   21. SOUPLESSE STRATEGIES – SMOOTH & FLEXIBLE INTERACTIONS
+   ------------------------------------------------------------------------ */
+/* Utility class for soft, relaxed transitions */
+.relaxed-transition {
+  transition: all 0.3s ease-out;
+}
+
+/* Class for smooth hover effects */
+.smooth-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+.smooth-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Utility for forcing smooth scrolling on any container */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* ------------------------------------------------------------------------
+   22. CUSTOM USER-SELECT UTILITY (FUSION WITH TAILWIND)
+   ------------------------------------------------------------------------ */
+/* Although Tailwind provides a 'select-none' utility, this custom class 
+   ensures vendor-specific prefixes are applied for broader browser support. */
+.no-select {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 /* ========================================================================
-   END OF EXTENSIVE CSS – HORIZONTAL & VERTICAL LAYOUT
+   END OF EXTENDED IMPROVED CSS – FUSION OF CUSTOM STYLES & TAILWIND UTILITIES
    ======================================================================== */
