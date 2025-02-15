@@ -292,7 +292,7 @@
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="flex-grow-1">
 
-<!-- Hero Section -->
+<!-- Hero Section 
 <section class="mb-5" aria-labelledby="heroTitle">
   <div class="text-center">
     {% if session.get('lang', 'en') == 'fr' %}
@@ -301,7 +301,7 @@
         Venez explorer les nouveautés des véhicules électriques, thermiques, à hydrogène, et même des expériences en réalité virtuelle.
       </h2>
 
-      <!-- Recommandations de contenu -->
+      Recommandations de contenu
       <details class="mt-3" style="display: inline-block; text-align: left;">
         <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
           Contenu recommandé pour vous
@@ -309,7 +309,7 @@
         {% block content %}{% endblock %}
       </details>
 
-      <!-- Liens recommandés -->
+      Liens recommandés
       <details class="mt-3" style="display: inline-block; text-align: left;">
         <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
           Liens recommandés pour vous
@@ -344,12 +344,12 @@
         </ul>
       </details>
 
-      <!-- Ressources supplémentaires -->
+      Ressources supplémentaires
       <details class="mt-3" style="display: inline-block; text-align: left;">
         <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
           Encore plus de ressources
         </summary>
-        <!-- Add additional French content here if needed -->
+        Add additional French content here if needed
       </details>
 
     {% else %}
@@ -361,7 +361,7 @@
         Check out these fun resources for more info:
       </p>
 
-      <!-- Recommended Content -->
+      Recommended Content 
       <details class="mt-3" style="display: inline-block; text-align: left;">
         <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
           Recommended content for you
@@ -369,7 +369,7 @@
         {% block content %}{% endblock %}
       </details>
 
-      <!-- Recommended Links -->
+       Recommended Links 
       <details class="mt-3" style="display: inline-block; text-align: left;">
         <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
           Recommended links for you
@@ -404,16 +404,73 @@
         </ul>
       </details>
 
-      <!-- Additional Resources -->
+      Additional Resources
       <details class="mt-3" style="display: inline-block; text-align: left;">
         <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
           More resources
         </summary>
-        <!-- Add additional English content here if needed -->
+        Add additional English content here if needed
       </details>
     {% endif %}
   </div>
-</section>
+</section>-->
+
+
+{% block content %}
+  <!-- Include the default content from base.html first -->
+  {{ super() }}
+
+  <!-- Add your custom paragraph and animated 'satellite' below -->
+  <p>
+    Welcome to the system calibration screen. Here, we verify your configuration 
+    before proceeding. If something looks off, please 
+    <button onclick="window.location.reload()">reload the window</button>
+    and try again.
+  </p>
+
+  <!-- Container for rotating satellite-style animation -->
+  <div class="satellite-container">
+    <div class="satellite-orbit">
+      <div class="satellite"></div>
+    </div>
+  </div>
+
+  <style>
+    /* Satellite rotation animation styles */
+    .satellite-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 20px auto; /* Center horizontally */
+    }
+    .satellite-orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 120px;
+      margin: -60px 0 0 -60px;
+      border: 2px dashed #999;
+      border-radius: 50%;
+      animation: orbit 5s linear infinite;
+    }
+    .satellite {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #007aff;
+    }
+    @keyframes orbit {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+{% endblock %}
+
 
 
       {% set lang = session.get('lang', 'en') %}
