@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="{{ session.get('lang', 'en') }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Ensure proper scaling on mobile/tablet devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Language" content="{{ session.get('lang', 'en') }}" />
+    <meta name="description" content="Au Garage – A hub for automotive and mechanical excellence." />
+    <meta name="keywords" content="Mechanics, Classical Mechanics, Engineering, Simulation, Calibration" />
+    <meta name="author" content="Kevin Marville" />
+    <title>{% block title %}Au Garage{% endblock %}</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon" />
+
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="https://demo.dashboardpack.com/architectui-html-free/main.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Extended CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <style>
+      :root {
+        --primary-color: #6f4e37;
+        --secondary-color: #8b5e3c;
+        --accent-color: #d2a679;
+        --highlight-color: #c87533;
+        --background-color: #f7f3e8;
+        --text-color: #4b382a;
+        --card-bg: #ffffff;
+        --border-color: #d2a679;
+        --transition-speed: 0.3s;
+        --border-radius: 8px;
+        --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: var(--background-color);
+        color: var(--text-color);
+        padding: 20px;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        padding: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+      }
+      .log-container {
+        height: 300px;
+        overflow-y: auto;
+        border: 1px solid var(--border-color);
+        padding: 10px;
+        border-radius: var(--border-radius);
+        background: var(--highlight-color);
+      }
+      .btn {
+        padding: 10px 15px;
+        border-radius: var(--border-radius);
+        border: none;
+        cursor: pointer;
+        transition: background var(--transition-speed);
+      }
+      .btn-primary {
+        background: var(--primary-color);
+        color: #fff;
+      }
+      .btn-secondary {
+        background: var(--secondary-color);
+        color: #fff;
+      }
+      .btn:hover {
+        opacity: 0.8;
+      }
+      /* Sticky header (and other sticky panels) */
+      .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      /* Simple particle effect on hover */
+      .particle-effect {
+        position: relative;
+        overflow: hidden;
+      }
+      .particle-effect::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .particle-effect:hover::after {
+        opacity: 1;
+      }
+      /* Dark mode class */
+      .dark-mode {
+        background: #222;
+        color: #ddd;
+      }
+    </style>
+    {% block head %}{% endblock %}
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "AutoRepair",
+        "name": "Au Garage",
+        "url": "https://github.com/Kvnbbg/au-garage",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "xxxxx",
+          "addressLocality": "Rivierre-Salée, Martinique",
+          "postalCode": "97215",
+          "addressCountry": "MQ"
+        },
+        "telephone": "+33634160418"
+      }
+    </script>
+  </head>
+  <body class="d-flex flex-column" style="min-height: 100vh;">
+    <!-- Skip link for screen readers -->
+    <a href="#mainContent" class="sr-only sr-only-focusable">Skip to main content</a>
+
+    <!-- HEADER: Navigation (sticky for mobile/tablet users) -->
+    <header class="sticky-header">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Main Navigation">
+        <div class="container">
+          <a class="navbar-brand" href="{{ url_for('main.home') }}">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Au Garage Logo" width="50" height="50" />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link particle-effect" href="{{ url_for('auth.set_language', language='en') }}" aria-label="Switch to English">🇺🇸 English</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link particle-effect" href="{{ url_for('auth.set_language', language='fr') }}" aria-label="Basculer en Français">🇫🇷 Français</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link particle-effect" href="#" data-toggle="modal" data-target="#versionModal" aria-label="Version Information">Version</a>
+              </li>
+              <!-- New Bluesky Connect Button -->
+              <li class="nav-item">
+                <button id="blueskyConnectBtn" class="btn btn-primary particle-effect" aria-label="Bluesky Connect">
+                  Bluesky Connect
+                </button>
+              </li>
+              {% if not current_user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link particle-effect" href="{{ url_for('auth.login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link particle-effect" href="https://kvnbbg.github.io/500Discount/">5D</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link particle-effect" href="{{ url_for('auth.dashboard') }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link particle-effect" href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main id="mainContent" class="flex-grow-1">
+      <div class="container my-5">
+        <!-- Hero Section -->
+        <section class="mb-5" aria-labelledby="heroTitle">
+          <div class="text-center">
+            {% if session.get('lang', 'en') == 'fr' %}
+              <h1 id="heroTitle" class="text-dark">Laboratoire de Mécanique</h1>
+              <h2 class="text-muted">Fondements et applications de la mécanique classique</h2>
+            {% else %}
+              <h1 id="heroTitle" class="text-dark">Mechanics Laboratory</h1>
+              <h2 class="text-muted">Fundamentals and Applications of Classical Mechanics</h2>
+            {% endif %}
+          </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="mb-5" aria-labelledby="aboutTitle">
+          {% if session.get('lang', 'en') == 'fr' %}
+            <h2 id="aboutTitle" class="decorative-title">Principes de la Mécanique</h2>
+            <p>
+              La mécanique classique étudie le mouvement des corps et les forces agissant sur eux. Les lois de Newton sont fondamentales pour comprendre
+              l'équilibre et l'accélération dans tout système physique.
+            </p>
+          {% else %}
+            <h2 id="aboutTitle" class="decorative-title">Principles of Mechanics</h2>
+            <p>
+              Classical mechanics examines the motion of bodies and the forces acting upon them. Newton’s laws form the foundation for understanding
+              equilibrium and acceleration in physical systems.
+            </p>
+          {% endif %}
+          <button class="btn btn-secondary particle-effect" id="examplePopup">
+            {% if session.get('lang', 'en') == 'fr' %}Ouvrir le conseil mécanique{% else %}Open Mechanic Advice{% endif %}
+          </button>
+        </section>
+
+        <!-- Mechanical Data Acquisition Section -->
+        <section id="data-acquisition" class="mb-5" aria-labelledby="dataAcquisitionTitle">
+          {% if session.get('lang', 'en') == 'fr' %}
+            <h2 id="dataAcquisitionTitle" class="decorative-title">Acquisition de Données Mécaniques</h2>
+            <p>
+              Mesurez et enregistrez des données physiques telles que le couple, la force, la pression et la température pour calibrer et simuler des systèmes réels.
+            </p>
+          {% else %}
+            <h2 id="dataAcquisitionTitle" class="decorative-title">Mechanical Data Acquisition</h2>
+            <p>
+              Record and measure physical data such as torque, force, pressure, and temperature to calibrate and simulate real-world systems.
+            </p>
+          {% endif %}
+          <div class="spreadsheet-container mb-3">
+            <table id="spreadsheetTable" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th contenteditable="true">
+                    {% if session.get('lang', 'en') == 'fr' %}Couple (Nm){% else %}Torque (Nm){% endif %}
+                  </th>
+                  <th contenteditable="true">
+                    {% if session.get('lang', 'en') == 'fr' %}Force (N){% else %}Force (N){% endif %}
+                  </th>
+                  <th contenteditable="true">
+                    {% if session.get('lang', 'en') == 'fr' %}Pression (Pa){% else %}Pressure (Pa){% endif %}
+                  </th>
+                  <th contenteditable="true">
+                    {% if session.get('lang', 'en') == 'fr' %}Température (°C){% else %}Temperature (°C){% endif %}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td contenteditable="true">150</td>
+                  <td contenteditable="true">1200</td>
+                  <td contenteditable="true">101325</td>
+                  <td contenteditable="true">85</td>
+                </tr>
+                <tr>
+                  <td contenteditable="true">200</td>
+                  <td contenteditable="true">1500</td>
+                  <td contenteditable="true">100000</td>
+                  <td contenteditable="true">90</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="d-flex flex-wrap gap-2">
+              <button id="addRow" class="btn btn-secondary">
+                {% if session.get('lang', 'en') == 'fr' %}Ajouter une mesure{% else %}Add Measurement{% endif %}
+              </button>
+              <button id="removeRow" class="btn btn-danger">
+                {% if session.get('lang', 'en') == 'fr' %}Supprimer une mesure{% else %}Remove Measurement{% endif %}
+              </button>
+              <button id="calibrateData" class="btn btn-warning">
+                {% if session.get('lang', 'en') == 'fr' %}Calibrer les données{% else %}Calibrate Data{% endif %}
+              </button>
+              <button id="simulatePerf" class="btn btn-primary">
+                {% if session.get('lang', 'en') == 'fr' %}Simuler la performance{% else %}Simulate Performance{% endif %}
+              </button>
+              <button id="saveSheet" class="btn btn-success">
+                {% if session.get('lang', 'en') == 'fr' %}Sauvegarder{% else %}Save Data{% endif %}
+              </button>
+              <button id="loadSheet" class="btn btn-info">
+                {% if session.get('lang', 'en') == 'fr' %}Charger{% else %}Load Data{% endif %}
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Dynamic UI Section -->
+<section id="dynamic-ui" class="mb-5" aria-labelledby="dynamicUITitle">
+  {% if session.get('lang', 'en') == 'fr' %}
+    <h2 id="dynamicUITitle" class="decorative-title">Fonctionnalités Dynamiques</h2>
+    <p>Des éléments interactifs se génèrent rapidement pour illustrer des concepts avancés en mécanique.</p>
+
+    <!-- Loading Circle Animation -->
+    <div class="loading-circle-container">
+      <div class="loading-circle"></div>
+    </div>
+
+  {% else %}
+    <h2 id="dynamicUITitle" class="decorative-title">Dynamic Features</h2>
+    <p>Interactive elements are generated rapidly to illustrate advanced mechanical concepts.</p>
+
+    <!-- Loading Circle Animation -->
+    <div class="loading-circle-container">
+      <div class="loading-circle"></div>
+    </div>
+
+  {% endif %}
+</section>
+
+<style>
+  .loading-circle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .loading-circle {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #007bff;
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+
+
+        <!-- Three.js Car Simulation Section -->
+        <section id="threejs-simulation" class="mb-5 text-center" aria-labelledby="simulationTitle">
+          {% if session.get('lang', 'en') == 'fr' %}
+            <h2 id="simulationTitle" class="decorative-title">Simulation 3D de Voiture</h2>
+            <p>Une simulation 3D interactive basée sur les principes newtoniens pour illustrer le mouvement et la force.</p>
+          {% else %}
+            <h2 id="simulationTitle" class="decorative-title">3D Car Simulation</h2>
+            <p>An interactive 3D simulation based on Newtonian principles to illustrate motion and force.</p>
+          {% endif %}
+          <div id="threejs-controls" class="mb-3">
+            <button id="left-btn" class="btn btn-secondary mx-1">
+              {% if session.get('lang', 'en') == 'fr' %}Gauche{% else %}Left{% endif %}
+            </button>
+            <button id="right-btn" class="btn btn-secondary mx-1">
+              {% if session.get('lang', 'en') == 'fr' %}Droite{% else %}Right{% endif %}
+            </button>
+            <button id="up-btn" class="btn btn-success mx-1">
+              {% if session.get('lang', 'en') == 'fr' %}Accélérer{% else %}Accelerate{% endif %}
+            </button>
+            <button id="stop-btn" class="btn btn-danger mx-1">
+              {% if session.get('lang', 'en') == 'fr' %}Arrêter{% else %}Stop{% endif %}
+            </button>
+          </div>
+          <div id="threejs-canvas-container" style="position: sticky; width: 100%; height: 400px;"></div>
+          <p>
+            {% if session.get('lang', 'en') == 'fr' %}
+            <div id="threejs">
+            
+            </di>
+              La simulation est affichée ci-dessus.
+            {% else %}
+             <div id="threejs">
+            
+            </di>
+              The simulation is rendered above.
+            {% endif %}
+          </p>
+        </section>
+
+        <!-- CSS for inner scrolling and zoom effect -->
+<style>
+  .zoom-container {
+    overflow: auto;
+    max-height: 500px; /* Adjust height as needed */
+    position: relative;
+  }
+  .zoom-container img {
+    transition: transform 0.3s ease;
+    width: 100%;
+    height: auto;
+  }
+  .zoom-container:hover img {
+    transform: scale(1.1);
+  }
+</style>
+
+<!-- Fallback JS: cycles through fallback image URLs if the current one fails -->
+<script>
+function loadImageWithFallback(img, sources) {
+  if (!img.dataset.fallbackIndex) {
+    img.dataset.fallbackIndex = 0;
+  }
+  var index = parseInt(img.dataset.fallbackIndex);
+  if (index < sources.length) {
+    img.src = sources[index];
+    img.dataset.fallbackIndex = index + 1;
+  } else {
+    // A final placeholder image if all fallbacks fail
+    img.src = "{{ url_for('static', filename='images/placeholder.jpg') }}";
+  }
+}
+</script>
+
+<!-- Carousel / Gifts Section -->
+<section id="carousel" class="mb-5" aria-labelledby="carouselTitle">
+  {% if session.get('lang', 'en') == 'fr' %}
+    <h2 id="carouselTitle" class="decorative-title">Cadeaux</h2>
+  {% else %}
+    <h2 id="carouselTitle" class="decorative-title">Gifts</h2>
+  {% endif %}
+
+  {# Define a list of carousel images with professional, clickable titles and descriptions #}
+  {% set carousel_images = [
+    {
+      'primary': 'https://openverse.org/image/6d3cd0dc-0459-4a7a-b426-1e8e849f91a1?q=study&p=59',
+      'fallbacks': [ url_for('static', filename='images/slide1.jpg'),
+                     url_for('static', filename='images/service-example.jpg') ],
+      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Mécanique" target="_blank">Les Fondamentaux de la Mécanique</a>',
+      'desc_fr': 'Découvrez les principes éprouvés régissant la mécanique des matériaux, illustrés par des exemples pratiques extraits de la littérature technique.',
+      'title_en': '<a href="https://en.wikipedia.org/wiki/Mechanics" target="_blank">Fundamentals of Mechanics</a>',
+      'desc_en': 'Explore the proven principles governing the mechanics of materials, illustrated with practical examples drawn from technical literature.'
+    },
+    {
+      'primary': url_for('static', filename='images/slide2.jpg'),
+      'fallbacks': [ url_for('static', filename='images/service-example2.jpg'),
+                     url_for('static', filename='images/service-example3.jpg') ],
+      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Mécanique_classique" target="_blank">Approches Classiques en Mécanique</a>',
+      'desc_fr': 'Une analyse approfondie des méthodes classiques appliquées aux études mécaniques avancées, essentielle pour étudiants et professionnels.',
+      'title_en': '<a href="https://en.wikipedia.org/wiki/Classical_mechanics" target="_blank">Classical Mechanics Approaches</a>',
+      'desc_en': 'An in-depth analysis of classical methods applied to advanced mechanical studies, essential for both students and professionals.'
+    },
+    {
+      'primary': url_for('static', filename='images/slide3.jpg'),
+      'fallbacks': [ url_for('static', filename='images/service-example4.jpg'),
+                     url_for('static', filename='images/service-example5.jpg') ],
+      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Dynamique" target="_blank">Dynamique et Systèmes Complexes</a>',
+      'desc_fr': 'Plongez dans l\'étude de la dynamique des systèmes complexes à travers une approche innovante intégrant les dernières avancées en ingénierie.',
+      'title_en': '<a href="https://en.wikipedia.org/wiki/Dynamics" target="_blank">Dynamics and Complex Systems</a>',
+      'desc_en': 'Delve into the study of complex systems dynamics with an innovative approach that integrates the latest advancements in engineering.'
+    },
+    {
+      'primary': url_for('static', filename='images/vehicule1.jpg'),
+      'fallbacks': [ url_for('static', filename='images/vehicule2.jpg'),
+                     url_for('static', filename='images/vehicule3.jpg') ],
+      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Ingénierie" target="_blank">Innovation en Ingénierie Automobile</a>',
+      'desc_fr': 'Découvrez les innovations récentes en ingénierie automobile, alliant performance et durabilité pour façonner l\'avenir des transports.',
+      'title_en': '<a href="https://en.wikipedia.org/wiki/Engineering" target="_blank">Automotive Engineering Innovations</a>',
+      'desc_en': 'Discover the latest innovations in automotive engineering that combine performance and durability to shape the future of transportation.'
+    },
+    {
+      'primary': url_for('static', filename='images/vehicule4.jpg'),
+      'fallbacks': [ url_for('static', filename='images/vehicule5.jpg') ],
+      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Technologie" target="_blank">Technologies de Pointe en Mécanique</a>',
+      'desc_fr': 'Examinez en détail les technologies de pointe qui révolutionnent l\'industrie mécanique, offrant des perspectives inédites pour demain.',
+      'title_en': '<a href="https://en.wikipedia.org/wiki/Technology" target="_blank">Cutting-Edge Mechanical Technologies</a>',
+      'desc_en': 'Examine in detail the cutting-edge technologies revolutionizing the mechanical industry, offering unprecedented prospects for the future.'
+    }
+  ] %}
+  
+  <div id="featuredCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Carousel indicators -->
+    <ol class="carousel-indicators">
+      {% for image in carousel_images %}
+        <li data-target="#featuredCarousel" data-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}"></li>
+      {% endfor %}
+    </ol>
+    
+    <!-- Carousel inner -->
+    <div class="carousel-inner">
+      {% for image in carousel_images %}
+      <div class="carousel-item {% if loop.first %}active{% endif %}">
+        <!-- Wrap image in a zoomable, scrollable container -->
+        <div class="zoom-container">
+          <img src="{{ image.primary }}" 
+               onerror="loadImageWithFallback(this, [ {% for fallback in image.fallbacks %}'{{ fallback }}'{% if not loop.last %}, {% endif %}{% endfor %} ])" 
+               class="d-block w-100" alt="Slide {{ loop.index }}">
+        </div>
+        <div class="carousel-caption d-none d-md-block">
+          {% if session.get('lang', 'en') == 'fr' %}
+            <h5>{{ image.title_fr | safe }}</h5>
+            <p>{{ image.desc_fr }}</p>
+          {% else %}
+            <h5>{{ image.title_en | safe }}</h5>
+            <p>{{ image.desc_en }}</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <!-- Carousel controls -->
+    <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">
+        {% if session.get('lang', 'en') == 'fr' %}Précédent{% else %}Previous{% endif %}
+      </span>
+    </a>
+    <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">
+        {% if session.get('lang', 'en') == 'fr' %}Suivant{% else %}Next{% endif %}
+      </span>
+    </a>
+  </div>
+</section>
+
+
+        <!-- Bluesky Log Display Section -->
+        <section id="bluesky-log-display" class="mb-5" aria-labelledby="blueskyLogTitle">
+          <h2 id="blueskyLogTitle" class="decorative-title">Bluesky Log Display</h2>
+          <p>
+            This section shows real‑time logs for the Bluesky connection. It includes connection checks, alternative recovery methods,
+            and bot‑prevention mechanics.
+          </p>
+          <div id="blueskyLogContainer" class="log-container" aria-live="polite">
+            <p class="text-gray-700">Initializing Bluesky connection...</p>
+          </div>
+          <div class="mt-4 d-flex gap-2 justify-content-center">
+            <button onclick="connectToBluesky()" class="btn btn-primary">Reconnect</button>
+            <button onclick="clearBlueskyLogs()" class="btn btn-secondary">Clear Logs</button>
+            <a href="https://bsky.app/profile/techandstream.bsky.social" class="btn btn-primary" target="_blank">Follow on Bluesky</a>
+          </div>
+        </section>
+
+        <!-- Feedback Section -->
+        <section id="feedback-section" class="mb-5" aria-labelledby="feedbackTitle">
+          <h2 id="feedbackTitle" class="decorative-title">Feedback &amp; Support</h2>
+          <p>We value your feedback. Use the form below to share your thoughts.</p>
+          <form id="feedbackForm">
+            <div class="form-group">
+              <label for="feedbackName">Your Name:</label>
+              <input type="text" id="feedbackName" class="form-control" placeholder="Enter your name" required />
+            </div>
+            <div class="form-group">
+              <label for="feedbackEmail">Your Email:</label>
+              <input type="email" id="feedbackEmail" class="form-control" placeholder="Enter your email" required />
+            </div>
+            <div class="form-group">
+              <label for="feedbackMessage">Your Feedback:</label>
+              <textarea id="feedbackMessage" class="form-control" placeholder="Enter your feedback" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <!-- Floating / Fixed Panels and Modals -->
+    <aside>
+      <!-- VR Log Display Panel (Bottom-Left) -->
+      <div
+        id="vrLogPanel"
+        class="position-fixed"
+        style="bottom: 10px; left: 10px; width: 300px; display: none;"
+        aria-labelledby="vrLogTitle"
+      >
+        <header class="bg-dark text-white p-2">
+          <h3 id="vrLogTitle" class="mb-0">VR Log Display</h3>
+        </header>
+        <div class="p-2">
+          <div id="vrLogContainer" class="log-container">
+            <p class="text-gray-700">Initializing VR connection...</p>
+          </div>
+          <div class="mt-2 d-flex justify-content-center">
+            <button onclick="connectToVR()" class="btn btn-primary mr-1">Reconnect</button>
+            <button onclick="clearVRLogs()" class="btn btn-secondary">Clear Logs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notification Panel (Upper Center) -->
+      <div id="notificationPanel" class="position-fixed top-0 start-50 translate-middle-x mt-3 bg-info text-white p-2 rounded d-none" role="alert">
+        <!-- Notifications will appear here dynamically -->
+      </div>
+
+      <!-- Feedback Modal -->
+      <div id="feedbackModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <header class="modal-header">
+              <h5 id="feedbackModalTitle" class="modal-title">Feedback</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeFeedbackModal()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </header>
+            <div class="modal-body">
+              <textarea id="modalFeedbackText" class="form-control" placeholder="Share your thoughts..."></textarea>
+            </div>
+            <footer class="modal-footer">
+              <button class="btn btn-secondary" onclick="closeFeedbackModal()">Cancel</button>
+              <button class="btn btn-primary" onclick="submitFeedbackModal()">Submit</button>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white mt-auto">
+      <div class="container py-3">
+        <div class="mb-3">
+          <h3 class="decorative-title">Follow Us &copy;</h3>
+          <div class="social-links">
+            <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+              <i class="fas fa-rss"></i> Blog
+            </a>
+            <a href="https://www.instagram.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+              <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://www.threads.net/@techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+              <i class="fas fa-comment-dots"></i> Threads
+            </a>
+            <a href="https://x.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+              <i class="fab fa-twitter"></i> X
+            </a>
+            <a href="https://www.youtube.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+              <i class="fab fa-youtube"></i> YouTube
+            </a>
+            <a href="https://www.facebook.com/kvnbbg" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+              <i class="fab fa-facebook-f"></i> Facebook
+            </a>
+          </div>
+        </div>
+        <p class="mb-0">&copy; 2025 Kevin Marville. All rights reserved.</p>
+      </div>
+    </footer>
+
+    {% block scripts %}
+      <!-- Core JavaScript Libraries -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+      <!-- Custom JavaScript -->
+      <script>
+        // Simple particle effect for buttons (additional to CSS)
+        document.querySelectorAll('.particle-effect').forEach((el) => {
+          el.addEventListener('mouseenter', () => {
+            el.style.boxShadow = '0 0 15px rgba(0, 123, 255, 0.5)';
+          });
+          el.addEventListener('mouseleave', () => {
+            el.style.boxShadow = 'none';
+          });
+        });
+
+        // Dark Mode Toggle (if needed, attach to an element with id "darkModeToggle")
+        document.getElementById('darkModeToggle')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.classList.toggle('dark-mode');
+        });
+
+        // Feedback Modal Functions
+        function closeFeedbackModal() {
+          document.getElementById('feedbackModal').classList.remove('active');
+          $('#feedbackModal').modal('hide');
+        }
+        function submitFeedbackModal() {
+          const feedback = document.getElementById('modalFeedbackText').value;
+          console.log('Feedback submitted:', feedback);
+          alert('Thank you for your feedback!');
+          document.getElementById('modalFeedbackText').value = '';
+          closeFeedbackModal();
+        }
+
+        // Security Check-in Logging (every 30 seconds)
+        function securityCheckIn() {
+          const now = new Date().toISOString();
+          console.log('[SECURITY] Check in at ' + now);
+        }
+        setInterval(securityCheckIn, 30000);
+
+        // Distribution Loop: Example log distribution (every 60 seconds)
+        function distributionLoop() {
+          const blueskyLogs = document.getElementById('blueskyLogContainer').innerHTML;
+          const vrLogs = document.getElementById('vrLogContainer').innerHTML;
+          const payload = { bluesky: blueskyLogs, vr: vrLogs, timestamp: new Date().toISOString() };
+          console.log('[DISTRIBUTION] Sending logs...', payload);
+          fetch('/distribute-logs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          })
+            .then((response) => {
+              if (response.ok) {
+                console.log('[DISTRIBUTION] Logs distributed successfully.');
+              } else {
+                console.error('[DISTRIBUTION] Failed with status ' + response.status);
+              }
+            })
+            .catch((error) => {
+              console.error('[DISTRIBUTION] Error: ' + error.message);
+            });
+        }
+        setInterval(distributionLoop, 60000);
+
+        // Simulated Bluesky Connection with Handshake Tracking
+        async function connectToBluesky() {
+          const logContainer = document.getElementById('blueskyLogContainer');
+          logContainer.innerHTML += "<p class='text-blue-700'>[Bluesky HANDSHAKE] Initiating connection...</p>";
+          try {
+            const response = await fetch('https://bsky.social/api/session');
+            if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+            logContainer.innerHTML += "<p class='text-green-700'>[Bluesky HANDSHAKE] Connection successful!</p>";
+          } catch (error) {
+            logContainer.innerHTML += `<p class='text-red-700'>[Bluesky HANDSHAKE] Connection failed: ${error.message}</p>`;
+            alternativeBlueskyConnect();
+          }
+        }
+        function alternativeBlueskyConnect() {
+          const logContainer = document.getElementById('blueskyLogContainer');
+          logContainer.innerHTML += "<p class='text-orange-700'>[Bluesky HANDSHAKE] Attempting alternative connection...</p>";
+          setTimeout(() => {
+            logContainer.innerHTML += "<p class='text-green-700'>[Bluesky HANDSHAKE] Alternative connection established.</p>";
+          }, 2000);
+        }
+
+        // Simulated VR Connection with Handshake Tracking
+        async function connectToVR() {
+          const logContainer = document.getElementById('vrLogContainer');
+          logContainer.innerHTML += "<p class='text-blue-700'>[VR HANDSHAKE] Initiating VR connection...</p>";
+          try {
+            const response = await fetch('https://vr.example.com/api/session');
+            if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+            logContainer.innerHTML += "<p class='text-green-700'>[VR HANDSHAKE] VR connection successful!</p>";
+          } catch (error) {
+            logContainer.innerHTML += `<p class='text-red-700'>[VR HANDSHAKE] VR connection failed: ${error.message}</p>`;
+            alternativeVRConnect();
+          }
+        }
+        function alternativeVRConnect() {
+          const logContainer = document.getElementById('vrLogContainer');
+          logContainer.innerHTML += "<p class='text-orange-700'>[VR HANDSHAKE] Attempting alternative VR connection...</p>";
+          setTimeout(() => {
+            logContainer.innerHTML += "<p class='text-green-700'>[VR HANDSHAKE] Alternative VR connection established.</p>";
+          }, 2000);
+        }
+
+        // Clear Log Functions
+        function clearBlueskyLogs() {
+          document.getElementById('blueskyLogContainer').innerHTML = "<p class='text-gray-700'>Bluesky logs cleared.</p>";
+        }
+        function clearVRLogs() {
+          document.getElementById('vrLogContainer').innerHTML = "<p class='text-gray-700'>VR logs cleared.</p>";
+        }
+
+        // Notification Panel Example: Show a random message every 45 seconds
+        function showNotification(message) {
+          const panel = document.getElementById('notificationPanel');
+          panel.innerText = message;
+          panel.classList.remove('d-none');
+          setTimeout(() => {
+            panel.classList.add('d-none');
+          }, 10000);
+        }
+        setInterval(() => {
+          const messages = [
+            'New update available!',
+            'Your simulation data has been calibrated.',
+            'A new feature has been added. Check the dashboard!',
+            "Don't forget to check our latest blog post.",
+            'Live chat session starting soon.'
+          ];
+          const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+          showNotification(randomMsg);
+        }, 45000);
+
+        // Feedback Form Handling
+        document.getElementById('feedbackForm').addEventListener('submit', function (e) {
+          e.preventDefault();
+          const name = document.getElementById('feedbackName').value;
+          const email = document.getElementById('feedbackEmail').value;
+          const message = document.getElementById('feedbackMessage').value;
+          console.log('Feedback received:', { name, email, message });
+          alert('Thank you for your feedback!');
+          this.reset();
+        });
+
+        // -------------------------------
+        // Three.js Car Simulation Setup
+        // -------------------------------
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        const canvasContainer = document.getElementById('threejs-canvas-container');
+        if (canvasContainer) {
+          canvasContainer.appendChild(renderer.domElement);
+        } else {
+          document.body.appendChild(renderer.domElement);
+        }
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(5, 10, 7.5);
+        light.castShadow = true;
+        scene.add(light);
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+        const carGeometry = new THREE.BoxGeometry(2, 0.5, 1);
+        const carMaterial = new THREE.MeshPhongMaterial({ color: 0x0077ff, shininess: 100 });
+        const car = new THREE.Mesh(carGeometry, carMaterial);
+        car.castShadow = true;
+        scene.add(car);
+        const wheelGeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.1, 32);
+        const wheelMaterial = new THREE.MeshPhongMaterial({ color: 0x333333 });
+        const wheelPositions = [
+          [-0.9, -0.3, 0.5],
+          [0.9, -0.3, 0.5],
+          [-0.9, -0.3, -0.5],
+          [0.9, -0.3, -0.5]
+        ];
+        wheelPositions.forEach((pos) => {
+          const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
+          wheel.position.set(...pos);
+          wheel.rotation.z = Math.PI / 2;
+          wheel.castShadow = true;
+          scene.add(wheel);
+        });
+        const groundGeometry = new THREE.PlaneGeometry(50, 50);
+        const groundMaterial = new THREE.MeshPhongMaterial({ color: 0x999999 });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -0.4;
+        ground.receiveShadow = true;
+        scene.add(ground);
+        camera.position.set(0, 2, 6);
+        camera.lookAt(0, 0, 0);
+        let carSpeed = 0,
+          carRotation = 0;
+        const maxSpeed = 0.1,
+          acceleration = 0.002,
+          deceleration = 0.001;
+        document.getElementById('left-btn').addEventListener('click', () => {
+          carRotation -= 0.05;
+        });
+        document.getElementById('right-btn').addEventListener('click', () => {
+          carRotation += 0.05;
+        });
+        document.getElementById('up-btn').addEventListener('click', () => {
+          if (carSpeed < maxSpeed) carSpeed += acceleration;
+        });
+        document.getElementById('stop-btn').addEventListener('click', () => {
+          carSpeed = 0;
+        });
+        document.addEventListener('mousemove', (event) => {
+          const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+          const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+          car.position.x = THREE.MathUtils.lerp(car.position.x, mouseX * 3, 0.1);
+          car.position.y = THREE.MathUtils.lerp(car.position.y, mouseY, 0.1);
+        });
+        function animate() {
+          requestAnimationFrame(animate);
+          car.rotation.y = THREE.MathUtils.lerp(car.rotation.y, carRotation, 0.1);
+          car.position.z -= carSpeed;
+          if (carSpeed > 0) {
+            carSpeed -= deceleration;
+          }
+          renderer.render(scene, camera);
+        }
+        animate();
+        window.addEventListener('resize', () => {
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+        });
+      </script>
+    {% endblock %}
+  </body>
+</html>
