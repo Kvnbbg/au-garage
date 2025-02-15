@@ -198,10 +198,10 @@
         <section class="mb-5" aria-labelledby="heroTitle">
           <div class="text-center">
             {% if session.get('lang', 'en') == 'fr' %}
-              <h1 id="heroTitle" class="text-dark">Laboratoire de Mécanique</h1>
+              <h1 id="heroTitle" class="text-dark">Mécanique</h1>
               <h2 class="text-muted">Fondements et applications de la mécanique classique</h2>
             {% else %}
-              <h1 id="heroTitle" class="text-dark">Mechanics Laboratory</h1>
+              <h1 id="heroTitle" class="text-dark">Mechanics</h1>
               <h2 class="text-muted">Fundamentals and Applications of Classical Mechanics</h2>
             {% endif %}
           </div>
@@ -227,95 +227,26 @@
           </button>
         </section>
 
-        <!-- Mechanical Data Acquisition Section -->
-        <section id="data-acquisition" class="mb-5" aria-labelledby="dataAcquisitionTitle">
-          {% if session.get('lang', 'en') == 'fr' %}
-            <h2 id="dataAcquisitionTitle" class="decorative-title">Acquisition de Données Mécaniques</h2>
-            <p>
-              Mesurez et enregistrez des données physiques telles que le couple, la force, la pression et la température pour calibrer et simuler des systèmes réels.
-            </p>
-          {% else %}
-            <h2 id="dataAcquisitionTitle" class="decorative-title">Mechanical Data Acquisition</h2>
-            <p>
-              Record and measure physical data such as torque, force, pressure, and temperature to calibrate and simulate real-world systems.
-            </p>
-          {% endif %}
-          <div class="spreadsheet-container mb-3">
-            <table id="spreadsheetTable" class="table table-bordered">
-              <thead>
-                <tr>
-                  <th contenteditable="true">
-                    {% if session.get('lang', 'en') == 'fr' %}Couple (Nm){% else %}Torque (Nm){% endif %}
-                  </th>
-                  <th contenteditable="true">
-                    {% if session.get('lang', 'en') == 'fr' %}Force (N){% else %}Force (N){% endif %}
-                  </th>
-                  <th contenteditable="true">
-                    {% if session.get('lang', 'en') == 'fr' %}Pression (Pa){% else %}Pressure (Pa){% endif %}
-                  </th>
-                  <th contenteditable="true">
-                    {% if session.get('lang', 'en') == 'fr' %}Température (°C){% else %}Temperature (°C){% endif %}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td contenteditable="true">150</td>
-                  <td contenteditable="true">1200</td>
-                  <td contenteditable="true">101325</td>
-                  <td contenteditable="true">85</td>
-                </tr>
-                <tr>
-                  <td contenteditable="true">200</td>
-                  <td contenteditable="true">1500</td>
-                  <td contenteditable="true">100000</td>
-                  <td contenteditable="true">90</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="d-flex flex-wrap gap-2">
-              <button id="addRow" class="btn btn-secondary">
-                {% if session.get('lang', 'en') == 'fr' %}Ajouter une mesure{% else %}Add Measurement{% endif %}
-              </button>
-              <button id="removeRow" class="btn btn-danger">
-                {% if session.get('lang', 'en') == 'fr' %}Supprimer une mesure{% else %}Remove Measurement{% endif %}
-              </button>
-              <button id="calibrateData" class="btn btn-warning">
-                {% if session.get('lang', 'en') == 'fr' %}Calibrer les données{% else %}Calibrate Data{% endif %}
-              </button>
-              <button id="simulatePerf" class="btn btn-primary">
-                {% if session.get('lang', 'en') == 'fr' %}Simuler la performance{% else %}Simulate Performance{% endif %}
-              </button>
-              <button id="saveSheet" class="btn btn-success">
-                {% if session.get('lang', 'en') == 'fr' %}Sauvegarder{% else %}Save Data{% endif %}
-              </button>
-              <button id="loadSheet" class="btn btn-info">
-                {% if session.get('lang', 'en') == 'fr' %}Charger{% else %}Load Data{% endif %}
-              </button>
-            </div>
-          </div>
-        </section>
-
         <!-- Dynamic UI Section -->
 <section id="dynamic-ui" class="mb-5" aria-labelledby="dynamicUITitle">
   {% if session.get('lang', 'en') == 'fr' %}
-    <h2 id="dynamicUITitle" class="decorative-title">Fonctionnalités Dynamiques</h2>
-    <p>Des éléments interactifs se génèrent rapidement pour illustrer des concepts avancés en mécanique.</p>
-
-    <!-- Loading Circle Animation -->
+    <h2 id="dynamicUITitle" class="decorative-title">Dynamique et Interactivité</h2>
+    <p>
+      Dans le domaine de la mécanique classique, la simulation dynamique des forces et du mouvement est essentielle pour comprendre les lois qui régissent notre univers. Pour approfondir vos connaissances, consultez 
+      <a href="https://fr.wikipedia.org/wiki/Lois_de_Newton" target="_blank" rel="noopener noreferrer">les lois de Newton</a>.
+    </p>
     <div class="loading-circle-container">
       <div class="loading-circle"></div>
     </div>
-
   {% else %}
-    <h2 id="dynamicUITitle" class="decorative-title">Dynamic Features</h2>
-    <p>Interactive elements are generated rapidly to illustrate advanced mechanical concepts.</p>
-
-    <!-- Loading Circle Animation -->
+    <h2 id="dynamicUITitle" class="decorative-title">Dynamics and Interactivity</h2>
+    <p>
+      In the realm of classical mechanics, dynamic simulation of forces and motion is vital for grasping the underlying principles governing our universe. For further reading, refer to 
+      <a href="https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion" target="_blank" rel="noopener noreferrer">Newton's Laws of Motion</a>.
+    </p>
     <div class="loading-circle-container">
       <div class="loading-circle"></div>
     </div>
-
   {% endif %}
 </section>
 
@@ -342,45 +273,101 @@
   }
 </style>
 
+<!-- Three.js Car Simulation Section -->
+<section id="threejs-simulation" class="mb-5 text-center" aria-labelledby="simulationTitle">
+  {% if session.get('lang', 'en') == 'fr' %}
+    <h2 id="simulationTitle" class="decorative-title">Simulation 3D de Voiture</h2>
+    <p>
+      Cette simulation 3D interactive exploite les principes de la mécanique newtonienne pour illustrer le mouvement et l'interaction des forces dans un véhicule. Pour en savoir plus, consultez 
+      <a href="https://fr.wikipedia.org/wiki/Lois_de_Newton" target="_blank" rel="noopener noreferrer">les lois de Newton</a>.
+    </p>
+  {% else %}
+    <h2 id="simulationTitle" class="decorative-title">3D Car Simulation</h2>
+    <p>
+      This interactive 3D simulation leverages Newtonian mechanics to demonstrate motion and force interactions in a vehicle. For additional details, see 
+      <a href="https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion" target="_blank" rel="noopener noreferrer">Newton's Laws of Motion</a>.
+    </p>
+  {% endif %}
+  <div id="threejs-controls" class="mb-3">
+    <button id="left-btn" class="btn btn-secondary mx-1">
+      {% if session.get('lang', 'en') == 'fr' %}Gauche{% else %}Left{% endif %}
+    </button>
+    <button id="right-btn" class="btn btn-secondary mx-1">
+      {% if session.get('lang', 'en') == 'fr' %}Droite{% else %}Right{% endif %}
+    </button>
+    <button id="up-btn" class="btn btn-success mx-1">
+      {% if session.get('lang', 'en') == 'fr' %}Accélérer{% else %}Accelerate{% endif %}
+    </button>
+    <button id="stop-btn" class="btn btn-danger mx-1">
+      {% if session.get('lang', 'en') == 'fr' %}Arrêter{% else %}Stop{% endif %}
+    </button>
+  </div>
+  <div id="threejs-canvas-container" style="position: sticky; width: 100%; height: 400px;"></div>
+  <p>
+    {% if session.get('lang', 'en') == 'fr' %}
+      La simulation est affichée ci-dessus.
+    {% else %}
+      The simulation is rendered above.
+    {% endif %}
+  </p>
+</section>
 
-        <!-- Three.js Car Simulation Section -->
-        <section id="threejs-simulation" class="mb-5 text-center" aria-labelledby="simulationTitle">
-          {% if session.get('lang', 'en') == 'fr' %}
-            <h2 id="simulationTitle" class="decorative-title">Simulation 3D de Voiture</h2>
-            <p>Une simulation 3D interactive basée sur les principes newtoniens pour illustrer le mouvement et la force.</p>
-          {% else %}
-            <h2 id="simulationTitle" class="decorative-title">3D Car Simulation</h2>
-            <p>An interactive 3D simulation based on Newtonian principles to illustrate motion and force.</p>
-          {% endif %}
-          <div id="threejs-controls" class="mb-3">
-            <button id="left-btn" class="btn btn-secondary mx-1">
-              {% if session.get('lang', 'en') == 'fr' %}Gauche{% else %}Left{% endif %}
-            </button>
-            <button id="right-btn" class="btn btn-secondary mx-1">
-              {% if session.get('lang', 'en') == 'fr' %}Droite{% else %}Right{% endif %}
-            </button>
-            <button id="up-btn" class="btn btn-success mx-1">
-              {% if session.get('lang', 'en') == 'fr' %}Accélérer{% else %}Accelerate{% endif %}
-            </button>
-            <button id="stop-btn" class="btn btn-danger mx-1">
-              {% if session.get('lang', 'en') == 'fr' %}Arrêter{% else %}Stop{% endif %}
-            </button>
-          </div>
-          <div id="threejs-canvas-container" style="position: sticky; width: 100%; height: 400px;"></div>
-          <p>
-            {% if session.get('lang', 'en') == 'fr' %}
-            <div id="threejs">
-            
-            </di>
-              La simulation est affichée ci-dessus.
-            {% else %}
-             <div id="threejs">
-            
-            </di>
-              The simulation is rendered above.
-            {% endif %}
-          </p>
-        </section>
+<!-- Mechanical Data Acquisition Section -->
+<section id="data-acquisition" class="mb-5" aria-labelledby="dataAcquisitionTitle">
+  {% if session.get('lang', 'en') == 'fr' %}
+    <h2 id="dataAcquisitionTitle" class="decorative-title">Acquisition de Données Mécaniques</h2>
+    <p>
+      Cette section simule la mesure et l'analyse de paramètres physiques essentiels tels que le couple, la force, la pression et la température. Les données générées aléatoirement imitent des capteurs réels et se mettent à jour automatiquement toutes les 13 secondes pour fournir une analyse continue.
+    </p>
+  {% else %}
+    <h2 id="dataAcquisitionTitle" class="decorative-title">Mechanical Data Acquisition</h2>
+    <p>
+      This section simulates the measurement and analysis of critical physical parameters such as torque, force, pressure, and temperature. Randomly generated data mimics real-world sensor outputs and automatically refreshes every 13 seconds for continuous analysis.
+    </p>
+  {% endif %}
+  <div class="spreadsheet-container mb-3">
+    <table id="spreadsheetTable" class="table table-bordered">
+      <thead>
+        <tr>
+          <th contenteditable="true">
+            {% if session.get('lang', 'en') == 'fr' %}Couple (Nm){% else %}Torque (Nm){% endif %}
+          </th>
+          <th contenteditable="true">
+            {% if session.get('lang', 'en') == 'fr' %}Force (N){% else %}Force (N){% endif %}
+          </th>
+          <th contenteditable="true">
+            {% if session.get('lang', 'en') == 'fr' %}Pression (Pa){% else %}Pressure (Pa){% endif %}
+          </th>
+          <th contenteditable="true">
+            {% if session.get('lang', 'en') == 'fr' %}Température (°C){% else %}Temperature (°C){% endif %}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td contenteditable="true">150</td>
+          <td contenteditable="true">1200</td>
+          <td contenteditable="true">101325</td>
+          <td contenteditable="true">85</td>
+        </tr>
+        <tr>
+          <td contenteditable="true">200</td>
+          <td contenteditable="true">1500</td>
+          <td contenteditable="true">100000</td>
+          <td contenteditable="true">90</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex flex-wrap gap-2">
+      <button id="addRow" class="btn btn-secondary">
+        {% if session.get('lang', 'en') == 'fr' %}Ajouter une mesure{% else %}Add Measurement{% endif %}
+      </button>
+      <button id="removeRow" class="btn btn-danger">
+        {% if session.get('lang', 'en') == 'fr' %}Supprimer une mesure{% else %}Remove Measurement{% endif %}
+      </button>
+      <button id="calibrateData" class="btn btn-warning">
+        {% if session.get('lang', 'en') == 'fr' %}Calibre
+
 
         <!-- CSS for inner scrolling and zoom effect -->
 <style>
@@ -614,7 +601,7 @@ function loadImageWithFallback(img, sources) {
     <footer class="bg-dark text-white mt-auto">
       <div class="container py-3">
         <div class="mb-3">
-          <h3 class="decorative-title">Follow Us &copy;</h3>
+          <h3 class="decorative-title">Follow &copy;</h3>
           <div class="social-links">
             <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
               <i class="fas fa-rss"></i> Blog
