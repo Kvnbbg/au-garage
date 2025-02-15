@@ -222,22 +222,54 @@
 
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="flex-grow-1">
-      <!-- Dark Mode Toggle Button -->
-      <div class="container my-4">
-        <button id="darkModeToggle" class="btn btn-secondary">Toggle Dark Mode</button>
-      </div>
-      <script>
-        // Dark Mode Toggle
-        document.getElementById('darkModeToggle')?.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.body.classList.toggle('dark-mode');
-          localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
-        });
-        // Load saved dark mode preference
-        if (localStorage.getItem('darkMode') === 'enabled') {
-          document.body.classList.add('dark-mode');
-        }
-      </script>
+   <style>
+    /* Exemple de style pour l’effet de fade (fondu) */
+    .fade-effect {
+      transition: opacity 1s ease-in-out; /* Durée et style de la transition */
+      opacity: 1; /* Opacité au repos (fin de l’effet) */
+    }
+    .fade-start {
+      opacity: 0; /* Opacité avant que la transition ne commence */
+    }
+  </style>
+
+  <!-- Conteneur principal avec l’effet de fade -->
+  <div class="container my-4 fade-effect fade-start" id="fadeContainer">
+    
+    <!-- Bouton « Back » ou « Retour » selon la langue -->
+    {% if session.get('lang', 'en') == 'fr' %}
+      <button class="btn btn-secondary" onclick="goBack()">Retour</button>
+    {% else %}
+      <button class="btn btn-secondary" onclick="goBack()">Back</button>
+    {% endif %}
+
+  </div>
+
+  <script>
+    /**
+     * Au chargement de la page, on enlève la classe "fade-start"
+     * pour que l'opacité passe de 0 à 1, créant un effet de fondu.
+     */
+    window.addEventListener('DOMContentLoaded', () => {
+      const fadeContainer = document.getElementById('fadeContainer');
+      fadeContainer.classList.remove('fade-start');
+    });
+
+    /**
+     * Au clic sur le bouton, on tente de rediriger vers la page racine.
+     * En cas d’erreur (par exemple, si url_for ne fonctionne pas),
+     * on utilise "/home" comme URL de secours.
+     */
+    function goBack() {
+      try {
+        // Redirection vers la racine du site via Flask
+        window.location.href = "{{ url_for('/') }}";
+      } catch (error) {
+        // Fallback / alternative si url_for échoue
+        window.location.href = "/home";
+      }
+    }
+  </script>
       
       <!-- Simulation Section Container -->
       <div class="container my-4">
