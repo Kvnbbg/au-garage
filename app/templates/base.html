@@ -1,786 +1,769 @@
 <!DOCTYPE html>
 <html lang="{{ session.get('lang', 'en') }}">
-<head>
-  <!-- Meta Information -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Language" content="{{ session.get('lang', 'en') }}">
-  <meta name="description" content="Au Garage – A hub for automotive and mechanical excellence.">
-  <meta name="keywords" content="Mechanics, Classical Mechanics, Engineering, Simulation, Calibration">
-  <meta name="author" content="Kevin Marville">
-  <meta name="msapplication-tap-highlight" content="no">
-  <title>{% block title %}Au Garage{% endblock %}</title>
-  
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
-  
-  <!-- External Stylesheets -->
-  <link rel="stylesheet" href="https://demo.dashboardpack.com/architectui-html-free/main.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Custom Extended CSS -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  
-  <!-- Inline Fine-Tune Styles -->
-  <style>
-    :root {
-      --primary-color: #6f4e37;
-      --secondary-color: #8b5e3c;
-      --accent-color: #d2a679;
-      --highlight-color: #c87533;
-      --background-color: #f7f3e8;
-      --text-color: #4b382a;
-      --card-bg: #ffffff;
-      --border-color: #d2a679;
-      --transition-speed: 0.3s;
-      --border-radius: 8px;
-      --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: var(--background-color);
-      color: var(--text-color);
-      padding-top: 70px; /* account for sticky header */
-      min-height: 100vh;
-    }
-    /* Sticky Header & Footer */
-    header, footer {
-      position: sticky;
-      z-index: 1000;
-    }
-    header { top: 0; }
-    footer { bottom: 0; }
-    
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-    }
-    .log-container {
-      height: 300px;
-      overflow-y: auto;
-      border: 1px solid var(--border-color);
-      padding: 10px;
-      border-radius: var(--border-radius);
-      background: var(--highlight-color);
-    }
-    .btn {
-      padding: 10px 15px;
-      border-radius: var(--border-radius);
-      border: none;
-      cursor: pointer;
-      transition: background var(--transition-speed);
-    }
-    .btn-primary { background: var(--primary-color); color: #fff; }
-    .btn-secondary { background: var(--secondary-color); color: #fff; }
-    .btn:hover { opacity: 0.8; }
-    
-    /* Additional Interactive & Sprite Effects */
-    .hover-light:hover {
-      filter: brightness(1.2);
-      transition: filter 0.2s ease;
-    }
-    .zoom-on-hover {
-      transition: transform 0.3s ease;
-    }
-    .zoom-on-hover:hover {
-      transform: scale(1.05);
-    }
-    /* Particle/Sprite effect on buttons */
-    .particle-effect {
-      position: relative;
-      overflow: hidden;
-    }
-    .particle-effect::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    .particle-effect:hover::after {
-      opacity: 1;
-    }
-    /* Example Sprite Animation */
-    .sprite-effect {
-      width: 50px;
-      height: 50px;
-      background-image: url('{{ url_for("static", filename="images/sprite.png") }}');
-      background-repeat: no-repeat;
-      animation: playSprite 1s steps(10) infinite;
-    }
-    @keyframes playSprite {
-      from { background-position: 0 0; }
-      to { background-position: -500px 0; }
-    }
-    
-    /* Sticky Panels for logs */
-    #blueskyLogPanel, #vrLogPanel {
-      position: fixed;
-      bottom: 20px;
-      width: 300px;
-      max-height: 400px;
-      overflow-y: auto;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      padding: 10px;
-      display: none;
-      z-index: 1100;
-    }
-    #blueskyLogPanel { right: 20px; }
-    #vrLogPanel { left: 20px; }
-    
-    /* Notification Panel */
-    #notificationPanel {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent-color);
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      z-index: 1200;
-      display: none;
-    }
-    
-    /* Feedback Modal (simple overlay) */
-    .modal-feedback {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--border-radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-      z-index: 1300;
-      display: none;
-      width: 90%;
-      max-width: 500px;
-    }
-    .modal-feedback.active { display: block; }
-  </style>
-  
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "AutoRepair",
-    "name": "Au Garage",
-    "url": "https://github.com/Kvnbbg/au-garage",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "xxxxx",
-      "addressLocality": "Rivierre-Salée, Martinique",
-      "postalCode": "97215",
-      "addressCountry": "MQ"
-    },
-    "telephone": "+33634160418"
-  }
-  </script>
-  {% block head %}{% endblock %}
-</head>
-<body class="d-flex flex-column" style="min-height: 100vh;">
-  <!-- HEADER: Sticky Navigation -->
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-      <div class="container">
-        <a class="navbar-brand" href="{{ url_for('main.home') }}">
-          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" height="40">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" 
-                data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
-                aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.set_language', language='en') }}">🇺🇸 English</a></li>
-            <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.set_language', language='fr') }}">🇫🇷 Français</a></li>
-            <li class="nav-item"><a class="nav-link hover-light" href="#" data-toggle="modal" data-target="#versionModal">Version</a></li>
-            <!-- Future API entry point for Bluesky -->
-            <li class="nav-item">
-              <button id="blueskyConnectBtn" class="btn btn-outline-primary particle-effect">Bluesky Connect</button>
-            </li>
-            <li class="nav-item">
-              <button id="vrConnectBtn" class="btn btn-outline-secondary particle-effect">VR Connect</button>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link hover-light" href="#" id="darkModeToggle">Toggle Dark Mode</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link hover-light" href="#" id="feedbackBtn">Feedback</a>
-            </li>
-            {% if not current_user.is_authenticated %}
-              <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.login') }}">Login</a></li>
-              <li class="nav-item"><a class="nav-link hover-light" href="https://kvnbbg.github.io/500Discount/">5D</a></li>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Ensure proper scaling on mobile/tablet devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Language" content="{{ session.get('lang', 'en') }}" />
+    <meta name="description" content="Au Garage – A hub for automotive and mechanical excellence." />
+    <meta name="keywords" content="Mechanics, Classical Mechanics, Engineering, Simulation, Calibration" />
+    <meta name="author" content="Kevin Marville" />
+    <title>{% block title %}Au Garage{% endblock %}</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon" />
+
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="https://demo.dashboardpack.com/architectui-html-free/main.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Extended CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <style>
+      :root {
+        --primary-color: #6f4e37;
+        --secondary-color: #8b5e3c;
+        --accent-color: #d2a679;
+        --highlight-color: #c87533;
+        --background-color: #f7f3e8;
+        --text-color: #4b382a;
+        --card-bg: #ffffff;
+        --border-color: #d2a679;
+        --transition-speed: 0.3s;
+        --border-radius: 8px;
+        --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: var(--background-color);
+        color: var(--text-color);
+        padding: 20px;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        padding: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+      }
+      .log-container {
+        height: 300px;
+        overflow-y: auto;
+        border: 1px solid var(--border-color);
+        padding: 10px;
+        border-radius: var(--border-radius);
+        background: var(--highlight-color);
+      }
+      .btn {
+        padding: 10px 15px;
+        border-radius: var(--border-radius);
+        border: none;
+        cursor: pointer;
+        transition: background var(--transition-speed);
+      }
+      .btn-primary {
+        background: var(--primary-color);
+        color: #fff;
+      }
+      .btn-secondary {
+        background: var(--secondary-color);
+        color: #fff;
+      }
+      .btn:hover {
+        opacity: 0.8;
+      }
+      /* Sticky header (and other sticky panels) */
+      .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      /* Simple particle effect on hover */
+      .particle-effect {
+        position: relative;
+        overflow: hidden;
+      }
+      .particle-effect::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .particle-effect:hover::after {
+        opacity: 1;
+      }
+      /* Dark mode class */
+      .dark-mode {
+        background: #222;
+        color: #ddd;
+      }
+    </style>
+    {% block head %}{% endblock %}
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "AutoRepair",
+        "name": "Au Garage",
+        "url": "https://github.com/Kvnbbg/au-garage",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "xxxxx",
+          "addressLocality": "Rivierre-Salée, Martinique",
+          "postalCode": "97215",
+          "addressCountry": "MQ"
+        },
+        "telephone": "+33634160418"
+      }
+    </script>
+  </head>
+  <body class="d-flex flex-column" style="min-height: 100vh;">
+    <!-- Skip link for screen readers -->
+    <a href="#mainContent" class="sr-only sr-only-focusable">Skip to main content</a>
+
+    <!-- HEADER: Navigation (sticky for mobile/tablet users) -->
+    <header class="sticky-header">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Main Navigation">
+        <div class="container">
+          <a class="navbar-brand" href="{{ url_for('main.home') }}">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Au Garage Logo" width="50" height="50" />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link particle-effect" href="{{ url_for('auth.set_language', language='en') }}" aria-label="Switch to English">🇺🇸 English</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link particle-effect" href="{{ url_for('auth.set_language', language='fr') }}" aria-label="Basculer en Français">🇫🇷 Français</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link particle-effect" href="#" data-toggle="modal" data-target="#versionModal" aria-label="Version Information">Version</a>
+              </li>
+              <!-- New Bluesky Connect Button -->
+              <li class="nav-item">
+                <button id="blueskyConnectBtn" class="btn btn-primary particle-effect" aria-label="Bluesky Connect">
+                  Bluesky Connect
+                </button>
+              </li>
+              {% if not current_user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link particle-effect" href="{{ url_for('auth.login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link particle-effect" href="https://kvnbbg.github.io/500Discount/">5D</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link particle-effect" href="{{ url_for('auth.dashboard') }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link particle-effect" href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main id="mainContent" class="flex-grow-1">
+      <div class="container my-5">
+        <!-- Hero Section -->
+        <section class="mb-5" aria-labelledby="heroTitle">
+          <div class="text-center">
+            {% if session.get('lang', 'en') == 'fr' %}
+              <h1 id="heroTitle" class="text-dark">Laboratoire de Mécanique</h1>
+              <h2 class="text-muted">Fondements et applications de la mécanique classique</h2>
             {% else %}
-              <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.dashboard') }}">Dashboard</a></li>
-              <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.logout') }}">Logout</a></li>
+              <h1 id="heroTitle" class="text-dark">Mechanics Laboratory</h1>
+              <h2 class="text-muted">Fundamentals and Applications of Classical Mechanics</h2>
             {% endif %}
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-  
-  <!-- HERO SECTION: Full-Width Background with Title -->
-  <section class="py-5 bg-image-full" style="background-image: url('{{ url_for('static', filename='images/service-example.jpg') }}');">
-    <div class="container text-center">
-      <div class="my-5">
-        {% if session.get('lang', 'en') == 'fr' %}
-          <h1 class="text-white zoom-on-hover" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Laboratoire de Mécanique</h1>
-          <h2 class="text-white-50 zoom-on-hover" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Fondements et applications de la mécanique classique</h2>
-        {% else %}
-          <h1 class="text-white zoom-on-hover" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Mechanics Laboratory</h1>
-          <h2 class="text-white-50 zoom-on-hover" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Fundamentals and Applications of Classical Mechanics</h2>
-        {% endif %}
-      </div>
-    </div>
-  </section>
-  
-  <!-- MAIN CONTENT: Sections -->
-  <main class="flex-grow-1 slide-container">
-    <div class="container my-5">
-      <!-- About Section -->
-      <section id="about" class="mb-5">
-        {% if session.get('lang', 'en') == 'fr' %}
-          <h2 class="decorative-title">Principes de la Mécanique</h2>
-          <p>La mécanique classique étudie le mouvement des corps et les forces agissant sur eux. Selon Newton, les lois du mouvement gouvernent l'équilibre et l'accélération.</p>
-        {% else %}
-          <h2 class="decorative-title">Principles of Mechanics</h2>
-          <p>Classical mechanics examines the motion of bodies and the forces acting upon them. Newton’s laws govern equilibrium and acceleration.</p>
-        {% endif %}
-        <button class="btn popup-trigger particle-effect" id="examplePopup">
-          {% if session.get('lang', 'en') == 'fr' %}Ouvrir le conseil mécanique{% else %}Open Mechanic Advice{% endif %}
-        </button>
-        <!-- Example sprite element for visual tracking -->
-        <div class="sprite-effect mt-3"></div>
-      </section>
-      
-      <!-- Mechanical Data Acquisition Section -->
-      <section id="spreadsheet" class="mb-5">
-        {% if session.get('lang', 'en') == 'fr' %}
-          <h2 class="decorative-title">Acquisition de Données Mécaniques</h2>
-          <p>Enregistrez des mesures telles que le couple, la force, la pression et la température pour calibrer et simuler vos systèmes.</p>
-        {% else %}
-          <h2 class="decorative-title">Mechanical Data Acquisition</h2>
-          <p>Record measurements like torque, force, pressure, and temperature to calibrate and simulate your systems.</p>
-        {% endif %}
-        <div class="spreadsheet-container">
-          <table id="spreadsheetTable" class="table table-bordered excel-table">
-            <thead>
-              <tr>
-                <th contenteditable="true">{% if session.get('lang', 'en') == 'fr' %}Couple (Nm){% else %}Torque (Nm){% endif %}</th>
-                <th contenteditable="true">{% if session.get('lang', 'en') == 'fr' %}Force (N){% else %}Force (N){% endif %}</th>
-                <th contenteditable="true">{% if session.get('lang', 'en') == 'fr' %}Pression (Pa){% else %}Pressure (Pa){% endif %}</th>
-                <th contenteditable="true">{% if session.get('lang', 'en') == 'fr' %}Température (°C){% else %}Temperature (°C){% endif %}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td contenteditable="true">150</td>
-                <td contenteditable="true">1200</td>
-                <td contenteditable="true">101325</td>
-                <td contenteditable="true">85</td>
-              </tr>
-              <tr>
-                <td contenteditable="true">200</td>
-                <td contenteditable="true">1500</td>
-                <td contenteditable="true">100000</td>
-                <td contenteditable="true">90</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="spreadsheet-controls mt-3">
-            <button id="addRow" class="btn btn-secondary">
-              {% if session.get('lang', 'en') == 'fr' %}Ajouter une mesure{% else %}Add Measurement{% endif %}
-            </button>
-            <button id="removeRow" class="btn btn-danger">
-              {% if session.get('lang', 'en') == 'fr' %}Supprimer une mesure{% else %}Remove Measurement{% endif %}
-            </button>
-            <button id="calibrateData" class="btn btn-warning">
-              {% if session.get('lang', 'en') == 'fr' %}Calibrer les données{% else %}Calibrate Data{% endif %}
-            </button>
-            <button id="simulatePerf" class="btn btn-primary">
-              {% if session.get('lang', 'en') == 'fr' %}Simuler la performance{% else %}Simulate Performance{% endif %}
-            </button>
-            <button id="saveSheet" class="btn btn-success">
-              {% if session.get('lang', 'en') == 'fr' %}Sauvegarder{% else %}Save Data{% endif %}
-            </button>
-            <button id="loadSheet" class="btn btn-info">
-              {% if session.get('lang', 'en') == 'fr' %}Charger{% else %}Load Data{% endif %}
-            </button>
           </div>
-        </div>
-      </section>
-      
-      <!-- Dynamic Features Section -->
-      <section id="dynamic-ui" class="mb-5">
-        {% if session.get('lang', 'en') == 'fr' %}
-          <h2 class="decorative-title">Fonctionnalités Dynamiques</h2>
-          <p>Des éléments interactifs se génèrent dynamiquement pour illustrer des concepts avancés.</p>
-        {% else %}
-          <h2 class="decorative-title">Dynamic Features</h2>
-          <p>Interactive elements are generated dynamically to illustrate advanced concepts.</p>
-        {% endif %}
-      </section>
-      
-      <!-- Three.js Car Simulation Section -->
-      <section id="threejs-simulation" class="mb-5 text-center">
-        {% if session.get('lang', 'en') == 'fr' %}
-          <h2 class="decorative-title">Simulation 3D de Voiture</h2>
-          <p>Une simulation interactive basée sur les principes newtoniens pour illustrer le mouvement et la force.</p>
-        {% else %}
-          <h2 class="decorative-title">3D Car Simulation</h2>
-          <p>An interactive 3D simulation based on Newtonian principles to illustrate motion and force.</p>
-        {% endif %}
-        <div id="threejs-controls" class="mb-3">
-          <button id="left-btn" class="btn btn-secondary mx-1">
-            {% if session.get('lang', 'en') == 'fr' %}Gauche{% else %}Left{% endif %}
-          </button>
-          <button id="right-btn" class="btn btn-secondary mx-1">
-            {% if session.get('lang', 'en') == 'fr' %}Droite{% else %}Right{% endif %}
-          </button>
-          <button id="up-btn" class="btn btn-success mx-1">
-            {% if session.get('lang', 'en') == 'fr' %}Accélérer{% else %}Accelerate{% endif %}
-          </button>
-          <button id="stop-btn" class="btn btn-danger mx-1">
-            {% if session.get('lang', 'en') == 'fr' %}Arrêter{% else %}Stop{% endif %}
-          </button>
-        </div>
-        <div id="threejs-canvas-container" style="position: relative; width: 100%; height: 400px; margin: 0 auto;"></div>
-        <p>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="mb-5" aria-labelledby="aboutTitle">
           {% if session.get('lang', 'en') == 'fr' %}
-            La simulation est affichée ci-dessus.
+            <h2 id="aboutTitle" class="decorative-title">Principes de la Mécanique</h2>
+            <p>
+              La mécanique classique étudie le mouvement des corps et les forces agissant sur eux. Les lois de Newton sont fondamentales pour comprendre
+              l'équilibre et l'accélération dans tout système physique.
+            </p>
           {% else %}
-            The simulation is rendered above.
+            <h2 id="aboutTitle" class="decorative-title">Principles of Mechanics</h2>
+            <p>
+              Classical mechanics examines the motion of bodies and the forces acting upon them. Newton’s laws form the foundation for understanding
+              equilibrium and acceleration in physical systems.
+            </p>
           {% endif %}
-        </p>
-      </section>
-      
-      <!-- Carousel / Featured Content Section -->
-      <section id="carousel" class="mb-5">
-        {% if session.get('lang', 'en') == 'fr' %}
-          <h2 class="decorative-title">Contenu Mis en Avant</h2>
-        {% else %}
-          <h2 class="decorative-title">Featured Content</h2>
-        {% endif %}
-        <div id="featuredCarousel" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#featuredCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#featuredCarousel" data-slide-to="1"></li>
-            <li data-target="#featuredCarousel" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="{{ url_for('static', filename='images/slide1.jpg') }}" class="d-block w-100" alt="Slide 1">
-              <div class="carousel-caption d-none d-md-block">
-                {% if session.get('lang', 'en') == 'fr' %}
-                  <h5>Étude de Mécanique 1</h5>
-                  <p>Description de l'étude de mécanique 1.</p>
-                {% else %}
-                  <h5>Mechanics Study 1</h5>
-                  <p>Description of Mechanics Study 1.</p>
-                {% endif %}
-              </div>
-            </div>
-            <div class="carousel-item">
-              <img src="{{ url_for('static', filename='images/slide2.jpg') }}" class="d-block w-100" alt="Slide 2">
-              <div class="carousel-caption d-none d-md-block">
-                {% if session.get('lang', 'en') == 'fr' %}
-                  <h5>Étude de Mécanique 2</h5>
-                  <p>Description de l'étude de mécanique 2.</p>
-                {% else %}
-                  <h5>Mechanics Study 2</h5>
-                  <p>Description of Mechanics Study 2.</p>
-                {% endif %}
-              </div>
-            </div>
-            <div class="carousel-item">
-              <img src="{{ url_for('static', filename='images/slide3.jpg') }}" class="d-block w-100" alt="Slide 3">
-              <div class="carousel-caption d-none d-md-block">
-                {% if session.get('lang', 'en') == 'fr' %}
-                  <h5>Étude de Mécanique 3</h5>
-                  <p>Description de l'étude de mécanique 3.</p>
-                {% else %}
-                  <h5>Mechanics Study 3</h5>
-                  <p>Description of Mechanics Study 3.</p>
-                {% endif %}
-              </div>
+          <button class="btn btn-secondary particle-effect" id="examplePopup">
+            {% if session.get('lang', 'en') == 'fr' %}Ouvrir le conseil mécanique{% else %}Open Mechanic Advice{% endif %}
+          </button>
+        </section>
+
+        <!-- Mechanical Data Acquisition Section -->
+        <section id="data-acquisition" class="mb-5" aria-labelledby="dataAcquisitionTitle">
+          {% if session.get('lang', 'en') == 'fr' %}
+            <h2 id="dataAcquisitionTitle" class="decorative-title">Acquisition de Données Mécaniques</h2>
+            <p>
+              Mesurez et enregistrez des données physiques telles que le couple, la force, la pression et la température pour calibrer et simuler des systèmes réels.
+            </p>
+          {% else %}
+            <h2 id="dataAcquisitionTitle" class="decorative-title">Mechanical Data Acquisition</h2>
+            <p>
+              Record and measure physical data such as torque, force, pressure, and temperature to calibrate and simulate real-world systems.
+            </p>
+          {% endif %}
+          <div class="spreadsheet-container mb-3">
+            <table id="spreadsheetTable" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th contenteditable="true">
+                    {% if session.get('lang', 'en') == 'fr' %}Couple (Nm){% else %}Torque (Nm){% endif %}
+                  </th>
+                  <th contenteditable="true">
+                    {% if session.get('lang', 'en') == 'fr' %}Force (N){% else %}Force (N){% endif %}
+                  </th>
+                  <th contenteditable="true">
+                    {% if session.get('lang', 'en') == 'fr' %}Pression (Pa){% else %}Pressure (Pa){% endif %}
+                  </th>
+                  <th contenteditable="true">
+                    {% if session.get('lang', 'en') == 'fr' %}Température (°C){% else %}Temperature (°C){% endif %}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td contenteditable="true">150</td>
+                  <td contenteditable="true">1200</td>
+                  <td contenteditable="true">101325</td>
+                  <td contenteditable="true">85</td>
+                </tr>
+                <tr>
+                  <td contenteditable="true">200</td>
+                  <td contenteditable="true">1500</td>
+                  <td contenteditable="true">100000</td>
+                  <td contenteditable="true">90</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="d-flex flex-wrap gap-2">
+              <button id="addRow" class="btn btn-secondary">
+                {% if session.get('lang', 'en') == 'fr' %}Ajouter une mesure{% else %}Add Measurement{% endif %}
+              </button>
+              <button id="removeRow" class="btn btn-danger">
+                {% if session.get('lang', 'en') == 'fr' %}Supprimer une mesure{% else %}Remove Measurement{% endif %}
+              </button>
+              <button id="calibrateData" class="btn btn-warning">
+                {% if session.get('lang', 'en') == 'fr' %}Calibrer les données{% else %}Calibrate Data{% endif %}
+              </button>
+              <button id="simulatePerf" class="btn btn-primary">
+                {% if session.get('lang', 'en') == 'fr' %}Simuler la performance{% else %}Simulate Performance{% endif %}
+              </button>
+              <button id="saveSheet" class="btn btn-success">
+                {% if session.get('lang', 'en') == 'fr' %}Sauvegarder{% else %}Save Data{% endif %}
+              </button>
+              <button id="loadSheet" class="btn btn-info">
+                {% if session.get('lang', 'en') == 'fr' %}Charger{% else %}Load Data{% endif %}
+              </button>
             </div>
           </div>
-          <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">
-              {% if session.get('lang', 'en') == 'fr' %}Précédent{% else %}Previous{% endif %}
-            </span>
-          </a>
-          <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">
-              {% if session.get('lang', 'en') == 'fr' %}Suivant{% else %}Next{% endif %}
-            </span>
-          </a>
+        </section>
+
+        <!-- Dynamic UI Section -->
+        <section id="dynamic-ui" class="mb-5" aria-labelledby="dynamicUITitle">
+          {% if session.get('lang', 'en') == 'fr' %}
+            <h2 id="dynamicUITitle" class="decorative-title">Fonctionnalités Dynamiques</h2>
+            <p>Des éléments interactifs se génèrent dynamiquement pour illustrer des concepts avancés en mécanique.</p>
+          {% else %}
+            <h2 id="dynamicUITitle" class="decorative-title">Dynamic Features</h2>
+            <p>Interactive elements are generated dynamically to illustrate advanced mechanical concepts.</p>
+          {% endif %}
+        </section>
+
+        <!-- Three.js Car Simulation Section -->
+        <section id="threejs-simulation" class="mb-5 text-center" aria-labelledby="simulationTitle">
+          {% if session.get('lang', 'en') == 'fr' %}
+            <h2 id="simulationTitle" class="decorative-title">Simulation 3D de Voiture</h2>
+            <p>Une simulation 3D interactive basée sur les principes newtoniens pour illustrer le mouvement et la force.</p>
+          {% else %}
+            <h2 id="simulationTitle" class="decorative-title">3D Car Simulation</h2>
+            <p>An interactive 3D simulation based on Newtonian principles to illustrate motion and force.</p>
+          {% endif %}
+          <div id="threejs-controls" class="mb-3">
+            <button id="left-btn" class="btn btn-secondary mx-1">
+              {% if session.get('lang', 'en') == 'fr' %}Gauche{% else %}Left{% endif %}
+            </button>
+            <button id="right-btn" class="btn btn-secondary mx-1">
+              {% if session.get('lang', 'en') == 'fr' %}Droite{% else %}Right{% endif %}
+            </button>
+            <button id="up-btn" class="btn btn-success mx-1">
+              {% if session.get('lang', 'en') == 'fr' %}Accélérer{% else %}Accelerate{% endif %}
+            </button>
+            <button id="stop-btn" class="btn btn-danger mx-1">
+              {% if session.get('lang', 'en') == 'fr' %}Arrêter{% else %}Stop{% endif %}
+            </button>
+          </div>
+          <div id="threejs-canvas-container" style="position: relative; width: 100%; height: 400px;"></div>
+          <p>
+            {% if session.get('lang', 'en') == 'fr' %}
+              La simulation est affichée ci-dessus.
+            {% else %}
+              The simulation is rendered above.
+            {% endif %}
+          </p>
+        </section>
+
+        <!-- Carousel / Featured Content Section -->
+        <section id="carousel" class="mb-5" aria-labelledby="carouselTitle">
+          {% if session.get('lang', 'en') == 'fr' %}
+            <h2 id="carouselTitle" class="decorative-title">Contenu Mis en Avant</h2>
+          {% else %}
+            <h2 id="carouselTitle" class="decorative-title">Featured Content</h2>
+          {% endif %}
+          <div id="featuredCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#featuredCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#featuredCarousel" data-slide-to="1"></li>
+              <li data-target="#featuredCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="{{ url_for('static', filename='images/slide1.jpg') }}" class="d-block w-100" alt="Slide 1" />
+                <div class="carousel-caption d-none d-md-block">
+                  {% if session.get('lang', 'en') == 'fr' %}
+                    <h5>Étude de Mécanique 1</h5>
+                    <p>Description de l'étude de mécanique 1.</p>
+                  {% else %}
+                    <h5>Mechanics Study 1</h5>
+                    <p>Description of Mechanics Study 1.</p>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="{{ url_for('static', filename='images/slide2.jpg') }}" class="d-block w-100" alt="Slide 2" />
+                <div class="carousel-caption d-none d-md-block">
+                  {% if session.get('lang', 'en') == 'fr' %}
+                    <h5>Étude de Mécanique 2</h5>
+                    <p>Description de l'étude de mécanique 2.</p>
+                  {% else %}
+                    <h5>Mechanics Study 2</h5>
+                    <p>Description of Mechanics Study 2.</p>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="{{ url_for('static', filename='images/slide3.jpg') }}" class="d-block w-100" alt="Slide 3" />
+                <div class="carousel-caption d-none d-md-block">
+                  {% if session.get('lang', 'en') == 'fr' %}
+                    <h5>Étude de Mécanique 3</h5>
+                    <p>Description de l'étude de mécanique 3.</p>
+                  {% else %}
+                    <h5>Mechanics Study 3</h5>
+                    <p>Description of Mechanics Study 3.</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">
+                {% if session.get('lang', 'en') == 'fr' %}Précédent{% else %}Previous{% endif %}
+              </span>
+            </a>
+            <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">
+                {% if session.get('lang', 'en') == 'fr' %}Suivant{% else %}Next{% endif %}
+              </span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Bluesky Log Display Section -->
+        <section id="bluesky-log-display" class="mb-5" aria-labelledby="blueskyLogTitle">
+          <h2 id="blueskyLogTitle" class="decorative-title">Bluesky Log Display</h2>
+          <p>
+            This section shows real‑time logs for the Bluesky connection. It includes connection checks, alternative recovery methods,
+            and bot‑prevention mechanics.
+          </p>
+          <div id="blueskyLogContainer" class="log-container" aria-live="polite">
+            <p class="text-gray-700">Initializing Bluesky connection...</p>
+          </div>
+          <div class="mt-4 d-flex gap-2 justify-content-center">
+            <button onclick="connectToBluesky()" class="btn btn-primary">Reconnect</button>
+            <button onclick="clearBlueskyLogs()" class="btn btn-secondary">Clear Logs</button>
+            <a href="https://bsky.app/profile/techandstream.bsky.social" class="btn btn-primary" target="_blank">Follow on Bluesky</a>
+          </div>
+        </section>
+
+        <!-- Feedback Section -->
+        <section id="feedback-section" class="mb-5" aria-labelledby="feedbackTitle">
+          <h2 id="feedbackTitle" class="decorative-title">Feedback &amp; Support</h2>
+          <p>We value your feedback. Use the form below to share your thoughts.</p>
+          <form id="feedbackForm">
+            <div class="form-group">
+              <label for="feedbackName">Your Name:</label>
+              <input type="text" id="feedbackName" class="form-control" placeholder="Enter your name" required />
+            </div>
+            <div class="form-group">
+              <label for="feedbackEmail">Your Email:</label>
+              <input type="email" id="feedbackEmail" class="form-control" placeholder="Enter your email" required />
+            </div>
+            <div class="form-group">
+              <label for="feedbackMessage">Your Feedback:</label>
+              <textarea id="feedbackMessage" class="form-control" placeholder="Enter your feedback" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <!-- Floating / Fixed Panels and Modals -->
+    <aside>
+      <!-- VR Log Display Panel (Bottom-Left) -->
+      <div
+        id="vrLogPanel"
+        class="position-fixed"
+        style="bottom: 10px; left: 10px; width: 300px; display: none;"
+        aria-labelledby="vrLogTitle"
+      >
+        <header class="bg-dark text-white p-2">
+          <h3 id="vrLogTitle" class="mb-0">VR Log Display</h3>
+        </header>
+        <div class="p-2">
+          <div id="vrLogContainer" class="log-container">
+            <p class="text-gray-700">Initializing VR connection...</p>
+          </div>
+          <div class="mt-2 d-flex justify-content-center">
+            <button onclick="connectToVR()" class="btn btn-primary mr-1">Reconnect</button>
+            <button onclick="clearVRLogs()" class="btn btn-secondary">Clear Logs</button>
+          </div>
         </div>
-      </section>
-      
-      <!-- Live Notifications Section -->
-      <section id="live-notifications" class="mb-5">
-        <h2 class="decorative-title">Live Notifications</h2>
-        <p>This area will display real‑time updates, alerts, and news.</p>
-      </section>
-      
-      <!-- Feedback Section -->
-      <section id="feedback-section" class="mb-5">
-        <h2 class="decorative-title">Feedback & Support</h2>
-        <p>We value your feedback. Use the “Feedback” button above or the form below to share your thoughts.</p>
-        <form id="feedbackForm">
-          <div class="form-group">
-            <label for="feedbackName">Your Name:</label>
-            <input type="text" id="feedbackName" class="form-control" placeholder="Enter your name">
+      </div>
+
+      <!-- Notification Panel (Upper Center) -->
+      <div id="notificationPanel" class="position-fixed top-0 start-50 translate-middle-x mt-3 bg-info text-white p-2 rounded d-none" role="alert">
+        <!-- Notifications will appear here dynamically -->
+      </div>
+
+      <!-- Feedback Modal -->
+      <div id="feedbackModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <header class="modal-header">
+              <h5 id="feedbackModalTitle" class="modal-title">Feedback</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeFeedbackModal()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </header>
+            <div class="modal-body">
+              <textarea id="modalFeedbackText" class="form-control" placeholder="Share your thoughts..."></textarea>
+            </div>
+            <footer class="modal-footer">
+              <button class="btn btn-secondary" onclick="closeFeedbackModal()">Cancel</button>
+              <button class="btn btn-primary" onclick="submitFeedbackModal()">Submit</button>
+            </footer>
           </div>
-          <div class="form-group">
-            <label for="feedbackEmail">Your Email:</label>
-            <input type="email" id="feedbackEmail" class="form-control" placeholder="Enter your email">
-          </div>
-          <div class="form-group">
-            <label for="feedbackMessage">Your Feedback:</label>
-            <textarea id="feedbackMessage" class="form-control" placeholder="Enter your feedback"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit Feedback</button>
-        </form>
-      </section>
-    </div>
-  </main>
-  
-  <!-- Sticky Log Panels -->
-  <!-- Bluesky Log Panel (Bottom-Right) -->
-  <div id="blueskyLogPanel">
-    <header><strong>Bluesky Log Display</strong></header>
-    <div class="panel-body">
-      <div id="blueskyLogContainer" class="log-container">
-        <p class="text-gray-700">Initializing Bluesky connection...</p>
-      </div>
-      <div class="mt-2 d-flex justify-content-center">
-        <button onclick="connectToBluesky()" class="btn btn-primary mr-1">Reconnect</button>
-        <button onclick="clearBlueskyLogs()" class="btn btn-secondary">Clear Logs</button>
-      </div>
-    </div>
-  </div>
-  <!-- VR Log Panel (Bottom-Left) -->
-  <div id="vrLogPanel">
-    <header><strong>VR Log Display</strong></header>
-    <div class="panel-body">
-      <div id="vrLogContainer" class="log-container">
-        <p class="text-gray-700">Initializing VR connection...</p>
-      </div>
-      <div class="mt-2 d-flex justify-content-center">
-        <button onclick="connectToVR()" class="btn btn-primary mr-1">Reconnect</button>
-        <button onclick="clearVRLogs()" class="btn btn-secondary">Clear Logs</button>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Floating Ko‑fi Bubble -->
-  <div id="kofiBubble" onclick="window.open('https://ko-fi.com/kevinmarville','_blank')" title="Support my work on Ko‑fi" 
-       style="position: fixed; bottom: 20px; right: 20px; background: var(--primary-color); color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1400;">
-    💳
-  </div>
-  
-  <!-- Live Notifications Panel -->
-  <div id="notificationPanel"></div>
-  
-  <!-- Feedback Modal -->
-  <div id="feedbackModal" class="modal-feedback">
-    <header><strong>Feedback</strong></header>
-    <textarea id="modalFeedbackText" placeholder="Share your thoughts..." class="form-control mb-3"></textarea>
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-secondary mr-2" onclick="closeFeedbackModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="submitFeedbackModal()">Submit</button>
-    </div>
-  </div>
-  
-  <!-- FOOTER: Sticky Footer -->
-  <footer class="bg-dark text-white mt-auto py-3">
-    <div class="container text-center">
-      <aside class="mb-3">
-        <h3 class="decorative-title">
-          {% if session.get('lang', 'en') == 'fr' %}Suivez-nous &copy;{% else %}Follow Us &copy;{% endif %}
-        </h3>
-        <div class="social-links">
-          <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-            <i class="fas fa-rss"></i> Blog
-          </a>
-          <a href="https://www.instagram.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-            <i class="fab fa-instagram"></i> Instagram
-          </a>
-          <a href="https://www.threads.net/@techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-            <i class="fas fa-comment-dots"></i> Threads
-          </a>
-          <a href="https://x.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-            <i class="fab fa-twitter"></i> X
-          </a>
-          <a href="https://www.youtube.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-            <i class="fab fa-youtube"></i> YouTube
-          </a>
-          <a href="https://www.facebook.com/kvnbbg" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-            <i class="fab fa-facebook-f"></i> Facebook
-          </a>
-          <a href="https://ko-fi.com/kevinmarville" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-            <i class="fas fa-coffee"></i> Ko‑fi
-          </a>
         </div>
-      </aside>
-      <p class="m-0">&copy; 2025 Kevin Marville. All rights reserved.</p>
-    </div>
-  </footer>
-  
-  {% block scripts %}{% endblock %}
-  
-  <!-- JavaScript Libraries -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
-  
-  <!-- Custom JavaScript -->
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-  
-  <!-- Inline Script: Interactive Effects, Tracking & API Handlers -->
-  <script>
-    // Particle effect for buttons (already handled by CSS, additional JS logging here)
-    document.querySelectorAll('.particle-effect').forEach(el => {
-      el.addEventListener('mouseenter', () => { 
-        el.style.boxShadow = "0 0 15px rgba(0, 123, 255, 0.5)";
-      });
-      el.addEventListener('mouseleave', () => { 
-        el.style.boxShadow = "none";
-      });
-    });
-    
-    // Track scroll position (for debugging/analytics)
-    window.addEventListener('scroll', () => {
-      console.log("Scroll Y:", window.scrollY);
-    });
-    
-    // Dark Mode Toggle
-    document.getElementById('darkModeToggle').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.body.classList.toggle('dark-mode');
-      if(document.body.classList.contains('dark-mode')){
-        document.body.style.background = '#222';
-        document.body.style.color = '#ddd';
-      } else {
-        document.body.style.background = 'var(--background-color)';
-        document.body.style.color = 'var(--text-color)';
-      }
-      console.log("Dark mode toggled.");
-    });
-    
-    // Feedback Modal: Show/Hide
-    document.getElementById('feedbackBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('feedbackModal').classList.add('active');
-    });
-    function closeFeedbackModal(){
-      document.getElementById('feedbackModal').classList.remove('active');
-    }
-    function submitFeedbackModal(){
-      const feedback = document.getElementById('modalFeedbackText').value;
-      console.log("Feedback submitted:", feedback);
-      alert("Thank you for your feedback!");
-      document.getElementById('modalFeedbackText').value = "";
-      closeFeedbackModal();
-    }
-    
-    // Security Check-In: Log a heartbeat every 30 seconds
-    function securityCheckIn() {
-      const now = new Date().toISOString();
-      console.log("[SECURITY] Check in at " + now);
-      // Optionally append this to log panels if visible
-    }
-    setInterval(securityCheckIn, 30000);
-    
-    // Distribution Loop: (simulate sending logs every 60 seconds)
-    function distributionLoop() {
-      const blueskyLogs = document.getElementById('blueskyLogContainer').innerHTML;
-      const vrLogs = document.getElementById('vrLogContainer').innerHTML;
-      const payload = { bluesky: blueskyLogs, vr: vrLogs, timestamp: new Date().toISOString() };
-      console.log("[DISTRIBUTION] Sending logs...", payload);
-      fetch('/distribute-logs', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).then(response => {
-        if(response.ok) { console.log("[DISTRIBUTION] Logs distributed successfully."); }
-        else { console.error("[DISTRIBUTION] Failed with status " + response.status); }
-      }).catch(error => { console.error("[DISTRIBUTION] Error: " + error.message); });
-    }
-    setInterval(distributionLoop, 60000);
-    
-    // Simulated Bluesky Connection with Handshake Tracking
-    async function connectToBluesky() {
-      const logContainer = document.getElementById("blueskyLogContainer");
-      logContainer.innerHTML += "<p class='text-blue-700'>[Bluesky HANDSHAKE] Initiating connection...</p>";
-      try {
-        const response = await fetch('https://bsky.social/api/session');
-        if (!response.ok) throw new Error(`HTTP status ${response.status}`);
-        logContainer.innerHTML += "<p class='text-green-700'>[Bluesky HANDSHAKE] Connection successful!</p>";
-      } catch (error) {
-        logContainer.innerHTML += `<p class='text-red-700'>[Bluesky HANDSHAKE] Connection failed: ${error.message}</p>`;
-        alternativeBlueskyConnect();
-      }
-    }
-    function alternativeBlueskyConnect() {
-      const logContainer = document.getElementById("blueskyLogContainer");
-      logContainer.innerHTML += "<p class='text-orange-700'>[Bluesky HANDSHAKE] Attempting alternative connection...</p>";
-      setTimeout(() => {
-        logContainer.innerHTML += "<p class='text-green-700'>[Bluesky HANDSHAKE] Alternative connection established.</p>";
-      }, 2000);
-    }
-    
-    // Simulated VR Connection with Handshake Tracking
-    async function connectToVR() {
-      const logContainer = document.getElementById("vrLogContainer");
-      logContainer.innerHTML += "<p class='text-blue-700'>[VR HANDSHAKE] Initiating VR connection...</p>";
-      try {
-        const response = await fetch('https://vr.example.com/api/session');
-        if (!response.ok) throw new Error(`HTTP status ${response.status}`);
-        logContainer.innerHTML += "<p class='text-green-700'>[VR HANDSHAKE] VR connection successful!</p>";
-      } catch (error) {
-        logContainer.innerHTML += `<p class='text-red-700'>[VR HANDSHAKE] VR connection failed: ${error.message}</p>`;
-        alternativeVRConnect();
-      }
-    }
-    function alternativeVRConnect() {
-      const logContainer = document.getElementById("vrLogContainer");
-      logContainer.innerHTML += "<p class='text-orange-700'>[VR HANDSHAKE] Attempting alternative VR connection...</p>";
-      setTimeout(() => {
-        logContainer.innerHTML += "<p class='text-green-700'>[VR HANDSHAKE] Alternative VR connection established.</p>";
-      }, 2000);
-    }
-    
-    // Clear Logs Functions
-    function clearBlueskyLogs() {
-      document.getElementById("blueskyLogContainer").innerHTML = "<p class='text-gray-700'>Bluesky logs cleared.</p>";
-    }
-    function clearVRLogs() {
-      document.getElementById("vrLogContainer").innerHTML = "<p class='text-gray-700'>VR logs cleared.</p>";
-    }
-    
-    // Live Notifications Simulation
-    function showNotification(message) {
-      const panel = document.getElementById('notificationPanel');
-      panel.style.display = 'block';
-      panel.innerText = message;
-      setTimeout(() => { panel.style.display = 'none'; }, 10000);
-    }
-    setInterval(() => {
-      const messages = [
-        "New update available!",
-        "Your simulation data has been calibrated.",
-        "A new feature has been added. Check the dashboard!",
-        "Don't forget to check our latest blog post.",
-        "Live chat session starting soon."
-      ];
-      const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-      showNotification(randomMsg);
-    }, 45000);
-    
-    // Feedback Form Handling (inline)
-    document.getElementById('feedbackForm').addEventListener('submit', function(e){
-      e.preventDefault();
-      const name = document.getElementById('feedbackName').value;
-      const email = document.getElementById('feedbackEmail').value;
-      const message = document.getElementById('feedbackMessage').value;
-      console.log("Feedback received:", {name, email, message});
-      alert("Thank you for your feedback!");
-      this.reset();
-    });
-    
-    // Three.js Car Simulation Setup (repeated for consistency)
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.shadowMap.enabled = true;
-    const canvasContainer = document.getElementById('threejs-canvas-container');
-    if (canvasContainer) { canvasContainer.appendChild(renderer.domElement); }
-    else { document.body.appendChild(renderer.domElement); }
-    const light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(5, 10, 7.5);
-    light.castShadow = true;
-    scene.add(light);
-    const ambientLight = new THREE.AmbientLight(0x404040);
-    scene.add(ambientLight);
-    const carGeometry = new THREE.BoxGeometry(2, 0.5, 1);
-    const carMaterial = new THREE.MeshPhongMaterial({ color: 0x0077ff, shininess: 100 });
-    const car = new THREE.Mesh(carGeometry, carMaterial);
-    car.castShadow = true;
-    scene.add(car);
-    const wheelGeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.1, 32);
-    const wheelMaterial = new THREE.MeshPhongMaterial({ color: 0x333333 });
-    const wheelPositions = [[-0.9, -0.3, 0.5], [0.9, -0.3, 0.5], [-0.9, -0.3, -0.5], [0.9, -0.3, -0.5]];
-    wheelPositions.forEach(pos => {
-      const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
-      wheel.position.set(...pos);
-      wheel.rotation.z = Math.PI/2;
-      wheel.castShadow = true;
-      scene.add(wheel);
-    });
-    const groundGeometry = new THREE.PlaneGeometry(50, 50);
-    const groundMaterial = new THREE.MeshPhongMaterial({ color: 0x999999 });
-    const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-    ground.rotation.x = -Math.PI/2;
-    ground.position.y = -0.4;
-    ground.receiveShadow = true;
-    scene.add(ground);
-    camera.position.set(0, 2, 6);
-    camera.lookAt(0, 0, 0);
-    let carSpeed = 0, carRotation = 0;
-    const maxSpeed = 0.1, acceleration = 0.002, deceleration = 0.001;
-    document.getElementById('left-btn').addEventListener('click', () => { carRotation -= 0.05; });
-    document.getElementById('right-btn').addEventListener('click', () => { carRotation += 0.05; });
-    document.getElementById('up-btn').addEventListener('click', () => { if(carSpeed < maxSpeed) carSpeed += acceleration; });
-    document.getElementById('stop-btn').addEventListener('click', () => { carSpeed = 0; });
-    document.addEventListener('mousemove', (event) => {
-      const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-      const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-      car.position.x = THREE.MathUtils.lerp(car.position.x, mouseX * 3, 0.1);
-      car.position.y = THREE.MathUtils.lerp(car.position.y, mouseY, 0.1);
-    });
-    function animate() {
-      requestAnimationFrame(animate);
-      car.rotation.y = THREE.MathUtils.lerp(car.rotation.y, carRotation, 0.1);
-      car.position.z -= carSpeed;
-      if(carSpeed > 0) { carSpeed -= deceleration; }
-      renderer.render(scene, camera);
-    }
-    animate();
-    window.addEventListener('resize', () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-    });
-  </script>
-</body>
+      </div>
+    </aside>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white mt-auto">
+      <div class="container py-3">
+        <div class="mb-3">
+          <h3 class="decorative-title">Follow Us &copy;</h3>
+          <div class="social-links">
+            <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+              <i class="fas fa-rss"></i> Blog
+            </a>
+            <a href="https://www.instagram.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+              <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://www.threads.net/@techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+              <i class="fas fa-comment-dots"></i> Threads
+            </a>
+            <a href="https://x.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+              <i class="fab fa-twitter"></i> X
+            </a>
+            <a href="https://www.youtube.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+              <i class="fab fa-youtube"></i> YouTube
+            </a>
+            <a href="https://www.facebook.com/kvnbbg" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+              <i class="fab fa-facebook-f"></i> Facebook
+            </a>
+          </div>
+        </div>
+        <p class="mb-0">&copy; 2025 Kevin Marville. All rights reserved.</p>
+      </div>
+    </footer>
+
+    {% block scripts %}
+      <!-- Core JavaScript Libraries -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+      <!-- Custom JavaScript -->
+      <script>
+        // Simple particle effect for buttons (additional to CSS)
+        document.querySelectorAll('.particle-effect').forEach((el) => {
+          el.addEventListener('mouseenter', () => {
+            el.style.boxShadow = '0 0 15px rgba(0, 123, 255, 0.5)';
+          });
+          el.addEventListener('mouseleave', () => {
+            el.style.boxShadow = 'none';
+          });
+        });
+
+        // Dark Mode Toggle (if needed, attach to an element with id "darkModeToggle")
+        document.getElementById('darkModeToggle')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.classList.toggle('dark-mode');
+        });
+
+        // Feedback Modal Functions
+        function closeFeedbackModal() {
+          document.getElementById('feedbackModal').classList.remove('active');
+          $('#feedbackModal').modal('hide');
+        }
+        function submitFeedbackModal() {
+          const feedback = document.getElementById('modalFeedbackText').value;
+          console.log('Feedback submitted:', feedback);
+          alert('Thank you for your feedback!');
+          document.getElementById('modalFeedbackText').value = '';
+          closeFeedbackModal();
+        }
+
+        // Security Check-in Logging (every 30 seconds)
+        function securityCheckIn() {
+          const now = new Date().toISOString();
+          console.log('[SECURITY] Check in at ' + now);
+        }
+        setInterval(securityCheckIn, 30000);
+
+        // Distribution Loop: Example log distribution (every 60 seconds)
+        function distributionLoop() {
+          const blueskyLogs = document.getElementById('blueskyLogContainer').innerHTML;
+          const vrLogs = document.getElementById('vrLogContainer').innerHTML;
+          const payload = { bluesky: blueskyLogs, vr: vrLogs, timestamp: new Date().toISOString() };
+          console.log('[DISTRIBUTION] Sending logs...', payload);
+          fetch('/distribute-logs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          })
+            .then((response) => {
+              if (response.ok) {
+                console.log('[DISTRIBUTION] Logs distributed successfully.');
+              } else {
+                console.error('[DISTRIBUTION] Failed with status ' + response.status);
+              }
+            })
+            .catch((error) => {
+              console.error('[DISTRIBUTION] Error: ' + error.message);
+            });
+        }
+        setInterval(distributionLoop, 60000);
+
+        // Simulated Bluesky Connection with Handshake Tracking
+        async function connectToBluesky() {
+          const logContainer = document.getElementById('blueskyLogContainer');
+          logContainer.innerHTML += "<p class='text-blue-700'>[Bluesky HANDSHAKE] Initiating connection...</p>";
+          try {
+            const response = await fetch('https://bsky.social/api/session');
+            if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+            logContainer.innerHTML += "<p class='text-green-700'>[Bluesky HANDSHAKE] Connection successful!</p>";
+          } catch (error) {
+            logContainer.innerHTML += `<p class='text-red-700'>[Bluesky HANDSHAKE] Connection failed: ${error.message}</p>`;
+            alternativeBlueskyConnect();
+          }
+        }
+        function alternativeBlueskyConnect() {
+          const logContainer = document.getElementById('blueskyLogContainer');
+          logContainer.innerHTML += "<p class='text-orange-700'>[Bluesky HANDSHAKE] Attempting alternative connection...</p>";
+          setTimeout(() => {
+            logContainer.innerHTML += "<p class='text-green-700'>[Bluesky HANDSHAKE] Alternative connection established.</p>";
+          }, 2000);
+        }
+
+        // Simulated VR Connection with Handshake Tracking
+        async function connectToVR() {
+          const logContainer = document.getElementById('vrLogContainer');
+          logContainer.innerHTML += "<p class='text-blue-700'>[VR HANDSHAKE] Initiating VR connection...</p>";
+          try {
+            const response = await fetch('https://vr.example.com/api/session');
+            if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+            logContainer.innerHTML += "<p class='text-green-700'>[VR HANDSHAKE] VR connection successful!</p>";
+          } catch (error) {
+            logContainer.innerHTML += `<p class='text-red-700'>[VR HANDSHAKE] VR connection failed: ${error.message}</p>`;
+            alternativeVRConnect();
+          }
+        }
+        function alternativeVRConnect() {
+          const logContainer = document.getElementById('vrLogContainer');
+          logContainer.innerHTML += "<p class='text-orange-700'>[VR HANDSHAKE] Attempting alternative VR connection...</p>";
+          setTimeout(() => {
+            logContainer.innerHTML += "<p class='text-green-700'>[VR HANDSHAKE] Alternative VR connection established.</p>";
+          }, 2000);
+        }
+
+        // Clear Log Functions
+        function clearBlueskyLogs() {
+          document.getElementById('blueskyLogContainer').innerHTML = "<p class='text-gray-700'>Bluesky logs cleared.</p>";
+        }
+        function clearVRLogs() {
+          document.getElementById('vrLogContainer').innerHTML = "<p class='text-gray-700'>VR logs cleared.</p>";
+        }
+
+        // Notification Panel Example: Show a random message every 45 seconds
+        function showNotification(message) {
+          const panel = document.getElementById('notificationPanel');
+          panel.innerText = message;
+          panel.classList.remove('d-none');
+          setTimeout(() => {
+            panel.classList.add('d-none');
+          }, 10000);
+        }
+        setInterval(() => {
+          const messages = [
+            'New update available!',
+            'Your simulation data has been calibrated.',
+            'A new feature has been added. Check the dashboard!',
+            "Don't forget to check our latest blog post.",
+            'Live chat session starting soon.'
+          ];
+          const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+          showNotification(randomMsg);
+        }, 45000);
+
+        // Feedback Form Handling
+        document.getElementById('feedbackForm').addEventListener('submit', function (e) {
+          e.preventDefault();
+          const name = document.getElementById('feedbackName').value;
+          const email = document.getElementById('feedbackEmail').value;
+          const message = document.getElementById('feedbackMessage').value;
+          console.log('Feedback received:', { name, email, message });
+          alert('Thank you for your feedback!');
+          this.reset();
+        });
+
+        // -------------------------------
+        // Three.js Car Simulation Setup
+        // -------------------------------
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        const canvasContainer = document.getElementById('threejs-canvas-container');
+        if (canvasContainer) {
+          canvasContainer.appendChild(renderer.domElement);
+        } else {
+          document.body.appendChild(renderer.domElement);
+        }
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(5, 10, 7.5);
+        light.castShadow = true;
+        scene.add(light);
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+        const carGeometry = new THREE.BoxGeometry(2, 0.5, 1);
+        const carMaterial = new THREE.MeshPhongMaterial({ color: 0x0077ff, shininess: 100 });
+        const car = new THREE.Mesh(carGeometry, carMaterial);
+        car.castShadow = true;
+        scene.add(car);
+        const wheelGeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.1, 32);
+        const wheelMaterial = new THREE.MeshPhongMaterial({ color: 0x333333 });
+        const wheelPositions = [
+          [-0.9, -0.3, 0.5],
+          [0.9, -0.3, 0.5],
+          [-0.9, -0.3, -0.5],
+          [0.9, -0.3, -0.5]
+        ];
+        wheelPositions.forEach((pos) => {
+          const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
+          wheel.position.set(...pos);
+          wheel.rotation.z = Math.PI / 2;
+          wheel.castShadow = true;
+          scene.add(wheel);
+        });
+        const groundGeometry = new THREE.PlaneGeometry(50, 50);
+        const groundMaterial = new THREE.MeshPhongMaterial({ color: 0x999999 });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -0.4;
+        ground.receiveShadow = true;
+        scene.add(ground);
+        camera.position.set(0, 2, 6);
+        camera.lookAt(0, 0, 0);
+        let carSpeed = 0,
+          carRotation = 0;
+        const maxSpeed = 0.1,
+          acceleration = 0.002,
+          deceleration = 0.001;
+        document.getElementById('left-btn').addEventListener('click', () => {
+          carRotation -= 0.05;
+        });
+        document.getElementById('right-btn').addEventListener('click', () => {
+          carRotation += 0.05;
+        });
+        document.getElementById('up-btn').addEventListener('click', () => {
+          if (carSpeed < maxSpeed) carSpeed += acceleration;
+        });
+        document.getElementById('stop-btn').addEventListener('click', () => {
+          carSpeed = 0;
+        });
+        document.addEventListener('mousemove', (event) => {
+          const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+          const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+          car.position.x = THREE.MathUtils.lerp(car.position.x, mouseX * 3, 0.1);
+          car.position.y = THREE.MathUtils.lerp(car.position.y, mouseY, 0.1);
+        });
+        function animate() {
+          requestAnimationFrame(animate);
+          car.rotation.y = THREE.MathUtils.lerp(car.rotation.y, carRotation, 0.1);
+          car.position.z -= carSpeed;
+          if (carSpeed > 0) {
+            carSpeed -= deceleration;
+          }
+          renderer.render(scene, camera);
+        }
+        animate();
+        window.addEventListener('resize', () => {
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+        });
+      </script>
+    {% endblock %}
+  </body>
 </html>
