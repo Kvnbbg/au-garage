@@ -102,7 +102,7 @@ p {
 
 /* Sticky header for consistent  navigation */
 header {
-  position: sticky;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -162,7 +162,7 @@ section {
    ------------------------------------------------------------------------- */
 nav.navbar {
   /* Ensure navbar stays on top */
-  position: sticky;
+  position: relative;
   top: 0;
   z-index: 9999;
 }
