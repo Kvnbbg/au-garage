@@ -229,51 +229,7 @@
 
         <!-- Dynamic UI Section -->
 <section id="dynamic-ui" class="mb-5" aria-labelledby="dynamicUITitle">
-  {% if session.get('lang', 'en') == 'fr' %}
-    <h2 id="dynamicUITitle" class="decorative-title">Dynamique et Interactivité</h2>
-    <p>
-      Dans le domaine de la mécanique classique, la simulation dynamique des forces et du mouvement est essentielle pour comprendre les lois qui régissent notre univers. Pour approfondir vos connaissances, consultez 
-      <a href="https://fr.wikipedia.org/wiki/Lois_de_Newton" target="_blank" rel="noopener noreferrer">les lois de Newton</a>.
-    </p>
-    <div class="loading-circle-container">
-      <div class="loading-circle"></div>
-    </div>
-  {% else %}
-    <h2 id="dynamicUITitle" class="decorative-title">Dynamics and Interactivity</h2>
-    <p>
-      In the realm of classical mechanics, dynamic simulation of forces and motion is vital for grasping the underlying principles governing our universe. For further reading, refer to 
-      <a href="https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion" target="_blank" rel="noopener noreferrer">Newton's Laws of Motion</a>.
-    </p>
-    <div class="loading-circle-container">
-      <div class="loading-circle"></div>
-    </div>
-  {% endif %}
-</section>
-
-<style>
-  .loading-circle-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-  }
-
-  .loading-circle {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #007bff;
-    border-top: 4px solid transparent;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-</style>
-
-<!-- Three.js Car Simulation Section -->
+  <!-- Three.js Car Simulation Section -->
 <section id="threejs-simulation" class="mb-5 text-center" aria-labelledby="simulationTitle">
   {% if session.get('lang', 'en') == 'fr' %}
     <h2 id="simulationTitle" class="decorative-title">Simulation 3D de Voiture</h2>
@@ -311,16 +267,62 @@
     {% endif %}
   </p>
 </section>
+  <!-- next part -->
+  {% if session.get('lang', 'en') == 'fr' %}
+    <h2 id="dynamicUITitle" class="decorative-title">Interactivité</h2>
+    <p>
+      Dans le domaine de la mécanique classique, la simulation dynamique des forces et du mouvement est essentielle pour comprendre les lois qui régissent notre univers. Pour approfondir vos connaissances, consultez 
+      <a href="https://fr.wikipedia.org/wiki/Lois_de_Newton" target="_blank" rel="noopener noreferrer">les lois de Newton</a>.
+    </p>
+    <div class="loading-circle-container">
+      <div class="loading-circle"></div>
+    </div>
+  {% else %}
+    <h2 id="dynamicUITitle" class="decorative-title">Interactivity</h2>
+    <p>
+      In the realm of classical mechanics, dynamic simulation of forces and motion is vital for grasping the underlying principles governing our universe. For further reading, refer to 
+      <a href="https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion" target="_blank" rel="noopener noreferrer">Newton's Laws of Motion</a>.
+    </p>
+    <div class="loading-circle-container">
+      <div class="loading-circle"></div>
+    </div>
+  {% endif %}
+</section>
 
-<!-- Mechanical Data Acquisition Section -->
+<style>
+  .loading-circle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .loading-circle {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #007bff;
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+
+
+
+<!-- Acquisition Section -->
 <section id="data-acquisition" class="mb-5" aria-labelledby="dataAcquisitionTitle">
   {% if session.get('lang', 'en') == 'fr' %}
-    <h2 id="dataAcquisitionTitle" class="decorative-title">Acquisition de Données Mécaniques</h2>
+    <h2 id="dataAcquisitionTitle" class="decorative-title">Acquisition</h2>
     <p>
       Cette section simule la mesure et l'analyse de paramètres physiques essentiels tels que le couple, la force, la pression et la température. Les données générées aléatoirement imitent des capteurs réels et se mettent à jour automatiquement toutes les 13 secondes pour fournir une analyse continue.
     </p>
   {% else %}
-    <h2 id="dataAcquisitionTitle" class="decorative-title">Mechanical Data Acquisition</h2>
+    <h2 id="dataAcquisitionTitle" class="decorative-title">Acquisition</h2>
     <p>
       This section simulates the measurement and analysis of critical physical parameters such as torque, force, pressure, and temperature. Randomly generated data mimics real-world sensor outputs and automatically refreshes every 13 seconds for continuous analysis.
     </p>
