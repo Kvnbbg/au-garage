@@ -110,6 +110,90 @@
         background: #222;
         color: #ddd;
       }
+      /* === ASIDE === */
+      /* VR DISPLAY LOG AND START BUTTON */
+      /* VR Log Display Panel (Bottom-Left) */
+#vrLogPanel {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 320px;
+  display: none;
+  background: rgba(0, 0, 0, 0.85); /* Slight transparency for better blending */
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  animation: float 4s ease-in-out infinite;
+  overflow: hidden;
+}
+
+/* Panel Header */
+#vrLogPanel header {
+  background: #263238; /* Darker shade for contrast */
+  color: #ffffff;
+  padding: 12px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Log Container */
+#vrLogContainer {
+  background: #eceff1; /* Soft gray background */
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 14px;
+  color: #37474f; /* Dark gray text */
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Buttons */
+#vrLogPanel .btn {
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+#vrLogPanel .btn-primary {
+  background: #00796b;
+  border: 1px solid #004d40;
+  color: #ffffff;
+}
+
+#vrLogPanel .btn-primary:hover {
+  background: #004d40;
+  transform: translateY(-3px);
+}
+
+#vrLogPanel .btn-secondary {
+  background: #b0bec5;
+  border: 1px solid #78909c;
+  color: #263238;
+}
+
+#vrLogPanel .btn-secondary:hover {
+  background: #78909c;
+  transform: translateY(-3px);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+      
     </style>
     {% block head %}{% endblock %}
 
@@ -193,7 +277,7 @@
 
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="flex-grow-1">
-      <!-- Dark Mode Toggle Button -->
+      <!-- Dark Mode Toggle Button 
 <button id="darkModeToggle" class="btn btn-secondary">Toggle Dark Mode</button>
 
 <script>
@@ -223,7 +307,7 @@
     border-color: #555;
   }
 </style>
-
+-->
       <div class="container my-5">
         <!-- Hero Section -->
         <section class="mb-5" aria-labelledby="heroTitle">
@@ -454,7 +538,7 @@ function loadImageWithFallback(img, sources) {
             <p class="text-gray-700">Initializing VR connection...</p>
           </div>
           <div class="mt-2 d-flex justify-content-center">
-            <button onclick="window.location.href='vr.html';" class="btn btn-primary">START</button>
+            <button onclick="window.location.href='vr.html';" class="btn btn-primary">Start VR</button>
             <button onclick="connectToVR()" class="btn btn-primary mr-1">Reconnect</button>
             <button onclick="clearVRLogs()" class="btn btn-secondary">Clear Logs</button>
           </div>
