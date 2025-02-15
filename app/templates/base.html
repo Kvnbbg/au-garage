@@ -291,18 +291,187 @@
 
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="flex-grow-1">
-      <!-- Hero Section -->
-      <section class="mb-5" aria-labelledby="heroTitle">
-        <div class="text-center">
-          {% if session.get('lang', 'en') == 'fr' %}
-            <h1 id="heroTitle" class="text-dark">Mécanique</h1>
-            <h2 class="text-muted">Fondements et applications</h2>
-          {% else %}
-            <h1 id="heroTitle" class="text-dark">Mechanics</h1>
-            <h2 class="text-muted">Fundamentals and Applications</h2>
-          {% endif %}
-        </div>
-      </section>
+
+<!-- Hero Section 
+<section class="mb-5" aria-labelledby="heroTitle">
+  <div class="text-center">
+    {% if session.get('lang', 'en') == 'fr' %}
+      <h1 id="heroTitle" class="text-dark">Bienvenue dans le futur de la mobilité !</h1>
+      <h2 class="text-muted">
+        Venez explorer les nouveautés des véhicules électriques, thermiques, à hydrogène, et même des expériences en réalité virtuelle.
+      </h2>
+
+      Recommandations de contenu
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          Contenu recommandé pour vous
+        </summary>
+        {% block content %}{% endblock %}
+      </details>
+
+      Liens recommandés
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          Liens recommandés pour vous
+        </summary>
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://www.caranddriver.com/" target="_blank" rel="noopener">Car and Driver</a>
+          </li>
+          <li>
+            <a href="https://www.autocar.co.uk/" target="_blank" rel="noopener">Autocar</a>
+          </li>
+          <li>
+            <a href="https://electrek.co/" target="_blank" rel="noopener">Electrek</a>
+          </li>
+          <li>
+            <a href="https://www.greencarreports.com/" target="_blank" rel="noopener">Green Car Reports</a>
+          </li>
+        </ul>
+        <ul class="list-unstyled" style="margin-top: 0.5rem; padding-left: 1rem;">
+          <li>
+            <a href="https://www.bfmtv.com/economie/" target="_blank" rel="noopener">BFMTV Économie</a>
+          </li>
+          <li>
+            <a href="https://www.francetvinfo.fr/economie/" target="_blank" rel="noopener">France Info Économie</a>
+          </li>
+          <li>
+            <a href="https://www.lesechos.fr/" target="_blank" rel="noopener">Les Échos</a>
+          </li>
+          <li>
+            <a href="https://www.industrie-techno.com/" target="_blank" rel="noopener">Industrie &amp; Technologies</a>
+          </li>
+        </ul>
+      </details>
+
+      Ressources supplémentaires
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          Encore plus de ressources
+        </summary>
+        Add additional French content here if needed
+      </details>
+
+    {% else %}
+      <h1 id="heroTitle" class="text-dark">Welcome to the Future of Mobility!</h1>
+      <h2 class="text-muted">
+        Join us as we explore the latest in electric, fuel, and hydrogen vehicles, plus exciting virtual reality experiences.
+      </h2>
+      <p class="mt-3">
+        Check out these fun resources for more info:
+      </p>
+
+      Recommended Content 
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          Recommended content for you
+        </summary>
+        {% block content %}{% endblock %}
+      </details>
+
+       Recommended Links 
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          Recommended links for you
+        </summary>
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://www.caranddriver.com/" target="_blank" rel="noopener">Car and Driver</a>
+          </li>
+          <li>
+            <a href="https://www.autocar.co.uk/" target="_blank" rel="noopener">Autocar</a>
+          </li>
+          <li>
+            <a href="https://electrek.co/" target="_blank" rel="noopener">Electrek</a>
+          </li>
+          <li>
+            <a href="https://www.greencarreports.com/" target="_blank" rel="noopener">Green Car Reports</a>
+          </li>
+        </ul>
+        <ul class="list-unstyled" style="margin-top: 0.5rem; padding-left: 1rem;">
+          <li>
+            <a href="https://www.bfmtv.com/economie/" target="_blank" rel="noopener">BFMTV Economy</a>
+          </li>
+          <li>
+            <a href="https://www.francetvinfo.fr/economie/" target="_blank" rel="noopener">France Info Economy</a>
+          </li>
+          <li>
+            <a href="https://www.lesechos.fr/" target="_blank" rel="noopener">Les Échos</a>
+          </li>
+          <li>
+            <a href="https://www.industrie-techno.com/" target="_blank" rel="noopener">Industrie &amp; Technologies</a>
+          </li>
+        </ul>
+      </details>
+
+      Additional Resources
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          More resources
+        </summary>
+        Add additional English content here if needed
+      </details>
+    {% endif %}
+  </div>
+</section>-->
+
+
+{% block content %}
+  <!-- Include the default content from base.html first -->
+  {{ super() }}
+
+  <!-- Add your custom paragraph and animated 'satellite' below -->
+  <p>
+    Welcome to the system calibration screen. Here, we verify your configuration 
+    before proceeding. If something looks off, please 
+    <button onclick="window.location.reload()">reload the window</button>
+    and try again.
+  </p>
+
+  <!-- Container for rotating satellite-style animation -->
+  <div class="satellite-container">
+    <div class="satellite-orbit">
+      <div class="satellite"></div>
+    </div>
+  </div>
+
+  <style>
+    /* Satellite rotation animation styles */
+    .satellite-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 20px auto; /* Center horizontally */
+    }
+    .satellite-orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 120px;
+      margin: -60px 0 0 -60px;
+      border: 2px dashed #999;
+      border-radius: 50%;
+      animation: orbit 5s linear infinite;
+    }
+    .satellite {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #007aff;
+    }
+    @keyframes orbit {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+{% endblock %}
+
+
 
       {% set lang = session.get('lang', 'en') %}
       {% set texts = {
@@ -495,32 +664,34 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-dark text-white mt-auto">
+    <footer class="mt-auto">
       <div class="container py-3">
         <div class="mb-3">
-          <h3 class="decorative-title">Follow &copy;</h3>
+          
           <div class="social-links">
-            <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="mx-2">
               <i class="fas fa-rss"></i> Blog
             </a>
-            <a href="https://www.instagram.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <a href="https://www.instagram.com/techandstream" target="_blank" rel="noopener noreferrer" class="mx-2">
               <i class="fab fa-instagram"></i> Instagram
             </a>
-            <a href="https://www.threads.net/@techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <a href="https://www.threads.net/@techandstream" target="_blank" rel="noopener noreferrer" class="mx-2">
               <i class="fas fa-comment-dots"></i> Threads
             </a>
-            <a href="https://x.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <a href="https://x.com/techandstream" target="_blank" rel="noopener noreferrer" class="mx-2">
               <i class="fab fa-twitter"></i> X
             </a>
-            <a href="https://www.youtube.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <a href="https://www.youtube.com/kevinmarville" target="_blank" rel="noopener noreferrer" class="mx-2">
               <i class="fab fa-youtube"></i> YouTube
             </a>
-            <a href="https://www.facebook.com/kvnbbg" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <a href="https://www.facebook.com/kvnbbg" target="_blank" rel="noopener noreferrer" class="mx-2">
               <i class="fab fa-facebook-f"></i> Facebook
             </a>
           </div>
         </div>
-        <p class="mb-0">&copy; 2025 Kevin Marville. All rights reserved.</p>
+        <h6 class="decorative-title">&copy; 2025 Kevin Marville. All rights reserved.</h6>
+       <!--  --> 
+        <p class="mb-0"></p>
       </div>
     </footer>
 
