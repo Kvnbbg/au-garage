@@ -291,18 +291,98 @@
 
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="flex-grow-1">
-      <!-- Hero Section -->
-      <section class="mb-5" aria-labelledby="heroTitle">
-        <div class="text-center">
-          {% if session.get('lang', 'en') == 'fr' %}
-            <h1 id="heroTitle" class="text-dark">Mécanique</h1>
-            <h2 class="text-muted">Fondements et applications</h2>
-          {% else %}
-            <h1 id="heroTitle" class="text-dark">Mechanics</h1>
-            <h2 class="text-muted">Fundamentals and Applications</h2>
-          {% endif %}
-        </div>
-      </section>
+
+<!-- Hero Section -->
+<section class="mb-5" aria-labelledby="heroTitle">
+  <div class="text-center">
+    {% if session.get('lang', 'en') == 'fr' %}
+      <h1 id="heroTitle" class="text-dark">Bienvenue dans le futur de la mobilité!</h1>
+      <h2 class="text-muted">
+        Venez explorer les nouveautés des véhicules électriques, thermiques, hydrogène et même les expériences en réalité virtuelle
+      </h2>
+      <p class="mt-3">
+        Pour en savoir plus, jetez un œil à ces ressources sympas :
+      </p>
+      <ul class="list-unstyled">
+        <li>
+          <a href="https://www.autoplus.fr/" target="_blank" rel="noopener">Auto Plus</a>
+        </li>
+        <li>
+          <a href="https://www.largus.fr/" target="_blank" rel="noopener">L'Argus</a>
+        </li>
+        <li>
+          <a href="https://www.automobile-magazine.fr/" target="_blank" rel="noopener">Automobile Magazine</a>
+        </li>
+        <li>
+          <a href="https://www.lemonde.fr/economie/" target="_blank" rel="noopener">Le Monde Économie</a>
+        </li>
+      </ul>
+      <!-- Dropdown for More Resources using details/summary -->
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          Encore plus de ressources
+        </summary>
+        <ul class="list-unstyled" style="margin-top: 0.5rem; padding-left: 1rem;">
+          <li>
+            <a href="https://www.bfmtv.com/economie/" target="_blank" rel="noopener">BFMTV Économie</a>
+          </li>
+          <li>
+            <a href="https://www.francetvinfo.fr/economie/" target="_blank" rel="noopener">France Info Économie</a>
+          </li>
+          <li>
+            <a href="https://www.lesechos.fr/" target="_blank" rel="noopener">Les Échos</a>
+          </li>
+          <li>
+            <a href="https://www.industrie-techno.com/" target="_blank" rel="noopener">Industrie &amp; Technologies</a>
+          </li>
+        </ul>
+      </details>
+    {% else %}
+      <h1 id="heroTitle" class="text-dark">Welcome to the Future of Mobility!</h1>
+      <h2 class="text-muted">
+        Join us as we explore the latest in electric, fuel, and hydrogen vehicles, plus cool virtual reality experiences
+      </h2>
+      <p class="mt-3">
+        Check out these fun resources for more info:
+      </p>
+      <ul class="list-unstyled">
+        <li>
+          <a href="https://www.caranddriver.com/" target="_blank" rel="noopener">Car and Driver</a>
+        </li>
+        <li>
+          <a href="https://www.autocar.co.uk/" target="_blank" rel="noopener">Autocar</a>
+        </li>
+        <li>
+          <a href="https://electrek.co/" target="_blank" rel="noopener">Electrek</a>
+        </li>
+        <li>
+          <a href="https://www.greencarreports.com/" target="_blank" rel="noopener">Green Car Reports</a>
+        </li>
+      </ul>
+      <!-- Dropdown for More Resources using details/summary -->
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          More fun resources
+        </summary>
+        <ul class="list-unstyled" style="margin-top: 0.5rem; padding-left: 1rem;">
+          <li>
+            <a href="https://www.bloomberg.com/energy" target="_blank" rel="noopener">Bloomberg Energy</a>
+          </li>
+          <li>
+            <a href="https://www.reuters.com/technology/" target="_blank" rel="noopener">Reuters Technology</a>
+          </li>
+          <li>
+            <a href="https://www.wired.com/" target="_blank" rel="noopener">Wired</a>
+          </li>
+          <li>
+            <a href="https://techcrunch.com/" target="_blank" rel="noopener">TechCrunch</a>
+          </li>
+        </ul>
+      </details>
+    {% endif %}
+  </div>
+</section>
+
 
       {% set lang = session.get('lang', 'en') %}
       {% set texts = {
