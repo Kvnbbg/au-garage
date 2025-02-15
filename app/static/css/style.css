@@ -5,6 +5,8 @@
 /* -------------------------------------------------------------------------
    1. RESET & GLOBAL SETTINGS (Complements Tailwind’s Preflight)
    ------------------------------------------------------------------------- */
+
+/* Additional focus styling for
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -26,7 +28,7 @@ body {
   overflow-x: hidden;
   position: relative;
 }
-
+ accessibility */
 /* Additional focus styling for accessibility */
 :focus {
   outline: 2px dashed var(--primary-color);
@@ -98,7 +100,7 @@ p {
   padding: 0 15px;
 }
 
-/* Sticky header for consistent navigation */
+/* Sticky header for consistent
 header {
   position: sticky;
   top: 0;
@@ -111,7 +113,7 @@ header {
   overflow: hidden;
 }
 
-/* Full background images */
+/* Full background images 
 .bg-image-full {
   background-size: cover;
   background-position: center;
@@ -129,6 +131,16 @@ header::after {
   z-index: 1;
 }
 
+
+footer {
+  background: #000;
+  color: #fff;
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+}
+ navigation */
 /* Main slide-in container for content */
 .slide-container {
   width: 100vw;
@@ -145,16 +157,6 @@ header::after {
 section {
   margin-bottom: 3rem;
 }
-
-footer {
-  background: #000;
-  color: #fff;
-  padding: 2rem 0;
-  text-align: center;
-  font-size: 0.9rem;
-  margin-top: 2rem;
-}
-
 /* -------------------------------------------------------------------------
    5. NAVIGATION & HEADER ELEMENTS (FOR NAVBAR)
    ------------------------------------------------------------------------- */
