@@ -314,34 +314,38 @@
           <div class="text-center">
             {% if session.get('lang', 'en') == 'fr' %}
               <h1 id="heroTitle" class="text-dark">Mécanique</h1>
-              <h2 class="text-muted">Fondements et applications de la mécanique classique</h2>
+              <h2 class="text-muted">Fondements et applications</h2>
             {% else %}
               <h1 id="heroTitle" class="text-dark">Mechanics</h1>
-              <h2 class="text-muted">Fundamentals and Applications of Classical Mechanics</h2>
+              <h2 class="text-muted">Fundamentals and Applications</h2>
             {% endif %}
           </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="mb-5" aria-labelledby="aboutTitle">
-          {% if session.get('lang', 'en') == 'fr' %}
-            <h2 id="aboutTitle" class="decorative-title">Principes</h2>
-            <p>
-              La mécanique classique étudie le mouvement des corps et les forces agissant sur eux. Les lois de Newton sont fondamentales pour comprendre
-              l'équilibre et l'accélération dans tout système physique.
-            </p>
-          {% else %}
-            <h2 id="aboutTitle" class="decorative-title">Principles</h2>
-            <p>
-              Classical mechanics examines the motion of bodies and the forces acting upon them. Newton’s laws form the foundation for understanding
-              equilibrium and acceleration in physical systems.
-            </p>
-          {% endif %}
-         <button class="btn btn-secondary particle-effect" id="examplePopup" onclick="window.location.href='{{ url_for('vr') }}'">
-    {% if session.get('lang', 'en') == 'fr' %}Ouvrir VR{% else %}Open VR{% endif %}
-</button>
+   {% set lang = session.get('lang', 'en') %}
+{% set texts = {
+  'fr': {
+    'title': 'Principes',
+    'description': "La mécanique classique étudie le mouvement des objets et les forces qui les influencent. Les lois de Newton expliquent l'équilibre et l'accélération des systèmes physiques.",
+    'button': 'Ouvrir VR'
+  },
+  'en': {
+    'title': 'Principles',
+    'description': "Classical mechanics studies how objects move and the forces acting on them. Newton’s laws explain equilibrium and acceleration in physical systems.",
+    'button': 'Open VR'
+  }
+} %}
+{% set current = texts.get(lang, texts['en']) %}
 
-        </section>
+<!-- About Section -->
+<section id="about" class="mb-5" aria-labelledby="aboutTitle">
+  <h2 id="aboutTitle" class="decorative-title">{{ current.title }}</h2>
+  <p>{{ current.description }}</p>
+  <button class="btn btn-secondary particle-effect" id="examplePopup" onclick="window.location.href='{{ url_for('vr') }}'">
+    {{ current.button }}
+  </button>
+</section>
+
 
         <!-- CSS for inner scrolling and zoom effect -->
 <style>
