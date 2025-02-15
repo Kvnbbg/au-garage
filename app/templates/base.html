@@ -193,6 +193,37 @@
 
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="flex-grow-1">
+      <!-- Dark Mode Toggle Button -->
+<button id="darkModeToggle" class="btn btn-secondary">Toggle Dark Mode</button>
+
+<script>
+  // Dark Mode Toggle (if needed, attach to an element with id "darkModeToggle")
+  document.getElementById('darkModeToggle')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+  });
+
+  // Load saved dark mode preference
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    document.body.classList.add('dark-mode');
+  }
+</script>
+
+<style>
+  /* Dark Mode Styling */
+  .dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+
+  .dark-mode .btn {
+    background-color: #333;
+    color: white;
+    border-color: #555;
+  }
+</style>
+
       <div class="container my-5">
         <!-- Hero Section -->
         <section class="mb-5" aria-labelledby="heroTitle">
@@ -226,150 +257,6 @@
             {% if session.get('lang', 'en') == 'fr' %}Ouvrir le conseil mécanique{% else %}Open Mechanic Advice{% endif %}
           </button>
         </section>
-
-        <!-- Dynamic UI Section -->
-<section id="dynamic-ui" class="mb-5" aria-labelledby="dynamicUITitle">
-  <!-- Three.js Car Simulation Section -->
-<section id="threejs-simulation" class="mb-5 text-center" aria-labelledby="simulationTitle">
-  {% if session.get('lang', 'en') == 'fr' %}
-    <h2 id="simulationTitle" class="decorative-title">Simulation 3D de Voiture</h2>
-    <p>
-      Cette simulation 3D interactive exploite les principes de la mécanique newtonienne pour illustrer le mouvement et l'interaction des forces dans un véhicule. Pour en savoir plus, consultez 
-      <a href="https://fr.wikipedia.org/wiki/Lois_de_Newton" target="_blank" rel="noopener noreferrer">les lois de Newton</a>.
-    </p>
-  {% else %}
-    <h2 id="simulationTitle" class="decorative-title">3D Car Simulation</h2>
-    <p>
-      This interactive 3D simulation leverages Newtonian mechanics to demonstrate motion and force interactions in a vehicle. For additional details, see 
-      <a href="https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion" target="_blank" rel="noopener noreferrer">Newton's Laws of Motion</a>.
-    </p>
-  {% endif %}
-  <div id="threejs-controls" class="mb-3">
-    <button id="left-btn" class="btn btn-secondary mx-1">
-      {% if session.get('lang', 'en') == 'fr' %}Gauche{% else %}Left{% endif %}
-    </button>
-    <button id="right-btn" class="btn btn-secondary mx-1">
-      {% if session.get('lang', 'en') == 'fr' %}Droite{% else %}Right{% endif %}
-    </button>
-    <button id="up-btn" class="btn btn-success mx-1">
-      {% if session.get('lang', 'en') == 'fr' %}Accélérer{% else %}Accelerate{% endif %}
-    </button>
-    <button id="stop-btn" class="btn btn-danger mx-1">
-      {% if session.get('lang', 'en') == 'fr' %}Arrêter{% else %}Stop{% endif %}
-    </button>
-  </div>
-  <div id="threejs-canvas-container" style="position: sticky; width: 100%; height: 400px;"></div>
-  <p>
-    {% if session.get('lang', 'en') == 'fr' %}
-      La simulation est affichée ci-dessus.
-    {% else %}
-      The simulation is rendered above.
-    {% endif %}
-  </p>
-</section>
-  <!-- next part -->
-  {% if session.get('lang', 'en') == 'fr' %}
-    <h2 id="dynamicUITitle" class="decorative-title">Interactivité</h2>
-    <p>
-      Dans le domaine de la mécanique classique, la simulation dynamique des forces et du mouvement est essentielle pour comprendre les lois qui régissent notre univers. Pour approfondir vos connaissances, consultez 
-      <a href="https://fr.wikipedia.org/wiki/Lois_de_Newton" target="_blank" rel="noopener noreferrer">les lois de Newton</a>.
-    </p>
-    <div class="loading-circle-container">
-      <div class="loading-circle"></div>
-    </div>
-  {% else %}
-    <h2 id="dynamicUITitle" class="decorative-title">Interactivity</h2>
-    <p>
-      In the realm of classical mechanics, dynamic simulation of forces and motion is vital for grasping the underlying principles governing our universe. For further reading, refer to 
-      <a href="https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion" target="_blank" rel="noopener noreferrer">Newton's Laws of Motion</a>.
-    </p>
-    <div class="loading-circle-container">
-      <div class="loading-circle"></div>
-    </div>
-  {% endif %}
-</section>
-
-<style>
-  .loading-circle-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-  }
-
-  .loading-circle {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #007bff;
-    border-top: 4px solid transparent;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-</style>
-
-
-
-<!-- Acquisition Section -->
-<section id="data-acquisition" class="mb-5" aria-labelledby="dataAcquisitionTitle">
-  {% if session.get('lang', 'en') == 'fr' %}
-    <h2 id="dataAcquisitionTitle" class="decorative-title">Acquisition</h2>
-    <p>
-      Cette section simule la mesure et l'analyse de paramètres physiques essentiels tels que le couple, la force, la pression et la température. Les données générées aléatoirement imitent des capteurs réels et se mettent à jour automatiquement toutes les 13 secondes pour fournir une analyse continue.
-    </p>
-  {% else %}
-    <h2 id="dataAcquisitionTitle" class="decorative-title">Acquisition</h2>
-    <p>
-      This section simulates the measurement and analysis of critical physical parameters such as torque, force, pressure, and temperature. Randomly generated data mimics real-world sensor outputs and automatically refreshes every 13 seconds for continuous analysis.
-    </p>
-  {% endif %}
-  <div class="spreadsheet-container mb-3">
-    <table id="spreadsheetTable" class="table table-bordered">
-      <thead>
-        <tr>
-          <th contenteditable="true">
-            {% if session.get('lang', 'en') == 'fr' %}Couple (Nm){% else %}Torque (Nm){% endif %}
-          </th>
-          <th contenteditable="true">
-            {% if session.get('lang', 'en') == 'fr' %}Force (N){% else %}Force (N){% endif %}
-          </th>
-          <th contenteditable="true">
-            {% if session.get('lang', 'en') == 'fr' %}Pression (Pa){% else %}Pressure (Pa){% endif %}
-          </th>
-          <th contenteditable="true">
-            {% if session.get('lang', 'en') == 'fr' %}Température (°C){% else %}Temperature (°C){% endif %}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td contenteditable="true">150</td>
-          <td contenteditable="true">1200</td>
-          <td contenteditable="true">101325</td>
-          <td contenteditable="true">85</td>
-        </tr>
-        <tr>
-          <td contenteditable="true">200</td>
-          <td contenteditable="true">1500</td>
-          <td contenteditable="true">100000</td>
-          <td contenteditable="true">90</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="d-flex flex-wrap gap-2">
-      <button id="addRow" class="btn btn-secondary">
-        {% if session.get('lang', 'en') == 'fr' %}Ajouter une mesure{% else %}Add Measurement{% endif %}
-      </button>
-      <button id="removeRow" class="btn btn-danger">
-        {% if session.get('lang', 'en') == 'fr' %}Supprimer une mesure{% else %}Remove Measurement{% endif %}
-      </button>
-      <button id="calibrateData" class="btn btn-warning">
-        {% if session.get('lang', 'en') == 'fr' %}Calibre
-
 
         <!-- CSS for inner scrolling and zoom effect -->
 <style>
@@ -522,6 +409,7 @@ function loadImageWithFallback(img, sources) {
           <div class="mt-4 d-flex gap-2 justify-content-center">
             <button onclick="connectToBluesky()" class="btn btn-primary">Reconnect</button>
             <button onclick="clearBlueskyLogs()" class="btn btn-secondary">Clear Logs</button>
+            
             <a href="https://bsky.app/profile/techandstream.bsky.social" class="btn btn-primary" target="_blank">Follow on Bluesky</a>
           </div>
         </section>
@@ -566,16 +454,14 @@ function loadImageWithFallback(img, sources) {
             <p class="text-gray-700">Initializing VR connection...</p>
           </div>
           <div class="mt-2 d-flex justify-content-center">
+            <button onclick="window.location.href='vr.html';" class="btn btn-primary">START</button>
             <button onclick="connectToVR()" class="btn btn-primary mr-1">Reconnect</button>
             <button onclick="clearVRLogs()" class="btn btn-secondary">Clear Logs</button>
           </div>
         </div>
       </div>
 
-      <!-- Notification Panel (Upper Center) -->
-      <div id="notificationPanel" class="position-fixed top-0 start-50 translate-middle-x mt-3 bg-info text-white p-2 rounded d-none" role="alert">
-        <!-- Notifications will appear here dynamically -->
-      </div>
+
 
       <!-- Feedback Modal -->
       <div id="feedbackModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalTitle" aria-hidden="true">
@@ -745,127 +631,9 @@ function loadImageWithFallback(img, sources) {
         }
         function clearVRLogs() {
           document.getElementById('vrLogContainer').innerHTML = "<p class='text-gray-700'>VR logs cleared.</p>";
-        }
+        };
 
-        // Notification Panel Example: Show a random message every 45 seconds
-        function showNotification(message) {
-          const panel = document.getElementById('notificationPanel');
-          panel.innerText = message;
-          panel.classList.remove('d-none');
-          setTimeout(() => {
-            panel.classList.add('d-none');
-          }, 10000);
-        }
-        setInterval(() => {
-          const messages = [
-            'New update available!',
-            'Your simulation data has been calibrated.',
-            'A new feature has been added. Check the dashboard!',
-            "Don't forget to check our latest blog post.",
-            'Live chat session starting soon.'
-          ];
-          const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-          showNotification(randomMsg);
-        }, 45000);
-
-        // Feedback Form Handling
-        document.getElementById('feedbackForm').addEventListener('submit', function (e) {
-          e.preventDefault();
-          const name = document.getElementById('feedbackName').value;
-          const email = document.getElementById('feedbackEmail').value;
-          const message = document.getElementById('feedbackMessage').value;
-          console.log('Feedback received:', { name, email, message });
-          alert('Thank you for your feedback!');
-          this.reset();
-        });
-
-        // -------------------------------
-        // Three.js Car Simulation Setup
-        // -------------------------------
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.shadowMap.enabled = true;
-        const canvasContainer = document.getElementById('threejs-canvas-container');
-        if (canvasContainer) {
-          canvasContainer.appendChild(renderer.domElement);
-        } else {
-          document.body.appendChild(renderer.domElement);
-        }
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-        light.position.set(5, 10, 7.5);
-        light.castShadow = true;
-        scene.add(light);
-        const ambientLight = new THREE.AmbientLight(0x404040);
-        scene.add(ambientLight);
-        const carGeometry = new THREE.BoxGeometry(2, 0.5, 1);
-        const carMaterial = new THREE.MeshPhongMaterial({ color: 0x0077ff, shininess: 100 });
-        const car = new THREE.Mesh(carGeometry, carMaterial);
-        car.castShadow = true;
-        scene.add(car);
-        const wheelGeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.1, 32);
-        const wheelMaterial = new THREE.MeshPhongMaterial({ color: 0x333333 });
-        const wheelPositions = [
-          [-0.9, -0.3, 0.5],
-          [0.9, -0.3, 0.5],
-          [-0.9, -0.3, -0.5],
-          [0.9, -0.3, -0.5]
-        ];
-        wheelPositions.forEach((pos) => {
-          const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
-          wheel.position.set(...pos);
-          wheel.rotation.z = Math.PI / 2;
-          wheel.castShadow = true;
-          scene.add(wheel);
-        });
-        const groundGeometry = new THREE.PlaneGeometry(50, 50);
-        const groundMaterial = new THREE.MeshPhongMaterial({ color: 0x999999 });
-        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-        ground.rotation.x = -Math.PI / 2;
-        ground.position.y = -0.4;
-        ground.receiveShadow = true;
-        scene.add(ground);
-        camera.position.set(0, 2, 6);
-        camera.lookAt(0, 0, 0);
-        let carSpeed = 0,
-          carRotation = 0;
-        const maxSpeed = 0.1,
-          acceleration = 0.002,
-          deceleration = 0.001;
-        document.getElementById('left-btn').addEventListener('click', () => {
-          carRotation -= 0.05;
-        });
-        document.getElementById('right-btn').addEventListener('click', () => {
-          carRotation += 0.05;
-        });
-        document.getElementById('up-btn').addEventListener('click', () => {
-          if (carSpeed < maxSpeed) carSpeed += acceleration;
-        });
-        document.getElementById('stop-btn').addEventListener('click', () => {
-          carSpeed = 0;
-        });
-        document.addEventListener('mousemove', (event) => {
-          const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-          const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-          car.position.x = THREE.MathUtils.lerp(car.position.x, mouseX * 3, 0.1);
-          car.position.y = THREE.MathUtils.lerp(car.position.y, mouseY, 0.1);
-        });
-        function animate() {
-          requestAnimationFrame(animate);
-          car.rotation.y = THREE.MathUtils.lerp(car.rotation.y, carRotation, 0.1);
-          car.position.z -= carSpeed;
-          if (carSpeed > 0) {
-            carSpeed -= deceleration;
-          }
-          renderer.render(scene, camera);
-        }
-        animate();
-        window.addEventListener('resize', () => {
-          renderer.setSize(window.innerWidth, window.innerHeight);
-          camera.aspect = window.innerWidth / window.innerHeight;
-          camera.updateProjectionMatrix();
-        });
+     
       </script>
     {% endblock %}
   </body>
