@@ -297,15 +297,51 @@
         </section>
 
         <!-- Dynamic UI Section -->
-        <section id="dynamic-ui" class="mb-5" aria-labelledby="dynamicUITitle">
-          {% if session.get('lang', 'en') == 'fr' %}
-            <h2 id="dynamicUITitle" class="decorative-title">Fonctionnalités Dynamiques</h2>
-            <p>Des éléments interactifs se génèrent dynamiquement pour illustrer des concepts avancés en mécanique.</p>
-          {% else %}
-            <h2 id="dynamicUITitle" class="decorative-title">Dynamic Features</h2>
-            <p>Interactive elements are generated dynamically to illustrate advanced mechanical concepts.</p>
-          {% endif %}
-        </section>
+<section id="dynamic-ui" class="mb-5" aria-labelledby="dynamicUITitle">
+  {% if session.get('lang', 'en') == 'fr' %}
+    <h2 id="dynamicUITitle" class="decorative-title">Fonctionnalités Dynamiques</h2>
+    <p>Des éléments interactifs se génèrent rapidement pour illustrer des concepts avancés en mécanique.</p>
+
+    <!-- Loading Circle Animation -->
+    <div class="loading-circle-container">
+      <div class="loading-circle"></div>
+    </div>
+
+  {% else %}
+    <h2 id="dynamicUITitle" class="decorative-title">Dynamic Features</h2>
+    <p>Interactive elements are generated rapidly to illustrate advanced mechanical concepts.</p>
+
+    <!-- Loading Circle Animation -->
+    <div class="loading-circle-container">
+      <div class="loading-circle"></div>
+    </div>
+
+  {% endif %}
+</section>
+
+<style>
+  .loading-circle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .loading-circle {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #007bff;
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+
 
         <!-- Three.js Car Simulation Section -->
         <section id="threejs-simulation" class="mb-5 text-center" aria-labelledby="simulationTitle">
@@ -330,81 +366,159 @@
               {% if session.get('lang', 'en') == 'fr' %}Arrêter{% else %}Stop{% endif %}
             </button>
           </div>
-          <div id="threejs-canvas-container" style="position: relative; width: 100%; height: 400px;"></div>
+          <div id="threejs-canvas-container" style="position: sticky; width: 100%; height: 400px;"></div>
           <p>
             {% if session.get('lang', 'en') == 'fr' %}
+            <div id="threejs">
+            
+            </di>
               La simulation est affichée ci-dessus.
             {% else %}
+             <div id="threejs">
+            
+            </di>
               The simulation is rendered above.
             {% endif %}
           </p>
         </section>
 
-        <!-- Carousel / Featured Content Section -->
-        <section id="carousel" class="mb-5" aria-labelledby="carouselTitle">
+        <!-- CSS for inner scrolling and zoom effect -->
+<style>
+  .zoom-container {
+    overflow: auto;
+    max-height: 500px; /* Adjust height as needed */
+    position: relative;
+  }
+  .zoom-container img {
+    transition: transform 0.3s ease;
+    width: 100%;
+    height: auto;
+  }
+  .zoom-container:hover img {
+    transform: scale(1.1);
+  }
+</style>
+
+<!-- Fallback JS: cycles through fallback image URLs if the current one fails -->
+<script>
+function loadImageWithFallback(img, sources) {
+  if (!img.dataset.fallbackIndex) {
+    img.dataset.fallbackIndex = 0;
+  }
+  var index = parseInt(img.dataset.fallbackIndex);
+  if (index < sources.length) {
+    img.src = sources[index];
+    img.dataset.fallbackIndex = index + 1;
+  } else {
+    // A final placeholder image if all fallbacks fail
+    img.src = "{{ url_for('static', filename='images/placeholder.jpg') }}";
+  }
+}
+</script>
+
+<!-- Carousel / Gifts Section -->
+<section id="carousel" class="mb-5" aria-labelledby="carouselTitle">
+  {% if session.get('lang', 'en') == 'fr' %}
+    <h2 id="carouselTitle" class="decorative-title">Cadeaux</h2>
+  {% else %}
+    <h2 id="carouselTitle" class="decorative-title">Gifts</h2>
+  {% endif %}
+
+  {# Define a list of carousel images with professional, clickable titles and descriptions #}
+  {% set carousel_images = [
+    {
+      'primary': 'https://openverse.org/image/6d3cd0dc-0459-4a7a-b426-1e8e849f91a1?q=study&p=59',
+      'fallbacks': [ url_for('static', filename='images/slide1.jpg'),
+                     url_for('static', filename='images/service-example.jpg') ],
+      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Mécanique" target="_blank">Les Fondamentaux de la Mécanique</a>',
+      'desc_fr': 'Découvrez les principes éprouvés régissant la mécanique des matériaux, illustrés par des exemples pratiques extraits de la littérature technique.',
+      'title_en': '<a href="https://en.wikipedia.org/wiki/Mechanics" target="_blank">Fundamentals of Mechanics</a>',
+      'desc_en': 'Explore the proven principles governing the mechanics of materials, illustrated with practical examples drawn from technical literature.'
+    },
+    {
+      'primary': url_for('static', filename='images/slide2.jpg'),
+      'fallbacks': [ url_for('static', filename='images/service-example2.jpg'),
+                     url_for('static', filename='images/service-example3.jpg') ],
+      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Mécanique_classique" target="_blank">Approches Classiques en Mécanique</a>',
+      'desc_fr': 'Une analyse approfondie des méthodes classiques appliquées aux études mécaniques avancées, essentielle pour étudiants et professionnels.',
+      'title_en': '<a href="https://en.wikipedia.org/wiki/Classical_mechanics" target="_blank">Classical Mechanics Approaches</a>',
+      'desc_en': 'An in-depth analysis of classical methods applied to advanced mechanical studies, essential for both students and professionals.'
+    },
+    {
+      'primary': url_for('static', filename='images/slide3.jpg'),
+      'fallbacks': [ url_for('static', filename='images/service-example4.jpg'),
+                     url_for('static', filename='images/service-example5.jpg') ],
+      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Dynamique" target="_blank">Dynamique et Systèmes Complexes</a>',
+      'desc_fr': 'Plongez dans l\'étude de la dynamique des systèmes complexes à travers une approche innovante intégrant les dernières avancées en ingénierie.',
+      'title_en': '<a href="https://en.wikipedia.org/wiki/Dynamics" target="_blank">Dynamics and Complex Systems</a>',
+      'desc_en': 'Delve into the study of complex systems dynamics with an innovative approach that integrates the latest advancements in engineering.'
+    },
+    {
+      'primary': url_for('static', filename='images/vehicule1.jpg'),
+      'fallbacks': [ url_for('static', filename='images/vehicule2.jpg'),
+                     url_for('static', filename='images/vehicule3.jpg') ],
+      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Ingénierie" target="_blank">Innovation en Ingénierie Automobile</a>',
+      'desc_fr': 'Découvrez les innovations récentes en ingénierie automobile, alliant performance et durabilité pour façonner l\'avenir des transports.',
+      'title_en': '<a href="https://en.wikipedia.org/wiki/Engineering" target="_blank">Automotive Engineering Innovations</a>',
+      'desc_en': 'Discover the latest innovations in automotive engineering that combine performance and durability to shape the future of transportation.'
+    },
+    {
+      'primary': url_for('static', filename='images/vehicule4.jpg'),
+      'fallbacks': [ url_for('static', filename='images/vehicule5.jpg') ],
+      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Technologie" target="_blank">Technologies de Pointe en Mécanique</a>',
+      'desc_fr': 'Examinez en détail les technologies de pointe qui révolutionnent l\'industrie mécanique, offrant des perspectives inédites pour demain.',
+      'title_en': '<a href="https://en.wikipedia.org/wiki/Technology" target="_blank">Cutting-Edge Mechanical Technologies</a>',
+      'desc_en': 'Examine in detail the cutting-edge technologies revolutionizing the mechanical industry, offering unprecedented prospects for the future.'
+    }
+  ] %}
+  
+  <div id="featuredCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Carousel indicators -->
+    <ol class="carousel-indicators">
+      {% for image in carousel_images %}
+        <li data-target="#featuredCarousel" data-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}"></li>
+      {% endfor %}
+    </ol>
+    
+    <!-- Carousel inner -->
+    <div class="carousel-inner">
+      {% for image in carousel_images %}
+      <div class="carousel-item {% if loop.first %}active{% endif %}">
+        <!-- Wrap image in a zoomable, scrollable container -->
+        <div class="zoom-container">
+          <img src="{{ image.primary }}" 
+               onerror="loadImageWithFallback(this, [ {% for fallback in image.fallbacks %}'{{ fallback }}'{% if not loop.last %}, {% endif %}{% endfor %} ])" 
+               class="d-block w-100" alt="Slide {{ loop.index }}">
+        </div>
+        <div class="carousel-caption d-none d-md-block">
           {% if session.get('lang', 'en') == 'fr' %}
-            <h2 id="carouselTitle" class="decorative-title">Contenu Mis en Avant</h2>
+            <h5>{{ image.title_fr | safe }}</h5>
+            <p>{{ image.desc_fr }}</p>
           {% else %}
-            <h2 id="carouselTitle" class="decorative-title">Featured Content</h2>
+            <h5>{{ image.title_en | safe }}</h5>
+            <p>{{ image.desc_en }}</p>
           {% endif %}
-          <div id="featuredCarousel" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-              <li data-target="#featuredCarousel" data-slide-to="0" class="active"></li>
-              <li data-target="#featuredCarousel" data-slide-to="1"></li>
-              <li data-target="#featuredCarousel" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="{{ url_for('static', filename='images/slide1.jpg') }}" class="d-block w-100" alt="Slide 1" />
-                <div class="carousel-caption d-none d-md-block">
-                  {% if session.get('lang', 'en') == 'fr' %}
-                    <h5>Étude de Mécanique 1</h5>
-                    <p>Description de l'étude de mécanique 1.</p>
-                  {% else %}
-                    <h5>Mechanics Study 1</h5>
-                    <p>Description of Mechanics Study 1.</p>
-                  {% endif %}
-                </div>
-              </div>
-              <div class="carousel-item">
-                <img src="{{ url_for('static', filename='images/slide2.jpg') }}" class="d-block w-100" alt="Slide 2" />
-                <div class="carousel-caption d-none d-md-block">
-                  {% if session.get('lang', 'en') == 'fr' %}
-                    <h5>Étude de Mécanique 2</h5>
-                    <p>Description de l'étude de mécanique 2.</p>
-                  {% else %}
-                    <h5>Mechanics Study 2</h5>
-                    <p>Description of Mechanics Study 2.</p>
-                  {% endif %}
-                </div>
-              </div>
-              <div class="carousel-item">
-                <img src="{{ url_for('static', filename='images/slide3.jpg') }}" class="d-block w-100" alt="Slide 3" />
-                <div class="carousel-caption d-none d-md-block">
-                  {% if session.get('lang', 'en') == 'fr' %}
-                    <h5>Étude de Mécanique 3</h5>
-                    <p>Description de l'étude de mécanique 3.</p>
-                  {% else %}
-                    <h5>Mechanics Study 3</h5>
-                    <p>Description of Mechanics Study 3.</p>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-            <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">
-                {% if session.get('lang', 'en') == 'fr' %}Précédent{% else %}Previous{% endif %}
-              </span>
-            </a>
-            <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">
-                {% if session.get('lang', 'en') == 'fr' %}Suivant{% else %}Next{% endif %}
-              </span>
-            </a>
-          </div>
-        </section>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <!-- Carousel controls -->
+    <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">
+        {% if session.get('lang', 'en') == 'fr' %}Précédent{% else %}Previous{% endif %}
+      </span>
+    </a>
+    <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">
+        {% if session.get('lang', 'en') == 'fr' %}Suivant{% else %}Next{% endif %}
+      </span>
+    </a>
+  </div>
+</section>
+
 
         <!-- Bluesky Log Display Section -->
         <section id="bluesky-log-display" class="mb-5" aria-labelledby="blueskyLogTitle">
