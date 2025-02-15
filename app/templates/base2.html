@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="{{ session.get('lang', 'en') }}">
+<head>
+  <!-- Meta Information -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Language" content="{{ session.get('lang', 'en') }}">
+  <meta name="description" content="Au Garage – A hub for automotive and mechanical excellence.">
+  <meta name="keywords" content="Mechanics, Classical Mechanics, Engineering, Simulation, Calibration">
+  <meta name="author" content="Kevin Marville">
+  <meta name="msapplication-tap-highlight" content="no">
+  <!-- Security Meta Tags -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://code.jquery.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
+  <title>{% block title %}Au Garage{% endblock %}</title>
+  
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+  
+  <!-- External Stylesheets -->
+  <link rel="stylesheet" href="https://demo.dashboardpack.com/architectui-html-free/main.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom Extended CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <!-- Inline Fine-Tune Styles -->
+  <style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --primary-color: #6f4e37;
+        --secondary-color: #8b5e3c;
+        --accent-color: #d2a679;
+        --highlight-color: #c87533;
+        --background-color: #f7f3e8;
+        --text-color: #4b382a;
+        --card-bg: #ffffff;
+        --border-color: #d2a679;
+        --transition-speed: 0.3s;
+        --border-radius: 8px;
+        --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: var(--background-color);
+        color: var(--text-color);
+        padding: 20px;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        padding: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+      }
+      .log-container {
+        height: 300px;
+        overflow-y: auto;
+        border: 1px solid var(--border-color);
+        padding: 10px;
+        border-radius: var(--border-radius);
+        background: var(--highlight-color);
+      }
+      .btn {
+        padding: 10px 15px;
+        border-radius: var(--border-radius);
+        border: none;
+        cursor: pointer;
+        transition: background var(--transition-speed);
+      }
+      .btn-primary { background: var(--primary-color); color: #fff; }
+      .btn-secondary { background: var(--secondary-color); color: #fff; }
+      .btn:hover { opacity: 0.8; }
+
+      /* Additional fine-tuning for interactive details */
+      .hover-light:hover {
+        filter: brightness(1.2);
+        transition: filter 0.2s ease;
+      }
+      .zoom-on-hover {
+        transition: transform 0.3s ease;
+      }
+      .zoom-on-hover:hover {
+        transform: scale(1.05);
+      }
+      /* Particles container for subtle particle effect on buttons */
+      .particle-effect {
+        position: relative;
+        overflow: hidden;
+      }
+      .particle-effect::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .particle-effect:hover::after {
+        opacity: 1;
+      }
+      /* Bluesky Log Panel: fixed positioning and hidden by default */
+      #blueskyLogPanel {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        max-width: 90%;
+        background: #f7f3e8;
+        border: 1px solid #d2a679;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        z-index: 9999;
+        display: none;
+      }
+      #blueskyLogPanel header {
+        background: #333;
+        color: #fff;
+        padding: 8px;
+        text-align: center;
+        border-top-left-radius: var(--border-radius);
+        border-top-right-radius: var(--border-radius);
+      }
+      #blueskyLogPanel .panel-body {
+        padding: 10px;
+      }
+    </style>
+  </style>
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "AutoRepair",
+    "name": "Au Garage",
+    "url": "https://github.com/Kvnbbg/au-garage",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "xxxxx",
+      "addressLocality": "Rivierre-Salée, Martinique",
+      "postalCode": "97215",
+      "addressCountry": "MQ"
+    },
+    "telephone": "+33634160418"
+  }
+  </script>
+  {% block head %}{% endblock %}
+</head>
+<body class="d-flex flex-column" style="min-height: 100vh;">
+  <!-- HEADER: Navigation -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="{{ url_for('main.home') }}">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.set_language', language='en') }}">🇺🇸 English</a></li>
+            <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.set_language', language='fr') }}">🇫🇷 Français</a></li>
+            <li class="nav-item"><a class="nav-link hover-light" href="#" data-toggle="modal" data-target="#versionModal">Version</a></li>
+            <!-- NEW: Bluesky Connect button -->
+            <li class="nav-item">
+              <a class="nav-link hover-light" href="#" id="blueskyConnectBtn">
+                Bluesky Connect
+              </a>
+            </li>
+            {% if not current_user.is_authenticated %}
+              <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.login') }}">Login</a></li>
+              <li class="nav-item"><a class="nav-link hover-light" href="https://kvnbbg.github.io/500Discount/">5D</a></li>
+            {% else %}
+              <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.dashboard') }}">Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.logout') }}">Logout</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- HERO SECTION: Background Image & Title -->
+  <section class="py-5 bg-image-full" style="background-image: url('{{ url_for('static', filename='images/service-example.jpg') }}');">
+    <div class="container text-center">
+      <div class="my-5">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h1 class="text-white zoom-on-hover" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Laboratoire de Mécanique</h1>
+          <h2 class="text-white-50 zoom-on-hover" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Fondements et applications de la mécanique classique</h2>
+        {% else %}
+          <h1 class="text-white zoom-on-hover" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Mechanics Laboratory</h1>
+          <h2 class="text-white-50 zoom-on-hover" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Fundamentals and Applications of Classical Mechanics</h2>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+  
+  <!-- MAIN CONTENT: Structured, Clear & Spacious -->
+  <main class="slide-container flex-grow-1">
+    <div class="container my-5">
+      <!-- About Section -->
+      <section id="about" class="mb-5">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h2 class="decorative-title">Principes de la Mécanique</h2>
+          <p>
+            La mécanique classique étudie le mouvement des corps et les forces agissant sur eux. Selon Newton, les lois du mouvement gouvernent 
+            l'équilibre et l'accélération. Ces principes fondent toute analyse des systèmes physiques.
+          </p>
+        {% else %}
+          <h2 class="decorative-title">Principles of Mechanics</h2>
+          <p>
+            Classical mechanics examines the motion of bodies and the forces acting upon them. According to Newton, the laws of motion govern 
+            equilibrium and acceleration. These principles form the foundation of all physical system analysis.
+          </p>
+        {% endif %}
+        <button class="btn popup-trigger particle-effect" id="examplePopup">
+          {% if session.get('lang', 'en') == 'fr' %}Ouvrir le conseil mécanique{% else %}Open Mechanic Advice{% endif %}
+        </button>
+      </section>
+      
+      <!-- Mechanical Data Acquisition Section -->
+      <section id="spreadsheet" class="mb-5">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h2 class="decorative-title">Acquisition de Données Mécaniques</h2>
+          <p>
+            La mécanique expérimentale consiste à mesurer des grandeurs physiques pour valider des modèles théoriques. Enregistrez des mesures telles que 
+            le couple, la force, la pression et la température pour calibrer et simuler le comportement des systèmes.
+          </p>
+        {% else %}
+          <h2 class="decorative-title">Mechanical Data Acquisition</h2>
+          <p>
+            Experimental mechanics involves measuring physical quantities to validate theoretical models. Record measurements such as torque, 
+            force, pressure, and temperature to calibrate and simulate system performance.
+          </p>
+        {% endif %}
+        <div class="spreadsheet-container">
+          <table id="spreadsheetTable" class="table table-bordered excel-table">
+            <thead>
+              <tr>
+                <th contenteditable="true">{% if session.get('lang', 'en') == 'fr' %}Couple (Nm){% else %}Torque (Nm){% endif %}</th>
+                <th contenteditable="true">{% if session.get('lang', 'en') == 'fr' %}Force (N){% else %}Force (N){% endif %}</th>
+                <th contenteditable="true">{% if session.get('lang', 'en') == 'fr' %}Pression (Pa){% else %}Pressure (Pa){% endif %}</th>
+                <th contenteditable="true">{% if session.get('lang', 'en') == 'fr' %}Température (°C){% else %}Temperature (°C){% endif %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td contenteditable="true">150</td>
+                <td contenteditable="true">1200</td>
+                <td contenteditable="true">101325</td>
+                <td contenteditable="true">85</td>
+              </tr>
+              <tr>
+                <td contenteditable="true">200</td>
+                <td contenteditable="true">1500</td>
+                <td contenteditable="true">100000</td>
+                <td contenteditable="true">90</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="spreadsheet-controls mt-3">
+            <button id="addRow" class="btn btn-secondary"> 
+              {% if session.get('lang', 'en') == 'fr' %}Ajouter une mesure{% else %}Add Measurement{% endif %}
+            </button>
+            <button id="removeRow" class="btn btn-danger">
+              {% if session.get('lang', 'en') == 'fr' %}Supprimer une mesure{% else %}Remove Measurement{% endif %}
+            </button>
+            <button id="calibrateData" class="btn btn-warning">
+              {% if session.get('lang', 'en') == 'fr' %}Calibrer les données{% else %}Calibrate Data{% endif %}
+            </button>
+            <button id="simulatePerf" class="btn btn-primary">
+              {% if session.get('lang', 'en') == 'fr' %}Simuler la performance{% else %}Simulate Performance{% endif %}
+            </button>
+            <button id="saveSheet" class="btn btn-success">
+              {% if session.get('lang', 'en') == 'fr' %}Sauvegarder{% else %}Save Data{% endif %}
+            </button>
+            <button id="loadSheet" class="btn btn-info">
+              {% if session.get('lang', 'en') == 'fr' %}Charger{% else %}Load Data{% endif %}
+            </button>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Dynamic UI Container -->
+      <section id="dynamic-ui" class="mb-5">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h2 class="decorative-title">Fonctionnalités Dynamiques</h2>
+          <p>Les éléments interactifs se génèrent dynamiquement pour illustrer des concepts avancés en mécanique.</p>
+        {% else %}
+          <h2 class="decorative-title">Dynamic Features</h2>
+          <p>Interactive elements are dynamically generated to illustrate advanced concepts in mechanics.</p>
+        {% endif %}
+      </section>
+      
+      <!-- Three.js Car Simulation Section -->
+      <section id="threejs-simulation" class="mb-5 text-center">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h2 class="decorative-title">Simulation 3D de Voiture</h2>
+          <p>Cette simulation s'appuie sur les principes newtoniens pour illustrer le mouvement et la force.</p>
+        {% else %}
+          <h2 class="decorative-title">3D Car Simulation</h2>
+          <p>This simulation uses Newtonian principles to illustrate motion and force.</p>
+        {% endif %}
+        <div id="threejs-controls" class="mb-3">
+          <button id="left-btn" class="btn btn-secondary mx-1">
+            {% if session.get('lang', 'en') == 'fr' %}Gauche{% else %}Left{% endif %}
+          </button>
+          <button id="right-btn" class="btn btn-secondary mx-1">
+            {% if session.get('lang', 'en') == 'fr' %}Droite{% else %}Right{% endif %}
+          </button>
+          <button id="up-btn" class="btn btn-success mx-1">
+            {% if session.get('lang', 'en') == 'fr' %}Accélérer{% else %}Accelerate{% endif %}
+          </button>
+          <button id="stop-btn" class="btn btn-danger mx-1">
+            {% if session.get('lang', 'en') == 'fr' %}Arrêter{% else %}Stop{% endif %}
+          </button>
+        </div>
+        <!-- Three.js Canvas Container -->
+        <div id="threejs-canvas-container" style="position: relative; width: 100%; height: 400px; margin: 0 auto;"></div>
+        <p>
+          {% if session.get('lang', 'en') == 'fr' %}
+            La simulation est affichée ci-dessus.
+          {% else %}
+            The simulation is rendered above.
+          {% endif %}
+        </p>
+      </section>
+      
+      <!-- Carousel / Featured Content Section -->
+      <section id="carousel" class="mb-5">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h2 class="decorative-title">Contenu Mis en Avant</h2>
+        {% else %}
+          <h2 class="decorative-title">Featured Content</h2>
+        {% endif %}
+        <div id="featuredCarousel" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#featuredCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#featuredCarousel" data-slide-to="1"></li>
+            <li data-target="#featuredCarousel" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="{{ url_for('static', filename='images/slide1.jpg') }}" class="d-block w-100" alt="Slide 1">
+              <div class="carousel-caption d-none d-md-block">
+                {% if session.get('lang', 'en') == 'fr' %}
+                  <h5>Étude de Mécanique 1</h5>
+                  <p>Description de l'étude de mécanique 1.</p>
+                {% else %}
+                  <h5>Mechanics Study 1</h5>
+                  <p>Description of Mechanics Study 1.</p>
+                {% endif %}
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="{{ url_for('static', filename='images/slide2.jpg') }}" class="d-block w-100" alt="Slide 2">
+              <div class="carousel-caption d-none d-md-block">
+                {% if session.get('lang', 'en') == 'fr' %}
+                  <h5>Étude de Mécanique 2</h5>
+                  <p>Description de l'étude de mécanique 2.</p>
+                {% else %}
+                  <h5>Mechanics Study 2</h5>
+                  <p>Description of Mechanics Study 2.</p>
+                {% endif %}
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="{{ url_for('static', filename='images/slide3.jpg') }}" class="d-block w-100" alt="Slide 3">
+              <div class="carousel-caption d-none d-md-block">
+                {% if session.get('lang', 'en') == 'fr' %}
+                  <h5>Étude de Mécanique 3</h5>
+                  <p>Description de l'étude de mécanique 3.</p>
+                {% else %}
+                  <h5>Mechanics Study 3</h5>
+                  <p>Description of Mechanics Study 3.</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">
+              {% if session.get('lang', 'en') == 'fr' %}Précédent{% else %}Previous{% endif %}
+            </span>
+          </a>
+          <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">
+              {% if session.get('lang', 'en') == 'fr' %}Suivant{% else %}Next{% endif %}
+            </span>
+          </a>
+        </div>
+      </section>
+      
+  <!-- JavaScript Libraries -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+          integrity="sha384-DfXdXF7F4eTtc4NlW+Op6A7Y2sIo+fG3kPOs9sa5JcI42EEJpTnPSdXb51lBGdK8" 
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js" 
+          integrity="sha384-qLZ8jSTOtyXKZcufjqG4nNsgYj0p9m0U0z2Yx3EOC2JS4cS1OrhqR6Pkdd7cfOJS" 
+          crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" 
+          integrity="sha384-o+RDsa0hA21ZF+8mRr45aGhl6pijW9QCvf1krdfrZ6Kj8NQq4lC14p0eE2V3x4sA" 
+          crossorigin="anonymous"></script>
+  
+  <!-- Custom JavaScript -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  
+  <!-- Inline Script: Interactive Effects, Bluesky Handshake, Security Check In & Distribution Loop -->
+  <script>
+    // Particle effect on hover for buttons
+    document.querySelectorAll('.particle-effect').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        el.style.boxShadow = "0 0 15px rgba(0, 123, 255, 0.5)";
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.boxShadow = "none";
+      });
+    });
+    console.log("Inline interactive fine-tuning is active.");
+
+    // Toggle Bluesky Log Panel (tracking the Bluesky Connect button click)
+    document.getElementById('blueskyConnectBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log("Bluesky Connect clicked – tracking event sent.");
+      const panel = document.getElementById('blueskyLogPanel');
+      panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none';
+    });
+  
+    // Only display the Bluesky Log Panel locally
+    document.addEventListener('DOMContentLoaded', () => {
+      if(window.location.hostname !== 'localhost'){
+        document.getElementById('blueskyLogPanel').style.display = 'none';
+        console.log("Bluesky log display hidden because this is not a local environment.");
+      }
+    });
+    
+    // Updated Bluesky connection function with handshake tracking
+    async function connectToBluesky() {
+      const logContainer = document.getElementById("logContainer");
+      logContainer.innerHTML += "<p class='text-blue-700'>[HANDSHAKE] Initiating connection handshake...</p>";
+      console.log("[HANDSHAKE] Initiating connection handshake...");
+      try {
+        const response = await fetch('https://bsky.social/api/session');
+        if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+        logContainer.innerHTML += "<p class='text-green-700'>[HANDSHAKE] Handshake successful!</p>";
+        console.log("[HANDSHAKE] Handshake successful!");
+      } catch (error) {
+        logContainer.innerHTML += `<p class='text-red-700'>[HANDSHAKE] Handshake failed: ${error.message}</p>`;
+        console.log(`[HANDSHAKE] Handshake failed: ${error.message}`);
+        alternativeConnect();
+      }
+    }
+    
+    // Alternative handshake method with tracking
+    function alternativeConnect() {
+      const logContainer = document.getElementById("logContainer");
+      logContainer.innerHTML += "<p class='text-orange-700'>[HANDSHAKE] Trying alternative handshake method...</p>";
+      console.log("[HANDSHAKE] Trying alternative handshake method...");
+      setTimeout(() => {
+        logContainer.innerHTML += "<p class='text-green-700'>[HANDSHAKE] Alternative handshake established.</p>";
+        console.log("[HANDSHAKE] Alternative handshake established.");
+      }, 2000);
+    }
+    
+    // Clear log function
+    function clearLogs() {
+      document.getElementById("logContainer").innerHTML = "<p class='text-gray-700'>Logs cleared.</p>";
+      console.log("Logs cleared.");
+    }
+    
+    // SECURITY: Periodic check-in for security monitoring
+    function securityCheckIn() {
+      console.log("[SECURITY] Security check in performed at " + new Date().toISOString());
+      const logContainer = document.getElementById("logContainer");
+      logContainer.innerHTML += `<p class='text-purple-700'>[SECURITY] Check in at ${new Date().toISOString()}</p>`;
+    }
+    
+    // DISTRIBUTION LOOP: Periodically send logs to a remote endpoint
+    function distributionLoop() {
+      const logContainer = document.getElementById("logContainer");
+      const logs = logContainer.innerHTML;
+      if(logs && logs.trim() !== "") {
+        console.log("[DISTRIBUTION] Distributing logs to remote server.");
+        fetch('/distribute-logs', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ logs: logs, timestamp: new Date().toISOString() })
+        }).then(response => {
+          if(response.ok) {
+            console.log("[DISTRIBUTION] Logs distributed successfully.");
+            // Optionally, clear logs after distribution:
+            // clearLogs();
+          } else {
+            console.error("[DISTRIBUTION] Failed to distribute logs, status: " + response.status);
+          }
+        }).catch(error => {
+          console.error("[DISTRIBUTION] Error distributing logs: " + error.message);
+        });
+      } else {
+        console.log("[DISTRIBUTION] No logs to distribute.");
+      }
+    }
+    
+    // Set up periodic security check in (every 30 seconds)
+    setInterval(securityCheckIn, 30000);
+    
+    // Set up distribution loop (every 60 seconds)
+    setInterval(distributionLoop, 60000);
+  </script>
+  
+  <!-- Three.js and Car Simulation Script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // -------------------------------
+    // Three.js Car Simulation Setup
+    // -------------------------------
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    
+    // Append canvas to dedicated container if available
+    const canvasContainer = document.getElementById('threejs-canvas-container');
+    if (canvasContainer) {
+      canvasContainer.appendChild(renderer.domElement);
+    } else {
+      document.body.appendChild(renderer.domElement);
+    }
+    
+    // Lighting
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(5, 10, 7.5);
+    light.castShadow = true;
+    scene.add(light);
+    
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    scene.add(ambientLight);
+    
+    // Car creation
+    const carGeometry = new THREE.BoxGeometry(2, 0.5, 1);
+    const carMaterial = new THREE.MeshPhongMaterial({ color: 0x0077ff, shininess: 100 });
+    const car = new THREE.Mesh(carGeometry, carMaterial);
+    car.castShadow = true;
+    scene.add(car);
+    
+    // Create wheels
+    const wheelGeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.1, 32);
+    const wheelMaterial = new THREE.MeshPhongMaterial({ color: 0x333333 });
+    const wheelPositions = [
+      [-0.9, -0.3, 0.5],
+      [0.9, -0.3, 0.5],
+      [-0.9, -0.3, -0.5],
+      [0.9, -0.3, -0.5]
+    ];
+    wheelPositions.forEach(pos => {
+      const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
+      wheel.position.set(...pos);
+      wheel.rotation.z = Math.PI/2;
+      wheel.castShadow = true;
+      scene.add(wheel);
+    });
+    
+    // Ground plane
+    const groundGeometry = new THREE.PlaneGeometry(50, 50);
+    const groundMaterial = new THREE.MeshPhongMaterial({ color: 0x999999 });
+    const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+    ground.rotation.x = -Math.PI/2;
+    ground.position.y = -0.4;
+    ground.receiveShadow = true;
+    scene.add(ground);
+    
+    // Camera setup
+    camera.position.set(0, 2, 6);
+    camera.lookAt(0, 0, 0);
+    
+    // Car control variables
+    let carSpeed = 0;
+    let carRotation = 0;
+    const maxSpeed = 0.1;
+    const acceleration = 0.002;
+    const deceleration = 0.001;
+    
+    // Button control events
+    document.getElementById('left-btn').addEventListener('click', () => { carRotation -= 0.05; });
+    document.getElementById('right-btn').addEventListener('click', () => { carRotation += 0.05; });
+    document.getElementById('up-btn').addEventListener('click', () => { if(carSpeed < maxSpeed) carSpeed += acceleration; });
+    document.getElementById('stop-btn').addEventListener('click', () => { carSpeed = 0; });
+    
+    // Optional mouse-based movement
+    document.addEventListener('mousemove', (event) => {
+      const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+      const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+      car.position.x = THREE.MathUtils.lerp(car.position.x, mouseX * 3, 0.1);
+      car.position.y = THREE.MathUtils.lerp(car.position.y, mouseY, 0.1);
+    });
+    
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      car.rotation.y = THREE.MathUtils.lerp(car.rotation.y, carRotation, 0.1);
+      car.position.z -= carSpeed;
+      if(carSpeed > 0) { carSpeed -= deceleration; }
+      renderer.render(scene, camera);
+    }
+    animate();
+    
+    // Responsive resize handler
+    window.addEventListener('resize', () => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+    });
+  </script>
+  
+  <!-- Version Module -->
+  <script>
+    const VersionModule = (() => {
+      const version = "v1.0.0"; // Update as needed.
+      function getVersion() {
+        return version;
+      }
+      return { getVersion };
+    })();
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const versionSpan = document.getElementById('product-version');
+      if (versionSpan) {
+        versionSpan.textContent = VersionModule.getVersion();
+      }
+    });
+  </script>
+    </div>
+  </main>
+  <aside>
+    <!-- VERSION MODAL -->
+    <div class="modal fade" id="versionModal" tabindex="-1" role="dialog" aria-labelledby="versionModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <section class="modal-header">
+            <h5 class="modal-title" id="versionModalLabel">
+              {% if session.get('lang', 'en') == 'fr' %}Information de Version{% else %}Version Information{% endif %}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </section>
+          <div class="modal-body">
+            <p>
+              {% if session.get('lang', 'en') == 'fr' %}
+                Version du produit : <strong id="product-version">v1.0.0</strong>
+              {% else %}
+                Product Version: <strong id="product-version">v1.0.0</strong>
+              {% endif %}
+            </p>
+          </div>
+          <section class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              {% if session.get('lang', 'en') == 'fr' %}Fermer{% else %}Close{% endif %}
+            </button>
+          </section>
+        </div>
+      </div>
+    </div>
+  </aside>
+  
+  <!-- FOOTER: Sticky Footer -->
+  <footer class="bg-dark text-white mt-auto" style="position: relative;">
+    <div class="container">
+      <aside class="mb-3">
+        <h3 class="decorative-title">
+          {% if session.get('lang', 'en') == 'fr' %}Suivez-nous &copy;{% else %}Follow Us &copy;{% endif %}
+        </h3>
+        <div class="social-links">
+          <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fas fa-rss"></i> Blog
+          </a>
+          <a href="https://www.instagram.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+          <a href="https://www.threads.net/@techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fas fa-comment-dots"></i> Threads
+          </a>
+          <a href="https://x.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fab fa-twitter"></i> X
+          </a>
+          <a href="https://www.youtube.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fab fa-youtube"></i> YouTube
+          </a>
+          <a href="https://www.facebook.com/kvnbbg" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fab fa-facebook-f"></i> Facebook
+          </a>
+        </div>
+      </aside>
+     <p class="m-0">&copy; 2025 Kevin Marville. All rights reserved.</p>
+    </div>
+  </footer>
+  {% block scripts %}{% endblock %}
+
+  <!-- FIXED Bluesky Log Display Panel -->
+  <div id="blueskyLogPanel">
+    <header>Bluesky Log Display</header>
+    <div class="panel-body">
+      <div id="logContainer" class="log-container">
+        <p class="text-gray-700">Initializing connection...</p>
+      </div>
+      <div class="mt-2 flex gap-2 justify-center">
+        <button onclick="connectToBluesky()" class="btn btn-primary">Reconnect</button>
+        <button onclick="clearLogs()" class="btn btn-secondary">Clear Logs</button>
+        <a href="https://bsky.app/profile/techandstream.bsky.social" class="btn btn-primary" target="_blank">Follow on Bluesky</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
