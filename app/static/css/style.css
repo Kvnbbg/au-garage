@@ -20,7 +20,7 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background: var(--background-color, #f0f0f0);
   color: var(--text-color, #333333);
   line-height: 1.6;
@@ -181,12 +181,12 @@ nav.navbar {
 .navbar-nav .nav-link {
   color: #fff;
   transition: color 0.3s ease, transform 0.3s ease;
-  /* Prevent accidental text selection */
+  /* Prevent accidental text selection
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none; */
 }
 
 .navbar-nav .nav-link:hover,
@@ -200,11 +200,12 @@ nav.navbar {
 .nav-item > button.btn {
   cursor: pointer;
   transition: all 0.3s ease;
+   /* Prevent accidental text selection
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none; */
 }
 
 .nav-item > button.btn:hover,
