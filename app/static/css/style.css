@@ -1,15 +1,10 @@
-/* ========================================================================
-   EXTENDED IMPROVED CSS – FUSION OF CUSTOM STYLES & TAILWIND UTILITIES
-   ======================================================================== */
+/* =========================================================================
+   FULL IMPROVED EXTENDED CSS – AU GARAGE (Responsive, Accessible & Robust)
+   ========================================================================= */
 
-/* 
-  NOTE: Tailwind CSS is assumed to be imported first.
-  This file further extends global resets, layout rules, and interactive effects.
-*/
-
-/* ------------------------------------------------------------------------
-   1. RESET & GLOBAL SETTINGS (complementing Tailwind’s Preflight)
-   ------------------------------------------------------------------------ */
+/* -------------------------------------------------------------------------
+   1. RESET & GLOBAL SETTINGS (Complements Tailwind’s Preflight)
+   ------------------------------------------------------------------------- */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -38,17 +33,17 @@ body {
   outline-offset: 4px;
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    2. CSS VARIABLES (THEMING, SIZING, & ANIMATION SETTINGS)
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 :root {
   /* Colors – calm, professional palette */
-  --primary-color: #007BFF;
+  --primary-color: #007BFF;       /* Professional blue */
   --primary-hover: #0056b3;
-  --accent-color: #6C7B8B;
-  --neon-green: #A8DADC;
-  --background-color: #f0f0f0;
-  --text-color: #333333;
+  --accent-color: #6C7B8B;        /* Gray-blue tone for accents */
+  --neon-green: #A8DADC;          /* Calm pastel blue (for buttons) */
+  --background-color: #f0f0f0;    /* Light neutral background */
+  --text-color: #333333;          /* Clear, dark text */
   --modal-bg: #ffffff;
   --modal-border: #cccccc;
   --modal-shadow: rgba(0, 0, 0, 0.1);
@@ -69,14 +64,15 @@ body {
   --float-effect: 3px;
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    3. TYPOGRAPHY & TEXT UTILITIES
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'M PLUS Rounded 1c', sans-serif;
   margin-bottom: 0.5em;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  /* Subtle neon glow effect */
   text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
 }
 
@@ -86,31 +82,36 @@ p {
   line-height: 1.5;
 }
 
-/* Utility classes for text alignment */
+/* Utility classes */
 .text-center { text-align: center; }
 .text-white { color: #ffffff !important; }
 .text-muted { color: #777777 !important; }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    4. LAYOUT & STRUCTURAL CONTAINERS
-   ------------------------------------------------------------------------ */
-.container, .container-fluid {
+   ------------------------------------------------------------------------- */
+/* Bootstrap-like containers */
+.container,
+.container-fluid {
   max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 15px;
 }
 
-/* Sticky header */
+/* Sticky header for consistent navigation */
 header {
   position: sticky;
   top: 0;
-  z-index: 1050;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
   padding: 1.5rem;
   background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
   border-bottom: 3px solid var(--primary-hover);
   overflow: hidden;
 }
 
+/* Full background images */
 .bg-image-full {
   background-size: cover;
   background-position: center;
@@ -120,14 +121,15 @@ header {
 header::after {
   content: "";
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
-/* Slide-in container for main content */
+/* Main slide-in container for content */
 .slide-container {
   width: 100vw;
   min-height: 100vh;
@@ -145,71 +147,109 @@ section {
 }
 
 footer {
-  background: #000000;
-  color: #ffffff;
+  background: #000;
+  color: #fff;
   padding: 2rem 0;
   text-align: center;
   font-size: 0.9rem;
   margin-top: 2rem;
 }
 
-/* ------------------------------------------------------------------------
-   5. NAVIGATION & HEADER ELEMENTS (Custom Overrides)
-   ------------------------------------------------------------------------ */
-.navbar {
-  background-color: #222222;
-  padding: 0.75rem 1rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+/* -------------------------------------------------------------------------
+   5. NAVIGATION & HEADER ELEMENTS (FOR NAVBAR)
+   ------------------------------------------------------------------------- */
+nav.navbar {
+  /* Ensure navbar stays on top */
+  position: sticky;
+  top: 0;
+  z-index: 9999;
 }
 
-.navbar-brand img { 
-  height: 30px; 
+.navbar.bg-dark {
+  background-color: #343a40 !important;
 }
 
+.navbar-brand img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Navigation links */
 .navbar-nav .nav-link {
-  margin-left: 1rem;
-  transition: transform 0.3s ease, color 0.3s ease;
+  color: #fff;
+  transition: color 0.3s ease, transform 0.3s ease;
+  /* Prevent accidental text selection */
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.navbar-nav .nav-link:hover {
-  color: var(--accent-color);
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+  color: var(--accent-color, #6C7B8B) !important;
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+/* Button inside navbar (e.g. Bluesky Connect) */
+.nav-item > button.btn {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.nav-item > button.btn:hover,
+.nav-item > button.btn:focus {
   transform: translateY(-2px);
 }
 
+/* -------------------------------------------------------------------------
+   6. NAVBAR TOGGLER (RESPONSIVE COLLAPSE)
+   ------------------------------------------------------------------------- */
 .navbar-toggler {
-  background-color: var(--primary-color);
   border: none;
+  outline: none;
+  transition: background-color 0.3s ease;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-/* ------------------------------------------------------------------------
-   6. MODALS & POP-UP COMPONENTS
-   ------------------------------------------------------------------------ */
-.modal, #nerdMetricsModal {
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  background: var(--modal-bg);
-  padding: 20px;
-  border: 2px solid var(--modal-border);
-  border-radius: 8px;
-  box-shadow: 0 4px 15px var(--modal-shadow);
-  z-index: 10000;
-  max-width: 90%;
-  max-height: 90%;
-  overflow: auto;
+.navbar-toggler:focus {
+  outline: none;
 }
 
-#customModal {
-  background: rgba(0, 0, 0, 0.85);
-  color: #ffffff;
-  transition: opacity 0.3s ease;
-  text-align: center;
+/* Custom toggler icon override (optional) */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-/* ------------------------------------------------------------------------
-   7. BUTTONS, LINKS & INTERACTIVE ELEMENTS
-   ------------------------------------------------------------------------ */
-.btn, .bubble-button {
+/* Responsive collapse styling */
+@media (max-width: 992px) {
+  .navbar-collapse {
+    background-color: #343a40;
+    padding: 1rem;
+    border-top: 1px solid #495057;
+  }
+  .navbar-nav {
+    margin-top: 1rem;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   7. BUTTONS, LINKS & INTERACTIVE ELEMENTS (GENERAL)
+   ------------------------------------------------------------------------- */
+.btn,
+.bubble-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -223,18 +263,21 @@ footer {
 
 .btn {
   background-color: var(--neon-green);
-  color: #000000;
+  color: #000;
 }
 
-.btn:active, .bubble-button:active {
+.btn:active,
+.bubble-button:active {
   transform: scale(0.98);
 }
 
-.btn:hover, .bubble-button:hover {
+.btn:hover,
+.bubble-button:hover {
   transform: scale(1.1);
   box-shadow: 0 0 10px var(--accent-color);
 }
 
+/* Floating bubble button */
 .bubble-button.floating {
   position: fixed;
   bottom: 30px;
@@ -255,6 +298,7 @@ footer {
   100% { transform: translateY(0); }
 }
 
+/* Decorative hover border effect */
 .hover-border {
   position: relative;
   padding: 1rem;
@@ -276,9 +320,9 @@ footer {
   width: 100%;
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    8. FORMS & INPUT FIELDS
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 form input,
 form button,
 form select,
@@ -286,21 +330,20 @@ form textarea {
   width: 100%;
   padding: 0.5rem;
   margin: 0.625rem 0;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border-radius: 0.25rem;
   font-size: 1rem;
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    9. DRAGGABLE ELEMENTS & BUZZ EFFECT
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 .draggable {
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  
   cursor: move;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   padding: 10px;
@@ -328,9 +371,9 @@ form textarea {
   animation: buzz 0.5s linear;
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    10. EXCEL-LIKE TABLES & SPREADSHEET PANEL
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 .excel-table {
   width: 100%;
   border-collapse: collapse;
@@ -338,7 +381,7 @@ form textarea {
 
 .excel-table th,
 .excel-table td {
-  border: 1px solid #999999;
+  border: 1px solid #999;
   padding: 8px;
   text-align: center;
 }
@@ -347,11 +390,11 @@ form textarea {
   background: #e0e0e0;
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    11. IOT SIMULATION & DYNAMIC DATA PANEL
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 #iotSimulation {
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   padding: 10px;
   margin: 20px 0;
 }
@@ -364,9 +407,9 @@ form textarea {
   font-size: 14px;
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    12. FLOATING BUBBLES BACKGROUND ANIMATION
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 #bubbleCanvas {
   position: fixed;
   top: 0;
@@ -377,29 +420,29 @@ form textarea {
   z-index: -1;
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    13. NERD METRICS MODAL & TOGGLE BUTTON
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 #nerdMetricsModal {
-  /* Inherits modal styles */
+  /* Inherit modal styles from section 6 */
 }
 
 #nerdMetricsButton {
   margin-left: 10px;
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    14. THREE.JS SIMULATION CONTROLS
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 #threejs-simulation {
   padding: 20px;
   text-align: center;
   margin-bottom: 3rem;
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    15. CSS GRID LAYOUTS (FOR DYNAMIC UI COMPONENTS)
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -408,8 +451,8 @@ form textarea {
 }
 
 .grid-item {
-  background: #ffffff;
-  border: 1px solid #dddddd;
+  background: #fff;
+  border: 1px solid #ddd;
   padding: 1rem;
   border-radius: 4px;
   transition: transform 0.3s ease;
@@ -434,9 +477,9 @@ form textarea {
   margin: 0.5rem 0;
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    16. DECORATIVE TITLES & VISUAL PSEUDO-ELEMENTS
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 .decorative-title {
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -456,9 +499,9 @@ form textarea {
   border-radius: 2px;
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    17. ANIMATION & SPECIAL EFFECTS
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 @keyframes neonPulse {
   0%, 100% { filter: brightness(1); }
   50% { filter: brightness(1.5); }
@@ -496,9 +539,9 @@ form textarea {
   100% { transform: scale(1) rotate(0deg); }
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    18. RESPONSIVE DESIGN, ORIENTATION & MEDIA QUERIES
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 @media (min-width: 1200px) {
   html { font-size: 18px; }
   .container { max-width: 1140px; }
@@ -545,9 +588,9 @@ form textarea {
   #threejs-canvas-container { height: 30vh; }
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    19. ACCESSIBILITY: PREFERS-REDUCED MOTION
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
@@ -555,15 +598,15 @@ form textarea {
   }
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    20. CUSTOM UTILITY CLASSES & JS COMPONENTS SUPPORT
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------- */
 #dropZone {
   position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  border: 2px dashed #cccccc;
+  border: 2px dashed #ccc;
   padding: 20px;
   margin: 10px;
   min-width: 300px;
@@ -580,7 +623,7 @@ form textarea {
 }
 
 #iotSimulation {
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   padding: 10px;
   margin: 20px 0;
 }
@@ -603,15 +646,13 @@ form textarea {
   z-index: -1;
 }
 
-/* ------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
    21. SOUPLESSE STRATEGIES – SMOOTH & FLEXIBLE INTERACTIONS
-   ------------------------------------------------------------------------ */
-/* Utility class for soft, relaxed transitions */
+   ------------------------------------------------------------------------- */
 .relaxed-transition {
   transition: all 0.3s ease-out;
 }
 
-/* Class for smooth hover effects */
 .smooth-hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
 }
@@ -620,16 +661,14 @@ form textarea {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Utility for forcing smooth scrolling on any container */
+/* Force smooth scrolling on any element if needed */
 .smooth-scroll {
   scroll-behavior: smooth;
 }
 
-/* ------------------------------------------------------------------------
-   22. CUSTOM USER-SELECT UTILITY (FUSION WITH TAILWIND)
-   ------------------------------------------------------------------------ */
-/* Although Tailwind provides a 'select-none' utility, this custom class 
-   ensures vendor-specific prefixes are applied for broader browser support. */
+/* -------------------------------------------------------------------------
+   22. CUSTOM USER-SELECT UTILITY (Ensuring Broad Browser Support)
+   ------------------------------------------------------------------------- */
 .no-select {
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -638,6 +677,6 @@ form textarea {
   user-select: none;
 }
 
-/* ========================================================================
-   END OF EXTENDED IMPROVED CSS – FUSION OF CUSTOM STYLES & TAILWIND UTILITIES
-   ======================================================================== */
+/* =========================================================================
+   END OF FULL IMPROVED EXTENDED CSS – AU GARAGE
+   ========================================================================= */
