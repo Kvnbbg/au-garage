@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ session.get('lang', 'en') }}">
 <head>
-  <!-- Meta Information & Security -->
+  <!-- Meta Information -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +10,7 @@
   <meta name="keywords" content="Mechanics, Classical Mechanics, Engineering, Simulation, Calibration">
   <meta name="author" content="Kevin Marville">
   <meta name="msapplication-tap-highlight" content="no">
-  <!-- Security Headers -->
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="X-Frame-Options" content="DENY">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://code.jquery.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
-  <title>{% block title %}Au Garage - SaaS Platform{% endblock %}</title>
+  <title>{% block title %}Au Garage{% endblock %}</title>
   
   <!-- Favicon -->
   <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
@@ -25,13 +21,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
   <!-- Custom Extended CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-  <!-- Inline Styles & Tailwind Setup -->
+  
+  <!-- Inline Fine-Tune Styles -->
   <style>
-    <script src="https://cdn.tailwindcss.com"></script>
-    /* Global Variables & Base Styles */
     :root {
       --primary-color: #6f4e37;
       --secondary-color: #8b5e3c;
@@ -49,10 +46,17 @@
       font-family: 'Roboto', sans-serif;
       background: var(--background-color);
       color: var(--text-color);
-      padding: 20px;
+      padding-top: 70px; /* account for sticky header */
       min-height: 100vh;
-      transition: background 0.5s ease, color 0.5s ease;
     }
+    /* Sticky Header & Footer */
+    header, footer {
+      position: sticky;
+      z-index: 1000;
+    }
+    header { top: 0; }
+    footer { bottom: 0; }
+    
     .container {
       max-width: 900px;
       margin: 0 auto;
@@ -61,9 +65,8 @@
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
     }
-    /* Tables & Buttons */
     .log-container {
-      height: 250px;
+      height: 300px;
       overflow-y: auto;
       border: 1px solid var(--border-color);
       padding: 10px;
@@ -80,6 +83,8 @@
     .btn-primary { background: var(--primary-color); color: #fff; }
     .btn-secondary { background: var(--secondary-color); color: #fff; }
     .btn:hover { opacity: 0.8; }
+    
+    /* Additional Interactive & Sprite Effects */
     .hover-light:hover {
       filter: brightness(1.2);
       transition: filter 0.2s ease;
@@ -90,7 +95,7 @@
     .zoom-on-hover:hover {
       transform: scale(1.05);
     }
-    /* Particle Effect for Buttons */
+    /* Particle/Sprite effect on buttons */
     .particle-effect {
       position: relative;
       overflow: hidden;
@@ -110,141 +115,100 @@
     .particle-effect:hover::after {
       opacity: 1;
     }
-    /* Floating Panels for Connectivity */
+    /* Example Sprite Animation */
+    .sprite-effect {
+      width: 50px;
+      height: 50px;
+      background-image: url('{{ url_for("static", filename="images/sprite.png") }}');
+      background-repeat: no-repeat;
+      animation: playSprite 1s steps(10) infinite;
+    }
+    @keyframes playSprite {
+      from { background-position: 0 0; }
+      to { background-position: -500px 0; }
+    }
+    
+    /* Sticky Panels for logs */
     #blueskyLogPanel, #vrLogPanel {
-      width: 320px;
-      background: #f7f3e8;
-      border: 1px solid var(--border-color);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      z-index: 9999;
-      display: none;
-    }
-    #blueskyLogPanel {
       position: fixed;
       bottom: 20px;
-      right: 20px;
-    }
-    #vrLogPanel {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-    }
-    #blueskyLogPanel header, #vrLogPanel header {
-      background: #333;
-      color: #fff;
-      padding: 8px;
-      text-align: center;
-      border-top-left-radius: var(--border-radius);
-      border-top-right-radius: var(--border-radius);
-    }
-    #blueskyLogPanel .panel-body, #vrLogPanel .panel-body {
-      padding: 10px;
-    }
-    /* Floating Ko‑fi Bubble */
-    #kofiBubble {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background: #fff;
-      border: 1px solid var(--border-color);
-      border-radius: 50%;
-      box-shadow: var(--shadow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 9999;
-      transition: transform 0.3s ease;
-    }
-    #kofiBubble:hover {
-      transform: scale(1.1);
-    }
-    /* Live Notifications Panel (upper center) */
-    #notificationPanel {
-      position: fixed;
-      top: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      max-width: 800px;
+      width: 300px;
+      max-height: 400px;
+      overflow-y: auto;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
-      z-index: 9998;
       padding: 10px;
-      overflow: hidden;
-      transition: opacity 0.3s ease;
-    }
-    #notificationPanel.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    /* Feedback Modal Styles */
-    .modal-feedback {
       display: none;
+      z-index: 1100;
+    }
+    #blueskyLogPanel { right: 20px; }
+    #vrLogPanel { left: 20px; }
+    
+    /* Notification Panel */
+    #notificationPanel {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-color);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      z-index: 1200;
+      display: none;
+    }
+    
+    /* Feedback Modal (simple overlay) */
+    .modal-feedback {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 90%;
-      max-width: 500px;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      z-index: 10000;
       padding: 20px;
+      box-shadow: var(--shadow);
+      z-index: 1300;
+      display: none;
+      width: 90%;
+      max-width: 500px;
     }
-    .modal-feedback.active {
-      display: block;
-    }
-    .modal-feedback header {
-      font-size: 1.25em;
-      margin-bottom: 10px;
-    }
-    .modal-feedback textarea {
-      width: 100%;
-      min-height: 100px;
-      margin-bottom: 10px;
-      padding: 10px;
-      border: 1px solid var(--border-color);
-      border-radius: var(--border-radius);
-    }
+    .modal-feedback.active { display: block; }
   </style>
   
   <!-- Structured Data -->
   <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "AutoRepair",
-      "name": "Au Garage",
-      "url": "https://github.com/Kvnbbg/au-garage",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "xxxxx",
-        "addressLocality": "Rivierre-Salée, Martinique",
-        "postalCode": "97215",
-        "addressCountry": "MQ"
-      },
-      "telephone": "+33634160418"
-    }
+  {
+    "@context": "http://schema.org",
+    "@type": "AutoRepair",
+    "name": "Au Garage",
+    "url": "https://github.com/Kvnbbg/au-garage",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "xxxxx",
+      "addressLocality": "Rivierre-Salée, Martinique",
+      "postalCode": "97215",
+      "addressCountry": "MQ"
+    },
+    "telephone": "+33634160418"
+  }
   </script>
   {% block head %}{% endblock %}
 </head>
 <body class="d-flex flex-column" style="min-height: 100vh;">
-  <!-- HEADER: Navigation Bar -->
+  <!-- HEADER: Sticky Navigation -->
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <div class="container">
         <a class="navbar-brand" href="{{ url_for('main.home') }}">
-          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" height="40">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+        <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
                 aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -253,14 +217,13 @@
             <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.set_language', language='en') }}">🇺🇸 English</a></li>
             <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.set_language', language='fr') }}">🇫🇷 Français</a></li>
             <li class="nav-item"><a class="nav-link hover-light" href="#" data-toggle="modal" data-target="#versionModal">Version</a></li>
-            <!-- Connection Buttons -->
+            <!-- Future API entry point for Bluesky -->
             <li class="nav-item">
-              <a class="nav-link hover-light" href="#" id="blueskyConnectBtn">Bluesky Connect</a>
+              <button id="blueskyConnectBtn" class="btn btn-outline-primary particle-effect">Bluesky Connect</button>
             </li>
             <li class="nav-item">
-              <a class="nav-link hover-light" href="#" id="vrConnectBtn">VR Connect</a>
+              <button id="vrConnectBtn" class="btn btn-outline-secondary particle-effect">VR Connect</button>
             </li>
-            <!-- Additional Options -->
             <li class="nav-item">
               <a class="nav-link hover-light" href="#" id="darkModeToggle">Toggle Dark Mode</a>
             </li>
@@ -280,7 +243,7 @@
     </nav>
   </header>
   
-  <!-- HERO SECTION -->
+  <!-- HERO SECTION: Full-Width Background with Title -->
   <section class="py-5 bg-image-full" style="background-image: url('{{ url_for('static', filename='images/service-example.jpg') }}');">
     <div class="container text-center">
       <div class="my-5">
@@ -295,31 +258,33 @@
     </div>
   </section>
   
-  <!-- MAIN CONTENT SECTIONS -->
-  <main class="slide-container flex-grow-1">
+  <!-- MAIN CONTENT: Sections -->
+  <main class="flex-grow-1 slide-container">
     <div class="container my-5">
       <!-- About Section -->
       <section id="about" class="mb-5">
         {% if session.get('lang', 'en') == 'fr' %}
           <h2 class="decorative-title">Principes de la Mécanique</h2>
-          <p>La mécanique classique étudie le mouvement des corps et les forces qui les influencent. Les lois de Newton sont à la base de cette étude, permettant de comprendre et simuler le comportement des systèmes physiques complexes.</p>
+          <p>La mécanique classique étudie le mouvement des corps et les forces agissant sur eux. Selon Newton, les lois du mouvement gouvernent l'équilibre et l'accélération.</p>
         {% else %}
           <h2 class="decorative-title">Principles of Mechanics</h2>
-          <p>Classical mechanics explores the motion of bodies and the forces acting on them. Newton’s laws provide the foundation to understand and simulate complex physical systems.</p>
+          <p>Classical mechanics examines the motion of bodies and the forces acting upon them. Newton’s laws govern equilibrium and acceleration.</p>
         {% endif %}
         <button class="btn popup-trigger particle-effect" id="examplePopup">
           {% if session.get('lang', 'en') == 'fr' %}Ouvrir le conseil mécanique{% else %}Open Mechanic Advice{% endif %}
         </button>
+        <!-- Example sprite element for visual tracking -->
+        <div class="sprite-effect mt-3"></div>
       </section>
       
       <!-- Mechanical Data Acquisition Section -->
       <section id="spreadsheet" class="mb-5">
         {% if session.get('lang', 'en') == 'fr' %}
           <h2 class="decorative-title">Acquisition de Données Mécaniques</h2>
-          <p>Mesurez et enregistrez des données physiques (couple, force, pression, température) pour calibrer, simuler et valider vos modèles expérimentaux.</p>
+          <p>Enregistrez des mesures telles que le couple, la force, la pression et la température pour calibrer et simuler vos systèmes.</p>
         {% else %}
           <h2 class="decorative-title">Mechanical Data Acquisition</h2>
-          <p>Record and measure physical data (torque, force, pressure, temperature) to calibrate, simulate, and validate your experimental models.</p>
+          <p>Record measurements like torque, force, pressure, and temperature to calibrate and simulate your systems.</p>
         {% endif %}
         <div class="spreadsheet-container">
           <table id="spreadsheetTable" class="table table-bordered excel-table">
@@ -373,10 +338,10 @@
       <section id="dynamic-ui" class="mb-5">
         {% if session.get('lang', 'en') == 'fr' %}
           <h2 class="decorative-title">Fonctionnalités Dynamiques</h2>
-          <p>Des éléments interactifs et dynamiques se génèrent pour illustrer des concepts avancés et offrir une expérience utilisateur enrichie.</p>
+          <p>Des éléments interactifs se génèrent dynamiquement pour illustrer des concepts avancés.</p>
         {% else %}
           <h2 class="decorative-title">Dynamic Features</h2>
-          <p>Interactive elements are generated dynamically to illustrate advanced concepts and deliver an enhanced user experience.</p>
+          <p>Interactive elements are generated dynamically to illustrate advanced concepts.</p>
         {% endif %}
       </section>
       
@@ -384,7 +349,7 @@
       <section id="threejs-simulation" class="mb-5 text-center">
         {% if session.get('lang', 'en') == 'fr' %}
           <h2 class="decorative-title">Simulation 3D de Voiture</h2>
-          <p>Une simulation 3D interactive basée sur les principes newtoniens pour illustrer le mouvement et la force.</p>
+          <p>Une simulation interactive basée sur les principes newtoniens pour illustrer le mouvement et la force.</p>
         {% else %}
           <h2 class="decorative-title">3D Car Simulation</h2>
           <p>An interactive 3D simulation based on Newtonian principles to illustrate motion and force.</p>
@@ -482,13 +447,13 @@
       <!-- Live Notifications Section -->
       <section id="live-notifications" class="mb-5">
         <h2 class="decorative-title">Live Notifications</h2>
-        <p>This area will display real‑time updates, alerts, and news. Check back often for new notifications!</p>
+        <p>This area will display real‑time updates, alerts, and news.</p>
       </section>
       
       <!-- Feedback Section -->
       <section id="feedback-section" class="mb-5">
         <h2 class="decorative-title">Feedback & Support</h2>
-        <p>We value your feedback. Click the “Feedback” button in the navbar or use the form below to share your thoughts.</p>
+        <p>We value your feedback. Use the “Feedback” button above or the form below to share your thoughts.</p>
         <form id="feedbackForm">
           <div class="form-group">
             <label for="feedbackName">Your Name:</label>
@@ -508,12 +473,12 @@
     </div>
   </main>
   
-  <!-- Fixed Panels for Connectivity -->
+  <!-- Sticky Log Panels -->
   <!-- Bluesky Log Panel (Bottom-Right) -->
   <div id="blueskyLogPanel">
-    <header>Bluesky Log Display</header>
+    <header><strong>Bluesky Log Display</strong></header>
     <div class="panel-body">
-      <div id="logContainer" class="log-container">
+      <div id="blueskyLogContainer" class="log-container">
         <p class="text-gray-700">Initializing Bluesky connection...</p>
       </div>
       <div class="mt-2 d-flex justify-content-center">
@@ -524,7 +489,7 @@
   </div>
   <!-- VR Log Panel (Bottom-Left) -->
   <div id="vrLogPanel">
-    <header>VR Log Display</header>
+    <header><strong>VR Log Display</strong></header>
     <div class="panel-body">
       <div id="vrLogContainer" class="log-container">
         <p class="text-gray-700">Initializing VR connection...</p>
@@ -537,41 +502,53 @@
   </div>
   
   <!-- Floating Ko‑fi Bubble -->
-  <div id="kofiBubble" onclick="window.open('https://ko-fi.com/kevinmarville','_blank')" title="Support my work on Ko‑fi">
+  <div id="kofiBubble" onclick="window.open('https://ko-fi.com/kevinmarville','_blank')" title="Support my work on Ko‑fi" 
+       style="position: fixed; bottom: 20px; right: 20px; background: var(--primary-color); color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1400;">
     💳
   </div>
   
-  <!-- Live Notifications Panel (Upper Center) -->
-  <div id="notificationPanel" class="hidden">
-    <!-- Notifications will be appended here dynamically -->
-  </div>
+  <!-- Live Notifications Panel -->
+  <div id="notificationPanel"></div>
   
   <!-- Feedback Modal -->
   <div id="feedbackModal" class="modal-feedback">
-    <header>Feedback</header>
-    <textarea id="modalFeedbackText" placeholder="Share your thoughts..."></textarea>
+    <header><strong>Feedback</strong></header>
+    <textarea id="modalFeedbackText" placeholder="Share your thoughts..." class="form-control mb-3"></textarea>
     <div class="d-flex justify-content-end">
       <button class="btn btn-secondary mr-2" onclick="closeFeedbackModal()">Cancel</button>
       <button class="btn btn-primary" onclick="submitFeedbackModal()">Submit</button>
     </div>
   </div>
   
-  <!-- FOOTER -->
-  <footer class="bg-dark text-white mt-auto" style="position: relative;">
-    <div class="container">
+  <!-- FOOTER: Sticky Footer -->
+  <footer class="bg-dark text-white mt-auto py-3">
+    <div class="container text-center">
       <aside class="mb-3">
         <h3 class="decorative-title">
           {% if session.get('lang', 'en') == 'fr' %}Suivez-nous &copy;{% else %}Follow Us &copy;{% endif %}
         </h3>
         <div class="social-links">
-          <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="text-white mx-2"><i class="fas fa-rss"></i> Blog</a>
-          <a href="https://www.instagram.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2"><i class="fab fa-instagram"></i> Instagram</a>
-          <a href="https://www.threads.net/@techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2"><i class="fas fa-comment-dots"></i> Threads</a>
-          <a href="https://x.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2"><i class="fab fa-twitter"></i> X</a>
-          <a href="https://www.youtube.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2"><i class="fab fa-youtube"></i> YouTube</a>
-          <a href="https://www.facebook.com/kvnbbg" target="_blank" rel="noopener noreferrer" class="text-white mx-2"><i class="fab fa-facebook-f"></i> Facebook</a>
-          <!-- Ko‑fi link also included in footer -->
-          <a href="https://ko-fi.com/kevinmarville" target="_blank" rel="noopener noreferrer" class="text-white mx-2"><i class="fas fa-coffee"></i> Ko‑fi</a>
+          <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fas fa-rss"></i> Blog
+          </a>
+          <a href="https://www.instagram.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+          <a href="https://www.threads.net/@techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fas fa-comment-dots"></i> Threads
+          </a>
+          <a href="https://x.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fab fa-twitter"></i> X
+          </a>
+          <a href="https://www.youtube.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fab fa-youtube"></i> YouTube
+          </a>
+          <a href="https://www.facebook.com/kvnbbg" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fab fa-facebook-f"></i> Facebook
+          </a>
+          <a href="https://ko-fi.com/kevinmarville" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
+            <i class="fas fa-coffee"></i> Ko‑fi
+          </a>
         </div>
       </aside>
       <p class="m-0">&copy; 2025 Kevin Marville. All rights reserved.</p>
@@ -580,27 +557,29 @@
   
   {% block scripts %}{% endblock %}
   
-  <!-- Inline Scripts: Extended Functionalities -->
+  <!-- JavaScript Libraries -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  
+  <!-- Custom JavaScript -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  
+  <!-- Inline Script: Interactive Effects, Tracking & API Handlers -->
   <script>
-    // PARTICLE EFFECT for buttons
+    // Particle effect for buttons (already handled by CSS, additional JS logging here)
     document.querySelectorAll('.particle-effect').forEach(el => {
-      el.addEventListener('mouseenter', () => { el.style.boxShadow = "0 0 15px rgba(0, 123, 255, 0.5)"; });
-      el.addEventListener('mouseleave', () => { el.style.boxShadow = "none"; });
+      el.addEventListener('mouseenter', () => { 
+        el.style.boxShadow = "0 0 15px rgba(0, 123, 255, 0.5)";
+      });
+      el.addEventListener('mouseleave', () => { 
+        el.style.boxShadow = "none";
+      });
     });
-    console.log("Interactive enhancements active.");
     
-    // Toggle Panels for Bluesky & VR connectivity
-    document.getElementById('blueskyConnectBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      const panel = document.getElementById('blueskyLogPanel');
-      panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none';
-      console.log("Bluesky Connect toggled.");
-    });
-    document.getElementById('vrConnectBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      const panel = document.getElementById('vrLogPanel');
-      panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none';
-      console.log("VR Connect toggled.");
+    // Track scroll position (for debugging/analytics)
+    window.addEventListener('scroll', () => {
+      console.log("Scroll Y:", window.scrollY);
     });
     
     // Dark Mode Toggle
@@ -633,21 +612,17 @@
       closeFeedbackModal();
     }
     
-    // SECURITY: Periodic Check-in (every 30 seconds)
+    // Security Check-In: Log a heartbeat every 30 seconds
     function securityCheckIn() {
       const now = new Date().toISOString();
       console.log("[SECURITY] Check in at " + now);
-      // Append security log to Bluesky and VR log panels (if visible)
-      if(document.getElementById('logContainer'))
-        document.getElementById('logContainer').innerHTML += `<p class='text-purple-700'>[SECURITY] ${now}</p>`;
-      if(document.getElementById('vrLogContainer'))
-        document.getElementById('vrLogContainer').innerHTML += `<p class='text-purple-700'>[SECURITY] ${now}</p>`;
+      // Optionally append this to log panels if visible
     }
     setInterval(securityCheckIn, 30000);
     
-    // DISTRIBUTION LOOP: Periodically send logs (every 60 seconds)
+    // Distribution Loop: (simulate sending logs every 60 seconds)
     function distributionLoop() {
-      const blueskyLogs = document.getElementById('logContainer').innerHTML;
+      const blueskyLogs = document.getElementById('blueskyLogContainer').innerHTML;
       const vrLogs = document.getElementById('vrLogContainer').innerHTML;
       const payload = { bluesky: blueskyLogs, vr: vrLogs, timestamp: new Date().toISOString() };
       console.log("[DISTRIBUTION] Sending logs...", payload);
@@ -664,27 +639,22 @@
     
     // Simulated Bluesky Connection with Handshake Tracking
     async function connectToBluesky() {
-      const logContainer = document.getElementById("logContainer");
+      const logContainer = document.getElementById("blueskyLogContainer");
       logContainer.innerHTML += "<p class='text-blue-700'>[Bluesky HANDSHAKE] Initiating connection...</p>";
-      console.log("[Bluesky HANDSHAKE] Initiating connection...");
       try {
         const response = await fetch('https://bsky.social/api/session');
         if (!response.ok) throw new Error(`HTTP status ${response.status}`);
         logContainer.innerHTML += "<p class='text-green-700'>[Bluesky HANDSHAKE] Connection successful!</p>";
-        console.log("[Bluesky HANDSHAKE] Connection successful!");
       } catch (error) {
         logContainer.innerHTML += `<p class='text-red-700'>[Bluesky HANDSHAKE] Connection failed: ${error.message}</p>`;
-        console.error("[Bluesky HANDSHAKE] Connection failed:", error);
         alternativeBlueskyConnect();
       }
     }
     function alternativeBlueskyConnect() {
-      const logContainer = document.getElementById("logContainer");
+      const logContainer = document.getElementById("blueskyLogContainer");
       logContainer.innerHTML += "<p class='text-orange-700'>[Bluesky HANDSHAKE] Attempting alternative connection...</p>";
-      console.log("[Bluesky HANDSHAKE] Attempting alternative connection...");
       setTimeout(() => {
         logContainer.innerHTML += "<p class='text-green-700'>[Bluesky HANDSHAKE] Alternative connection established.</p>";
-        console.log("[Bluesky HANDSHAKE] Alternative connection established.");
       }, 2000);
     }
     
@@ -692,51 +662,38 @@
     async function connectToVR() {
       const logContainer = document.getElementById("vrLogContainer");
       logContainer.innerHTML += "<p class='text-blue-700'>[VR HANDSHAKE] Initiating VR connection...</p>";
-      console.log("[VR HANDSHAKE] Initiating VR connection...");
       try {
-        // Replace with your real VR endpoint as needed
         const response = await fetch('https://vr.example.com/api/session');
         if (!response.ok) throw new Error(`HTTP status ${response.status}`);
         logContainer.innerHTML += "<p class='text-green-700'>[VR HANDSHAKE] VR connection successful!</p>";
-        console.log("[VR HANDSHAKE] VR connection successful!");
       } catch (error) {
         logContainer.innerHTML += `<p class='text-red-700'>[VR HANDSHAKE] VR connection failed: ${error.message}</p>`;
-        console.error("[VR HANDSHAKE] VR connection failed:", error);
         alternativeVRConnect();
       }
     }
     function alternativeVRConnect() {
       const logContainer = document.getElementById("vrLogContainer");
       logContainer.innerHTML += "<p class='text-orange-700'>[VR HANDSHAKE] Attempting alternative VR connection...</p>";
-      console.log("[VR HANDSHAKE] Attempting alternative VR connection...");
       setTimeout(() => {
         logContainer.innerHTML += "<p class='text-green-700'>[VR HANDSHAKE] Alternative VR connection established.</p>";
-        console.log("[VR HANDSHAKE] Alternative VR connection established.");
       }, 2000);
     }
     
     // Clear Logs Functions
     function clearBlueskyLogs() {
-      document.getElementById("logContainer").innerHTML = "<p class='text-gray-700'>Bluesky logs cleared.</p>";
-      console.log("Bluesky logs cleared.");
+      document.getElementById("blueskyLogContainer").innerHTML = "<p class='text-gray-700'>Bluesky logs cleared.</p>";
     }
     function clearVRLogs() {
       document.getElementById("vrLogContainer").innerHTML = "<p class='text-gray-700'>VR logs cleared.</p>";
-      console.log("VR logs cleared.");
     }
     
     // Live Notifications Simulation
     function showNotification(message) {
       const panel = document.getElementById('notificationPanel');
-      panel.classList.remove('hidden');
-      const notif = document.createElement('p');
-      notif.innerText = message;
-      notif.className = "text-green-700";
-      panel.appendChild(notif);
-      // Auto-hide notification panel after 10 seconds
-      setTimeout(() => { panel.classList.add('hidden'); }, 10000);
+      panel.style.display = 'block';
+      panel.innerText = message;
+      setTimeout(() => { panel.style.display = 'none'; }, 10000);
     }
-    // Simulate notifications every 45 seconds
     setInterval(() => {
       const messages = [
         "New update available!",
@@ -749,7 +706,7 @@
       showNotification(randomMsg);
     }, 45000);
     
-    // Feedback Form Handling (for inline form in the Feedback Section)
+    // Feedback Form Handling (inline)
     document.getElementById('feedbackForm').addEventListener('submit', function(e){
       e.preventDefault();
       const name = document.getElementById('feedbackName').value;
@@ -759,14 +716,8 @@
       alert("Thank you for your feedback!");
       this.reset();
     });
-  </script>
-  
-  <!-- Three.js Car Simulation Script (unchanged) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script>
-    // -------------------------------
-    // Three.js Car Simulation Setup
-    // -------------------------------
+    
+    // Three.js Car Simulation Setup (repeated for consistency)
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -831,38 +782,5 @@
       camera.updateProjectionMatrix();
     });
   </script>
-  
-  <!-- Version Modal -->
-  <aside>
-    <div class="modal fade" id="versionModal" tabindex="-1" role="dialog" aria-labelledby="versionModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <section class="modal-header">
-            <h5 class="modal-title" id="versionModalLabel">
-              {% if session.get('lang', 'en') == 'fr' %}Information de Version{% else %}Version Information{% endif %}
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </section>
-          <div class="modal-body">
-            <p>
-              {% if session.get('lang', 'en') == 'fr' %}
-                Version du produit : <strong id="product-version">v1.0.0</strong>
-              {% else %}
-                Product Version: <strong id="product-version">v1.0.0</strong>
-              {% endif %}
-            </p>
-          </div>
-          <section class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              {% if session.get('lang', 'en') == 'fr' %}Fermer{% else %}Close{% endif %}
-            </button>
-          </section>
-        </div>
-      </div>
-    </div>
-  </aside>
-  
 </body>
 </html>
