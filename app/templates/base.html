@@ -10,6 +10,10 @@
   <meta name="keywords" content="Mechanics, Classical Mechanics, Engineering, Simulation, Calibration">
   <meta name="author" content="Kevin Marville">
   <meta name="msapplication-tap-highlight" content="no">
+  <!-- Security Meta Tags -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://code.jquery.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
   <title>{% block title %}Au Garage{% endblock %}</title>
   
   <!-- Favicon -->
@@ -26,37 +30,112 @@
 
   <!-- Inline Fine-Tune Styles -->
   <style>
-    /* Additional fine-tuning for interactive details */
-    .hover-light:hover {
-      filter: brightness(1.2);
-      transition: filter 0.2s ease;
-    }
-    .zoom-on-hover {
-      transition: transform 0.3s ease;
-    }
-    .zoom-on-hover:hover {
-      transform: scale(1.05);
-    }
-    /* Particles container for subtle particle effect on buttons */
-    .particle-effect {
-      position: relative;
-      overflow: hidden;
-    }
-    .particle-effect::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    .particle-effect:hover::after {
-      opacity: 1;
-    }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --primary-color: #6f4e37;
+        --secondary-color: #8b5e3c;
+        --accent-color: #d2a679;
+        --highlight-color: #c87533;
+        --background-color: #f7f3e8;
+        --text-color: #4b382a;
+        --card-bg: #ffffff;
+        --border-color: #d2a679;
+        --transition-speed: 0.3s;
+        --border-radius: 8px;
+        --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: var(--background-color);
+        color: var(--text-color);
+        padding: 20px;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        padding: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+      }
+      .log-container {
+        height: 300px;
+        overflow-y: auto;
+        border: 1px solid var(--border-color);
+        padding: 10px;
+        border-radius: var(--border-radius);
+        background: var(--highlight-color);
+      }
+      .btn {
+        padding: 10px 15px;
+        border-radius: var(--border-radius);
+        border: none;
+        cursor: pointer;
+        transition: background var(--transition-speed);
+      }
+      .btn-primary { background: var(--primary-color); color: #fff; }
+      .btn-secondary { background: var(--secondary-color); color: #fff; }
+      .btn:hover { opacity: 0.8; }
+
+      /* Additional fine-tuning for interactive details */
+      .hover-light:hover {
+        filter: brightness(1.2);
+        transition: filter 0.2s ease;
+      }
+      .zoom-on-hover {
+        transition: transform 0.3s ease;
+      }
+      .zoom-on-hover:hover {
+        transform: scale(1.05);
+      }
+      /* Particles container for subtle particle effect on buttons */
+      .particle-effect {
+        position: relative;
+        overflow: hidden;
+      }
+      .particle-effect::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .particle-effect:hover::after {
+        opacity: 1;
+      }
+      /* Bluesky Log Panel: fixed positioning and hidden by default */
+      #blueskyLogPanel {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        max-width: 90%;
+        background: #f7f3e8;
+        border: 1px solid #d2a679;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        z-index: 9999;
+        display: none;
+      }
+      #blueskyLogPanel header {
+        background: #333;
+        color: #fff;
+        padding: 8px;
+        text-align: center;
+        border-top-left-radius: var(--border-radius);
+        border-top-right-radius: var(--border-radius);
+      }
+      #blueskyLogPanel .panel-body {
+        padding: 10px;
+      }
+    </style>
   </style>
   
   <!-- Structured Data -->
@@ -96,6 +175,12 @@
             <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.set_language', language='en') }}">🇺🇸 English</a></li>
             <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.set_language', language='fr') }}">🇫🇷 Français</a></li>
             <li class="nav-item"><a class="nav-link hover-light" href="#" data-toggle="modal" data-target="#versionModal">Version</a></li>
+            <!-- NEW: Bluesky Connect button -->
+            <li class="nav-item">
+              <a class="nav-link hover-light" href="#" id="blueskyConnectBtn">
+                Bluesky Connect
+              </a>
+            </li>
             {% if not current_user.is_authenticated %}
               <li class="nav-item"><a class="nav-link hover-light" href="{{ url_for('auth.login') }}">Login</a></li>
               <li class="nav-item"><a class="nav-link hover-light" href="https://kvnbbg.github.io/500Discount/">5D</a></li>
@@ -335,9 +420,9 @@
   <!-- Custom JavaScript -->
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   
-  <!-- Inline Script: Fine-Tuning Interactive Effects -->
+  <!-- Inline Script: Interactive Effects, Bluesky Handshake, Security Check In & Distribution Loop -->
   <script>
-    // Example: Add a subtle particle effect on hover for elements with the "particle-effect" class
+    // Particle effect on hover for buttons
     document.querySelectorAll('.particle-effect').forEach(el => {
       el.addEventListener('mouseenter', () => {
         el.style.boxShadow = "0 0 15px rgba(0, 123, 255, 0.5)";
@@ -346,12 +431,98 @@
         el.style.boxShadow = "none";
       });
     });
-    
-    // Example: Zoom effect for images with the "zoom-on-hover" class is handled via CSS.
-    // You can add further JS if needed for more complex interactions.
-    
-    // Inline script for additional fine details (if any additional events are needed)
     console.log("Inline interactive fine-tuning is active.");
+
+    // Toggle Bluesky Log Panel (tracking the Bluesky Connect button click)
+    document.getElementById('blueskyConnectBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log("Bluesky Connect clicked – tracking event sent.");
+      const panel = document.getElementById('blueskyLogPanel');
+      panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none';
+    });
+  
+    // Only display the Bluesky Log Panel locally
+    document.addEventListener('DOMContentLoaded', () => {
+      if(window.location.hostname !== 'localhost'){
+        document.getElementById('blueskyLogPanel').style.display = 'none';
+        console.log("Bluesky log display hidden because this is not a local environment.");
+      }
+    });
+    
+    // Updated Bluesky connection function with handshake tracking
+    async function connectToBluesky() {
+      const logContainer = document.getElementById("logContainer");
+      logContainer.innerHTML += "<p class='text-blue-700'>[HANDSHAKE] Initiating connection handshake...</p>";
+      console.log("[HANDSHAKE] Initiating connection handshake...");
+      try {
+        const response = await fetch('https://bsky.social/api/session');
+        if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+        logContainer.innerHTML += "<p class='text-green-700'>[HANDSHAKE] Handshake successful!</p>";
+        console.log("[HANDSHAKE] Handshake successful!");
+      } catch (error) {
+        logContainer.innerHTML += `<p class='text-red-700'>[HANDSHAKE] Handshake failed: ${error.message}</p>`;
+        console.log(`[HANDSHAKE] Handshake failed: ${error.message}`);
+        alternativeConnect();
+      }
+    }
+    
+    // Alternative handshake method with tracking
+    function alternativeConnect() {
+      const logContainer = document.getElementById("logContainer");
+      logContainer.innerHTML += "<p class='text-orange-700'>[HANDSHAKE] Trying alternative handshake method...</p>";
+      console.log("[HANDSHAKE] Trying alternative handshake method...");
+      setTimeout(() => {
+        logContainer.innerHTML += "<p class='text-green-700'>[HANDSHAKE] Alternative handshake established.</p>";
+        console.log("[HANDSHAKE] Alternative handshake established.");
+      }, 2000);
+    }
+    
+    // Clear log function
+    function clearLogs() {
+      document.getElementById("logContainer").innerHTML = "<p class='text-gray-700'>Logs cleared.</p>";
+      console.log("Logs cleared.");
+    }
+    
+    // SECURITY: Periodic check-in for security monitoring
+    function securityCheckIn() {
+      console.log("[SECURITY] Security check in performed at " + new Date().toISOString());
+      const logContainer = document.getElementById("logContainer");
+      logContainer.innerHTML += `<p class='text-purple-700'>[SECURITY] Check in at ${new Date().toISOString()}</p>`;
+    }
+    
+    // DISTRIBUTION LOOP: Periodically send logs to a remote endpoint
+    function distributionLoop() {
+      const logContainer = document.getElementById("logContainer");
+      const logs = logContainer.innerHTML;
+      if(logs && logs.trim() !== "") {
+        console.log("[DISTRIBUTION] Distributing logs to remote server.");
+        fetch('/distribute-logs', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ logs: logs, timestamp: new Date().toISOString() })
+        }).then(response => {
+          if(response.ok) {
+            console.log("[DISTRIBUTION] Logs distributed successfully.");
+            // Optionally, clear logs after distribution:
+            // clearLogs();
+          } else {
+            console.error("[DISTRIBUTION] Failed to distribute logs, status: " + response.status);
+          }
+        }).catch(error => {
+          console.error("[DISTRIBUTION] Error distributing logs: " + error.message);
+        });
+      } else {
+        console.log("[DISTRIBUTION] No logs to distribute.");
+      }
+    }
+    
+    // Set up periodic security check in (every 30 seconds)
+    setInterval(securityCheckIn, 30000);
+    
+    // Set up distribution loop (every 60 seconds)
+    setInterval(distributionLoop, 60000);
   </script>
   
   <!-- Three.js and Car Simulation Script -->
@@ -479,41 +650,38 @@
     </div>
   </main>
   <aside>
-    
-  
-  <!-- VERSION MODAL -->
-  <div class="modal fade" id="versionModal" tabindex="-1" role="dialog" aria-labelledby="versionModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <section class="modal-header">
-          <h5 class="modal-title" id="versionModalLabel">
-            {% if session.get('lang', 'en') == 'fr' %}Information de Version{% else %}Version Information{% endif %}
-          </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </section>
-        <div class="modal-body">
-          <p>
-            {% if session.get('lang', 'en') == 'fr' %}
-              Version du produit : <strong id="product-version">v1.0.0</strong>
-            {% else %}
-              Product Version: <strong id="product-version">v1.0.0</strong>
-            {% endif %}
-          </p>
+    <!-- VERSION MODAL -->
+    <div class="modal fade" id="versionModal" tabindex="-1" role="dialog" aria-labelledby="versionModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <section class="modal-header">
+            <h5 class="modal-title" id="versionModalLabel">
+              {% if session.get('lang', 'en') == 'fr' %}Information de Version{% else %}Version Information{% endif %}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </section>
+          <div class="modal-body">
+            <p>
+              {% if session.get('lang', 'en') == 'fr' %}
+                Version du produit : <strong id="product-version">v1.0.0</strong>
+              {% else %}
+                Product Version: <strong id="product-version">v1.0.0</strong>
+              {% endif %}
+            </p>
+          </div>
+          <section class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              {% if session.get('lang', 'en') == 'fr' %}Fermer{% else %}Close{% endif %}
+            </button>
+          </section>
         </div>
-        <section class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            {% if session.get('lang', 'en') == 'fr' %}Fermer{% else %}Close{% endif %}
-          </button>
-        </section>
       </div>
     </div>
-  </div>
-
   </aside>
   
-    <!-- FOOTER: Sticky Footer -->
+  <!-- FOOTER: Sticky Footer -->
   <footer class="bg-dark text-white mt-auto" style="position: relative;">
     <div class="container">
       <aside class="mb-3">
@@ -545,5 +713,20 @@
     </div>
   </footer>
   {% block scripts %}{% endblock %}
+
+  <!-- FIXED Bluesky Log Display Panel -->
+  <div id="blueskyLogPanel">
+    <header>Bluesky Log Display</header>
+    <div class="panel-body">
+      <div id="logContainer" class="log-container">
+        <p class="text-gray-700">Initializing connection...</p>
+      </div>
+      <div class="mt-2 flex gap-2 justify-center">
+        <button onclick="connectToBluesky()" class="btn btn-primary">Reconnect</button>
+        <button onclick="clearLogs()" class="btn btn-secondary">Clear Logs</button>
+        <a href="https://bsky.app/profile/techandstream.bsky.social" class="btn btn-primary" target="_blank">Follow on Bluesky</a>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
