@@ -479,71 +479,236 @@ function loadImageWithFallback(img, sources) {
   </div>
 </section>
 
-            <!-- Floating / Fixed Panels and Modals -->
-    <section id="carousel" class="mb-5" aria-labelledby="carouselTitle">
-      <!-- VR Log Display Panel (Bottom-Left) -->
-      <div
-        id="vrLogPanel"
-        class="position-fixed"
-        style="bottom: 10px; left: 10px; width: 300px; display: none;"
-        aria-labelledby="vrLogTitle"
-      >
-        <header class="bg-dark text-white p-2">
-          <h3 id="vrLogTitle" class="mb-0">VR Log Display</h3>
-        </header>
-        <div class="p-2">
-          <div id="vrLogContainer" class="log-container">
-            <p class="text-gray-700">Initializing VR connection...</p>
-          </div>
-          <div class="mt-2 d-flex justify-content-center">
-            <button onclick="window.location.href='vr.html';" class="btn btn-primary">Start VR</button>
-            <button onclick="connectToVR()" class="btn btn-primary mr-1">Reconnect</button>
-            <button onclick="clearVRLogs()" class="btn btn-secondary">Clear Logs</button>
-          </div>
-        </div>
-      </div>
+<!-- Bluesky Section -->
+<section id="bluesky-section">
+  <!-- Styles internes -->
+  <style>
+    /* Style global de la section */
+    #bluesky-section {
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      color: #333;
+      position: relative;
+    }
+    /* Conteneur des logs */
+    .log-container {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    /* Animation Fade In pour les logs */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    /* Menu dropdown animé */
+    .dropdown-menu {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: #fff;
+      position: absolute;
+      z-index: 100;
+      padding: 10px;
+      min-width: 180px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .dropdown-menu.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 5px 10px;
+      color: #007bff;
+      text-decoration: none;
+    }
+    .dropdown-menu a:hover,
+    .dropdown-menu a:focus {
+      background-color: #f1f1f1;
+      outline: none;
+    }
+    /* Bouton flottant d'accessibilité */
+    .floating-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+    .floating-button:hover {
+      transform: scale(1.1);
+    }
+    .floating-button:focus {
+      outline: 3px solid #ff0;
+    }
+    /* Mode haute-contraste (accessibilité) */
+    .high-contrast {
+      background-color: #000 !important;
+      color: #fff !important;
+    }
+    .high-contrast .log-container {
+      background-color: #333 !important;
+      border-color: #fff !important;
+      color: #fff !important;
+    }
+    .high-contrast .btn {
+      background-color: #444 !important;
+      border-color: #888 !important;
+      color: #fff !important;
+    }
+  </style>
 
+  <!-- Section Bluesky Logs -->
+  <section id="bluesky-logs" class="container text-center my-5" aria-labelledby="blueskyLogTitle">
+    <h2 id="blueskyLogTitle" class="mb-3">Bluesky Log Display</h2>
+    <p>
+      This section shows real‑time logs for the Bluesky connection with full accessibility features.
+    </p>
+    <div id="blueskyLogContainer" class="log-container" aria-live="polite">
+      <p class="fade-in">Initializing Bluesky connection...</p>
+    </div>
+    <div class="d-flex flex-wrap justify-content-center gap-2">
+      <button onclick="connectToBluesky()" class="btn btn-primary">Reconnect</button>
+      <button onclick="clearBlueskyLogs()" class="btn btn-secondary">Clear Logs</button>
+      <button onclick="toggleDropdown()" class="btn btn-info" aria-haspopup="true" aria-expanded="false">
+        Options
+      </button>
+    </div>
+    <!-- Menu dropdown accessible -->
+    <div id="optionsDropdown" class="dropdown-menu" aria-label="Options">
+      <a href="#" onclick="openVRPanel(); return false;">Connect VR</a>
+      <a href="https://bsky.app/profile/techandstream.bsky.social" target="_blank">Follow me on Bluesky</a>
+    </div>
+  </section>
 
+  <!-- Section VR Logs -->
+  <section id="vr-logs" class="container text-center my-5" aria-labelledby="vrLogTitle">
+    <h2 id="vrLogTitle" class="mb-3">VR Log Display</h2>
+    <div id="vrLogContainer" class="log-container" aria-live="polite">
+      <p class="fade-in">Initializing VR connection...</p>
+    </div>
+    <div class="d-flex flex-wrap justify-content-center gap-2">
+      <button onclick="startVR()" class="btn btn-primary">Start VR</button>
+      <button onclick="connectToVR()" class="btn btn-primary">Reconnect</button>
+      <button onclick="clearVRLogs()" class="btn btn-secondary">Clear Logs</button>
+    </div>
+  </section>
 
-      <!-- Feedback Modal -->
-      <div id="feedbackModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <header class="modal-header">
-              <h5 id="feedbackModalTitle" class="modal-title">Feedback</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeFeedbackModal()">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </header>
-            <div class="modal-body">
-              <textarea id="modalFeedbackText" class="form-control" placeholder="Share your thoughts..."></textarea>
-            </div>
-            <footer class="modal-footer">
-              <button class="btn btn-secondary" onclick="closeFeedbackModal()">Cancel</button>
-              <button class="btn btn-primary" onclick="submitFeedbackModal()">Submit</button>
-            </footer>
-          </div>
-        </div>
-      </div>
-    </section>
+  <!-- Bouton flottant d'accessibilité -->
+  <button id="accessibilityButton" class="floating-button" 
+          aria-label="Toggle High Contrast Mode" title="Toggle High Contrast Mode">
+    &#9881;
+  </button>
 
-        <!-- Bluesky Log Display Section -->
-        <section id="bluesky-log-display" class="mb-5" aria-labelledby="blueskyLogTitle">
-          <h2 id="blueskyLogTitle" class="decorative-title">Bluesky Log Display</h2>
-          <p>
-            This section shows real‑time logs for the Bluesky connection. It includes connection checks, alternative recovery methods,
-            and bot‑prevention mechanics.
-          </p>
-          <div id="blueskyLogContainer" class="log-container" aria-live="polite">
-            <p class="text-gray-700">Initializing Bluesky connection...</p>
-          </div>
-          <div class="mt-4 d-flex gap-2 justify-content-center">
-            <button onclick="connectToBluesky()" class="btn btn-primary">Reconnect</button>
-            <button onclick="clearBlueskyLogs()" class="btn btn-secondary">Clear Logs</button>
-            
-            <a href="https://bsky.app/profile/techandstream.bsky.social" class="btn btn-primary" target="_blank">Follow on Bluesky</a>
-          </div>
-        </section>
+  <!-- Scripts étendus avec animations et dynamiques -->
+  <script>
+    /* Toggle du menu dropdown avec animation */
+    function toggleDropdown() {
+      var dropdown = document.getElementById('optionsDropdown');
+      if (!dropdown) return;
+      dropdown.classList.toggle('open');
+    }
+    
+    /* Fonctions pour les logs Bluesky avec animations */
+    function connectToBluesky() {
+      try {
+        var container = document.getElementById('blueskyLogContainer');
+        if (!container) throw new Error("Bluesky log container not found.");
+        var log = document.createElement("p");
+        log.textContent = "Bluesky connection established at " + new Date().toLocaleTimeString();
+        log.classList.add("fade-in");
+        container.appendChild(log);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
+    function clearBlueskyLogs() {
+      var container = document.getElementById('blueskyLogContainer');
+      if (container) {
+        container.innerHTML = "";
+      }
+    }
+    
+    /* Fonctions pour les logs VR avec animations */
+    function openVRPanel() {
+      // Animation de scroll douce vers la section VR
+      var vrSection = document.getElementById('vr-logs');
+      if (vrSection) {
+        vrSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+    
+    function startVR() {
+      try {
+        var container = document.getElementById('vrLogContainer');
+        if (!container) throw new Error("VR log container not found.");
+        var log = document.createElement("p");
+        log.textContent = "VR connection started at " + new Date().toLocaleTimeString();
+        log.classList.add("fade-in");
+        container.appendChild(log);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
+    function connectToVR() {
+      try {
+        var container = document.getElementById('vrLogContainer');
+        if (!container) throw new Error("VR log container not found.");
+        var log = document.createElement("p");
+        log.textContent = "Reconnecting to VR at " + new Date().toLocaleTimeString();
+        log.classList.add("fade-in");
+        container.appendChild(log);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
+    function clearVRLogs() {
+      var container = document.getElementById('vrLogContainer');
+      if (container) {
+        container.innerHTML = "";
+      }
+    }
+    
+    /* Basculement du mode haute-contraste pour l'accessibilité */
+    document.getElementById('accessibilityButton').addEventListener('click', function() {
+      document.body.classList.toggle('high-contrast');
+    });
+    
+    /* Fermeture du dropdown via la touche Escape pour les utilisateurs clavier */
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        var dropdown = document.getElementById('optionsDropdown');
+        if (dropdown) {
+          dropdown.classList.remove('open');
+        }
+      }
+    });
+  </script>
+</section>
+
 
         <!-- Feedback Section -->
         <section id="feedback-section" class="mb-5" aria-labelledby="feedbackTitle">
