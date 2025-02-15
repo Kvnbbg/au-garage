@@ -108,3 +108,7 @@ def home():
     Renders the home page and displays maintenance and leaderboard messages.
     """
     return improved_home_with_maintenance_date()
+@main.route('/vr')
+def vr():
+    # Your logic here
+    return render_template('vr.html')
