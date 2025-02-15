@@ -111,89 +111,103 @@
         color: #ddd;
       }
       /* === ASIDE === */
-      /* VR DISPLAY LOG AND START BUTTON */
       /* VR Log Display Panel (Bottom-Left) */
-#vrLogPanel {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  width: 320px;
-  display: none;
-  background: rgba(0, 0, 0, 0.85); /* Slight transparency for better blending */
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  animation: float 4s ease-in-out infinite;
-  overflow: hidden;
-}
-
-/* Panel Header */
-#vrLogPanel header {
-  background: #263238; /* Darker shade for contrast */
-  color: #ffffff;
-  padding: 12px;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  font-weight: bold;
-  text-align: center;
-}
-
-/* Log Container */
-#vrLogContainer {
-  background: #eceff1; /* Soft gray background */
-  padding: 10px;
-  max-height: 200px;
-  overflow-y: auto;
-  font-size: 14px;
-  color: #37474f; /* Dark gray text */
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
-}
-
-/* Buttons */
-#vrLogPanel .btn {
-  font-size: 14px;
-  padding: 8px 16px;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
-}
-
-#vrLogPanel .btn-primary {
-  background: #00796b;
-  border: 1px solid #004d40;
-  color: #ffffff;
-}
-
-#vrLogPanel .btn-primary:hover {
-  background: #004d40;
-  transform: translateY(-3px);
-}
-
-#vrLogPanel .btn-secondary {
-  background: #b0bec5;
-  border: 1px solid #78909c;
-  color: #263238;
-}
-
-#vrLogPanel .btn-secondary:hover {
-  background: #78909c;
-  transform: translateY(-3px);
-}
-
-/* Floating Animation */
-@keyframes float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-      
+      #vrLogPanel {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 320px;
+        display: none;
+        background: rgba(0, 0, 0, 0.85);
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        animation: float 4s ease-in-out infinite;
+        overflow: hidden;
+      }
+      #vrLogPanel header {
+        background: #263238;
+        color: #ffffff;
+        padding: 12px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        font-weight: bold;
+        text-align: center;
+      }
+      #vrLogContainer {
+        background: #eceff1;
+        padding: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+        font-size: 14px;
+        color: #37474f;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+      }
+      #vrLogPanel .btn {
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.3s;
+      }
+      #vrLogPanel .btn-primary {
+        background: #00796b;
+        border: 1px solid #004d40;
+        color: #ffffff;
+      }
+      #vrLogPanel .btn-primary:hover {
+        background: #004d40;
+        transform: translateY(-3px);
+      }
+      #vrLogPanel .btn-secondary {
+        background: #b0bec5;
+        border: 1px solid #78909c;
+        color: #263238;
+      }
+      #vrLogPanel .btn-secondary:hover {
+        background: #78909c;
+        transform: translateY(-3px);
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+      /* CSS for inner scrolling and zoom effect */
+      .zoom-container {
+        overflow: auto;
+        max-height: 500px;
+        position: relative;
+      }
+      .zoom-container img {
+        transition: transform 0.3s ease;
+        width: 100%;
+        height: auto;
+      }
+      .zoom-container:hover img {
+        transform: scale(1.1);
+      }
+      /* High Contrast Mode */
+      .high-contrast {
+        background-color: #000 !important;
+        color: #fff !important;
+      }
+      .high-contrast .log-container {
+        background-color: #333 !important;
+        border-color: #fff !important;
+        color: #fff !important;
+      }
+      .high-contrast .btn {
+        background-color: #444 !important;
+        border-color: #888 !important;
+        color: #fff !important;
+      }
     </style>
     {% block head %}{% endblock %}
 
@@ -277,465 +291,207 @@
 
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="flex-grow-1">
-      <!-- Dark Mode Toggle Button 
-<button id="darkModeToggle" class="btn btn-secondary">Toggle Dark Mode</button>
-
-<script>
-  // Dark Mode Toggle (if needed, attach to an element with id "darkModeToggle")
-  document.getElementById('darkModeToggle')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    document.body.classList.toggle('dark-mode');
-    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
-  });
-
-  // Load saved dark mode preference
-  if (localStorage.getItem('darkMode') === 'enabled') {
-    document.body.classList.add('dark-mode');
-  }
-</script>
-
-<style>
-  /* Dark Mode Styling */
-  .dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-  }
-
-  .dark-mode .btn {
-    background-color: #333;
-    color: white;
-    border-color: #555;
-  }
-</style>
--->
-      <div class="container my-5">
-        <!-- Hero Section -->
-        <section class="mb-5" aria-labelledby="heroTitle">
-          <div class="text-center">
-            {% if session.get('lang', 'en') == 'fr' %}
-              <h1 id="heroTitle" class="text-dark">Mécanique</h1>
-              <h2 class="text-muted">Fondements et applications</h2>
-            {% else %}
-              <h1 id="heroTitle" class="text-dark">Mechanics</h1>
-              <h2 class="text-muted">Fundamentals and Applications</h2>
-            {% endif %}
-          </div>
-        </section>
-
-   {% set lang = session.get('lang', 'en') %}
-{% set texts = {
-  'fr': {
-    'title': 'Principes',
-    'description': "La mécanique classique étudie le mouvement des objets et les forces qui les influencent. Les lois de Newton expliquent l'équilibre et l'accélération des systèmes physiques.",
-    'button': 'Ouvrir VR'
-  },
-  'en': {
-    'title': 'Principles',
-    'description': "Classical mechanics studies how objects move and the forces acting on them. Newton’s laws explain equilibrium and acceleration in physical systems.",
-    'button': 'Open VR'
-  }
-} %}
-{% set current = texts.get(lang, texts['en']) %}
-
-<!-- About Section -->
-<section id="about" class="mb-5" aria-labelledby="aboutTitle">
-  <h2 id="aboutTitle" class="decorative-title">{{ current.title }}</h2>
-  <p>{{ current.description }}</p>
-  <button class="btn btn-secondary particle-effect" id="examplePopup" onclick="window.location.href='{{ url_for('vr') }}'">
-    {{ current.button }}
-  </button>
-</section>
-
-
-        <!-- CSS for inner scrolling and zoom effect -->
-<style>
-  .zoom-container {
-    overflow: auto;
-    max-height: 500px; /* Adjust height as needed */
-    position: relative;
-  }
-  .zoom-container img {
-    transition: transform 0.3s ease;
-    width: 100%;
-    height: auto;
-  }
-  .zoom-container:hover img {
-    transform: scale(1.1);
-  }
-</style>
-
-<!-- Fallback JS: cycles through fallback image URLs if the current one fails -->
-<script>
-function loadImageWithFallback(img, sources) {
-  if (!img.dataset.fallbackIndex) {
-    img.dataset.fallbackIndex = 0;
-  }
-  var index = parseInt(img.dataset.fallbackIndex);
-  if (index < sources.length) {
-    img.src = sources[index];
-    img.dataset.fallbackIndex = index + 1;
-  } else {
-    // A final placeholder image if all fallbacks fail
-    img.src = "{{ url_for('static', filename='images/placeholder.jpg') }}";
-  }
-}
-</script>
-
-<!-- Carousel / Gifts Section -->
-<section id="carousel" class="mb-5" aria-labelledby="carouselTitle">
-  {% if session.get('lang', 'en') == 'fr' %}
-    <h2 id="carouselTitle" class="decorative-title">Cadeaux</h2>
-  {% else %}
-    <h2 id="carouselTitle" class="decorative-title">Gifts</h2>
-  {% endif %}
-
-  {# Define a list of carousel images with professional, clickable titles and descriptions #}
-  {% set carousel_images = [
-    {
-      'primary': 'https://openverse.org/image/6d3cd0dc-0459-4a7a-b426-1e8e849f91a1?q=study&p=59',
-      'fallbacks': [ url_for('static', filename='images/slide1.jpg'),
-                     url_for('static', filename='images/service-example.jpg') ],
-      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Mécanique" target="_blank">Les Fondamentaux de la Mécanique</a>',
-      'desc_fr': 'Découvrez les principes éprouvés régissant la mécanique des matériaux, illustrés par des exemples pratiques extraits de la littérature technique.',
-      'title_en': '<a href="https://en.wikipedia.org/wiki/Mechanics" target="_blank">Fundamentals of Mechanics</a>',
-      'desc_en': 'Explore the proven principles governing the mechanics of materials, illustrated with practical examples drawn from technical literature.'
-    },
-    {
-      'primary': url_for('static', filename='images/slide2.jpg'),
-      'fallbacks': [ url_for('static', filename='images/service-example2.jpg'),
-                     url_for('static', filename='images/service-example3.jpg') ],
-      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Mécanique_classique" target="_blank">Approches Classiques en Mécanique</a>',
-      'desc_fr': 'Une analyse approfondie des méthodes classiques appliquées aux études mécaniques avancées, essentielle pour étudiants et professionnels.',
-      'title_en': '<a href="https://en.wikipedia.org/wiki/Classical_mechanics" target="_blank">Classical Mechanics Approaches</a>',
-      'desc_en': 'An in-depth analysis of classical methods applied to advanced mechanical studies, essential for both students and professionals.'
-    },
-    {
-      'primary': url_for('static', filename='images/slide3.jpg'),
-      'fallbacks': [ url_for('static', filename='images/service-example4.jpg'),
-                     url_for('static', filename='images/service-example5.jpg') ],
-      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Dynamique" target="_blank">Dynamique et Systèmes Complexes</a>',
-      'desc_fr': 'Plongez dans l\'étude de la dynamique des systèmes complexes à travers une approche innovante intégrant les dernières avancées en ingénierie.',
-      'title_en': '<a href="https://en.wikipedia.org/wiki/Dynamics" target="_blank">Dynamics and Complex Systems</a>',
-      'desc_en': 'Delve into the study of complex systems dynamics with an innovative approach that integrates the latest advancements in engineering.'
-    },
-    {
-      'primary': url_for('static', filename='images/vehicule1.jpg'),
-      'fallbacks': [ url_for('static', filename='images/vehicule2.jpg'),
-                     url_for('static', filename='images/vehicule3.jpg') ],
-      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Ingénierie" target="_blank">Innovation en Ingénierie Automobile</a>',
-      'desc_fr': 'Découvrez les innovations récentes en ingénierie automobile, alliant performance et durabilité pour façonner l\'avenir des transports.',
-      'title_en': '<a href="https://en.wikipedia.org/wiki/Engineering" target="_blank">Automotive Engineering Innovations</a>',
-      'desc_en': 'Discover the latest innovations in automotive engineering that combine performance and durability to shape the future of transportation.'
-    },
-    {
-      'primary': url_for('static', filename='images/vehicule4.jpg'),
-      'fallbacks': [ url_for('static', filename='images/vehicule5.jpg') ],
-      'title_fr': '<a href="https://fr.wikipedia.org/wiki/Technologie" target="_blank">Technologies de Pointe en Mécanique</a>',
-      'desc_fr': 'Examinez en détail les technologies de pointe qui révolutionnent l\'industrie mécanique, offrant des perspectives inédites pour demain.',
-      'title_en': '<a href="https://en.wikipedia.org/wiki/Technology" target="_blank">Cutting-Edge Mechanical Technologies</a>',
-      'desc_en': 'Examine in detail the cutting-edge technologies revolutionizing the mechanical industry, offering unprecedented prospects for the future.'
-    }
-  ] %}
-  
-  <div id="featuredCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Carousel indicators -->
-    <ol class="carousel-indicators">
-      {% for image in carousel_images %}
-        <li data-target="#featuredCarousel" data-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}"></li>
-      {% endfor %}
-    </ol>
-    
-    <!-- Carousel inner -->
-    <div class="carousel-inner">
-      {% for image in carousel_images %}
-      <div class="carousel-item {% if loop.first %}active{% endif %}">
-        <!-- Wrap image in a zoomable, scrollable container -->
-        <div class="zoom-container">
-          <img src="{{ image.primary }}" 
-               onerror="loadImageWithFallback(this, [ {% for fallback in image.fallbacks %}'{{ fallback }}'{% if not loop.last %}, {% endif %}{% endfor %} ])" 
-               class="d-block w-100" alt="Slide {{ loop.index }}">
-        </div>
-        <div class="carousel-caption d-none d-md-block">
+      <!-- Hero Section -->
+      <section class="mb-5" aria-labelledby="heroTitle">
+        <div class="text-center">
           {% if session.get('lang', 'en') == 'fr' %}
-            <h5>{{ image.title_fr | safe }}</h5>
-            <p>{{ image.desc_fr }}</p>
+            <h1 id="heroTitle" class="text-dark">Mécanique</h1>
+            <h2 class="text-muted">Fondements et applications</h2>
           {% else %}
-            <h5>{{ image.title_en | safe }}</h5>
-            <p>{{ image.desc_en }}</p>
+            <h1 id="heroTitle" class="text-dark">Mechanics</h1>
+            <h2 class="text-muted">Fundamentals and Applications</h2>
           {% endif %}
         </div>
-      </div>
-      {% endfor %}
-    </div>
-    
-    <!-- Carousel controls -->
-    <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">
-        {% if session.get('lang', 'en') == 'fr' %}Précédent{% else %}Previous{% endif %}
-      </span>
-    </a>
-    <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">
-        {% if session.get('lang', 'en') == 'fr' %}Suivant{% else %}Next{% endif %}
-      </span>
-    </a>
-  </div>
-</section>
+      </section>
 
-<!-- Bluesky Section -->
-<section id="bluesky-section">
-  <!-- Styles internes -->
-  <style>
-    /* Style global de la section */
-    #bluesky-section {
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      color: #333;
-      position: relative;
-    }
-    /* Conteneur des logs */
-    .log-container {
-      background-color: #f8f9fa;
-      border: 1px solid #dee2e6;
-      border-radius: 5px;
-      padding: 15px;
-      margin-bottom: 20px;
-      max-height: 200px;
-      overflow-y: auto;
-    }
-    /* Animation Fade In pour les logs */
-    .fade-in {
-      animation: fadeIn 0.5s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    /* Menu dropdown animé */
-    .dropdown-menu {
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background: #fff;
-      position: absolute;
-      z-index: 100;
-      padding: 10px;
-      min-width: 180px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease-in-out;
-    }
-    .dropdown-menu.open {
-      opacity: 1;
-      visibility: visible;
-    }
-    .dropdown-menu a {
-      display: block;
-      padding: 5px 10px;
-      color: #007bff;
-      text-decoration: none;
-    }
-    .dropdown-menu a:hover,
-    .dropdown-menu a:focus {
-      background-color: #f1f1f1;
-      outline: none;
-    }
-    /* Bouton flottant d'accessibilité */
-    .floating-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      cursor: pointer;
-      z-index: 1000;
-      transition: transform 0.3s ease;
-    }
-    .floating-button:hover {
-      transform: scale(1.1);
-    }
-    .floating-button:focus {
-      outline: 3px solid #ff0;
-    }
-    /* Mode haute-contraste (accessibilité) */
-    .high-contrast {
-      background-color: #000 !important;
-      color: #fff !important;
-    }
-    .high-contrast .log-container {
-      background-color: #333 !important;
-      border-color: #fff !important;
-      color: #fff !important;
-    }
-    .high-contrast .btn {
-      background-color: #444 !important;
-      border-color: #888 !important;
-      color: #fff !important;
-    }
-  </style>
-
-  <!-- Section Bluesky Logs -->
-  <section id="bluesky-logs" class="container text-center my-5" aria-labelledby="blueskyLogTitle">
-    <h2 id="blueskyLogTitle" class="mb-3">Bluesky Log Display</h2>
-    <p>
-      This section shows real‑time logs for the Bluesky connection with full accessibility features.
-    </p>
-    <div id="blueskyLogContainer" class="log-container" aria-live="polite">
-      <p class="fade-in">Initializing Bluesky connection...</p>
-    </div>
-    <div class="d-flex flex-wrap justify-content-center gap-2">
-      <button onclick="connectToBluesky()" class="btn btn-primary">Reconnect</button>
-      <button onclick="clearBlueskyLogs()" class="btn btn-secondary">Clear Logs</button>
-      <button onclick="toggleDropdown()" class="btn btn-info" aria-haspopup="true" aria-expanded="false">
-        Options
-      </button>
-    </div>
-    <!-- Menu dropdown accessible -->
-    <div id="optionsDropdown" class="dropdown-menu" aria-label="Options">
-      <a href="#" onclick="openVRPanel(); return false;">Connect VR</a>
-      <a href="https://bsky.app/profile/techandstream.bsky.social" target="_blank">Follow me on Bluesky</a>
-    </div>
-  </section>
-
-  <!-- Section VR Logs -->
-  <section id="vr-logs" class="container text-center my-5" aria-labelledby="vrLogTitle">
-    <h2 id="vrLogTitle" class="mb-3">VR Log Display</h2>
-    <div id="vrLogContainer" class="log-container" aria-live="polite">
-      <p class="fade-in">Initializing VR connection...</p>
-    </div>
-    <div class="d-flex flex-wrap justify-content-center gap-2">
-      <button onclick="startVR()" class="btn btn-primary">Start VR</button>
-      <button onclick="connectToVR()" class="btn btn-primary">Reconnect</button>
-      <button onclick="clearVRLogs()" class="btn btn-secondary">Clear Logs</button>
-    </div>
-  </section>
-
-  <!-- Bouton flottant d'accessibilité -->
-  <button id="accessibilityButton" class="floating-button" 
-          aria-label="Toggle High Contrast Mode" title="Toggle High Contrast Mode">
-    &#9881;
-  </button>
-
-  <!-- Scripts étendus avec animations et dynamiques -->
-  <script>
-    /* Toggle du menu dropdown avec animation */
-    function toggleDropdown() {
-      var dropdown = document.getElementById('optionsDropdown');
-      if (!dropdown) return;
-      dropdown.classList.toggle('open');
-    }
-    
-    /* Fonctions pour les logs Bluesky avec animations */
-    function connectToBluesky() {
-      try {
-        var container = document.getElementById('blueskyLogContainer');
-        if (!container) throw new Error("Bluesky log container not found.");
-        var log = document.createElement("p");
-        log.textContent = "Bluesky connection established at " + new Date().toLocaleTimeString();
-        log.classList.add("fade-in");
-        container.appendChild(log);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    
-    function clearBlueskyLogs() {
-      var container = document.getElementById('blueskyLogContainer');
-      if (container) {
-        container.innerHTML = "";
-      }
-    }
-    
-    /* Fonctions pour les logs VR avec animations */
-    function openVRPanel() {
-      // Animation de scroll douce vers la section VR
-      var vrSection = document.getElementById('vr-logs');
-      if (vrSection) {
-        vrSection.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-    
-    function startVR() {
-      try {
-        var container = document.getElementById('vrLogContainer');
-        if (!container) throw new Error("VR log container not found.");
-        var log = document.createElement("p");
-        log.textContent = "VR connection started at " + new Date().toLocaleTimeString();
-        log.classList.add("fade-in");
-        container.appendChild(log);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    
-    function connectToVR() {
-      try {
-        var container = document.getElementById('vrLogContainer');
-        if (!container) throw new Error("VR log container not found.");
-        var log = document.createElement("p");
-        log.textContent = "Reconnecting to VR at " + new Date().toLocaleTimeString();
-        log.classList.add("fade-in");
-        container.appendChild(log);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    
-    function clearVRLogs() {
-      var container = document.getElementById('vrLogContainer');
-      if (container) {
-        container.innerHTML = "";
-      }
-    }
-    
-    /* Basculement du mode haute-contraste pour l'accessibilité */
-    document.getElementById('accessibilityButton').addEventListener('click', function() {
-      document.body.classList.toggle('high-contrast');
-    });
-    
-    /* Fermeture du dropdown via la touche Escape pour les utilisateurs clavier */
-    document.addEventListener('keydown', function(e) {
-      if (e.key === "Escape") {
-        var dropdown = document.getElementById('optionsDropdown');
-        if (dropdown) {
-          dropdown.classList.remove('open');
+      {% set lang = session.get('lang', 'en') %}
+      {% set texts = {
+        'fr': {
+          'title': 'Principes',
+          'description': "La mécanique classique étudie le mouvement des objets et les forces qui les influencent. Les lois de Newton expliquent l'équilibre et l'accélération des systèmes physiques.",
+          'button': 'Ouvrir VR'
+        },
+        'en': {
+          'title': 'Principles',
+          'description': "Classical mechanics studies how objects move and the forces acting on them. Newton’s laws explain equilibrium and acceleration in physical systems.",
+          'button': 'Open VR'
         }
-      }
-    });
-  </script>
-</section>
+      } %}
+      {% set current = texts.get(lang, texts['en']) %}
 
+      <!-- About Section -->
+      <section id="about" class="mb-5" aria-labelledby="aboutTitle">
+        <h2 id="aboutTitle" class="decorative-title">{{ current.title }}</h2>
+        <p>{{ current.description }}</p>
+        <button class="btn btn-secondary particle-effect" id="examplePopup" onclick="window.location.href='{{ url_for('vr') }}'">
+          {{ current.button }}
+        </button>
+      </section>
 
-        <!-- Feedback Section -->
-        <section id="feedback-section" class="mb-5" aria-labelledby="feedbackTitle">
-          <h2 id="feedbackTitle" class="decorative-title">Feedback &amp; Support</h2>
-          <p>We value your feedback. Use the form below to share your thoughts.</p>
-          <form id="feedbackForm">
-            <div class="form-group">
-              <label for="feedbackName">Your Name:</label>
-              <input type="text" id="feedbackName" class="form-control" placeholder="Enter your name" required />
+      <!-- Carousel / Gifts Section -->
+      <section id="carousel" class="mb-5" aria-labelledby="carouselTitle">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h2 id="carouselTitle" class="decorative-title">Cadeaux</h2>
+        {% else %}
+          <h2 id="carouselTitle" class="decorative-title">Gifts</h2>
+        {% endif %}
+
+        {% set carousel_images = [
+          {
+            'primary': 'https://openverse.org/image/6d3cd0dc-0459-4a7a-b426-1e8e849f91a1?q=study&p=59',
+            'fallbacks': [ url_for('static', filename='images/slide1.jpg'),
+                           url_for('static', filename='images/service-example.jpg') ],
+            'title_fr': '<a href="https://fr.wikipedia.org/wiki/Mécanique" target="_blank">Les Fondamentaux de la Mécanique</a>',
+            'desc_fr': 'Découvrez les principes éprouvés régissant la mécanique des matériaux, illustrés par des exemples pratiques extraits de la littérature technique.',
+            'title_en': '<a href="https://en.wikipedia.org/wiki/Mechanics" target="_blank">Fundamentals of Mechanics</a>',
+            'desc_en': 'Explore the proven principles governing the mechanics of materials, illustrated with practical examples drawn from technical literature.'
+          },
+          {
+            'primary': url_for('static', filename='images/slide2.jpg'),
+            'fallbacks': [ url_for('static', filename='images/service-example2.jpg'),
+                           url_for('static', filename='images/service-example3.jpg') ],
+            'title_fr': '<a href="https://fr.wikipedia.org/wiki/Mécanique_classique" target="_blank">Approches Classiques en Mécanique</a>',
+            'desc_fr': 'Une analyse approfondie des méthodes classiques appliquées aux études mécaniques avancées, essentielle pour étudiants et professionnels.',
+            'title_en': '<a href="https://en.wikipedia.org/wiki/Classical_mechanics" target="_blank">Classical Mechanics Approaches</a>',
+            'desc_en': 'An in-depth analysis of classical methods applied to advanced mechanical studies, essential for both students and professionals.'
+          },
+          {
+            'primary': url_for('static', filename='images/slide3.jpg'),
+            'fallbacks': [ url_for('static', filename='images/service-example4.jpg'),
+                           url_for('static', filename='images/service-example5.jpg') ],
+            'title_fr': '<a href="https://fr.wikipedia.org/wiki/Dynamique" target="_blank">Dynamique et Systèmes Complexes</a>',
+            'desc_fr': 'Plongez dans l\'étude de la dynamique des systèmes complexes à travers une approche innovante intégrant les dernières avancées en ingénierie.',
+            'title_en': '<a href="https://en.wikipedia.org/wiki/Dynamics" target="_blank">Dynamics and Complex Systems</a>',
+            'desc_en': 'Delve into the study of complex systems dynamics with an innovative approach that integrates the latest advancements in engineering.'
+          },
+          {
+            'primary': url_for('static', filename='images/vehicule1.jpg'),
+            'fallbacks': [ url_for('static', filename='images/vehicule2.jpg'),
+                           url_for('static', filename='images/vehicule3.jpg') ],
+            'title_fr': '<a href="https://fr.wikipedia.org/wiki/Ingénierie" target="_blank">Innovation en Ingénierie Automobile</a>',
+            'desc_fr': 'Découvrez les innovations récentes en ingénierie automobile, alliant performance et durabilité pour façonner l\'avenir des transports.',
+            'title_en': '<a href="https://en.wikipedia.org/wiki/Engineering" target="_blank">Automotive Engineering Innovations</a>',
+            'desc_en': 'Discover the latest innovations in automotive engineering that combine performance and durability to shape the future of transportation.'
+          },
+          {
+            'primary': url_for('static', filename='images/vehicule4.jpg'),
+            'fallbacks': [ url_for('static', filename='images/vehicule5.jpg') ],
+            'title_fr': '<a href="https://fr.wikipedia.org/wiki/Technologie" target="_blank">Technologies de Pointe en Mécanique</a>',
+            'desc_fr': 'Examinez en détail les technologies de pointe qui révolutionnent l\'industrie mécanique, offrant des perspectives inédites pour demain.',
+            'title_en': '<a href="https://en.wikipedia.org/wiki/Technology" target="_blank">Cutting-Edge Mechanical Technologies</a>',
+            'desc_en': 'Examine in detail the cutting-edge technologies revolutionizing the mechanical industry, offering unprecedented prospects for the future.'
+          }
+        ] %}
+        
+        <div id="featuredCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Carousel indicators -->
+          <ol class="carousel-indicators">
+            {% for image in carousel_images %}
+              <li data-target="#featuredCarousel" data-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}"></li>
+            {% endfor %}
+          </ol>
+          
+          <!-- Carousel inner -->
+          <div class="carousel-inner">
+            {% for image in carousel_images %}
+            <div class="carousel-item {% if loop.first %}active{% endif %}">
+              <div class="zoom-container">
+                <img src="{{ image.primary }}" 
+                     onerror="loadImageWithFallback(this, [ {% for fallback in image.fallbacks %}'{{ fallback }}'{% if not loop.last %}, {% endif %}{% endfor %} ])" 
+                     class="d-block w-100" alt="Slide {{ loop.index }}">
+              </div>
+              <div class="carousel-caption d-none d-md-block">
+                {% if session.get('lang', 'en') == 'fr' %}
+                  <h5>{{ image.title_fr | safe }}</h5>
+                  <p>{{ image.desc_fr }}</p>
+                {% else %}
+                  <h5>{{ image.title_en | safe }}</h5>
+                  <p>{{ image.desc_en }}</p>
+                {% endif %}
+              </div>
             </div>
-            <div class="form-group">
-              <label for="feedbackEmail">Your Email:</label>
-              <input type="email" id="feedbackEmail" class="form-control" placeholder="Enter your email" required />
-            </div>
-            <div class="form-group">
-              <label for="feedbackMessage">Your Feedback:</label>
-              <textarea id="feedbackMessage" class="form-control" placeholder="Enter your feedback" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit Feedback</button>
-          </form>
-        </section>
-      </div>
+            {% endfor %}
+          </div>
+          
+          <!-- Carousel controls -->
+          <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">
+              {% if session.get('lang', 'en') == 'fr' %}Précédent{% else %}Previous{% endif %}
+            </span>
+          </a>
+          <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">
+              {% if session.get('lang', 'en') == 'fr' %}Suivant{% else %}Next{% endif %}
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Bluesky & VR Logs Section -->
+      <section id="bluesky-section">
+        <div class="container text-center my-5" aria-labelledby="blueskyLogTitle">
+          <h2 id="blueskyLogTitle" class="mb-3">Bluesky Log Display</h2>
+          <p>
+            This section shows real‑time logs for the Bluesky connection with full accessibility features.
+          </p>
+          <div id="blueskyLogContainer" class="log-container" aria-live="polite">
+            <p class="fade-in">Initializing Bluesky connection...</p>
+          </div>
+          <div class="d-flex flex-wrap justify-content-center gap-2">
+            <button onclick="connectToBluesky()" class="btn btn-primary">Reconnect</button>
+            <button onclick="clearBlueskyLogs()" class="btn btn-secondary">Clear Logs</button>
+            <button onclick="toggleDropdown()" class="btn btn-info" aria-haspopup="true" aria-expanded="false">
+              Options
+            </button>
+          </div>
+          <!-- Dropdown Menu -->
+          <div id="optionsDropdown" class="dropdown-menu" aria-label="Options">
+            <a href="#" onclick="openVRPanel(); return false;">Connect VR</a>
+            <a href="https://bsky.app/profile/techandstream.bsky.social" target="_blank">Follow me on Bluesky</a>
+          </div>
+        </div>
+
+        <div class="container text-center my-5" aria-labelledby="vrLogTitle">
+          <h2 id="vrLogTitle" class="mb-3">VR Log Display</h2>
+          <div id="vrLogContainer" class="log-container" aria-live="polite">
+            <p class="fade-in">Initializing VR connection...</p>
+          </div>
+          <div class="d-flex flex-wrap justify-content-center gap-2">
+            <button onclick="startVR()" class="btn btn-primary">Start VR</button>
+            <button onclick="connectToVR()" class="btn btn-primary">Reconnect</button>
+            <button onclick="clearVRLogs()" class="btn btn-secondary">Clear Logs</button>
+          </div>
+        </div>
+
+        <!-- Floating Accessibility Button -->
+        <button id="accessibilityButton" class="floating-button" 
+                aria-label="Toggle High Contrast Mode" title="Toggle High Contrast Mode">
+          &#9881;
+        </button>
+      </section>
+
+      <!-- Feedback Section -->
+      <section id="feedback-section" class="mb-5" aria-labelledby="feedbackTitle">
+        <h2 id="feedbackTitle" class="decorative-title">Feedback &amp; Support</h2>
+        <p>We value your feedback. Use the form below to share your thoughts.</p>
+        <form id="feedbackForm">
+          <div class="form-group">
+            <label for="feedbackName">Your Name:</label>
+            <input type="text" id="feedbackName" class="form-control" placeholder="Enter your name" required />
+          </div>
+          <div class="form-group">
+            <label for="feedbackEmail">Your Email:</label>
+            <input type="email" id="feedbackEmail" class="form-control" placeholder="Enter your email" required />
+          </div>
+          <div class="form-group">
+            <label for="feedbackMessage">Your Feedback:</label>
+            <textarea id="feedbackMessage" class="form-control" placeholder="Enter your feedback" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Feedback</button>
+        </form>
+      </section>
     </main>
 
     <!-- FOOTER -->
@@ -776,6 +532,16 @@ function loadImageWithFallback(img, sources) {
 
       <!-- Custom JavaScript -->
       <script>
+        // Dark Mode Toggle (if an element with id "darkModeToggle" is added later)
+        document.getElementById('darkModeToggle')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.classList.toggle('dark-mode');
+          localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+        });
+        if (localStorage.getItem('darkMode') === 'enabled') {
+          document.body.classList.add('dark-mode');
+        }
+
         // Simple particle effect for buttons (additional to CSS)
         document.querySelectorAll('.particle-effect').forEach((el) => {
           el.addEventListener('mouseenter', () => {
@@ -786,24 +552,118 @@ function loadImageWithFallback(img, sources) {
           });
         });
 
-        // Dark Mode Toggle (if needed, attach to an element with id "darkModeToggle")
-        document.getElementById('darkModeToggle')?.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.body.classList.toggle('dark-mode');
+        // Dropdown menu toggle
+        function toggleDropdown() {
+          var dropdown = document.getElementById('optionsDropdown');
+          if (!dropdown) return;
+          dropdown.classList.toggle('open');
+        }
+
+        // Close dropdown via Escape key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === "Escape") {
+            var dropdown = document.getElementById('optionsDropdown');
+            if (dropdown) {
+              dropdown.classList.remove('open');
+            }
+          }
         });
 
-        // Feedback Modal Functions
-        function closeFeedbackModal() {
-          document.getElementById('feedbackModal').classList.remove('active');
-          $('#feedbackModal').modal('hide');
+        // Function to load image with fallback sources
+        function loadImageWithFallback(img, sources) {
+          if (!img.dataset.fallbackIndex) {
+            img.dataset.fallbackIndex = 0;
+          }
+          var index = parseInt(img.dataset.fallbackIndex);
+          if (index < sources.length) {
+            img.src = sources[index];
+            img.dataset.fallbackIndex = index + 1;
+          } else {
+            img.src = "{{ url_for('static', filename='images/placeholder.jpg') }}";
+          }
         }
-        function submitFeedbackModal() {
-          const feedback = document.getElementById('modalFeedbackText').value;
-          console.log('Feedback submitted:', feedback);
-          alert('Thank you for your feedback!');
-          document.getElementById('modalFeedbackText').value = '';
-          closeFeedbackModal();
+
+        // Simulated Bluesky Connection with handshake tracking
+        async function connectToBluesky() {
+          const logContainer = document.getElementById('blueskyLogContainer');
+          if (!logContainer) {
+            console.error("Bluesky log container not found.");
+            return;
+          }
+          logContainer.innerHTML += "<p class='text-blue-700 fade-in'>[Bluesky HANDSHAKE] Initiating connection at " + new Date().toLocaleTimeString() + "...</p>";
+          try {
+            const response = await fetch('https://bsky.social/api/session');
+            if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+            logContainer.innerHTML += "<p class='text-green-700 fade-in'>[Bluesky HANDSHAKE] Connection successful at " + new Date().toLocaleTimeString() + "!</p>";
+          } catch (error) {
+            logContainer.innerHTML += `<p class='text-red-700 fade-in'>[Bluesky HANDSHAKE] Connection failed: ${error.message}</p>`;
+            alternativeBlueskyConnect();
+          }
         }
+        function alternativeBlueskyConnect() {
+          const logContainer = document.getElementById('blueskyLogContainer');
+          logContainer.innerHTML += "<p class='text-orange-700 fade-in'>[Bluesky HANDSHAKE] Attempting alternative connection...</p>";
+          setTimeout(() => {
+            logContainer.innerHTML += "<p class='text-green-700 fade-in'>[Bluesky HANDSHAKE] Alternative connection established at " + new Date().toLocaleTimeString() + ".</p>";
+          }, 2000);
+        }
+
+        // Simulated VR Connection with handshake tracking
+        async function connectToVR() {
+          const logContainer = document.getElementById('vrLogContainer');
+          if (!logContainer) {
+            console.error("VR log container not found.");
+            return;
+          }
+          logContainer.innerHTML += "<p class='text-blue-700 fade-in'>[VR HANDSHAKE] Initiating VR connection at " + new Date().toLocaleTimeString() + "...</p>";
+          try {
+            const response = await fetch('https://vr.example.com/api/session');
+            if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+            logContainer.innerHTML += "<p class='text-green-700 fade-in'>[VR HANDSHAKE] VR connection successful at " + new Date().toLocaleTimeString() + "!</p>";
+          } catch (error) {
+            logContainer.innerHTML += `<p class='text-red-700 fade-in'>[VR HANDSHAKE] VR connection failed: ${error.message}</p>`;
+            alternativeVRConnect();
+          }
+        }
+        function alternativeVRConnect() {
+          const logContainer = document.getElementById('vrLogContainer');
+          logContainer.innerHTML += "<p class='text-orange-700 fade-in'>[VR HANDSHAKE] Attempting alternative VR connection...</p>";
+          setTimeout(() => {
+            logContainer.innerHTML += "<p class='text-green-700 fade-in'>[VR HANDSHAKE] Alternative VR connection established at " + new Date().toLocaleTimeString() + ".</p>";
+          }, 2000);
+        }
+
+        // Non-async VR start function (simply logs start)
+        function startVR() {
+          const container = document.getElementById('vrLogContainer');
+          if (!container) {
+            console.error("VR log container not found.");
+            return;
+          }
+          var log = document.createElement("p");
+          log.textContent = "VR connection started at " + new Date().toLocaleTimeString();
+          log.classList.add("fade-in");
+          container.appendChild(log);
+        }
+
+        // Clear Log Functions
+        function clearBlueskyLogs() {
+          var container = document.getElementById('blueskyLogContainer');
+          if (container) {
+            container.innerHTML = "<p class='text-gray-700 fade-in'>Bluesky logs cleared at " + new Date().toLocaleTimeString() + ".</p>";
+          }
+        }
+        function clearVRLogs() {
+          var container = document.getElementById('vrLogContainer');
+          if (container) {
+            container.innerHTML = "<p class='text-gray-700 fade-in'>VR logs cleared at " + new Date().toLocaleTimeString() + ".</p>";
+          }
+        }
+
+        // Accessibility toggle for high contrast mode
+        document.getElementById('accessibilityButton').addEventListener('click', function() {
+          document.body.classList.toggle('high-contrast');
+        });
 
         // Security Check-in Logging (every 30 seconds)
         function securityCheckIn() {
@@ -812,7 +672,7 @@ function loadImageWithFallback(img, sources) {
         }
         setInterval(securityCheckIn, 30000);
 
-        // Distribution Loop: Example log distribution (every 60 seconds)
+        // Distribution Loop: log distribution every 60 seconds
         function distributionLoop() {
           const blueskyLogs = document.getElementById('blueskyLogContainer').innerHTML;
           const vrLogs = document.getElementById('vrLogContainer').innerHTML;
@@ -823,70 +683,30 @@ function loadImageWithFallback(img, sources) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           })
-            .then((response) => {
-              if (response.ok) {
-                console.log('[DISTRIBUTION] Logs distributed successfully.');
-              } else {
-                console.error('[DISTRIBUTION] Failed with status ' + response.status);
-              }
-            })
-            .catch((error) => {
-              console.error('[DISTRIBUTION] Error: ' + error.message);
-            });
+          .then((response) => {
+            if (response.ok) {
+              console.log('[DISTRIBUTION] Logs distributed successfully.');
+            } else {
+              console.error('[DISTRIBUTION] Failed with status ' + response.status);
+            }
+          })
+          .catch((error) => {
+            console.error('[DISTRIBUTION] Error: ' + error.message);
+          });
         }
         setInterval(distributionLoop, 60000);
 
-        // Simulated Bluesky Connection with Handshake Tracking
-        async function connectToBluesky() {
-          const logContainer = document.getElementById('blueskyLogContainer');
-          logContainer.innerHTML += "<p class='text-blue-700'>[Bluesky HANDSHAKE] Initiating connection...</p>";
-          try {
-            const response = await fetch('https://bsky.social/api/session');
-            if (!response.ok) throw new Error(`HTTP status ${response.status}`);
-            logContainer.innerHTML += "<p class='text-green-700'>[Bluesky HANDSHAKE] Connection successful!</p>";
-          } catch (error) {
-            logContainer.innerHTML += `<p class='text-red-700'>[Bluesky HANDSHAKE] Connection failed: ${error.message}</p>`;
-            alternativeBlueskyConnect();
-          }
-        }
-        function alternativeBlueskyConnect() {
-          const logContainer = document.getElementById('blueskyLogContainer');
-          logContainer.innerHTML += "<p class='text-orange-700'>[Bluesky HANDSHAKE] Attempting alternative connection...</p>";
-          setTimeout(() => {
-            logContainer.innerHTML += "<p class='text-green-700'>[Bluesky HANDSHAKE] Alternative connection established.</p>";
-          }, 2000);
-        }
+        // Attach event listener for Bluesky Connect button (if present)
+        document.getElementById('blueskyConnectBtn')?.addEventListener('click', function() {
+          connectToBluesky();
+        });
 
-        // Simulated VR Connection with Handshake Tracking
-        async function connectToVR() {
-          const logContainer = document.getElementById('vrLogContainer');
-          logContainer.innerHTML += "<p class='text-blue-700'>[VR HANDSHAKE] Initiating VR connection...</p>";
-          try {
-            const response = await fetch('https://vr.example.com/api/session');
-            if (!response.ok) throw new Error(`HTTP status ${response.status}`);
-            logContainer.innerHTML += "<p class='text-green-700'>[VR HANDSHAKE] VR connection successful!</p>";
-          } catch (error) {
-            logContainer.innerHTML += `<p class='text-red-700'>[VR HANDSHAKE] VR connection failed: ${error.message}</p>`;
-            alternativeVRConnect();
-          }
-        }
-        function alternativeVRConnect() {
-          const logContainer = document.getElementById('vrLogContainer');
-          logContainer.innerHTML += "<p class='text-orange-700'>[VR HANDSHAKE] Attempting alternative VR connection...</p>";
-          setTimeout(() => {
-            logContainer.innerHTML += "<p class='text-green-700'>[VR HANDSHAKE] Alternative VR connection established.</p>";
-          }, 2000);
-        }
-
-        // Clear Log Functions
-        function clearBlueskyLogs() {
-          document.getElementById('blueskyLogContainer').innerHTML = "<p class='text-gray-700'>Bluesky logs cleared.</p>";
-        }
-        function clearVRLogs() {
-          document.getElementById('vrLogContainer').innerHTML = "<p class='text-gray-700'>VR logs cleared.</p>";
-        };
-
-     
+        // Feedback form submission handling
+        document.getElementById('feedbackForm')?.addEventListener('submit', function(e) {
+          e.preventDefault();
+          alert("Thank you for your feedback!");
+          e.target.reset();
+        });
       </script>
     {% endblock %}
   </body>
