@@ -479,50 +479,8 @@ function loadImageWithFallback(img, sources) {
   </div>
 </section>
 
-
-        <!-- Bluesky Log Display Section -->
-        <section id="bluesky-log-display" class="mb-5" aria-labelledby="blueskyLogTitle">
-          <h2 id="blueskyLogTitle" class="decorative-title">Bluesky Log Display</h2>
-          <p>
-            This section shows real‑time logs for the Bluesky connection. It includes connection checks, alternative recovery methods,
-            and bot‑prevention mechanics.
-          </p>
-          <div id="blueskyLogContainer" class="log-container" aria-live="polite">
-            <p class="text-gray-700">Initializing Bluesky connection...</p>
-          </div>
-          <div class="mt-4 d-flex gap-2 justify-content-center">
-            <button onclick="connectToBluesky()" class="btn btn-primary">Reconnect</button>
-            <button onclick="clearBlueskyLogs()" class="btn btn-secondary">Clear Logs</button>
-            
-            <a href="https://bsky.app/profile/techandstream.bsky.social" class="btn btn-primary" target="_blank">Follow on Bluesky</a>
-          </div>
-        </section>
-
-        <!-- Feedback Section -->
-        <section id="feedback-section" class="mb-5" aria-labelledby="feedbackTitle">
-          <h2 id="feedbackTitle" class="decorative-title">Feedback &amp; Support</h2>
-          <p>We value your feedback. Use the form below to share your thoughts.</p>
-          <form id="feedbackForm">
-            <div class="form-group">
-              <label for="feedbackName">Your Name:</label>
-              <input type="text" id="feedbackName" class="form-control" placeholder="Enter your name" required />
-            </div>
-            <div class="form-group">
-              <label for="feedbackEmail">Your Email:</label>
-              <input type="email" id="feedbackEmail" class="form-control" placeholder="Enter your email" required />
-            </div>
-            <div class="form-group">
-              <label for="feedbackMessage">Your Feedback:</label>
-              <textarea id="feedbackMessage" class="form-control" placeholder="Enter your feedback" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit Feedback</button>
-          </form>
-        </section>
-      </div>
-    </main>
-
-    <!-- Floating / Fixed Panels and Modals -->
-    <section>
+            <!-- Floating / Fixed Panels and Modals -->
+    <section id="carousel" class="mb-5" aria-labelledby="carouselTitle">
       <!-- VR Log Display Panel (Bottom-Left) -->
       <div
         id="vrLogPanel"
@@ -568,6 +526,47 @@ function loadImageWithFallback(img, sources) {
         </div>
       </div>
     </section>
+
+        <!-- Bluesky Log Display Section -->
+        <section id="bluesky-log-display" class="mb-5" aria-labelledby="blueskyLogTitle">
+          <h2 id="blueskyLogTitle" class="decorative-title">Bluesky Log Display</h2>
+          <p>
+            This section shows real‑time logs for the Bluesky connection. It includes connection checks, alternative recovery methods,
+            and bot‑prevention mechanics.
+          </p>
+          <div id="blueskyLogContainer" class="log-container" aria-live="polite">
+            <p class="text-gray-700">Initializing Bluesky connection...</p>
+          </div>
+          <div class="mt-4 d-flex gap-2 justify-content-center">
+            <button onclick="connectToBluesky()" class="btn btn-primary">Reconnect</button>
+            <button onclick="clearBlueskyLogs()" class="btn btn-secondary">Clear Logs</button>
+            
+            <a href="https://bsky.app/profile/techandstream.bsky.social" class="btn btn-primary" target="_blank">Follow on Bluesky</a>
+          </div>
+        </section>
+
+        <!-- Feedback Section -->
+        <section id="feedback-section" class="mb-5" aria-labelledby="feedbackTitle">
+          <h2 id="feedbackTitle" class="decorative-title">Feedback &amp; Support</h2>
+          <p>We value your feedback. Use the form below to share your thoughts.</p>
+          <form id="feedbackForm">
+            <div class="form-group">
+              <label for="feedbackName">Your Name:</label>
+              <input type="text" id="feedbackName" class="form-control" placeholder="Enter your name" required />
+            </div>
+            <div class="form-group">
+              <label for="feedbackEmail">Your Email:</label>
+              <input type="email" id="feedbackEmail" class="form-control" placeholder="Enter your email" required />
+            </div>
+            <div class="form-group">
+              <label for="feedbackMessage">Your Feedback:</label>
+              <textarea id="feedbackMessage" class="form-control" placeholder="Enter your feedback" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+          </form>
+        </section>
+      </div>
+    </main>
 
     <!-- FOOTER -->
     <footer class="bg-dark text-white mt-auto">
