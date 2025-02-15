@@ -709,59 +709,89 @@ function loadImageWithFallback(img, sources) {
   </script>
 </section>
 
+<!-- Section de déclenchement du popup -->
+<section class="mb-5" aria-labelledby="feedbackTitle">
+  <h2 id="feedbackTitle" class="decorative-title">Feedback &amp; Support</h2>
+  <p>We value your feedback. Click the button below to share your thoughts.</p>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+    Give Feedback
+  </button>
+</section>
 
-        <!-- Feedback Section -->
-        <section id="feedback-section" class="mb-5" aria-labelledby="feedbackTitle">
-          <h2 id="feedbackTitle" class="decorative-title">Feedback &amp; Support</h2>
-          <p>We value your feedback. Use the form below to share your thoughts.</p>
-          <form id="feedbackForm">
-            <div class="form-group">
-              <label for="feedbackName">Your Name:</label>
-              <input type="text" id="feedbackName" class="form-control" placeholder="Enter your name" required />
-            </div>
-            <div class="form-group">
-              <label for="feedbackEmail">Your Email:</label>
-              <input type="email" id="feedbackEmail" class="form-control" placeholder="Enter your email" required />
-            </div>
-            <div class="form-group">
-              <label for="feedbackMessage">Your Feedback:</label>
-              <textarea id="feedbackMessage" class="form-control" placeholder="Enter your feedback" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit Feedback</button>
-          </form>
-        </section>
+<!-- Modal du Feedback -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackModalLabel">Feedback &amp; Support</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="feedbackForm">
+          <div class="mb-3">
+            <label for="feedbackName" class="form-label">Your Name:</label>
+            <input type="text" id="feedbackName" class="form-control" placeholder="Enter your name" required />
+          </div>
+          <div class="mb-3">
+            <label for="feedbackEmail" class="form-label">Your Email:</label>
+            <input type="email" id="feedbackEmail" class="form-control" placeholder="Enter your email" required />
+          </div>
+          <div class="mb-3">
+            <label for="feedbackMessage" class="form-label">Your Feedback:</label>
+            <textarea id="feedbackMessage" class="form-control" placeholder="Enter your feedback" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Feedback</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
       </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="bg-dark text-white mt-auto">
-      <div class="container py-3">
-        <div class="mb-3">
-          <h3 class="decorative-title">Follow &copy;</h3>
-          <div class="social-links">
-            <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-              <i class="fas fa-rss"></i> Blog
-            </a>
-            <a href="https://www.instagram.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-              <i class="fab fa-instagram"></i> Instagram
-            </a>
-            <a href="https://www.threads.net/@techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-              <i class="fas fa-comment-dots"></i> Threads
-            </a>
-            <a href="https://x.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-              <i class="fab fa-twitter"></i> X
-            </a>
-            <a href="https://www.youtube.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-              <i class="fab fa-youtube"></i> YouTube
-            </a>
-            <a href="https://www.facebook.com/kvnbbg" target="_blank" rel="noopener noreferrer" class="text-white mx-2">
-              <i class="fab fa-facebook-f"></i> Facebook
-            </a>
-          </div>
-        </div>
-        <p class="mb-0">&copy; 2025 Kevin Marville. All rights reserved.</p>
-      </div>
-    </footer>
+<!-- Footer Professionnel -->
+<footer class="bg-dark text-white mt-auto">
+  <div class="container py-4">
+    <nav aria-label="Réseaux sociaux">
+      <ul class="list-inline text-center mb-3">
+        <li class="list-inline-item">
+          <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="text-white">
+            Blog
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://www.instagram.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white">
+            Instagram
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://www.threads.net/@techandstream" target="_blank" rel="noopener noreferrer" class="text-white">
+            Threads
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://x.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white">
+            X
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://www.youtube.com/techandstream" target="_blank" rel="noopener noreferrer" class="text-white">
+            YouTube
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://www.facebook.com/kvnbbg" target="_blank" rel="noopener noreferrer" class="text-white">
+            Facebook
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <p class="text-center mb-0">&copy; 2025 Kevin Marville. All rights reserved.</p>
+  </div>
+</footer>
+
 
     {% block scripts %}
       <!-- Core JavaScript Libraries -->
