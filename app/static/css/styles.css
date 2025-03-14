@@ -1,0 +1,685 @@
+/* =========================================================================
+   FULL IMPROVED EXTENDED CSS – AU GARAGE (Responsive, Accessible & Robust)
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   1. RESET & GLOBAL SETTINGS (Complements Tailwind’s Preflight)
+   ------------------------------------------------------------------------- */
+
+/* Additional focus styling for accessibility */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--background-color, #f0f0f0);
+  color: var(--text-color, #333333);
+  line-height: 1.6;
+  padding: var(--base-padding, 1rem);
+  overflow-x: hidden;
+  position: relative;
+}
+ 
+/* Additional focus styling for accessibility */
+:focus {
+  outline: 2px dashed var(--primary-color);
+  outline-offset: 4px;
+}
+
+/* -------------------------------------------------------------------------
+   2. CSS VARIABLES (THEMING, SIZING, & ANIMATION SETTINGS)
+   ------------------------------------------------------------------------- */
+:root {
+  /* Colors – calm, professional palette */
+  --primary-color: #007BFF;       /* Professional blue */
+  --primary-hover: #0056b3;
+  --accent-color: #6C7B8B;        /* Gray-blue tone for accents */
+  --neon-green: #A8DADC;          /* Calm pastel blue (for buttons) */
+  --background-color: #f0f0f0;    /* Light neutral background */
+  --text-color: #333333;          /* Clear, dark text */
+  --modal-bg: #ffffff;
+  --modal-border: #cccccc;
+  --modal-shadow: rgba(0, 0, 0, 0.1);
+  
+  /* Spacing & Sizing */
+  --base-padding: 1rem;
+  --container-max-width: 1140px;
+  --bubble-size: 60px;
+  
+  /* Animation Durations */
+  --float-duration: 8s;
+  --tiktok-duration: 3s;
+  --shimmer-duration: 2s;
+  --neon-pulse-duration: 5s;
+  --emoji-toggle-interval: 5000ms;
+  
+  /* Effects */
+  --float-effect: 3px;
+}
+
+/* -------------------------------------------------------------------------
+   3. TYPOGRAPHY & TEXT UTILITIES
+   ------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  /* Subtle neon glow effect */
+  text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
+}
+
+p {
+  margin-bottom: 1em;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.text-white { color: #ffffff !important; }
+.text-muted { color: #777777 !important; }
+
+/* -------------------------------------------------------------------------
+   4. LAYOUT & STRUCTURAL CONTAINERS
+   ------------------------------------------------------------------------- */
+/* Bootstrap-like containers */
+.container,
+.container-fluid {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Sticky header for consistent  navigation */
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  border-bottom: 3px solid var(--primary-hover);
+  overflow: hidden;
+}
+
+/* Full background images  navigation */
+.bg-image-full {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+
+footer {
+  background: #000;
+  color: #fff;
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+}
+
+/* Main slide-in container for content */
+.slide-container {
+  width: 100vw;
+  min-height: 100vh;
+  animation: slideIn 1s ease-out forwards;
+  padding: 2rem 0;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(100vh); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+section {
+  margin-bottom: 3rem;
+}
+/* -------------------------------------------------------------------------
+   5. NAVIGATION & HEADER ELEMENTS (FOR NAVBAR)
+   ------------------------------------------------------------------------- */
+nav.navbar {
+  /* Ensure navbar stays on top */
+  position: relative;
+  top: 0;
+  z-index: 9999;
+}
+
+.navbar.bg-dark {
+  background-color: #343a40 !important;
+}
+
+.navbar-brand img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Navigation links */
+.navbar-nav .nav-link {
+  color: #fff;
+  transition: color 0.3s ease, transform 0.3s ease;
+  /* Prevent accidental text selection
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none; */
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+  color: var(--accent-color, #6C7B8B) !important;
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+/* Button inside navbar (e.g. Bluesky Connect) */
+.nav-item > button.btn {
+  cursor: pointer;
+  transition: all 0.3s ease;
+   /* Prevent accidental text selection
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none; */
+}
+
+.nav-item > button.btn:hover,
+.nav-item > button.btn:focus {
+  transform: translateY(-2px);
+}
+
+/* -------------------------------------------------------------------------
+   6. NAVBAR TOGGLER (RESPONSIVE COLLAPSE)
+   ------------------------------------------------------------------------- */
+.navbar-toggler {
+  border: none;
+  outline: none;
+  transition: background-color 0.3s ease;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+}
+
+/* Custom toggler icon override (optional) */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Responsive collapse styling */
+@media (max-width: 992px) {
+  .navbar-collapse {
+    background-color: #343a40;
+    padding: 1rem;
+    border-top: 1px solid #495057;
+  }
+  .navbar-nav {
+    margin-top: 1rem;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   7. BUTTONS, LINKS & INTERACTIVE ELEMENTS (GENERAL)
+   ------------------------------------------------------------------------- */
+.btn,
+.bubble-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn {
+  background-color: var(--neon-green);
+  color: #000;
+}
+
+.btn:active,
+.bubble-button:active {
+  transform: scale(0.98);
+}
+
+.btn:hover,
+.bubble-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+/* Floating bubble button */
+.bubble-button.floating {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+  background: var(--accent-color);
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(102, 123, 139, 0.4);
+  font-size: 1.5rem;
+  z-index: 10000;
+  animation: bubbleFloat 4s ease-in-out infinite;
+}
+
+@keyframes bubbleFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* Decorative hover border effect */
+.hover-border {
+  position: relative;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.hover-border::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  border: 2px solid var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+.hover-border:hover::before {
+  width: 100%;
+}
+
+/* -------------------------------------------------------------------------
+   8. FORMS & INPUT FIELDS
+   ------------------------------------------------------------------------- */
+form input,
+form button,
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.625rem 0;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+/* -------------------------------------------------------------------------
+   9. DRAGGABLE ELEMENTS & BUZZ EFFECT
+   ------------------------------------------------------------------------- */
+.draggable {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: move;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 10px;
+  margin: 10px;
+  background: #dddddd;
+  width: 100px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.draggable:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+@keyframes buzz {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0, 0); }
+}
+
+.buzz-effect {
+  animation: buzz 0.5s linear;
+}
+
+/* -------------------------------------------------------------------------
+   10. EXCEL-LIKE TABLES & SPREADSHEET PANEL
+   ------------------------------------------------------------------------- */
+.excel-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.excel-table th,
+.excel-table td {
+  border: 1px solid #999;
+  padding: 8px;
+  text-align: center;
+}
+
+.excel-table th {
+  background: #e0e0e0;
+}
+
+/* -------------------------------------------------------------------------
+   11. IOT SIMULATION & DYNAMIC DATA PANEL
+   ------------------------------------------------------------------------- */
+#iotSimulation {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 20px 0;
+}
+
+#simulationLog {
+  background: #f4f4f4;
+  height: 150px;
+  overflow-y: auto;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* -------------------------------------------------------------------------
+   12. FLOATING BUBBLES BACKGROUND ANIMATION
+   ------------------------------------------------------------------------- */
+#bubbleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* -------------------------------------------------------------------------
+   13. NERD METRICS MODAL & TOGGLE BUTTON
+   ------------------------------------------------------------------------- */
+#nerdMetricsModal {
+  /* Inherit modal styles from section 6 */
+}
+
+#nerdMetricsButton {
+  margin-left: 10px;
+}
+
+/* -------------------------------------------------------------------------
+   14. THREE.JS SIMULATION CONTROLS
+   ------------------------------------------------------------------------- */
+#threejs-simulation {
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* -------------------------------------------------------------------------
+   15. CSS GRID LAYOUTS (FOR DYNAMIC UI COMPONENTS)
+   ------------------------------------------------------------------------- */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.grid-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.grid-item:hover {
+  transform: translateY(-5px);
+}
+
+.horizontal-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  margin-bottom: 3rem;
+}
+
+.horizontal-row > .row-item {
+  flex: 1 1 45%;
+  min-width: 280px;
+  margin: 0.5rem 0;
+}
+
+/* -------------------------------------------------------------------------
+   16. DECORATIVE TITLES & VISUAL PSEUDO-ELEMENTS
+   ------------------------------------------------------------------------- */
+.decorative-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+.decorative-title::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  border-radius: 2px;
+}
+
+/* -------------------------------------------------------------------------
+   17. ANIMATION & SPECIAL EFFECTS
+   ------------------------------------------------------------------------- */
+@keyframes neonPulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5); }
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+  animation: shimmerEffect var(--shimmer-duration) infinite;
+}
+
+@keyframes shimmerEffect {
+  0% { left: -150%; }
+  50% { left: 150%; }
+  100% { left: 150%; }
+}
+
+.tiktok-interactive {
+  animation: tiktokLoop var(--tiktok-duration) ease-in-out infinite;
+}
+
+@keyframes tiktokLoop {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* -------------------------------------------------------------------------
+   18. RESPONSIVE DESIGN, ORIENTATION & MEDIA QUERIES
+   ------------------------------------------------------------------------- */
+@media (min-width: 1200px) {
+  html { font-size: 18px; }
+  .container { max-width: 1140px; }
+}
+
+@media (max-width: 1199px) and (min-width: 992px) {
+  html { font-size: 17px; }
+  header { padding: 1rem; }
+  .navbar-nav .nav-link { margin-left: 0.75rem; }
+}
+
+@media (max-width: 991px) and (min-width: 768px) {
+  html { font-size: 16px; }
+  header { padding: 0.75rem; }
+  .navbar { padding: 0.5rem 1rem; }
+  .grid-container { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+}
+
+@media (max-width: 767px) {
+  html { font-size: 15px; }
+  header { padding: 0.5rem; }
+  .navbar { flex-direction: column; }
+  .bubble-button { font-size: 14px; padding: 8px 12px; }
+  .grid-container { grid-template-columns: 1fr; }
+  #mainContainer { padding: 10px; }
+  .horizontal-row > .row-item {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  html { font-size: 14px; }
+  .navbar-nav .nav-link { margin-left: 0.5rem; }
+  .btn, .bubble-button { padding: 0.5rem 1rem; }
+}
+
+@media (orientation: landscape) {
+  .bg-image-full { height: 100vh; }
+  #threejs-canvas-container { height: 50vh; }
+}
+
+@media (orientation: portrait) {
+  .bg-image-full { height: 50vh; }
+  #threejs-canvas-container { height: 30vh; }
+}
+
+/* -------------------------------------------------------------------------
+   19. ACCESSIBILITY: PREFERS-REDUCED MOTION
+   ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   20. CUSTOM UTILITY CLASSES & JS COMPONENTS SUPPORT
+   ------------------------------------------------------------------------- */
+#dropZone {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px dashed #ccc;
+  padding: 20px;
+  margin: 10px;
+  min-width: 300px;
+  text-align: center;
+  background: #f9f9f9;
+  z-index: 9999;
+}
+
+#mainContainer {
+  padding: 20px;
+  font-family: sans-serif;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+#iotSimulation {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 20px 0;
+}
+
+#simulationLog {
+  background: #f4f4f4;
+  height: 150px;
+  overflow-y: auto;
+  padding: 10px;
+  font-size: 14px;
+}
+
+#bubbleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* -------------------------------------------------------------------------
+   21. SOUPLESSE STRATEGIES – SMOOTH & FLEXIBLE INTERACTIONS
+   ------------------------------------------------------------------------- */
+.relaxed-transition {
+  transition: all 0.3s ease-out;
+}
+
+.smooth-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+.smooth-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Force smooth scrolling on any element if needed */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* -------------------------------------------------------------------------
+   22. CUSTOM USER-SELECT UTILITY (Ensuring Broad Browser Support)
+   ------------------------------------------------------------------------- */
+.no-select {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* =========================================================================
+   END OF FULL IMPROVED EXTENDED CSS – AU GARAGE
+   ========================================================================= */
