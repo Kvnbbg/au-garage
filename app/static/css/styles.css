@@ -20,9 +20,6 @@ html {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background: var(--background-color, #f0f0f0);
-  color: var(--text-color, #333333);
   line-height: 1.6;
   padding: var(--base-padding, 1rem);
   overflow-x: hidden;
@@ -43,9 +40,7 @@ body {
   --primary-color: #007BFF;       /* Professional blue */
   --primary-hover: #0056b3;
   --accent-color: #6C7B8B;        /* Gray-blue tone for accents */
-  --neon-green: #A8DADC;          /* Calm pastel blue (for buttons) */
-  --background-color: #f0f0f0;    /* Light neutral background */
-  --text-color: #333333;          /* Clear, dark text */
+  --neon-green: #A8DADC;          /* Calm pastel blue (for           /* Clear, dark text */
   --modal-bg: #ffffff;
   --modal-border: #cccccc;
   --modal-shadow: rgba(0, 0, 0, 0.1);
@@ -69,7 +64,7 @@ body {
 /* -------------------------------------------------------------------------
    3. TYPOGRAPHY & TEXT UTILITIES
    ------------------------------------------------------------------------- */
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6:hover {
   font-family: 'M PLUS Rounded 1c', sans-serif;
   margin-bottom: 0.5em;
   text-transform: uppercase;
@@ -78,7 +73,7 @@ h1, h2, h3, h4, h5, h6 {
   text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
 }
 
-p {
+p:hover {
   margin-bottom: 1em;
   font-size: 1rem;
   line-height: 1.5;
@@ -94,14 +89,14 @@ p {
    ------------------------------------------------------------------------- */
 /* Bootstrap-like containers */
 .container,
-.container-fluid {
+.container-fluid:hover {
   max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 15px;
 }
 
 /* Sticky header for consistent  navigation */
-header {
+header:hover {
   position: absolute;
   top: 0;
   left: 0;
@@ -132,9 +127,7 @@ header::after {
 }
 
 
-footer {
-  background: #000;
-  color: #fff;
+footer:hover {
   padding: 2rem 0;
   text-align: center;
   font-size: 0.9rem;
@@ -154,7 +147,7 @@ footer {
   to   { transform: translateY(0); opacity: 1; }
 }
 
-section {
+section:hover {
   margin-bottom: 3rem;
 }
 /* -------------------------------------------------------------------------
@@ -167,8 +160,8 @@ nav.navbar {
   z-index: 9999;
 }
 
-.navbar.bg-dark {
-  background-color: #343a40 !important;
+.navbar.bg-dark:hover {
+  background-color: #343a40;
 }
 
 .navbar-brand img {
@@ -178,7 +171,7 @@ nav.navbar {
 }
 
 /* Navigation links */
-.navbar-nav .nav-link {
+.navbar-nav .nav-link::before {
   color: #fff;
   transition: color 0.3s ease, transform 0.3s ease;
   /* Prevent accidental text selection
@@ -239,7 +232,6 @@ nav.navbar {
 /* Responsive collapse styling */
 @media (max-width: 992px) {
   .navbar-collapse {
-    background-color: #343a40;
     padding: 1rem;
     border-top: 1px solid #495057;
   }
