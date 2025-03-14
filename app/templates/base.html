@@ -235,7 +235,13 @@
 
     <!-- HEADER: Navigation (sticky for mobile/tablet users) -->
     <header class="sticky-header">
-      <nav class="navbar navbar-expand-lg navbar" aria-label="Main Navigation">
+     <h1>
+      Kernel Vector Network Binary Bit Gateway
+    </h1>
+    <h6>🈷️<a href="">https://kvnbbg-creations.io</a>
+      </h6>
+    </header>
+     <nav class="navbar navbar-expand-lg navbar" aria-label="Main Navigation">
         <div class="container">
           <a class="navbar-brand" href="{{ url_for('main.home') }}">
             <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Au Garage Logo" width="50" height="50" />
@@ -287,10 +293,79 @@
           </div>
         </div>
       </nav>
-    </header>
 <section>
 
     <style>
+    /* General styles for the section and article */
+section, article {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+section:hover, article:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading styles */
+h2, h3 {
+  color: #333;
+  font-family: 'Georgia', serif;
+  transition: color 0.3s ease;
+}
+
+h2:hover, h3:hover {
+  color: #555;
+}
+
+/* List styles */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #fff;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+li:hover {
+  background-color: #f1f1f1;
+  transform: translateX(5px);
+}
+
+/* Link styles */
+a {
+  color: #007BFF;
+  text-decoration: none;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Button styles */
+button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
         .language-section {
             display: none;
         }
@@ -306,15 +381,15 @@
         }
     </style>
 
-    <div id="language-toggle">
+    <nav id="language-toggle">
         <button onclick="showLanguage('fr')">Français</button>
         <button onclick="showLanguage('en')">English</button>
         <button onclick="showLanguage('cn')">中文</button>
-    </div>
+    </nav>
     
     <!-- French version (default) -->
     <section id="lang-fr" class="language-section active">
-        <h2>Semactic Inside</h2>
+        <h2>France Travail</h2>
 
         <article>
             <h3>Mon premier projet : Web mastering sur WordPress</h3>
@@ -340,7 +415,8 @@
                     📂 <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">
                         Mobile App Réalisation</a>
                     <br>
-                    🔽 <a href="./vr.pdf" download>Télécharger</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/zmv26vytzxifh8txj470k/kevin.marville_DProjet1erdepotdossierprojetlTPDWWMGDFE_336149_202404212229071188510.pdf?rlkey=ft5siivzdky1r9af4nirgm1cg&st=ov0hlmba&dl=0" download>Télécharger</a>
+
                     <br>
                     <small>En cas d'erreur de téléchargement, veuillez <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">cliquer ici</a></small>
                 </li>
@@ -348,7 +424,9 @@
                     📂 <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">
                         Attestation de Formation STUDI – Utile pour la Freelance</a>
                     <br>
-                    🔽 <a href="./attestation.pdf" download>Télécharger</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/iqiw2ip120y8ew9xnv16a/Titre-professionnel-B2-developpeur-web-et-web-mobile-kevin-marville.pdf?rlkey=qxyis1hptob9xdrqtf8blwdmk&st=8g3ptin4&dl=0" download>Télécharger a</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/xf86sytbzpfqqaswclpvl/R-sultats_1.-copie.pdf?rlkey=oe9nv1x79sdtemicw8gegh4g7&st=vre0gl64&dl=0" download>Télécharger b</a>
+                    
                     <br>
                     <small>En cas d'erreur de téléchargement, veuillez <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">cliquer ici</a></small>
                 </li>
@@ -356,7 +434,7 @@
                     📂 <a href="https://github.com/Kvnbbg/au-garage" target="_blank">
                         Application Professionnelle pour le Garage de Vincent Parrot (Évolution)</a>
                     <br>
-                    🔽 <a href="./garage.pdf" download>Télécharger</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/k7vw76sdexosi5xgo4bcm/dossier-projet.pdf?rlkey=372l2oylxjtsu1r8vl1axlo07&st=zba9k2c2&dl=0" download>Télécharger</a>
                     <br>
                     <small>En cas d'erreur de téléchargement, veuillez <a href="https://github.com/Kvnbbg/au-garage" target="_blank">cliquer ici</a></small>
                 </li>
@@ -366,7 +444,7 @@
 
     <!-- English version -->
     <section id="lang-en" class="language-section">
-        <h2>Semactic Inside</h2>
+        <h2>French Work</h2>
 
         <article>
             <h3>My First Project: Web Mastering on WordPress</h3>
@@ -392,7 +470,7 @@
                     📂 <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">
                         Mobile App Implementation</a>
                     <br>
-                    🔽 <a href="./vr.pdf" download>Download</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/zmv26vytzxifh8txj470k/kevin.marville_DProjet1erdepotdossierprojetlTPDWWMGDFE_336149_202404212229071188510.pdf?rlkey=ft5siivzdky1r9af4nirgm1cg&st=ov0hlmba&dl=0" download>Download</a>
                     <br>
                     <small>If download fails, please <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">click here</a></small>
                 </li>
@@ -400,7 +478,8 @@
                     📂 <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">
                         STUDI Training Certificate – Useful for Freelancing</a>
                     <br>
-                    🔽 <a href="./attestation.pdf" download>Download</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/iqiw2ip120y8ew9xnv16a/Titre-professionnel-B2-developpeur-web-et-web-mobile-kevin-marville.pdf?rlkey=qxyis1hptob9xdrqtf8blwdmk&st=lga3m3v1&dl=0" download>Download a</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/xf86sytbzpfqqaswclpvl/R-sultats_1.-copie.pdf?rlkey=oe9nv1x79sdtemicw8gegh4g7&st=9zl2v82t&dl=0" download>Download b</a>
                     <br>
                     <small>If download fails, please <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">click here</a></small>
                 </li>
@@ -408,7 +487,7 @@
                     📂 <a href="https://github.com/Kvnbbg/au-garage" target="_blank">
                         Professional Application for Vincent Parrot's Garage (Evolution)</a>
                     <br>
-                    🔽 <a href="./garage.pdf" download>Download</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/k7vw76sdexosi5xgo4bcm/dossier-projet.pdf?rlkey=372l2oylxjtsu1r8vl1axlo07&st=zba9k2c2&dl=0" download>Download</a>
                     <br>
                     <small>If download fails, please <a href="https://github.com/Kvnbbg/au-garage" target="_blank">click here</a></small>
                 </li>
@@ -418,7 +497,7 @@
 
     <!-- Chinese version -->
     <section id="lang-cn" class="language-section">
-        <h2>Semactic 内页</h2>
+        <h2>法国就业</h2>
 
         <article>
             <h3>我的第一个项目：在 WordPress 上进行网页管理</h3>
@@ -444,7 +523,7 @@
                     📂 <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">
                         移动应用实现</a>
                     <br>
-                    🔽 <a href="./vr.pdf" download>下载</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/zmv26vytzxifh8txj470k/kevin.marville_DProjet1erdepotdossierprojetlTPDWWMGDFE_336149_202404212229071188510.pdf?rlkey=ft5siivzdky1r9af4nirgm1cg&st=ov0hlmba&dl=0" download>下载</a>
                     <br>
                     <small>若下载失败，请点击此处 <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">这里</a></small>
                 </li>
@@ -452,15 +531,17 @@
                     📂 <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">
                         STUDI 培训证明 - 对自由职业者有用</a>
                     <br>
-                    🔽 <a href="./attestation.pdf" download>下载</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/iqiw2ip120y8ew9xnv16a/Titre-professionnel-B2-developpeur-web-et-web-mobile-kevin-marville.pdf?rlkey=qxyis1hptob9xdrqtf8blwdmk&st=0hg0rp3s&dl=0" download>下载 a</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/xf86sytbzpfqqaswclpvl/R-sultats_1.-copie.pdf?rlkey=oe9nv1x79sdtemicw8gegh4g7&st=u2ak4tj6&dl=0" download>下载 b</a>
                     <br>
+                      
                     <small>若下载失败，请点击此处 <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">这里</a></small>
                 </li>
                 <li>
                     📂 <a href="https://github.com/Kvnbbg/au-garage" target="_blank">
                         为 Vincent Parrot 的车库开发的专业应用程序（进化版）</a>
                     <br>
-                    🔽 <a href="./garage.pdf" download>下载</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/k7vw76sdexosi5xgo4bcm/dossier-projet.pdf?rlkey=372l2oylxjtsu1r8vl1axlo07&st=zba9k2c2&dl=0" download>下载</a>
                     <br>
                     <small>若下载失败，请点击此处 <a href="https://github.com/Kvnbbg/au-garage" target="_blank">这里</a></small>
                 </li>
