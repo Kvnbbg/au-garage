@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ session.get('lang', 'en') }}">
+<html lang="{{ session.get('lang', 'fr') }}">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -215,15 +215,15 @@
     <script type="application/ld+json">
       {
         "@context": "http://schema.org",
-        "@type": "AutoRepair",
-        "name": "Au Garage",
+        "@type": "Coding, Gaming & Web development 编程、游戏与网页开发",
+        "name": KEVIN MARVILLE",
         "url": "https://github.com/Kvnbbg/au-garage",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "xxxxx",
-          "addressLocality": "Rivierre-Salée, Martinique",
-          "postalCode": "97215",
-          "addressCountry": "MQ"
+          "streetAddress": " ",
+          "addressLocality": "Lyon, France",
+          "postalCode": "69007",
+          "addressCountry": "FR"
         },
         "telephone": "+33634160418"
       }
@@ -288,7 +288,196 @@
         </div>
       </nav>
     </header>
+<section>
 
+    <style>
+        .language-section {
+            display: none;
+        }
+        .language-section.active {
+            display: block;
+        }
+        #language-toggle {
+            margin-bottom: 1em;
+        }
+        #language-toggle button {
+            margin-right: 0.5em;
+            padding: 0.5em 1em;
+        }
+    </style>
+
+    <div id="language-toggle">
+        <button onclick="showLanguage('fr')">Français</button>
+        <button onclick="showLanguage('en')">English</button>
+        <button onclick="showLanguage('cn')">中文</button>
+    </div>
+    
+    <!-- French version (default) -->
+    <section id="lang-fr" class="language-section active">
+        <h2>Semactic Inside</h2>
+
+        <article>
+            <h3>Mon premier projet : Web mastering sur WordPress</h3>
+            <p>📌 <a href="https://kvnbbg.fr" target="_blank">https://kvnbbg.fr</a></p>
+        </article>
+
+        <article>
+            <h3>Documents confidentiels</h3>
+            <p>Ces documents sont cachés pour des raisons de confidentialité, mais voici leurs noms :</p>
+            <ul>
+                <li><strong>Attestation Montagne</strong></li>
+                <li><strong>Attestation CACES 3 4 5</strong></li>
+                <li><strong>Félicitations document</strong></li>
+            </ul>
+            <p>Pour en savoir plus sur mon parcours, visitez <a href="https://linkedin.com/kevinmarville" target="_blank">mon profil LinkedIn</a>.</p>
+        </article>
+
+        <article>
+            <h3>Documents disponibles</h3>
+            <p>(Stockés sur le serveur et téléchargeables)</p>
+            <ul>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">
+                        Mobile App Réalisation</a>
+                    <br>
+                    🔽 <a href="./vr.pdf" download>Télécharger</a>
+                    <br>
+                    <small>En cas d'erreur de téléchargement, veuillez <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">cliquer ici</a></small>
+                </li>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">
+                        Attestation de Formation STUDI – Utile pour la Freelance</a>
+                    <br>
+                    🔽 <a href="./attestation.pdf" download>Télécharger</a>
+                    <br>
+                    <small>En cas d'erreur de téléchargement, veuillez <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">cliquer ici</a></small>
+                </li>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/au-garage" target="_blank">
+                        Application Professionnelle pour le Garage de Vincent Parrot (Évolution)</a>
+                    <br>
+                    🔽 <a href="./garage.pdf" download>Télécharger</a>
+                    <br>
+                    <small>En cas d'erreur de téléchargement, veuillez <a href="https://github.com/Kvnbbg/au-garage" target="_blank">cliquer ici</a></small>
+                </li>
+            </ul>
+        </article>
+    </section>
+
+    <!-- English version -->
+    <section id="lang-en" class="language-section">
+        <h2>Semactic Inside</h2>
+
+        <article>
+            <h3>My First Project: Web Mastering on WordPress</h3>
+            <p>📌 <a href="https://kvnbbg.fr" target="_blank">https://kvnbbg.fr</a></p>
+        </article>
+
+        <article>
+            <h3>Confidential Documents</h3>
+            <p>These documents are hidden for confidentiality reasons, but here are their names:</p>
+            <ul>
+                <li><strong>Mountain Attestation</strong></li>
+                <li><strong>CACES 3 4 5 Certificate</strong></li>
+                <li><strong>Congratulations Document</strong></li>
+            </ul>
+            <p>To learn more about my background, visit <a href="https://linkedin.com/kevinmarville" target="_blank">my LinkedIn profile</a>.</p>
+        </article>
+
+        <article>
+            <h3>Available Documents</h3>
+            <p>(Stored on the server and downloadable)</p>
+            <ul>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">
+                        Mobile App Implementation</a>
+                    <br>
+                    🔽 <a href="./vr.pdf" download>Download</a>
+                    <br>
+                    <small>If download fails, please <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">click here</a></small>
+                </li>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">
+                        STUDI Training Certificate – Useful for Freelancing</a>
+                    <br>
+                    🔽 <a href="./attestation.pdf" download>Download</a>
+                    <br>
+                    <small>If download fails, please <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">click here</a></small>
+                </li>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/au-garage" target="_blank">
+                        Professional Application for Vincent Parrot's Garage (Evolution)</a>
+                    <br>
+                    🔽 <a href="./garage.pdf" download>Download</a>
+                    <br>
+                    <small>If download fails, please <a href="https://github.com/Kvnbbg/au-garage" target="_blank">click here</a></small>
+                </li>
+            </ul>
+        </article>
+    </section>
+
+    <!-- Chinese version -->
+    <section id="lang-cn" class="language-section">
+        <h2>Semactic 内页</h2>
+
+        <article>
+            <h3>我的第一个项目：在 WordPress 上进行网页管理</h3>
+            <p>📌 <a href="https://kvnbbg.fr" target="_blank">https://kvnbbg.fr</a></p>
+        </article>
+
+        <article>
+            <h3>机密文件</h3>
+            <p>这些文件由于保密原因被隐藏，但它们的名称如下：</p>
+            <ul>
+                <li><strong>山地证明</strong></li>
+                <li><strong>CACES 3 4 5 证明</strong></li>
+                <li><strong>祝贺文件</strong></li>
+            </ul>
+            <p>如需了解更多关于我的经历，请访问 <a href="https://linkedin.com/kevinmarville" target="_blank">我的 LinkedIn 主页</a>.</p>
+        </article>
+
+        <article>
+            <h3>可用文件</h3>
+            <p>（存储在服务器上，可供下载）</p>
+            <ul>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">
+                        移动应用实现</a>
+                    <br>
+                    🔽 <a href="./vr.pdf" download>下载</a>
+                    <br>
+                    <small>若下载失败，请点击此处 <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">这里</a></small>
+                </li>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">
+                        STUDI 培训证明 - 对自由职业者有用</a>
+                    <br>
+                    🔽 <a href="./attestation.pdf" download>下载</a>
+                    <br>
+                    <small>若下载失败，请点击此处 <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">这里</a></small>
+                </li>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/au-garage" target="_blank">
+                        为 Vincent Parrot 的车库开发的专业应用程序（进化版）</a>
+                    <br>
+                    🔽 <a href="./garage.pdf" download>下载</a>
+                    <br>
+                    <small>若下载失败，请点击此处 <a href="https://github.com/Kvnbbg/au-garage" target="_blank">这里</a></small>
+                </li>
+            </ul>
+        </article>
+    </section>
+
+    <script>
+        function showLanguage(lang) {
+            var sections = document.querySelectorAll('.language-section');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+            document.getElementById('lang-' + lang).classList.add('active');
+        }
+    </script>
+</section>
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="flex-grow-1">
 
