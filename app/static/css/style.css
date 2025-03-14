@@ -6,141 +6,19 @@
    1. RESET & GLOBAL SETTINGS (Complements Tailwind’s Preflight)
    ------------------------------------------------------------------------- */
 
-/* Additional focus styling for accessibility */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-}
-
-body {
-  line-height: 1.6;
-  padding: var(--base-padding, 1rem);
-  overflow-x: hidden;
-  position: relative;
-}
- 
-/* Additional focus styling for accessibility */
-:focus {
-  outline: 2px dashed var(--primary-color);
-  outline-offset: 4px;
-}
 
 /* -------------------------------------------------------------------------
    2. CSS VARIABLES (THEMING, SIZING, & ANIMATION SETTINGS)
    ------------------------------------------------------------------------- */
-:root {
-  /* Colors – calm, professional palette */
-  --primary-color: #007BFF;       /* Professional blue */
-  --primary-hover: #0056b3;
-  --accent-color: #6C7B8B;        /* Gray-blue tone for accents */
-  --neon-green: #A8DADC;          /* Calm pastel blue (for           /* Clear, dark text */
-  --modal-bg: #ffffff;
-  --modal-border: #cccccc;
-  --modal-shadow: rgba(0, 0, 0, 0.1);
-  
-  /* Spacing & Sizing */
-  --base-padding: 1rem;
-  --container-max-width: 1140px;
-  --bubble-size: 60px;
-  
-  /* Animation Durations */
-  --float-duration: 8s;
-  --tiktok-duration: 3s;
-  --shimmer-duration: 2s;
-  --neon-pulse-duration: 5s;
-  --emoji-toggle-interval: 5000ms;
-  
-  /* Effects */
-  --float-effect: 3px;
-}
 
 /* -------------------------------------------------------------------------
    3. TYPOGRAPHY & TEXT UTILITIES
    ------------------------------------------------------------------------- */
-h1, h2, h3, h4, h5, h6:hover {
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  margin-bottom: 0.5em;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  /* Subtle neon glow effect */
-  text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
-}
-
-p:hover {
-  margin-bottom: 1em;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-/* Utility classes */
-.text-center { text-align: center; }
-.text-white { color: #ffffff !important; }
-.text-muted { color: #777777 !important; }
 
 /* -------------------------------------------------------------------------
    4. LAYOUT & STRUCTURAL CONTAINERS
    ------------------------------------------------------------------------- */
-/* Bootstrap-like containers */
-.container,
-.container-fluid:hover {
-  max-width: var(--container-max-width);
-  margin: 0 auto;
-  padding: 0 15px;
-}
-
-/* Sticky header for consistent  navigation */
-header:hover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 9999;
-  padding: 1.5rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-  border-bottom: 3px solid var(--primary-hover);
-  overflow: hidden;
-}
-
-/* Full background images  navigation */
-.bg-image-full {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-header::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-
-footer:hover {
-  padding: 2rem 0;
-  text-align: center;
-  font-size: 0.9rem;
-  margin-top: 2rem;
-}
-
-/* Main slide-in container for content */
-.slide-container {
-  width: 100vw;
-  min-height: 100vh;
-  animation: slideIn 1s ease-out forwards;
-  padding: 2rem 0;
-}
 
 @keyframes slideIn {
   from { transform: translateY(100vh); opacity: 0; }
