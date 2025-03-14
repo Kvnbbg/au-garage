@@ -11,7 +11,7 @@ Au Garage began as a project for Monsieur Parrot—to help him succeed in his jo
 ## Realisation
 
 Exam day at STUDI, my online web developer school between 2022–24 (documentation are in the folder STUDI).
-Today, the project has evolved from the start point [on linkedin](http://linkedin.com/in/kevinmarville)  https://kvnbbg-creations.io
+Today, the project has evolved from a starting point [in HTML5](https://kvnbbg-creations.io)  
 Follow my academics [on linkedin](http://linkedin.com/in/kevinmarville) 
 
 ## Project Origin
