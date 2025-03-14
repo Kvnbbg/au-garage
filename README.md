@@ -1,7 +1,7 @@
 # Coding, Gaming & Web Development
 
 ![Signature](https://i.imgur.com/wmxtaI7.jpg)  
-![Let a vote Kevin Marville - Coding, Gaming & Web Development](https://i.imgur.com/uKepgDg)
+![Let a vote Kevin Marville - Coding, Gaming & Web Development](https://i.imgur.com/wmxtaI7.jpg)
 [See Canva Updates](https://www.canva.com/design/DAGgJLt8Om8/ZPXG_N-ZqK2XL1trXlw2_g/edit?utm_content=DAGgJLt8Om8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 )
 
