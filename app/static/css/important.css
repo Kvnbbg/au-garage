@@ -1,0 +1,20 @@
+/* -------------------------------------------------------------------------
+  High Contrast Mode
+   ------------------------------------------------------------------------- */
+
+/* High Contrast Mode */
+      
+      .high-contrast {
+        background-color: #000 !important;
+        color: #fff !important;
+      }
+      .high-contrast .log-container {
+        background-color: #333 !important;
+        border-color: #fff !important;
+        color: #fff !important;
+      }
+      .high-contrast .btn {
+        background-color: #444 !important;
+        border-color: #888 !important;
+        color: #fff !important;
+      } */
