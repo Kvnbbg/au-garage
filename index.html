@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>au-garage | Installation & Operation Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@preline/preline@2.0.0/dist/preline.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .prose {
+            max-width: 65ch;
+        }
+        .command {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-family: monospace;
+            display: inline-block;
+            margin: 0.25rem 0;
+        }
+        .feature-icon {
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            background-color: rgba(14, 165, 233, 0.1);
+            color: #0ea5e9;
+            margin-bottom: 1rem;
+        }
+        .step-number {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            background-color: #0ea5e9;
+            color: white;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-full">
+    <header class="bg-white dark:bg-gray-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <i class="fas fa-car text-3xl text-primary-600 mr-3"></i>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">au-garage</h1>
+                </div>
+                <button type="button" class="hs-dark-mode-active:hidden hs-dark-mode group flex items-center text-gray-600 hover:text-blue-600 font-medium dark:text-gray-400 dark:hover:text-gray-500">
+                    <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                </button>
+                <button type="button" class="hs-dark-mode-active:block hidden hs-dark-mode group flex items-center text-gray-600 hover:text-blue-600 font-medium dark:text-gray-400 dark:hover:text-gray-500">
+                    <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Installation Guide for Developers</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="step-number">1</div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Prerequisites</h3>
+                                <p class="text-gray-600 dark:text-gray-400">Ensure you have the following installed on your system:</p>
+                                <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-600 dark:text-gray-400">
+                                    <li>Node.js (v16 or higher recommended)</li>
+                                    <li>npm (comes with Node.js)</li>
+                                    <li>PostgreSQL (or your preferred database system)</li>
+                                    <li>Git (for cloning the repository)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="step-number">2</div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Clone the Repository</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Clone the au-garage repository from GitHub:</p>
+                                <div class="command">git clone https://github.com/Kvnbbg/au-garage</div>
+                                <p class="text-gray-600 dark:text-gray-400 mt-2">Then navigate to the project directory:</p>
+                                <div class="command">cd au-garage</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="step-number">3</div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Install Dependencies</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Install all required dependencies:</p>
+                                <div class="command">npm install</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="step-number">4</div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Configure Environment</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Create a <code class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded">.env</code> file in the root directory with the following variables:</p>
+                                <div class="command">
+                                    DB_HOST=your_database_host<br>
+                                    DB_USER=your_database_user<br>
+                                    DB_PASSWORD=your_database_password<br>
+                                    DB_NAME=your_database_name<br>
+                                    PORT=your_preferred_port<br>
+                                    JWT_SECRET=your_jwt_secret_key<br>
+                                    SMTP_HOST=your_smtp_host<br>
+                                    SMTP_PORT=your_smtp_port<br>
+                                    SMTP_USER=your_smtp_user<br>
+                                    SMTP_PASS=your_smtp_password<br>
+                                    SMS_API_KEY=your_sms_api_key
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="step-number">5</div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Initialize Database</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Run database migrations to set up the schema:</p>
+                                <div class="command">npm run migrate</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="step-number">6</div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Start the Application</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">For production:</p>
+                                <div class="command">npm start</div>
+                                <p class="text-gray-600 dark:text-gray-400 mt-2">For development (with hot reload):</p>
+                                <div class="command">npm run dev</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="step-number">7</div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Access the Application</h3>
+                                <p class="text-gray-600 dark:text-gray-400">Open your browser and navigate to:</p>
+                                <div class="command">http://localhost:[PORT]</div>
+                                <p class="text-gray-600 dark:text-gray-400 mt-2">(Replace [PORT] with the port number you configured in your .env file)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Getting Started for Users</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="step-number">1</div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Registration & Login</h3>
+                                <p class="text-gray-600 dark:text-gray-400">After installation, access the application and:</p>
+                                <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-600 dark:text-gray-400">
+                                    <li>Register an admin account (first user is automatically granted admin privileges)</li>
+                                    <li>Subsequent users can register or be added by admin</li>
+                                    <li>Log in with your credentials to access the dashboard</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="step-number">2</div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">User Roles & Permissions</h3>
+                                <p class="text-gray-600 dark:text-gray-400">The system supports three role types:</p>
+                                <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-600 dark:text-gray-400">
+                                    <li><strong>Admin:</strong> Full access to all features and user management</li>
+                                    <li><strong>Staff:</strong> Access to customer management, appointments, and inventory</li>
+                                    <li><strong>Mechanic:</strong> Access to assigned work orders and vehicle service history</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Key Features</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="feature-icon">
+                                <i class="fas fa-car text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Vehicle Tracking</h3>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                Track VIN, mileage, and complete service history for all vehicles in your garage.
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="feature-icon">
+                                <i class="fas fa-calendar-alt text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Appointment Scheduling</h3>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                Schedule appointments, assign mechanics, and set automated reminders.
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="feature-icon">
+                                <i class="fas fa-boxes text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Inventory Management</h3>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                Manage parts inventory with stock alerts and reordering capabilities.
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="feature-icon">
+                                <i class="fas fa-file-invoice-dollar text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Invoice Generation</h3>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                Generate PDF invoices with integrated payment processing.
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="feature-icon">
+                                <i class="fas fa-envelope text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Customer Communication</h3>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                Automated email/SMS notifications for appointments and service updates.
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-bar text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Analytical Reporting</h3>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                Comprehensive reports on business performance and garage operations.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mt-8">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Support & Consulting</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                For additional support or consulting services regarding the au-garage application, please contact our team:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Technical Support</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        <i class="fas fa-envelope mr-2"></i> support@au-garage.com
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">
+                        <i class="fas fa-phone mr-2"></i> +1 (555) 123-4567
+                    </p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Consulting Services</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        <i class="fas fa-envelope mr-2"></i> consulting@au-garage.com
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">
+                        <i class="fas fa-phone mr-2"></i> +1 (555) 765-4321
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <i class="fas fa-car text-xl text-primary-600 mr-2"></i>
+                    <span class="text-lg font-semibold text-gray-900 dark:text-white">au-garage</span>
+                </div>
+                <div class="text-gray-500 dark:text-gray-400 text-sm">
+                    &copy; 2023 au-g
