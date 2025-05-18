@@ -6,7 +6,7 @@
 ---
 
 ## Introduction  
-Garage V. Parrot is a web application developed to modernize operations for automotive service providers. Originally created for Vincent Parrot of Toulouse, this platform now serves as a scalable solution for garage management, combining service tracking, customer engagement, and inventory control.  
+Garage V. Parrot was a web application developed to modernize operations for automotive service providers. Originally created for Vincent Parrot of Toulouse, this platform now serves as a scalable solution for garage management, combining service tracking, customer engagement, and inventory control.  
 
 ---
 
