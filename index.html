@@ -16,11 +16,11 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://web-production-d728.up.railway.app/guide">
     <meta property="og:image" content="/og-image.jpg">
-    <!-- Accessibility: Ensure language is clear -->
+    <!-- Accessibility -->
     <meta name="robots" content="index, follow">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@preline/preline@2.0.0/dist/preline.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@preline/preline@2.0.0/dist/preline.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -43,6 +43,19 @@
                 }
             }
         }
+        // Persist dark mode
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            document.querySelectorAll('.hs-dark-mode').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.documentElement.classList.toggle('dark');
+                    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+                });
+            });
+        });
     </script>
     <style>
         .prose {
@@ -81,6 +94,9 @@
             margin-right: 1rem;
             flex-shrink: 0;
         }
+        /* Fallback styles */
+        body:not(.dark) .bg-gray-50 { background-color: #f9fafb; }
+        .dark .bg-gray-900 { background-color: #111827; }
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 min-h-full">
@@ -88,15 +104,17 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <i class="fas fa-car text-3xl text-primary-600 mr-3"></i>
+                    <i class="fas fa-car text-3xl text-primary-600 mr-3" aria-hidden="true"></i>
                     <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Garage V. Parrot</h1>
                 </div>
-                <button type="button" class="hs-dark-mode-active:hidden hs-dark-mode group flex items-center text-gray-600 hover:text-blue-600 font-medium dark:text-gray-400 dark:hover:text-gray-500">
-                    <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-                </button>
-                <button type="button" class="hs-dark-mode-active:block hidden hs-dark-mode group flex items-center text-gray-600 hover:text-blue-600 font-medium dark:text-gray-400 dark:hover:text-gray-500">
-                    <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-                </button>
+                <div class="flex items-center space-x-4">
+                    <button type="button" class="hs-dark-mode hs-dark-mode-active:hidden flex items-center text-gray-600 hover:text-blue-600 font-medium dark:text-gray-400 dark:hover:text-gray-500" aria-label="Enable dark mode">
+                        <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                    </button>
+                    <button type="button" class="hs-dark-mode hs-dark-mode-active:block hidden flex items-center text-gray-600 hover:text-blue-600 font-medium dark:text-gray-400 dark:hover:text-gray-500" aria-label="Disable dark mode">
+                        <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -112,7 +130,7 @@
                             <div class="step-number">1</div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Prerequisites</h3>
-                                <p class="text-gray-600 dark:text-gray-400">Ensure you have the following installed on your system:</p>
+                                <p class="text-gray-600 dark:text-gray-400">Ensure you have the following installed:</p>
                                 <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-600 dark:text-gray-400">
                                     <li>Python 3.8 or higher</li>
                                     <li>pip (Python package manager)</li>
@@ -128,7 +146,7 @@
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Clone the Repository</h3>
                                 <p class="text-gray-600 dark:text-gray-400 mb-2">Clone the au-garage repository from GitHub:</p>
                                 <div class="command">git clone https://github.com/Kvnbbg/au-garage</div>
-                                <p class="text-gray-600 dark:text-gray-400 mt-2">Then navigate to the project directory:</p>
+                                <p class="text-gray-600 dark:text-gray-400 mt-2">Navigate to the project directory:</p>
                                 <div class="command">cd au-garage</div>
                             </div>
                         </div>
@@ -150,7 +168,7 @@
                             <div class="step-number">4</div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Install Dependencies</h3>
-                                <p class="text-gray-600 dark:text-gray-400 mb-2">Install all required dependencies from requirements.txt:</p>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Install dependencies from requirements.txt:</p>
                                 <div class="command">pip install -r requirements.txt</div>
                             </div>
                         </div>
@@ -159,8 +177,10 @@
                             <div class="step-number">5</div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Configure Environment</h3>
-                                <p class="text-gray-600 dark:text-gray-400 mb-2">Create a <code class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded">.env</code> file in the root directory with the following variables:</p>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Create a <code class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded">.env</code> file in the root directory:</p>
                                 <div class="command">
+                                    FLASK_APP=app.py<br>
+                                    FLASK_ENV=development<br>
                                     DATABASE_URL=postgresql://user:password@localhost:5432/garage_db<br>
                                     SECRET_KEY=your_secret_key<br>
                                     SMTP_HOST=your_smtp_host<br>
@@ -169,6 +189,7 @@
                                     SMTP_PASS=your_smtp_password<br>
                                     SMS_API_KEY=your_sms_api_key
                                 </div>
+                                <p class="text-gray-600 dark:text-gray-400 mt-2">*Ensure PostgreSQL is running and the database `garage_db` is created.*</p>
                             </div>
                         </div>
 
@@ -176,7 +197,7 @@
                             <div class="step-number">6</div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Initialize Database</h3>
-                                <p class="text-gray-600 dark:text-gray-400 mb-2">Run database migrations to set up the schema:</p>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Run migrations to set up the schema:</p>
                                 <div class="command">flask db upgrade</div>
                             </div>
                         </div>
@@ -187,8 +208,8 @@
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Start the Application</h3>
                                 <p class="text-gray-600 dark:text-gray-400 mb-2">For development:</p>
                                 <div class="command">flask run</div>
-                                <p class="text-gray-600 dark:text-gray-400 mt-2">For production (using gunicorn):</p>
-                                <div class="command">gunicorn -w 4 'app:app'</div>
+                                <p class="text-gray-600 dark:text-gray-400 mt-2">For production:</p>
+                                <div class="command">gunicorn --workers 4 --bind 0.0.0.0:8000 app:app</div>
                             </div>
                         </div>
 
@@ -212,11 +233,11 @@
                             <div class="step-number">1</div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Registration & Login</h3>
-                                <p class="text-gray-600 dark:text-gray-400">After installation, access the application and:</p>
+                                <p class="text-gray-600 dark:text-gray-400">Access the application and:</p>
                                 <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-600 dark:text-gray-400">
-                                    <li>Register an admin account (first user is automatically granted admin privileges)</li>
+                                    <li>Register an admin account (first user gets admin privileges)</li>
                                     <li>Subsequent users can register or be added by admin</li>
-                                    <li>Log in with your credentials to access the dashboard</li>
+                                    <li>Log in to access the dashboard</li>
                                 </ul>
                             </div>
                         </div>
@@ -225,11 +246,11 @@
                             <div class="step-number">2</div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">User Roles & Permissions</h3>
-                                <p class="text-gray-600 dark:text-gray-400">The system supports three role types:</p>
+                                <p class="text-gray-600 dark:text-gray-400">The system supports three roles:</p>
                                 <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-600 dark:text-gray-400">
-                                    <li><strong>Admin:</strong> Full access to all features and user management</li>
-                                    <li><strong>Staff:</strong> Access to customer management, appointments, and inventory</li>
-                                    <li><strong>Mechanic:</strong> Access to assigned work orders and vehicle service history</li>
+                                    <li><strong>Admin:</strong> Full access to features and user management</li>
+                                    <li><strong>Staff:</strong> Manage customers, appointments, and inventory</li>
+                                    <li><strong>Mechanic:</strong> View assigned work orders and service history</li>
                                 </ul>
                             </div>
                         </div>
@@ -248,7 +269,7 @@
                             </div>
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Service Management</h3>
                             <p class="text-gray-600 dark:text-gray-400">
-                                Track repairs, maintenance, and vehicle sales with detailed service history.
+                                Track repairs, maintenance, and vehicle sales with detailed history.
                             </p>
                         </div>
 
@@ -258,7 +279,7 @@
                             </div>
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Inventory Control</h3>
                             <p class="text-gray-600 dark:text-gray-400">
-                                Real-time stock alerts and automated reordering for parts inventory.
+                                Real-time stock alerts and automated reordering for parts.
                             </p>
                         </div>
 
@@ -268,7 +289,7 @@
                             </div>
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Customer Portal</h3>
                             <p class="text-gray-600 dark:text-gray-400">
-                                Enable direct communication, appointment booking, and invoice generation.
+                                Direct communication, appointment booking, and invoices.
                             </p>
                         </div>
 
@@ -278,7 +299,7 @@
                             </div>
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Role-Based Access</h3>
                             <p class="text-gray-600 dark:text-gray-400">
-                                Admin, staff, and mechanic permissions for secure access control.
+                                Admin, staff, and mechanic permissions for secure access.
                             </p>
                         </div>
 
@@ -288,7 +309,7 @@
                             </div>
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Analytics Dashboard</h3>
                             <p class="text-gray-600 dark:text-gray-400">
-                                Performance metrics and reporting tools for business insights.
+                                Performance metrics and reporting for business insights.
                             </p>
                         </div>
                     </div>
@@ -299,7 +320,7 @@
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mt-8">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Support & Consulting</h2>
             <p class="text-gray-600 dark:text-gray-400 mb-4">
-                For additional support or consulting services regarding the Garage V. Parrot application, please contact our team:
+                For support or consulting services, contact our team:
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
@@ -322,7 +343,7 @@
                 </div>
             </div>
             <p class="text-gray-600 dark:text-gray-400 mt-4">
-                Track project tasks on <a href="https://trello.com/b/eR2X9dfh" class="text-primary-600 hover:underline">Trello</a> or explore design updates on <a href="https://www.canva.com/design/DAGgJLt8Om8/ZPXG_N-ZqK2XL1trXlw2_g/edit" class="text-primary-600 hover:underline">Canva</a>.
+                Track tasks on <a href="https://trello.com/b/eR2X9dfh" class="text-primary-600 hover:underline">Trello</a> or view designs on <a href="https://www.canva.com/design/DAGgJLt8Om8/ZPXG_N-ZqK2XL1trXlw2_g/edit" class="text-primary-600 hover:underline">Canva</a>.
             </p>
         </div>
     </main>
@@ -331,7 +352,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center mb-4 md:mb-0">
-                    <i class="fas fa-car text-xl text-primary-600 mr-2"></i>
+                    <i class="fas fa-car text-xl text-primary-600 mr-2" aria-hidden="true"></i>
                     <span class="text-lg font-semibold text-gray-900 dark:text-white">Garage V. Parrot</span>
                 </div>
                 <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
@@ -350,10 +371,11 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                © 2025 Garage V. Parrot. All rights reserved. Maintained by Kévin Marville.
-            </div>
-        </div>
-    </footer>
+                <div class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
+  <p>© 2025 Garage V. Parrot. All rights reserved. Maintained by Kévin Marville.</p>
+</div>
+              </div>
+  </footer>
+
 </body>
 </html>
