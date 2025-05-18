@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>au-garage | Installation & Operation Guide</title>
+    <title>Garage V. Parrot | Installation & Operation Guide</title>
     <!-- Favicon for branding -->
     <link rel="icon" type="image/png" href="/favicon.png">
     <!-- SEO and accessibility meta tags -->
-    <meta name="description" content="au-garage: Installation and Operation Guide for the garage management application">
-    <meta name="keywords" content="au-garage, garage management, auto repair, installation guide">
-    <meta name="author" content="au-garage Team">
+    <meta name="description" content="Garage V. Parrot: Installation and Operation Guide for the garage management application">
+    <meta name="keywords" content="garage v parrot, au-garage, garage management, auto repair, installation guide">
+    <meta name="author" content="Kévin Marville">
     <!-- Open Graph for social media sharing -->
-    <meta property="og:title" content="au-garage | Installation & Operation Guide">
-    <meta property="og:description" content="Step-by-step guide to install and operate the au-garage application for garage management.">
+    <meta property="og:title" content="Garage V. Parrot | Installation & Operation Guide">
+    <meta property="og:description" content="Step-by-step guide to install and operate the Garage V. Parrot application for garage management.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://au-garage.com/guide">
+    <meta property="og:url" content="https://web-production-d728.up.railway.app/guide">
     <meta property="og:image" content="/og-image.jpg">
     <!-- Accessibility: Ensure language is clear -->
     <meta name="robots" content="index, follow">
@@ -89,7 +89,7 @@
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
                     <i class="fas fa-car text-3xl text-primary-600 mr-3"></i>
-                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">au-garage</h1>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Garage V. Parrot</h1>
                 </div>
                 <button type="button" class="hs-dark-mode-active:hidden hs-dark-mode group flex items-center text-gray-600 hover:text-blue-600 font-medium dark:text-gray-400 dark:hover:text-gray-500">
                     <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
@@ -114,9 +114,9 @@
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Prerequisites</h3>
                                 <p class="text-gray-600 dark:text-gray-400">Ensure you have the following installed on your system:</p>
                                 <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-600 dark:text-gray-400">
-                                    <li>Node.js (v16 or higher recommended)</li>
-                                    <li>npm (comes with Node.js)</li>
-                                    <li>PostgreSQL (or your preferred database system)</li>
+                                    <li>Python 3.8 or higher</li>
+                                    <li>pip (Python package manager)</li>
+                                    <li>PostgreSQL (database system)</li>
                                     <li>Git (for cloning the repository)</li>
                                 </ul>
                             </div>
@@ -136,24 +136,33 @@
                         <div class="flex items-start">
                             <div class="step-number">3</div>
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Install Dependencies</h3>
-                                <p class="text-gray-600 dark:text-gray-400 mb-2">Install all required dependencies:</p>
-                                <div class="command">npm install</div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Set Up Virtual Environment</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Create and activate a virtual environment:</p>
+                                <div class="command">
+                                    python3 -m venv venv<br>
+                                    source venv/bin/activate  # Unix/macOS<br>
+                                    # For Windows: venv\Scripts\activate
+                                </div>
                             </div>
                         </div>
 
                         <div class="flex items-start">
                             <div class="step-number">4</div>
                             <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Install Dependencies</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Install all required dependencies from requirements.txt:</p>
+                                <div class="command">pip install -r requirements.txt</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="step-number">5</div>
+                            <div>
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Configure Environment</h3>
                                 <p class="text-gray-600 dark:text-gray-400 mb-2">Create a <code class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded">.env</code> file in the root directory with the following variables:</p>
                                 <div class="command">
-                                    DB_HOST=your_database_host<br>
-                                    DB_USER=your_database_user<br>
-                                    DB_PASSWORD=your_database_password<br>
-                                    DB_NAME=your_database_name<br>
-                                    PORT=your_preferred_port<br>
-                                    JWT_SECRET=your_jwt_secret_key<br>
+                                    DATABASE_URL=postgresql://user:password@localhost:5432/garage_db<br>
+                                    SECRET_KEY=your_secret_key<br>
                                     SMTP_HOST=your_smtp_host<br>
                                     SMTP_PORT=your_smtp_port<br>
                                     SMTP_USER=your_smtp_user<br>
@@ -164,32 +173,32 @@
                         </div>
 
                         <div class="flex items-start">
-                            <div class="step-number">5</div>
+                            <div class="step-number">6</div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Initialize Database</h3>
                                 <p class="text-gray-600 dark:text-gray-400 mb-2">Run database migrations to set up the schema:</p>
-                                <div class="command">npm run migrate</div>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start">
-                            <div class="step-number">6</div>
-                            <div>
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Start the Application</h3>
-                                <p class="text-gray-600 dark:text-gray-400 mb-2">For production:</p>
-                                <div class="command">npm start</div>
-                                <p class="text-gray-600 dark:text-gray-400 mt-2">For development (with hot reload):</p>
-                                <div class="command">npm run dev</div>
+                                <div class="command">flask db upgrade</div>
                             </div>
                         </div>
 
                         <div class="flex items-start">
                             <div class="step-number">7</div>
                             <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Start the Application</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">For development:</p>
+                                <div class="command">flask run</div>
+                                <p class="text-gray-600 dark:text-gray-400 mt-2">For production (using gunicorn):</p>
+                                <div class="command">gunicorn -w 4 'app:app'</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="step-number">8</div>
+                            <div>
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Access the Application</h3>
                                 <p class="text-gray-600 dark:text-gray-400">Open your browser and navigate to:</p>
-                                <div class="command">http://localhost:[PORT]</div>
-                                <p class="text-gray-600 dark:text-gray-400 mt-2">(Replace [PORT] with the port number you configured in your .env file)</p>
+                                <div class="command">http://localhost:5000</div>
+                                <p class="text-gray-600 dark:text-gray-400 mt-2">Or visit the production build at: <a href="https://web-production-d728.up.railway.app/" class="text-primary-600 hover:underline">https://web-production-d728.up.railway.app/</a></p>
                             </div>
                         </div>
                     </div>
@@ -237,19 +246,9 @@
                             <div class="feature-icon">
                                 <i class="fas fa-car text-xl"></i>
                             </div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Vehicle Tracking</h3>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Service Management</h3>
                             <p class="text-gray-600 dark:text-gray-400">
-                                Track VIN, mileage, and complete service history for all vehicles in your garage.
-                            </p>
-                        </div>
-
-                        <div>
-                            <div class="feature-icon">
-                                <i class="fas fa-calendar-alt text-xl"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Appointment Scheduling</h3>
-                            <p class="text-gray-600 dark:text-gray-400">
-                                Schedule appointments, assign mechanics, and set automated reminders.
+                                Track repairs, maintenance, and vehicle sales with detailed service history.
                             </p>
                         </div>
 
@@ -257,29 +256,29 @@
                             <div class="feature-icon">
                                 <i class="fas fa-boxes text-xl"></i>
                             </div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Inventory Management</h3>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Inventory Control</h3>
                             <p class="text-gray-600 dark:text-gray-400">
-                                Manage parts inventory with stock alerts and reordering capabilities.
+                                Real-time stock alerts and automated reordering for parts inventory.
                             </p>
                         </div>
 
                         <div>
                             <div class="feature-icon">
-                                <i class="fas fa-file-invoice-dollar text-xl"></i>
+                                <i class="fas fa-user text-xl"></i>
                             </div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Invoice Generation</h3>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Customer Portal</h3>
                             <p class="text-gray-600 dark:text-gray-400">
-                                Generate PDF invoices with integrated payment processing.
+                                Enable direct communication, appointment booking, and invoice generation.
                             </p>
                         </div>
 
                         <div>
                             <div class="feature-icon">
-                                <i class="fas fa-envelope text-xl"></i>
+                                <i class="fas fa-user-shield text-xl"></i>
                             </div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Customer Communication</h3>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Role-Based Access</h3>
                             <p class="text-gray-600 dark:text-gray-400">
-                                Automated email/SMS notifications for appointments and service updates.
+                                Admin, staff, and mechanic permissions for secure access control.
                             </p>
                         </div>
 
@@ -287,9 +286,9 @@
                             <div class="feature-icon">
                                 <i class="fas fa-chart-bar text-xl"></i>
                             </div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Analytical Reporting</h3>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Analytics Dashboard</h3>
                             <p class="text-gray-600 dark:text-gray-400">
-                                Comprehensive reports on business performance and garage operations.
+                                Performance metrics and reporting tools for business insights.
                             </p>
                         </div>
                     </div>
@@ -300,7 +299,7 @@
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mt-8">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Support & Consulting</h2>
             <p class="text-gray-600 dark:text-gray-400 mb-4">
-                For additional support or consulting services regarding the au-garage application, please contact our team:
+                For additional support or consulting services regarding the Garage V. Parrot application, please contact our team:
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
@@ -322,6 +321,9 @@
                     </p>
                 </div>
             </div>
+            <p class="text-gray-600 dark:text-gray-400 mt-4">
+                Track project tasks on <a href="https://trello.com/b/eR2X9dfh" class="text-primary-600 hover:underline">Trello</a> or explore design updates on <a href="https://www.canva.com/design/DAGgJLt8Om8/ZPXG_N-ZqK2XL1trXlw2_g/edit" class="text-primary-600 hover:underline">Canva</a>.
+            </p>
         </div>
     </main>
 
@@ -330,13 +332,13 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center mb-4 md:mb-0">
                     <i class="fas fa-car text-xl text-primary-600 mr-2"></i>
-                    <span class="text-lg font-semibold text-gray-900 dark:text-white">au-garage</span>
+                    <span class="text-lg font-semibold text-gray-900 dark:text-white">Garage V. Parrot</span>
                 </div>
                 <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
                     <nav class="flex space-x-4">
                         <a href="https://github.com/Kvnbbg/au-garage" class="text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">GitHub</a>
                         <a href="mailto:support@au-garage.com" class="text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">Support</a>
-                        <a href="/docs" class="text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">Documentation</a>
+                        <a href="https://github.com/Kvnbbg/au-garage/tree/main/doc" class="text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">Documentation</a>
                     </nav>
                     <div class="flex space-x-4">
                         <a href="https://twitter.com/augarage" aria-label="Twitter" class="text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
@@ -349,7 +351,7 @@
                 </div>
             </div>
             <div class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                © 2025 au-garage. All rights reserved.
+                © 2025 Garage V. Parrot. All rights reserved. Maintained by Kévin Marville.
             </div>
         </div>
     </footer>
