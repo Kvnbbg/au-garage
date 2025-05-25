@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="{{ session.get('lang', 'fr') }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Ensure proper scaling on mobile/tablet devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Language" content="{{ session.get('lang', 'en') }}" />
+    <meta name="description" content="Au Garage – A hub for automotive and mechanical excellence." />
+    <meta name="keywords" content="Mechanics, Classical Mechanics, Engineering, Simulation, Calibration" />
+    <meta name="author" content="Kevin Marville" />
+    <title>{% block title %}Au Garage{% endblock %}</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon" />
+
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="https://demo.dashboardpack.com/architectui-html-free/main.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Extended CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <style>
+      :root {
+        --primary-color: #6f4e37;
+        --secondary-color: #8b5e3c;
+        --accent-color: #d2a679;
+        --highlight-color: #c87533;
+        --background-color: #f7f3e8;
+       /* --text-color: #4b382a; */
+        --text-color: #222;
+        --card-bg: #ffffff;
+        --border-color: #d2a679;
+        --transition-speed: 0.3s;
+        --border-radius: 8px;
+        --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: var(--background-color);
+        color: var(--text-color);
+        padding: 20px;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        padding: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+      }
+      .log-container {
+        height: 300px;
+        overflow-y: auto;
+        border: 1px solid var(--border-color);
+        padding: 10px;
+        border-radius: var(--border-radius);
+        background: var(--highlight-color);
+      }
+      .btn {
+        padding: 10px 15px;
+        border-radius: var(--border-radius);
+        border: none;
+        cursor: pointer;
+        transition: background var(--transition-speed);
+      }
+      .btn-primary {
+        background: var(--primary-color);
+        color: #fff;
+      }
+      .btn-secondary {
+        background: var(--secondary-color);
+        color: #fff;
+      }
+      .btn:hover {
+        opacity: 0.8;
+      }
+      /* Sticky header (and other sticky panels) */
+      .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      /* Simple particle effect on hover */
+      .particle-effect {
+        position: relative;
+        overflow: hidden;
+      }
+      .particle-effect::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .particle-effect:hover::after {
+        opacity: 1;
+      }
+      /* Dark mode class */
+      .dark-mode {
+        background: #222;
+        color: #ddd;
+      }
+      /* === ASIDE === */
+      /* VR Log Display Panel (Bottom-Left) */
+      #vrLogPanel {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 320px;
+        display: none;
+        background: rgba(0, 0, 0, 0.85);
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        animation: float 4s ease-in-out infinite;
+        overflow: hidden;
+      }
+      #vrLogPanel header {
+        background: #263238;
+        color: #ffffff;
+        padding: 12px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        font-weight: bold;
+        text-align: center;
+      }
+      #vrLogContainer {
+        background: #eceff1;
+        padding: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+        font-size: 14px;
+        color: #37474f;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+      }
+      #vrLogPanel .btn {
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.3s;
+      }
+      #vrLogPanel .btn-primary {
+        background: #00796b;
+        border: 1px solid #004d40;
+        color: #ffffff;
+      }
+      #vrLogPanel .btn-primary:hover {
+        background: #004d40;
+        transform: translateY(-3px);
+      }
+      #vrLogPanel .btn-secondary {
+        background: #b0bec5;
+        border: 1px solid #78909c;
+        color: #263238;
+      }
+      #vrLogPanel .btn-secondary:hover {
+        background: #78909c;
+        transform: translateY(-3px);
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+      /* CSS for inner scrolling and zoom effect */
+      .zoom-container {
+        overflow: auto;
+        max-height: 500px;
+        position: relative;
+      }
+      .zoom-container img {
+        transition: transform 0.3s ease;
+        width: 100%;
+        height: auto;
+      }
+      .zoom-container:hover img {
+        transform: scale(1.1);
+      }
+      
+    </style>
+    {% block head %}{% endblock %}
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Coding, Gaming & Web development 编程、游戏与网页开发",
+        "name": KEVIN MARVILLE",
+        "url": "https://github.com/Kvnbbg/au-garage",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": " ",
+          "addressLocality": "Lyon, France",
+          "postalCode": "69007",
+          "addressCountry": "FR"
+        },
+        "telephone": "+33634160418"
+      }
+    </script>
+  </head>
+  <body class="d-flex flex-column" style="min-height: 100vh;">
+    <!-- Skip link for screen readers -->
+    <a href="#mainContent" class="sr-only sr-only-focusable">Skip to main content</a>
+
+    <!-- HEADER: Navigation (sticky for mobile/tablet users) -->
+    <header class="sticky-header">
+     <h1>
+      Kernel Vector Network Binary Bit Gateway
+    </h1>
+    <h6>🈷️ <a href="">https://kvnbbg-creations.io</a>
+      </h6>
+    </header>
+     <nav class="navbar navbar-expand-lg navbar" aria-label="Main Navigation">
+        <div class="container">
+          <a class="navbar-brand" href="{{ url_for('main.home') }}">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Au Garage Logo" width="50" height="50" />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link particle-effect" href="{{ url_for('auth.set_language', language='en') }}" aria-label="Switch to English">🇺🇸 English</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link particle-effect" href="{{ url_for('auth.set_language', language='fr') }}" aria-label="Basculer en Français">🇫🇷 Français</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link particle-effect" href="#" data-toggle="modal" data-target="#versionModal" aria-label="Version Information">Version</a>
+              </li>
+              <!-- New Bluesky Connect Button -->
+              <li class="nav-item">
+                <button id="blueskyConnectBtn" class="btn btn-primary particle-effect" aria-label="Bluesky Connect">
+                  Bluesky Connect
+                </button>
+              </li>
+              {% if not current_user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link particle-effect" href="{{ url_for('auth.login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link particle-effect" href="https://kvnbbg.github.io/500Discount/">5D</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link particle-effect" href="{{ url_for('auth.dashboard') }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link particle-effect" href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+<section>
+
+    <style>
+    /* General styles for the section and article */
+section, article {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+section:hover, article:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading styles */
+h2, h3 {
+  color: #333;
+  font-family: 'Georgia', serif;
+  transition: color 0.3s ease;
+}
+
+h2:hover, h3:hover {
+  color: #555;
+}
+
+/* List styles */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #fff;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+li:hover {
+  background-color: #f1f1f1;
+  transform: translateX(5px);
+}
+
+/* Link styles */
+a {
+  color: #007BFF;
+  text-decoration: none;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Button styles */
+button {
+  scale: 0.8%;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+  border-radius: 10%;
+}
+        .language-section {
+            display: none;
+        }
+        .language-section.active {
+            display: block;
+        }
+        #language-toggle {
+            margin-bottom: 1em;
+        }
+        #language-toggle button {
+            margin-right: 0.5em;
+            padding: 0.5em 1em;
+        }
+    </style>
+
+    <nav id="language-toggle">
+        <button onclick="showLanguage('fr')">Français</button>
+        <button onclick="showLanguage('en')">English</button>
+        <button onclick="showLanguage('cn')">中文</button>
+    </nav>
+    
+    <!-- French version (default) -->
+    <section id="lang-fr" class="language-section active">
+        <h2>France Travail</h2>
+
+        <article>
+            <h3>Mon premier projet : Web mastering sur WordPress</h3>
+            <p>📌 <a href="https://kvnbbg.fr" target="_blank">https://kvnbbg.fr</a></p>
+        </article>
+
+        <article>
+            <h3>Documents confidentiels</h3>
+            <p>Ces documents sont cachés pour des raisons de confidentialité, mais voici leurs noms :</p>
+            <ul>
+                <li><strong>Attestation Montagne</strong></li>
+                <li><strong>Attestation CACES 3 4 5</strong></li>
+                <li><strong>Félicitations document</strong></li>
+            </ul>
+            <p>Pour en savoir plus sur mon parcours, visitez <a href="https://linkedin.com/kevinmarville" target="_blank">mon profil LinkedIn</a>.</p>
+        </article>
+
+        <article>
+            <h3>Documents disponibles</h3>
+            <p>(Stockés sur le serveur et téléchargeables)</p>
+            <ul>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">
+                        Mobile App Réalisation</a>
+                    <br>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/zmv26vytzxifh8txj470k/kevin.marville_DProjet1erdepotdossierprojetlTPDWWMGDFE_336149_202404212229071188510.pdf?rlkey=ft5siivzdky1r9af4nirgm1cg&st=ov0hlmba&dl=0" download>Télécharger</a>
+
+                    <br>
+                    <small>En cas d'erreur de téléchargement, veuillez <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">cliquer ici</a></small>
+                </li>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">
+                        Attestation de Formation STUDI – Utile pour la Freelance</a>
+                    <br>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/iqiw2ip120y8ew9xnv16a/Titre-professionnel-B2-developpeur-web-et-web-mobile-kevin-marville.pdf?rlkey=qxyis1hptob9xdrqtf8blwdmk&st=8g3ptin4&dl=0" download>Télécharger a</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/xf86sytbzpfqqaswclpvl/R-sultats_1.-copie.pdf?rlkey=oe9nv1x79sdtemicw8gegh4g7&st=vre0gl64&dl=0" download>Télécharger b</a>
+                    
+                    <br>
+                    <small>En cas d'erreur de téléchargement, veuillez <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">cliquer ici</a></small>
+                </li>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/au-garage" target="_blank">
+                        Application Professionnelle pour le Garage de Vincent Parrot (Évolution)</a>
+                    <br>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/k7vw76sdexosi5xgo4bcm/dossier-projet.pdf?rlkey=372l2oylxjtsu1r8vl1axlo07&st=zba9k2c2&dl=0" download>Télécharger</a>
+                    <br>
+                    <small>En cas d'erreur de téléchargement, veuillez <a href="https://github.com/Kvnbbg/au-garage" target="_blank">cliquer ici</a></small>
+                </li>
+            </ul>
+        </article>
+    </section>
+
+    <!-- English version -->
+    <section id="lang-en" class="language-section">
+        <h2>French Work</h2>
+
+        <article>
+            <h3>My First Project: Web Mastering on WordPress</h3>
+            <p>📌 <a href="https://kvnbbg.fr" target="_blank">https://kvnbbg.fr</a></p>
+        </article>
+
+        <article>
+            <h3>Confidential Documents</h3>
+            <p>These documents are hidden for confidentiality reasons, but here are their names:</p>
+            <ul>
+                <li><strong>Mountain Attestation</strong></li>
+                <li><strong>CACES 3 4 5 Certificate</strong></li>
+                <li><strong>Congratulations Document</strong></li>
+            </ul>
+            <p>To learn more about my background, visit <a href="https://linkedin.com/kevinmarville" target="_blank">my LinkedIn profile</a>.</p>
+        </article>
+
+        <article>
+            <h3>Available Documents</h3>
+            <p>(Stored on the server and downloadable)</p>
+            <ul>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">
+                        Mobile App Implementation</a>
+                    <br>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/zmv26vytzxifh8txj470k/kevin.marville_DProjet1erdepotdossierprojetlTPDWWMGDFE_336149_202404212229071188510.pdf?rlkey=ft5siivzdky1r9af4nirgm1cg&st=ov0hlmba&dl=0" download>Download</a>
+                    <br>
+                    <small>If download fails, please <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">click here</a></small>
+                </li>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">
+                        STUDI Training Certificate – Useful for Freelancing</a>
+                    <br>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/iqiw2ip120y8ew9xnv16a/Titre-professionnel-B2-developpeur-web-et-web-mobile-kevin-marville.pdf?rlkey=qxyis1hptob9xdrqtf8blwdmk&st=lga3m3v1&dl=0" download>Download a</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/xf86sytbzpfqqaswclpvl/R-sultats_1.-copie.pdf?rlkey=oe9nv1x79sdtemicw8gegh4g7&st=9zl2v82t&dl=0" download>Download b</a>
+                    <br>
+                    <small>If download fails, please <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">click here</a></small>
+                </li>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/au-garage" target="_blank">
+                        Professional Application for Vincent Parrot's Garage (Evolution)</a>
+                    <br>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/k7vw76sdexosi5xgo4bcm/dossier-projet.pdf?rlkey=372l2oylxjtsu1r8vl1axlo07&st=zba9k2c2&dl=0" download>Download</a>
+                    <br>
+                    <small>If download fails, please <a href="https://github.com/Kvnbbg/au-garage" target="_blank">click here</a></small>
+                </li>
+            </ul>
+        </article>
+    </section>
+
+    <!-- Chinese version -->
+    <section id="lang-cn" class="language-section">
+        <h2>法国就业</h2>
+
+        <article>
+            <h3>我的第一个项目：在 WordPress 上进行网页管理</h3>
+            <p>📌 <a href="https://kvnbbg.fr" target="_blank">https://kvnbbg.fr</a></p>
+        </article>
+
+        <article>
+            <h3>机密文件</h3>
+            <p>这些文件由于保密原因被隐藏，但它们的名称如下：</p>
+            <ul>
+                <li><strong>山地证明</strong></li>
+                <li><strong>CACES 3 4 5 证明</strong></li>
+                <li><strong>祝贺文件</strong></li>
+            </ul>
+            <p>如需了解更多关于我的经历，请访问 <a href="https://linkedin.com/kevinmarville" target="_blank">我的 LinkedIn 主页</a>.</p>
+        </article>
+
+        <article>
+            <h3>可用文件</h3>
+            <p>（存储在服务器上，可供下载）</p>
+            <ul>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">
+                        移动应用实现</a>
+                    <br>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/zmv26vytzxifh8txj470k/kevin.marville_DProjet1erdepotdossierprojetlTPDWWMGDFE_336149_202404212229071188510.pdf?rlkey=ft5siivzdky1r9af4nirgm1cg&st=ov0hlmba&dl=0" download>下载</a>
+                    <br>
+                    <small>若下载失败，请点击此处 <a href="https://github.com/Kvnbbg/Vision-Week-Virtual-Exploration" target="_blank">这里</a></small>
+                </li>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">
+                        STUDI 培训证明 - 对自由职业者有用</a>
+                    <br>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/iqiw2ip120y8ew9xnv16a/Titre-professionnel-B2-developpeur-web-et-web-mobile-kevin-marville.pdf?rlkey=qxyis1hptob9xdrqtf8blwdmk&st=0hg0rp3s&dl=0" download>下载 a</a>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/xf86sytbzpfqqaswclpvl/R-sultats_1.-copie.pdf?rlkey=oe9nv1x79sdtemicw8gegh4g7&st=u2ak4tj6&dl=0" download>下载 b</a>
+                    <br>
+                      
+                    <small>若下载失败，请点击此处 <a href="https://github.com/Kvnbbg/bookish-octo-invention" target="_blank">这里</a></small>
+                </li>
+                <li>
+                    📂 <a href="https://github.com/Kvnbbg/au-garage" target="_blank">
+                        为 Vincent Parrot 的车库开发的专业应用程序（进化版）</a>
+                    <br>
+                    🔽 <a href="https://www.dropbox.com/scl/fi/k7vw76sdexosi5xgo4bcm/dossier-projet.pdf?rlkey=372l2oylxjtsu1r8vl1axlo07&st=zba9k2c2&dl=0" download>下载</a>
+                    <br>
+                    <small>若下载失败，请点击此处 <a href="https://github.com/Kvnbbg/au-garage" target="_blank">这里</a></small>
+                </li>
+            </ul>
+        </article>
+    </section>
+
+    <script>
+        function showLanguage(lang) {
+            var sections = document.querySelectorAll('.language-section');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+            document.getElementById('lang-' + lang).classList.add('active');
+        }
+    </script>
+</section>
+    <!-- MAIN CONTENT -->
+    <main id="mainContent" class="flex-grow-1">
+
+<!-- Hero Section 
+<section class="mb-5" aria-labelledby="heroTitle">
+  <div class="text-center">
+    {% if session.get('lang', 'en') == 'fr' %}
+      <h1 id="heroTitle" class="text-dark">Bienvenue dans le futur de la mobilité !</h1>
+      <h2 class="text-muted">
+        Venez explorer les nouveautés des véhicules électriques, thermiques, à hydrogène, et même des expériences en réalité virtuelle.
+      </h2>
+
+      Recommandations de contenu
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          Contenu recommandé pour vous
+        </summary>
+        
+      </details>
+
+      Liens recommandés
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          Liens recommandés pour vous
+        </summary>
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://www.caranddriver.com/" target="_blank" rel="noopener">Car and Driver</a>
+          </li>
+          <li>
+            <a href="https://www.autocar.co.uk/" target="_blank" rel="noopener">Autocar</a>
+          </li>
+          <li>
+            <a href="https://electrek.co/" target="_blank" rel="noopener">Electrek</a>
+          </li>
+          <li>
+            <a href="https://www.greencarreports.com/" target="_blank" rel="noopener">Green Car Reports</a>
+          </li>
+        </ul>
+        <ul class="list-unstyled" style="margin-top: 0.5rem; padding-left: 1rem;">
+          <li>
+            <a href="https://www.bfmtv.com/economie/" target="_blank" rel="noopener">BFMTV Économie</a>
+          </li>
+          <li>
+            <a href="https://www.francetvinfo.fr/economie/" target="_blank" rel="noopener">France Info Économie</a>
+          </li>
+          <li>
+            <a href="https://www.lesechos.fr/" target="_blank" rel="noopener">Les Échos</a>
+          </li>
+          <li>
+            <a href="https://www.industrie-techno.com/" target="_blank" rel="noopener">Industrie &amp; Technologies</a>
+          </li>
+        </ul>
+      </details>
+
+      Ressources supplémentaires
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          Encore plus de ressources
+        </summary>
+        Add additional French content here if needed
+      </details>
+
+    {% else %}
+      <h1 id="heroTitle" class="text-dark">Welcome to the Future of Mobility!</h1>
+      <h2 class="text-muted">
+        Join us as we explore the latest in electric, fuel, and hydrogen vehicles, plus exciting virtual reality experiences.
+      </h2>
+      <p class="mt-3">
+        Check out these fun resources for more info:
+      </p>
+
+      Recommended Content 
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          Recommended content for you
+        </summary>
+       
+      </details>
+
+       Recommended Links 
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          Recommended links for you
+        </summary>
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://www.caranddriver.com/" target="_blank" rel="noopener">Car and Driver</a>
+          </li>
+          <li>
+            <a href="https://www.autocar.co.uk/" target="_blank" rel="noopener">Autocar</a>
+          </li>
+          <li>
+            <a href="https://electrek.co/" target="_blank" rel="noopener">Electrek</a>
+          </li>
+          <li>
+            <a href="https://www.greencarreports.com/" target="_blank" rel="noopener">Green Car Reports</a>
+          </li>
+        </ul>
+        <ul class="list-unstyled" style="margin-top: 0.5rem; padding-left: 1rem;">
+          <li>
+            <a href="https://www.bfmtv.com/economie/" target="_blank" rel="noopener">BFMTV Economy</a>
+          </li>
+          <li>
+            <a href="https://www.francetvinfo.fr/economie/" target="_blank" rel="noopener">France Info Economy</a>
+          </li>
+          <li>
+            <a href="https://www.lesechos.fr/" target="_blank" rel="noopener">Les Échos</a>
+          </li>
+          <li>
+            <a href="https://www.industrie-techno.com/" target="_blank" rel="noopener">Industrie &amp; Technologies</a>
+          </li>
+        </ul>
+      </details>
+
+      Additional Resources
+      <details class="mt-3" style="display: inline-block; text-align: left;">
+        <summary style="cursor: pointer; padding: 0.5rem; background-color: #eee; border: 1px solid #ccc;">
+          More resources
+        </summary>
+        Add additional English content here if needed
+      </details>
+    {% endif %}
+  </div>
+</section>-->
+
+
+{% block content %}
+  <!-- Include the default content from base.html first -->
+  {{ super() }}
+
+  <!-- Add your custom paragraph and animated 'satellite' below -->
+  <p>
+    Welcome to the system calibration screen. Here, we verify your configuration 
+    before proceeding. If something looks off, please 
+    <button onclick="window.location.reload()">reload the window</button>
+    and try again.
+  </p>
+
+  <!-- Container for rotating satellite-style animation -->
+  <div class="satellite-container">
+    <div class="satellite-orbit">
+      <div class="satellite"></div>
+    </div>
+  </div>
+
+  <style>
+    /* Satellite rotation animation styles */
+    .satellite-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 20px auto; /* Center horizontally */
+    }
+    .satellite-orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 120px;
+      margin: -60px 0 0 -60px;
+      border: 2px dashed #999;
+      border-radius: 50%;
+      animation: orbit 5s linear infinite;
+    }
+    .satellite {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #007aff;
+    }
+    @keyframes orbit {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+{% endblock %}
+
+
+
+      {% set lang = session.get('lang', 'en') %}
+      {% set texts = {
+        'fr': {
+          'title': 'Principes',
+          'description': "La mécanique classique étudie le mouvement des objets et les forces qui les influencent. Les lois de Newton expliquent l'équilibre et l'accélération des systèmes physiques.",
+          'button': 'Ouvrir VR'
+        },
+        'en': {
+          'title': 'Principles',
+          'description': "Classical mechanics studies how objects move and the forces acting on them. Newton’s laws explain equilibrium and acceleration in physical systems.",
+          'button': 'Open VR'
+        }
+      } %}
+      {% set current = texts.get(lang, texts['en']) %}
+
+      <!-- About Section -->
+      <section id="about" class="mb-5" aria-labelledby="aboutTitle">
+        <h2 id="aboutTitle" class="decorative-title">{{ current.title }}</h2>
+        <p>{{ current.description }}</p>
+        <button class="btn btn-secondary particle-effect" id="examplePopup" onclick="window.location.href='{{ url_for('main.vr') }}'">
+          {{ current.button }}
+        </button>
+      </section>
+
+      <!-- Carousel / Gifts Section -->
+      <section id="carousel" class="mb-5" aria-labelledby="carouselTitle">
+        {% if session.get('lang', 'en') == 'fr' %}
+          <h2 id="carouselTitle" class="decorative-title">Cadeaux</h2>
+        {% else %}
+          <h2 id="carouselTitle" class="decorative-title">Gifts</h2>
+        {% endif %}
+
+        {% set carousel_images = [
+          {
+            'primary': 'https://openverse.org/image/6d3cd0dc-0459-4a7a-b426-1e8e849f91a1?q=study&p=59',
+            'fallbacks': [ url_for('static', filename='images/slide1.jpg'),
+                           url_for('static', filename='images/service-example.jpg') ],
+            'title_fr': '<a href="https://fr.wikipedia.org/wiki/Mécanique" target="_blank">Les Fondamentaux de la Mécanique</a>',
+            'desc_fr': 'Découvrez les principes éprouvés régissant la mécanique des matériaux, illustrés par des exemples pratiques extraits de la littérature technique.',
+            'title_en': '<a href="https://en.wikipedia.org/wiki/Mechanics" target="_blank">Fundamentals of Mechanics</a>',
+            'desc_en': 'Explore the proven principles governing the mechanics of materials, illustrated with practical examples drawn from technical literature.'
+          },
+          {
+            'primary': url_for('static', filename='images/slide2.jpg'),
+            'fallbacks': [ url_for('static', filename='images/service-example2.jpg'),
+                           url_for('static', filename='images/service-example3.jpg') ],
+            'title_fr': '<a href="https://fr.wikipedia.org/wiki/Mécanique_classique" target="_blank">Approches Classiques en Mécanique</a>',
+            'desc_fr': 'Une analyse approfondie des méthodes classiques appliquées aux études mécaniques avancées, essentielle pour étudiants et professionnels.',
+            'title_en': '<a href="https://en.wikipedia.org/wiki/Classical_mechanics" target="_blank">Classical Mechanics Approaches</a>',
+            'desc_en': 'An in-depth analysis of classical methods applied to advanced mechanical studies, essential for both students and professionals.'
+          },
+          {
+            'primary': url_for('static', filename='images/slide3.jpg'),
+            'fallbacks': [ url_for('static', filename='images/service-example4.jpg'),
+                           url_for('static', filename='images/service-example5.jpg') ],
+            'title_fr': '<a href="https://fr.wikipedia.org/wiki/Dynamique" target="_blank">Dynamique et Systèmes Complexes</a>',
+            'desc_fr': 'Plongez dans l\'étude de la dynamique des systèmes complexes à travers une approche innovante intégrant les dernières avancées en ingénierie.',
+            'title_en': '<a href="https://en.wikipedia.org/wiki/Dynamics" target="_blank">Dynamics and Complex Systems</a>',
+            'desc_en': 'Delve into the study of complex systems dynamics with an innovative approach that integrates the latest advancements in engineering.'
+          },
+          {
+            'primary': url_for('static', filename='images/vehicule1.jpg'),
+            'fallbacks': [ url_for('static', filename='images/vehicule2.jpg'),
+                           url_for('static', filename='images/vehicule3.jpg') ],
+            'title_fr': '<a href="https://fr.wikipedia.org/wiki/Ingénierie" target="_blank">Innovation en Ingénierie Automobile</a>',
+            'desc_fr': 'Découvrez les innovations récentes en ingénierie automobile, alliant performance et durabilité pour façonner l\'avenir des transports.',
+            'title_en': '<a href="https://en.wikipedia.org/wiki/Engineering" target="_blank">Automotive Engineering Innovations</a>',
+            'desc_en': 'Discover the latest innovations in automotive engineering that combine performance and durability to shape the future of transportation.'
+          },
+          {
+            'primary': url_for('static', filename='images/vehicule4.jpg'),
+            'fallbacks': [ url_for('static', filename='images/vehicule5.jpg') ],
+            'title_fr': '<a href="https://fr.wikipedia.org/wiki/Technologie" target="_blank">Technologies de Pointe en Mécanique</a>',
+            'desc_fr': 'Examinez en détail les technologies de pointe qui révolutionnent l\'industrie mécanique, offrant des perspectives inédites pour demain.',
+            'title_en': '<a href="https://en.wikipedia.org/wiki/Technology" target="_blank">Cutting-Edge Mechanical Technologies</a>',
+            'desc_en': 'Examine in detail the cutting-edge technologies revolutionizing the mechanical industry, offering unprecedented prospects for the future.'
+          }
+        ] %}
+        
+        <div id="featuredCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Carousel indicators -->
+          <ol class="carousel-indicators">
+            {% for image in carousel_images %}
+              <li data-target="#featuredCarousel" data-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}"></li>
+            {% endfor %}
+          </ol>
+          
+          <!-- Carousel inner -->
+          <div class="carousel-inner">
+            {% for image in carousel_images %}
+            <div class="carousel-item {% if loop.first %}active{% endif %}">
+              <div class="zoom-container">
+                <img src="{{ image.primary }}" 
+                     onerror="loadImageWithFallback(this, [ {% for fallback in image.fallbacks %}'{{ fallback }}'{% if not loop.last %}, {% endif %}{% endfor %} ])" 
+                     class="d-block w-100" alt="Slide {{ loop.index }}">
+              </div>
+              <div class="carousel-caption d-none d-md-block">
+                {% if session.get('lang', 'en') == 'fr' %}
+                  <h5>{{ image.title_fr | safe }}</h5>
+                  <p>{{ image.desc_fr }}</p>
+                {% else %}
+                  <h5>{{ image.title_en | safe }}</h5>
+                  <p>{{ image.desc_en }}</p>
+                {% endif %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          
+          <!-- Carousel controls -->
+          <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">
+              {% if session.get('lang', 'en') == 'fr' %}Précédent{% else %}Previous{% endif %}
+            </span>
+          </a>
+          <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">
+              {% if session.get('lang', 'en') == 'fr' %}Suivant{% else %}Next{% endif %}
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Bluesky & VR Logs Section -->
+      <section id="bluesky-section">
+        <div class="container text-center my-5" aria-labelledby="blueskyLogTitle">
+          <h2 id="blueskyLogTitle" class="mb-3">Bluesky Log Display</h2>
+          <p>
+            This section shows real‑time logs for the Bluesky connection with full accessibility features.
+          </p>
+          <div id="blueskyLogContainer" class="log-container" aria-live="polite">
+            <p class="fade-in">Initializing Bluesky connection...</p>
+          </div>
+          <div class="d-flex flex-wrap justify-content-center gap-2">
+            <button onclick="connectToBluesky()" class="btn btn-primary">Reconnect</button>
+            <button onclick="clearBlueskyLogs()" class="btn btn-secondary">Clear Logs</button>
+            <button onclick="toggleDropdown()" class="btn btn-info" aria-haspopup="true" aria-expanded="false">
+              Options
+            </button>
+          </div>
+          <!-- Dropdown Menu -->
+          <div id="optionsDropdown" class="dropdown-menu" aria-label="Options">
+            <a href="#" onclick="openVRPanel(); return false;">Connect VR</a>
+            <a href="https://bsky.app/profile/techandstream.bsky.social" target="_blank">Follow me on Bluesky</a>
+          </div>
+        </div>
+
+        <div class="container text-center my-5" aria-labelledby="vrLogTitle">
+          <h2 id="vrLogTitle" class="mb-3">VR Log Display</h2>
+          <div id="vrLogContainer" class="log-container" aria-live="polite">
+            <p class="fade-in">Initializing VR connection...</p>
+          </div>
+          <div class="d-flex flex-wrap justify-content-center gap-2">
+            <button onclick="startVR()" class="btn btn-primary">Start VR</button>
+            <button onclick="connectToVR()" class="btn btn-primary">Reconnect</button>
+            <button onclick="clearVRLogs()" class="btn btn-secondary">Clear Logs</button>
+          </div>
+        </div>
+
+        <!-- Floating Accessibility Button -->
+        <button id="accessibilityButton" class="floating-button" 
+                aria-label="Toggle High Contrast Mode" title="Toggle High Contrast Mode">
+          &#9881;
+        </button>
+      </section>
+
+      <!-- Feedback Section -->
+      <section id="feedback-section" class="mb-5" aria-labelledby="feedbackTitle">
+        <h2 id="feedbackTitle" class="decorative-title">Feedback &amp; Support</h2>
+        <p>We value your feedback. Use the form below to share your thoughts.</p>
+        <form id="feedbackForm">
+          <div class="form-group">
+            <label for="feedbackName">Your Name:</label>
+            <input type="text" id="feedbackName" class="form-control" placeholder="Enter your name" required />
+          </div>
+          <div class="form-group">
+            <label for="feedbackEmail">Your Email:</label>
+            <input type="email" id="feedbackEmail" class="form-control" placeholder="Enter your email" required />
+          </div>
+          <div class="form-group">
+            <label for="feedbackMessage">Your Feedback:</label>
+            <textarea id="feedbackMessage" class="form-control" placeholder="Enter your feedback" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Feedback</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto">
+      <div class="container py-3">
+        <div class="mb-3">
+          
+          <div class="social-links">
+            <a href="https://kvnbbg.fr" target="_blank" rel="noopener noreferrer" class="mx-2">
+              <i class="fas fa-rss"></i> Blog
+            </a>
+            <a href="https://www.instagram.com/techandstream" target="_blank" rel="noopener noreferrer" class="mx-2">
+              <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://www.threads.net/@techandstream" target="_blank" rel="noopener noreferrer" class="mx-2">
+              <i class="fas fa-comment-dots"></i> Threads
+            </a>
+            <a href="https://x.com/techandstream" target="_blank" rel="noopener noreferrer" class="mx-2">
+              <i class="fab fa-twitter"></i> X
+            </a>
+            <a href="https://www.youtube.com/kevinmarville" target="_blank" rel="noopener noreferrer" class="mx-2">
+              <i class="fab fa-youtube"></i> YouTube
+            </a>
+            <a href="https://www.facebook.com/kvnbbg" target="_blank" rel="noopener noreferrer" class="mx-2">
+              <i class="fab fa-facebook-f"></i> Facebook
+            </a>
+          </div>
+        </div>
+        <h6 class="decorative-title">&copy; 2025 Kevin Marville. All rights reserved.</h6>
+       <!--  --> 
+        <p class="mb-0"></p>
+      </div>
+    </footer>
+
+    {% block scripts %}
+      <!-- Core JavaScript Libraries -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+      <!-- Custom JavaScript -->
+      <script>
+        // Dark Mode Toggle (if an element with id "darkModeToggle" is added later)
+        document.getElementById('darkModeToggle')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.classList.toggle('dark-mode');
+          localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+        });
+        if (localStorage.getItem('darkMode') === 'enabled') {
+          document.body.classList.add('dark-mode');
+        }
+
+        // Simple particle effect for buttons (additional to CSS)
+        document.querySelectorAll('.particle-effect').forEach((el) => {
+          el.addEventListener('mouseenter', () => {
+            el.style.boxShadow = '0 0 15px rgba(0, 123, 255, 0.5)';
+          });
+          el.addEventListener('mouseleave', () => {
+            el.style.boxShadow = 'none';
+          });
+        });
+
+        // Dropdown menu toggle
+        function toggleDropdown() {
+          var dropdown = document.getElementById('optionsDropdown');
+          if (!dropdown) return;
+          dropdown.classList.toggle('open');
+        }
+
+        // Close dropdown via Escape key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === "Escape") {
+            var dropdown = document.getElementById('optionsDropdown');
+            if (dropdown) {
+              dropdown.classList.remove('open');
+            }
+          }
+        });
+
+        // Function to load image with fallback sources
+        function loadImageWithFallback(img, sources) {
+          if (!img.dataset.fallbackIndex) {
+            img.dataset.fallbackIndex = 0;
+          }
+          var index = parseInt(img.dataset.fallbackIndex);
+          if (index < sources.length) {
+            img.src = sources[index];
+            img.dataset.fallbackIndex = index + 1;
+          } else {
+            img.src = "{{ url_for('static', filename='images/placeholder.jpg') }}";
+          }
+        }
+
+        // Simulated Bluesky Connection with handshake tracking
+        async function connectToBluesky() {
+          const logContainer = document.getElementById('blueskyLogContainer');
+          if (!logContainer) {
+            console.error("Bluesky log container not found.");
+            return;
+          }
+          logContainer.innerHTML += "<p class='text-blue-700 fade-in'>[Bluesky HANDSHAKE] Initiating connection at " + new Date().toLocaleTimeString() + "...</p>";
+          try {
+            const response = await fetch('https://bsky.social/api/session');
+            if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+            logContainer.innerHTML += "<p class='text-green-700 fade-in'>[Bluesky HANDSHAKE] Connection successful at " + new Date().toLocaleTimeString() + "!</p>";
+          } catch (error) {
+            logContainer.innerHTML += `<p class='text-red-700 fade-in'>[Bluesky HANDSHAKE] Connection failed: ${error.message}</p>`;
+            alternativeBlueskyConnect();
+          }
+        }
+        function alternativeBlueskyConnect() {
+          const logContainer = document.getElementById('blueskyLogContainer');
+          logContainer.innerHTML += "<p class='text-orange-700 fade-in'>[Bluesky HANDSHAKE] Attempting alternative connection...</p>";
+          setTimeout(() => {
+            logContainer.innerHTML += "<p class='text-green-700 fade-in'>[Bluesky HANDSHAKE] Alternative connection established at " + new Date().toLocaleTimeString() + ".</p>";
+          }, 2000);
+        }
+
+        // Simulated VR Connection with handshake tracking
+        async function connectToVR() {
+          const logContainer = document.getElementById('vrLogContainer');
+          if (!logContainer) {
+            console.error("VR log container not found.");
+            return;
+          }
+          logContainer.innerHTML += "<p class='text-blue-700 fade-in'>[VR HANDSHAKE] Initiating VR connection at " + new Date().toLocaleTimeString() + "...</p>";
+          try {
+            const response = await fetch('https://vr.example.com/api/session');
+            if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+            logContainer.innerHTML += "<p class='text-green-700 fade-in'>[VR HANDSHAKE] VR connection successful at " + new Date().toLocaleTimeString() + "!</p>";
+          } catch (error) {
+            logContainer.innerHTML += `<p class='text-red-700 fade-in'>[VR HANDSHAKE] VR connection failed: ${error.message}</p>`;
+            alternativeVRConnect();
+          }
+        }
+        function alternativeVRConnect() {
+          const logContainer = document.getElementById('vrLogContainer');
+          logContainer.innerHTML += "<p class='text-orange-700 fade-in'>[VR HANDSHAKE] Attempting alternative VR connection...</p>";
+          setTimeout(() => {
+            logContainer.innerHTML += "<p class='text-green-700 fade-in'>[VR HANDSHAKE] Alternative VR connection established at " + new Date().toLocaleTimeString() + ".</p>";
+          }, 2000);
+        }
+
+        // Non-async VR start function (simply logs start)
+        function startVR() {
+          const container = document.getElementById('vrLogContainer');
+          if (!container) {
+            console.error("VR log container not found.");
+            return;
+          }
+          var log = document.createElement("p");
+          log.textContent = "VR connection started at " + new Date().toLocaleTimeString();
+          log.classList.add("fade-in");
+          container.appendChild(log);
+        }
+
+        // Clear Log Functions
+        function clearBlueskyLogs() {
+          var container = document.getElementById('blueskyLogContainer');
+          if (container) {
+            container.innerHTML = "<p class='text-gray-700 fade-in'>Bluesky logs cleared at " + new Date().toLocaleTimeString() + ".</p>";
+          }
+        }
+        function clearVRLogs() {
+          var container = document.getElementById('vrLogContainer');
+          if (container) {
+            container.innerHTML = "<p class='text-gray-700 fade-in'>VR logs cleared at " + new Date().toLocaleTimeString() + ".</p>";
+          }
+        }
+
+        // Accessibility toggle for high contrast mode
+        document.getElementById('accessibilityButton').addEventListener('click', function() {
+          document.body.classList.toggle('high-contrast');
+        });
+
+        // Security Check-in Logging (every 30 seconds)
+        function securityCheckIn() {
+          const now = new Date().toISOString();
+          console.log('[SECURITY] Check in at ' + now);
+        }
+        setInterval(securityCheckIn, 30000);
+
+        // Distribution Loop: log distribution every 60 seconds
+        function distributionLoop() {
+          const blueskyLogs = document.getElementById('blueskyLogContainer').innerHTML;
+          const vrLogs = document.getElementById('vrLogContainer').innerHTML;
+          const payload = { bluesky: blueskyLogs, vr: vrLogs, timestamp: new Date().toISOString() };
+          console.log('[DISTRIBUTION] Sending logs...', payload);
+          fetch('/distribute-logs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          })
+          .then((response) => {
+            if (response.ok) {
+              console.log('[DISTRIBUTION] Logs distributed successfully.');
+            } else {
+              console.error('[DISTRIBUTION] Failed with status ' + response.status);
+            }
+          })
+          .catch((error) => {
+            console.error('[DISTRIBUTION] Error: ' + error.message);
+          });
+        }
+        setInterval(distributionLoop, 60000);
+
+        // Attach event listener for Bluesky Connect button (if present)
+        document.getElementById('blueskyConnectBtn')?.addEventListener('click', function() {
+          connectToBluesky();
+        });
+
+        // Feedback form submission handling
+        document.getElementById('feedbackForm')?.addEventListener('submit', function(e) {
+          e.preventDefault();
+          alert("Thank you for your feedback!");
+          e.target.reset();
+        });
+      </script>
+    {% endblock %}
+  </body>
+</html>
