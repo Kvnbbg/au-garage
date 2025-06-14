@@ -2,7 +2,8 @@ import logging
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, SubmitField, EmailField, BooleanField
 from wtforms.validators import DataRequired, EqualTo, Length, Regexp, ValidationError, Email, Optional
-from app.database import get_db_connection  # Ensure correct import for database utility
+# from app.database import get_db_connection  # Ensure correct import for database utility # REMOVED
+from app.models import User # IMPORT User model
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -45,18 +46,14 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField("Sign Up", render_kw={"class": "btn btn-success"})
 
     def validate_username(self, username):
-        conn = get_db_connection()
-        user = conn.execute('SELECT * FROM users WHERE username = ?', (username.data,)).fetchone()
-        conn.close()
+        user = User.find_by_username(username.data) # Use SQLAlchemy
         if user:
             logger.warning(f"Attempt to register with taken username: {username.data}")
             raise ValidationError('Username already exists. Please choose a different one.')
 
     def validate_email(self, email):
         if email.data:  # Only validate if email is provided
-            conn = get_db_connection()
-            user = conn.execute('SELECT * FROM users WHERE email = ?', (email.data.lower().strip(),)).fetchone()
-            conn.close()
+            user = User.query.filter_by(email=email.data.lower().strip()).first() # Use SQLAlchemy
             if user:
                 logger.warning(f"Attempt to register with taken email: {email.data}")
                 raise ValidationError("That email is already in use. Please choose a different one.")

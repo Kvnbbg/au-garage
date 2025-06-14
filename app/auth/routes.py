@@ -3,13 +3,14 @@ from urllib.parse import urljoin, urlparse
 
 from flask import Blueprint, config, flash, redirect, render_template, request, session, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-from app.models import User, db
+from app.models import User, db, ActivityLog # Added ActivityLog
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from app.database import get_db_connection
-from app.email import (  # Assuming this function is adapted for direct SQL handling
+# from app.database import get_db_connection # Removed
+from app.email import (
     send_email,
 )
+from flask import current_app # Added current_app
 
 from .forms import (
     EditProfileForm,
@@ -26,30 +27,17 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def get_user_by_username(username):
-    conn = get_db_connection()
-    user = conn.execute(
-        "SELECT * FROM users WHERE username = ?", (username,)
-    ).fetchone()
-    conn.close()
-    return user
+# def get_user_by_username(username): # Replaced by User.find_by_username
+#     return User.find_by_username(username)
 
+# def get_user_by_email(email): # Replaced by User.query.filter_by(email=email).first()
+#     return User.query.filter_by(email=email).first()
 
-def get_user_by_email(email):
-    conn = get_db_connection()
-    user = conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
-    conn.close()
-    return user
-
-
-def insert_new_user(username, email, password_hash):
-    conn = get_db_connection()
-    conn.execute(
-        "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)",
-        (username, email, password_hash),
-    )
-    conn.commit()
-    conn.close()
+# def insert_new_user(username, email, password_hash): # Replaced by direct User creation and db.session.add
+#     new_user = User(username=username, email=email)
+#     new_user.set_password(password_hash) # Assuming password_hash is the raw password here, or set_password handles hash
+#     db.session.add(new_user)
+#     db.session.commit()
 
 
 @auth.route("/login", methods=["GET", "POST"])
@@ -58,13 +46,9 @@ def login():
         return redirect(url_for("main.home"))
     form = LoginForm()
     if form.validate_on_submit():
-        user = get_user_by_username(form.username.data)
-        if user and check_password_hash(user["password_hash"], form.password.data):
-            # User class needs adjustment for Flask-Login without SQLAlchemy
-            user_obj = User(
-                id=user["id"], username=user["username"]
-            )  # Adjust User class as needed
-            login_user(user_obj, remember=form.remember_me.data)
+        user = User.find_by_username(form.username.data) # Use SQLAlchemy method
+        if user and user.check_password(form.password.data): # Use User object's method
+            login_user(user, remember=form.remember_me.data) # Pass the User object directly
             next_page = request.args.get("next")
             if not next_page or not is_safe_url(next_page):
                 return redirect(url_for("main.home"))
@@ -79,8 +63,11 @@ def register():
         return redirect(url_for("main.home"))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data)
-        insert_new_user(form.username.data, form.email.data, hashed_password)
+        # hashed_password = generate_password_hash(form.password.data) # User model's set_password handles hashing
+        new_user = User(username=form.username.data, email=form.email.data)
+        new_user.set_password(form.password.data) # Set password handles hashing
+        db.session.add(new_user)
+        db.session.commit()
         flash("Your account has been created, you can now log in.", "success")
         return redirect(url_for("auth.login"))
     return render_template("register.html", title="Register", form=form)
@@ -164,7 +151,7 @@ def send_password_reset_email(user):
     token = user.get_reset_password_token()
     send_email(
         "[YourApp] Reset Your Password",
-        sender=config["ADMINS"][0],
+        sender=current_app.config["ADMINS"][0], # Use current_app.config
         recipients=[user.email],
         text_body=render_template("email/reset_password.txt", user=user, token=token),
         html_body=render_template("email/reset_password.html", user=user, token=token),
@@ -180,12 +167,10 @@ def dashboard():
 @login_required
 def  role():
     # Example of extending dashboard functionality
-    if current_user.role == "admin":
+    activities = None # Initialize activities
+    if current_user.role and current_user.role.name == "admin": # Check role name if role is an object
         # Fetch admin-specific data or activities
-        conn = get_db_connection()
-        activities = conn.execute('SELECT * FROM activity_log').fetchall()
-    else:
-        activities = None
+        activities = ActivityLog.query.order_by(ActivityLog.timestamp.desc()).all() # Use SQLAlchemy
     return render_template("dashboard.html", activities=activities)
 
 

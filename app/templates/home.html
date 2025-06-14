@@ -1,6 +1,20 @@
 {% extends 'base.html' %}
 
+{% block title %}Home - {{ super() }}{% endblock %}
+
 {% block content %}
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Maintenance & Visit Info:</h3>
+      <p>Maintenance Start Date: {{ formatted_maintenance_start_date }}</p> <!-- Added this line -->
+      <p>{{ dynamic_message }}</p>
+      <p>{{ leaderboard_message }}</p>
+      <hr>
+    </div>
+  </div>
+</div>
+
 <!-- Services Section -->
 <section id="services" class="py-5">
   <div class="container">

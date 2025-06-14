@@ -1,10 +1,8 @@
 from datetime import datetime
-from flask import Blueprint, flash, make_response, redirect, render_template, request, url_for, session
-from collections import Counter
+from flask import Blueprint, flash, make_response, redirect, render_template, request, url_for, session, current_app
 import math
-
-# Global Counter to track visit counts across users (can be replaced by a database in a real-world app)
-user_visit_counter = Counter()
+from app import db # Import db
+from app.models import VisitCount # Import VisitCount model
 
 main = Blueprint('main', __name__)
 
@@ -44,8 +42,20 @@ def improved_home_with_maintenance_date():
     now = datetime.now()
     formatted_now = now.strftime("%Y-%m-%d %H:%M:%S")
 
-    # Predefined maintenance start date
-    maintenance_start_date = datetime(2024, 1, 1, 0, 0, 0)
+    # Retrieve maintenance start date from config
+    maintenance_start_date_str = current_app.config.get('MAINTENANCE_START_DATE')
+    default_maintenance_start_date = datetime(2024, 1, 1, 0, 0, 0)
+
+    if maintenance_start_date_str:
+        try:
+            maintenance_start_date = datetime.strptime(maintenance_start_date_str, "%Y-%m-%d %H:%M:%S")
+        except ValueError:
+            flash(f"Invalid MAINTENANCE_START_DATE format. Using default: {default_maintenance_start_date.strftime('%Y-%m-%d %H:%M:%S')}", "danger")
+            maintenance_start_date = default_maintenance_start_date
+    else:
+        flash(f"MAINTENANCE_START_DATE not configured. Using default: {default_maintenance_start_date.strftime('%Y-%m-%d %H:%M:%S')}", "warning")
+        maintenance_start_date = default_maintenance_start_date
+
     formatted_maintenance_start_date = maintenance_start_date.strftime("%Y-%m-%d %H:%M:%S")
 
     # Calculate the duration since maintenance started in days
@@ -53,51 +63,71 @@ def improved_home_with_maintenance_date():
     days_since_maintenance = duration_since_maintenance.days
 
     # Get the user identifier (session, IP address, or any unique identifier)
-    user_id = get_user_id()
+    user_id_str = get_user_id()
 
-    # Track the user's visit count using cookies, handle cases where cookies are missing
-    visit_count = request.cookies.get('visit_count', 0)
-    try:
-        visit_count = int(visit_count) + 1
-    except ValueError:
-        visit_count = 1  # Reset visit count if cookie was corrupted
+    # Query or create VisitCount record for the current user
+    user_visit_record = VisitCount.query.filter_by(user_id_str=user_id_str).first()
+    if user_visit_record:
+        user_visit_record.visits += 1
+    else:
+        user_visit_record = VisitCount(user_id_str=user_id_str, visits=1)
+        db.session.add(user_visit_record)
+    db.session.commit()
 
-    # Update global visit counter for leaderboard purposes
-    user_visit_counter[user_id] += 1
+    current_user_visits = user_visit_record.visits
 
     # Find the user with the maximum visits for the leaderboard
-    max_visits_user, max_visits = user_visit_counter.most_common(1)[0]
+    top_visitor_record = VisitCount.query.order_by(VisitCount.visits.desc()).first()
+
+    max_visits = 0
+    max_visits_user_id_str = "N/A"
+    if top_visitor_record:
+        max_visits = top_visitor_record.visits
+        max_visits_user_id_str = top_visitor_record.user_id_str
+
 
     # Dynamic messages based on user visit count
     dynamic_messages = [
         f"Site has been in maintenance since {formatted_maintenance_start_date}.",
         f"{days_since_maintenance} days since maintenance began. We apologize for any inconvenience.",
-        f"You're on visit {visit_count}. We appreciate your dedication during this maintenance period!"
+        f"You're on visit {current_user_visits}. We appreciate your dedication during this maintenance period!"
     ]
 
     # Leaderboard message with a percentage of the user's visits relative to the top visitor
-    if user_visit_counter[user_id] >= max_visits:
-        leaderboard_message = f"🏆 You're the top visitor with {user_visit_counter[user_id]} visits!"
-    else:
-        percentage_of_top = calculate_percentage(user_visit_counter[user_id], max_visits)
+    if current_user_visits >= max_visits and max_visits > 0: # also check max_visits > 0
+        leaderboard_message = f"🏆 You're the top visitor with {current_user_visits} visits!"
+    elif max_visits > 0: # Check max_visits > 0 before calculating percentage
+        percentage_of_top = calculate_percentage(current_user_visits, max_visits)
         leaderboard_message = (
-            f"You're ranked below the top visitor, who has {max_visits} visits. "
+            f"You're ranked below the top visitor ({max_visits_user_id_str}), who has {max_visits} visits. "
             f"You've completed {math.floor(percentage_of_top)}% of the top user's visits. Keep it up!"
         )
+    else: # Handle case where VisitCount table is empty or only has current user
+        leaderboard_message = "Welcome! Be the first to set a high score on our visit leaderboard!"
+
 
     # Select a dynamic message based on the visit count
-    message_index = visit_count % len(dynamic_messages)
+    message_index = current_user_visits % len(dynamic_messages)
     dynamic_message = dynamic_messages[message_index]
 
     # Flash the dynamic message and leaderboard status
-    flash(dynamic_message, "warning")  # Maintenance notice
-    flash(leaderboard_message, "info")  # Leaderboard notice
+    # flash(dynamic_message, "warning")  # Maintenance notice - Will pass directly to template
+    # flash(leaderboard_message, "info")  # Leaderboard notice - Will pass directly to template
 
     # Prepare the response and set cookies for tracking user
-    response = make_response(render_template("home.html"))
+    response = make_response(render_template(
+        "home.html",
+        formatted_maintenance_start_date=formatted_maintenance_start_date,
+        days_since_maintenance=days_since_maintenance,
+        current_user_visits=current_user_visits,
+        dynamic_message=dynamic_message,
+        leaderboard_message=leaderboard_message
+    ))
     response.set_cookie("last_visited", formatted_now, max_age=60*60*24*365*2, httponly=True, samesite='Lax')  # 2 years, secure cookie
-    response.set_cookie("visit_count", str(visit_count), max_age=60*60*24*365*2, httponly=True, samesite='Lax')  # 2 years
-    response.set_cookie('user_id', user_id, max_age=60*60*24*365*2, httponly=True, samesite='Lax')  # Store user ID securely
+    # visit_count cookie is no longer the source of truth, but can be kept for other client-side uses or removed.
+    # For this exercise, we'll update it to reflect the database value.
+    response.set_cookie("visit_count", str(current_user_visits), max_age=60*60*24*365*2, httponly=True, samesite='Lax')
+    response.set_cookie('user_id', user_id_str, max_age=60*60*24*365*2, httponly=True, samesite='Lax')  # Store user ID securely
 
     return response
 

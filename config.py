@@ -7,6 +7,7 @@ import secrets
 class Config:
     SECRET_KEY = secrets.token_hex(32)
     DATABASE_URI = "sqlite:///user.db"
+    MAINTENANCE_START_DATE = '2024-01-01 00:00:00'
 
 
 class DevelopmentConfig(Config):
