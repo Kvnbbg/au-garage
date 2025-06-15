@@ -3,14 +3,13 @@ from urllib.parse import urljoin, urlparse
 
 from flask import Blueprint, config, flash, redirect, render_template, request, session, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-from app.models import User, db, ActivityLog, Role # Added Role
+from app.models import User, db, ActivityLog, Role
 from werkzeug.security import check_password_hash, generate_password_hash
 
-# from app.database import get_db_connection # Removed
 from app.email import (
     send_email,
 )
-from flask import current_app # Added current_app
+from flask import current_app
 
 from .forms import (
     EditProfileForm,
@@ -19,7 +18,7 @@ from .forms import (
     ResetPasswordForm,
     ResetPasswordRequestForm,
 )
-from app import limiter # Import the limiter instance
+from app import limiter
 
 auth = Blueprint("auth", __name__)
 
@@ -28,33 +27,20 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-# def get_user_by_username(username): # Replaced by User.find_by_username
-#     return User.find_by_username(username)
-
-# def get_user_by_email(email): # Replaced by User.query.filter_by(email=email).first()
-#     return User.query.filter_by(email=email).first()
-
-# def insert_new_user(username, email, password_hash): # Replaced by direct User creation and db.session.add
-#     new_user = User(username=username, email=email)
-#     new_user.set_password(password_hash) # Assuming password_hash is the raw password here, or set_password handles hash
-#     db.session.add(new_user)
-#     db.session.commit()
-
-
 @auth.route("/login", methods=["GET", "POST"])
-@limiter.limit("10 per minute") # Apply rate limit
+@limiter.limit("10 per minute")
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("main.home"))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.find_by_username(form.username.data) # Use SQLAlchemy method
-        if user and user.check_password(form.password.data): # Use User object's method
-            login_user(user, remember=form.remember_me.data) # Pass the User object directly
+        user = User.find_by_username(form.username.data)
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
             next_page = request.args.get("next")
             if not next_page or not is_safe_url(next_page):
-                return redirect(url_for("auth.dashboard")) # Changed to auth.dashboard
-            return redirect(next_page or url_for("auth.dashboard")) # Changed to auth.dashboard
+                return redirect(url_for("auth.dashboard"))
+            return redirect(next_page or url_for("auth.dashboard"))
         flash("Invalid username or password")
     return render_template("login.html", form=form)
 
@@ -74,13 +60,13 @@ def register():
             return render_template("register.html", title="Register", form=form)
 
         new_user = User(username=form.username.data, email=form.email.data, role_id=default_role.id)
-        new_user.set_password(form.password.data) # Set password handles hashing
+        new_user.set_password(form.password.data)
         db.session.add(new_user)
         db.session.commit()
         # Log in the new user
         login_user(new_user)
         flash("Your account has been created and you are now logged in.", "success")
-        return redirect(url_for("auth.dashboard")) # Changed to auth.dashboard
+        return redirect(url_for("auth.dashboard"))
     return render_template("register.html", title="Register", form=form)
 
 
@@ -200,10 +186,10 @@ def dashboard():
 @login_required
 def  role():
     # Example of extending dashboard functionality
-    activities = None # Initialize activities
-    if current_user.role and current_user.role.name == "admin": # Check role name if role is an object
+    activities = None
+    if current_user.role and current_user.role.name == "admin":
         # Fetch admin-specific data or activities
-        activities = ActivityLog.query.order_by(ActivityLog.timestamp.desc()).all() # Use SQLAlchemy
+        activities = ActivityLog.query.order_by(ActivityLog.timestamp.desc()).all()
     return render_template("dashboard.html", activities=activities)
 
 

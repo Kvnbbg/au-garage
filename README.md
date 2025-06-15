@@ -5,8 +5,8 @@
 
 ---
 
-## Introduction  
-Garage V. Parrot was a web application developed to modernize operations for automotive service providers. Originally created for Vincent Parrot of Toulouse, this platform now serves as a scalable solution for garage management, combining service tracking, customer engagement, and inventory control.  
+## Introduction/Overview
+Garage V. Parrot is a web application designed to modernize operations for automotive service providers. Originally created for Vincent Parrot of Toulouse, this platform now serves as a scalable solution for garage management. It combines service tracking, customer engagement, and inventory control, all presented through a role-based UI and dashboard system tailored to different user needs (Admin, Maintenance, Worker, Client).
 
 ---
 
@@ -24,44 +24,101 @@ The application has transitioned from a local garage tool to a modular solution 
 - **Service Management**: Track repairs, maintenance, and vehicle sales.  
 - **Inventory Control**: Real-time stock alerts and automated reordering.  
 - **Customer Portal**: Direct communication, appointment booking, and invoice generation.  
-- **Role-Based Access**: Admin, staff, and mechanic permissions.  
+- **Role-Based Access Control**: Distinct UIs and permissions for Admin, Maintenance, Worker, and Client roles.
 - **Analytics Dashboard**: Performance metrics and reporting tools.
-- **Visit Tracking**: Database-backed counter for user visits and leaderboard display.
+- **Database-backed Visit Tracking**: Monitors user visits with a leaderboard display.
+- **Configurable Maintenance Mode**: Allows administrators to display a maintenance notice with a specific start date.
+- **Visual Login Indicator**: Provides clear visual feedback on login status.
+- **Security Features**: Includes rate limiting to prevent abuse and CSRF protection on forms.
 
 ---
 
-## Technical Overview  
-### Architecture  
-- **Backend**: Python/Flask with object-oriented design.  
-- **Database**: PostgreSQL (migrated via Flask-Migrate). Uses **SQLAlchemy** for ORM and database interactions.
-- **Frontend**: Responsive UI with dynamic transitions.  
-- **Integrations**: SMTP for notifications, payment gateways, and VR tools.  
+## Technical Overview / Architecture
+### Core Technologies
+- **Backend**: Python, utilizing the Flask framework with an object-oriented design.
+- **Database**: PostgreSQL is the target for production, with SQLite often used for development. Interactions are managed via Flask-Migrate and SQLAlchemy ORM.
+- **Frontend**: Jinja2 for server-side templating, delivering a responsive UI (assumed to be styled with Bootstrap or a similar framework).
+- **Integrations**: SMTP for email notifications, potential for payment gateways, and VR tools.
+
+### Key Libraries & Extensions
+- **Flask-Login**: Manages user sessions and authentication.
+- **Flask-WTF**: Handles form creation, validation, and CSRF protection.
+- **Flask-SQLAlchemy**: Provides ORM capabilities for database interaction.
+- **Flask-Migrate**: Manages database schema migrations.
+- **Flask-Limiter**: Implements rate limiting for application routes.
+- **Flask-Mail**: Facilitates sending emails for notifications and password resets.
 
 ### Code Standards  
 - Modular, reusable components.  
 - Comprehensive error handling and logging.  
-- RESTful API structure.  
+- RESTful API structure where applicable.
 
 ---
 
 ## Setup & Deployment  
 ### Prerequisites  
 - Python 3.8+  
-- PostgreSQL  
-- pip  
+- pip (Python package installer)
+- PostgreSQL (for production) or SQLite (for development)
 
-### Installation  
-```bash  
-git clone https://github.com/Kvnbbg/au-garage  
-cd au-garage  
-python3 -m venv venv  
-source venv/bin/activate  # Unix/macOS | For Windows: .\venv\Scripts\activate  
-pip install -r requirements.txt  
-flask db upgrade  # If using Flask-Migrate and have migrations
-flask init-db # To initialize database tables and roles if not using Flask-Migrate or for first setup
-flask run  
-```  
-**Configure `.env`**: Include `DATABASE_URL`, `SECRET_KEY`, and SMTP credentials.  
+### Installation Steps
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Kvnbbg/au-garage
+    cd au-garage
+    ```
+2.  **Create and activate a virtual environment:**
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate  # For Unix/macOS
+    # For Windows: .\venv\Scripts\activate
+    ```
+3.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+4.  **Set up the database:**
+    Apply database migrations (creates tables if they don't exist):
+    ```bash
+    flask db upgrade
+    ```
+5.  **Initialize roles:**
+    Populate the database with predefined user roles:
+    ```bash
+    flask init-roles
+    ```
+6.  **Configure environment variables:**
+    Create a `.env` file in the root directory and populate it with necessary configurations. See the Configuration section below for details.
+7.  **Run the development server:**
+    ```bash
+    flask run
+    ```
+    The application should now be accessible at `http://127.0.0.1:5000/`.
+
+### Configuration
+Create a `.env` file in the project root with the following variables:
+```env
+# Core Flask settings
+SECRET_KEY='your_very_secret_key_here'  # Replace with a strong random key
+FLASK_ENV='development' # or 'production'
+
+# Database settings
+DATABASE_URL='postgresql://user:password@host:port/dbname' # For PostgreSQL
+# Example for SQLite (development):
+# DATABASE_URL='sqlite:///../instance/app.db'
+
+# Email settings (using Flask-Mail)
+MAIL_SERVER='smtp.example.com'
+MAIL_PORT=587
+MAIL_USE_TLS=True
+MAIL_USERNAME='your-email@example.com'
+MAIL_PASSWORD='your-email-password'
+MAIL_DEFAULT_SENDER='noreply@example.com'
+
+# Application-specific settings
+MAINTENANCE_START_DATE='YYYY-MM-DD HH:MM:SS' # Optional: For maintenance mode display
+```
+**Note:** Ensure the `instance` folder exists if using SQLite, or that your PostgreSQL server is running and accessible.
 
 ---
 

@@ -89,9 +89,6 @@ class User(UserMixin, db.Model): # Inherit from db.Model
     def __repr__(self):
         return f"<User {self.username}>"
 
-# Remove DBHandler and QueryHandler as SQLAlchemy handles this
-
-# login_manager.user_loader is already updated in app/__init__.py
 
 def login_user_with_expiration(user, remember=True, duration=365):
     login_user(user, remember=remember)

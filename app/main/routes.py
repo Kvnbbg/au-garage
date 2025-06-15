@@ -110,10 +110,6 @@ def improved_home_with_maintenance_date():
     message_index = current_user_visits % len(dynamic_messages)
     dynamic_message = dynamic_messages[message_index]
 
-    # Flash the dynamic message and leaderboard status
-    # flash(dynamic_message, "warning")  # Maintenance notice - Will pass directly to template
-    # flash(leaderboard_message, "info")  # Leaderboard notice - Will pass directly to template
-
     # Prepare the response and set cookies for tracking user
     response = make_response(render_template(
         "home.html",

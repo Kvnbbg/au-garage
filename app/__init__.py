@@ -11,7 +11,6 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from config import DevelopmentConfig, ProductionConfig, TestingConfig
 
-# from .database import init_db # Remove get_db_connection - REMOVED TO BREAK CIRCULAR IMPORT
 
 # Create extension instances
 login_manager = LoginManager()
@@ -88,7 +87,5 @@ def create_app():
         if current_user.is_authenticated and hasattr(current_user, 'role') and current_user.role:
             user_role = current_user.role
         return dict(user_role=user_role)
-
-    # init_db() # Initialize the database - No longer needed with SQLAlchemy
 
     return app

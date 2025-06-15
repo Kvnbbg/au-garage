@@ -2,8 +2,9 @@ alembic==1.16.1
 anaconda==0.0.1.1
 anyio==4.9.0
 astroid==3.3.10
-Babel==2.14.0
+babel==2.17.0
 backports.tarfile==1.2.0
+bandit==1.8.3
 blinker==1.9.0
 build==1.2.2.post1
 CacheControl==0.14.3
@@ -17,14 +18,16 @@ click==8.2.1
 colorama==0.4.6
 coverage==7.8.0
 crashtest==0.4.1
-cryptography==41.0.7
-# dbus-python==1.3.2 # Removed due to build issues, likely not a direct app dependency
+cryptography==45.0.4
+dbus-python==1.3.2
+Deprecated==1.2.18
 dill==0.3.8
 distlib==0.3.9
 distro==1.9.0
 distro-info==1.7+build1
+dnspython==2.7.0
 dulwich==0.22.8
-email-validator==2.2.0 # Added for WTForms email validation
+email_validator==2.2.0
 exceptiongroup==1.2.2
 fastjsonschema==2.21.1
 filelock==3.18.0
@@ -32,14 +35,14 @@ findpython==0.6.3
 flake8==7.2.0
 Flask==3.1.1
 flask-babel==4.0.0
-Flask-Limiter==3.5.1
+Flask-Limiter==3.12
 Flask-Login==0.6.3
-Flask-Mail==0.9.1
-Flask-Migrate==4.0.5
+Flask-Mail==0.10.0
+Flask-Migrate==4.1.0
 Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.2.2
 greenlet==3.0.3
-gunicorn==21.2.0
+gunicorn==23.0.0
 gyp==0.1
 h11==0.16.0
 httpcore==1.0.9
@@ -60,26 +63,32 @@ keyring==25.6.0
 launchpadlib==1.11.0
 lazr.restfulclient==0.14.6
 lazr.uri==1.0.6
+limits==5.3.0
 Mako==1.3.2
-MarkupSafe==2.1.5
+markdown-it-py==3.0.0
+MarkupSafe==3.0.2
 mccabe==0.7.0
+mdurl==0.1.2
 more-itertools==10.7.0
 msgpack==1.1.0
 mypy==1.8.0
 mypy-extensions==1.0.0
 oauthlib==3.2.2
-packaging==24.2 # Updated to resolve conflict with pyproject-api
+ordered-set==4.1.0
+packaging==24.2
+pbr==6.1.1
 pbs-installer==2025.4.9
 pkginfo==1.12.1.2
-platformdirs==4.3.6 # Updated to resolve conflict with tox
+platformdirs==4.3.6
 pluggy==1.5.0
 poetry==2.1.0
 poetry-core==2.1.0
 pycodestyle==2.13.0
 pycparser==2.22
 pyflakes==3.3.2
-# PyGObject==3.48.2 # Removed due to persistent build issues, likely not a direct app dependency
-PyJWT==2.7.0
+Pygments==2.19.1
+PyGObject==3.48.2
+PyJWT==2.10.1
 pylint==3.3.7
 pyparsing==3.1.1
 pypi-timemachine==0.2
@@ -92,9 +101,11 @@ pytest-metadata==3.1.1
 python-apt==2.7.7+ubuntu4
 python-dotenv==1.0.1
 pytz==2024.1
+PyYAML==6.0.2
 RapidFuzz==3.13.0
-requests==2.32.3
+requests==2.32.4
 requests-toolbelt==1.0.0
+rich==13.9.4
 SecretStorage==3.3.3
 shellingham==1.5.4
 six==1.16.0
@@ -102,7 +113,8 @@ sniffio==1.3.1
 sql==2022.4.0
 SQLAlchemy==2.0.41
 ssh-import-id==5.11
-tomli==2.2.1 # Updated to resolve conflict with pyproject-api
+stevedore==5.4.1
+tomli==2.2.1
 tomlkit==0.12.3
 tornado==6.4.2
 tox==4.25.0
@@ -113,6 +125,7 @@ urllib3==2.4.0
 virtualenv==20.31.1
 wadllib==1.3.6
 Werkzeug==3.1.3
+wrapt==1.17.2
 WTForms==3.2.1
 zipp==3.21.0
 zstandard==0.23.0
