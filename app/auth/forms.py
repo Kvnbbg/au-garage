@@ -5,6 +5,9 @@ from wtforms.validators import DataRequired, EqualTo, Length, Regexp, Validation
 # from app.database import get_db_connection  # Ensure correct import for database utility # REMOVED
 from app.models import User # IMPORT User model
 
+from wtforms import SelectField # Import SelectField
+from app.models import Role # Import Role model
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -12,12 +15,15 @@ logger = logging.getLogger(__name__)
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = EmailField('Email', validators=[DataRequired(), Email()])
+    role = SelectField('Role', coerce=int, validators=[Optional()]) # Added role field
     submit = SubmitField('Update Profile')
 
     def __init__(self, original_username, original_email, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
         self.original_username = original_username
         self.original_email = original_email
+        # Populate role choices - this happens when the form is instantiated
+        self.role.choices = [(r.id, r.name) for r in Role.query.order_by('name').all()]
 
     def validate_username(self, username):
         if username.data != self.original_username:

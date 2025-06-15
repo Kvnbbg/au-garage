@@ -22,10 +22,16 @@
       .login-indicator.logged-out {
         background-color: red;
       }
+      .role-hashtag {
+        font-size: 0.8em;
+        padding: 0.2em 0.4em;
+        border-radius: 0.25rem;
+        margin-left: 5px;
+      }
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" {% if user_role and user_role.color_code %}style="background-color: {{ user_role.color_code }} !important;"{% endif %}>
       <a class="navbar-brand" href="{{ url_for('main.home') }}">FlaskGarage</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -41,6 +47,9 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('auth.profile') }}">
                 Profile ({{ current_user.username }})
+                {% if user_role and user_role.hashtag %}
+                  <span class="badge badge-info role-hashtag">{{ user_role.hashtag }}</span>
+                {% endif %}
                 <span class="login-indicator logged-in"></span>
               </a>
             </li>

@@ -6,8 +6,9 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
-from flask_limiter import Limiter # Import Flask-Limiter
-from flask_limiter.util import get_remote_address # For IP address based limiting
+from flask_migrate import Migrate # Import Flask-Migrate
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from config import DevelopmentConfig, ProductionConfig, TestingConfig
 
 # from .database import init_db # Remove get_db_connection - REMOVED TO BREAK CIRCULAR IMPORT
@@ -17,9 +18,10 @@ login_manager = LoginManager()
 mail = Mail()
 csrf = CSRFProtect()
 db = SQLAlchemy()
-limiter = Limiter( # Initialize Limiter
+migrate = Migrate() # Initialize Migrate
+limiter = Limiter(
     key_func=get_remote_address,
-    default_limits=["200 per day", "50 per hour"] # Default limits for all routes
+    default_limits=["200 per day", "50 per hour"]
 )
 
 
@@ -46,7 +48,8 @@ def create_app():
     mail.init_app(app)
     csrf.init_app(app)
     db.init_app(app)
-    limiter.init_app(app) # Initialize Limiter with the app
+    migrate.init_app(app, db) # Initialize Migrate with app and db
+    limiter.init_app(app)
 
     # Setup for Flask-Login
     login_manager.login_view = (
@@ -69,6 +72,23 @@ def create_app():
     from .main.routes import main as main_blueprint
 
     app.register_blueprint(main_blueprint)
+
+    from .models import init_roles
+    @app.cli.command("init-roles")
+    def init_roles_command():
+        """Initialize roles with predefined data."""
+        init_roles()
+        print("Roles initialized.")
+
+    # Context processor to inject user role information into templates
+    from flask_login import current_user
+    @app.context_processor
+    def inject_user_role_info():
+        user_role = None
+        if current_user.is_authenticated and hasattr(current_user, 'role') and current_user.role:
+            user_role = current_user.role
+        return dict(user_role=user_role)
+
     # init_db() # Initialize the database - No longer needed with SQLAlchemy
 
     return app

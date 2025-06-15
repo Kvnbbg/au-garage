@@ -14,6 +14,8 @@ class BasicTestCase(unittest.TestCase):
         self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
+        from app.models import init_roles # Import and call init_roles here
+        init_roles()
         self.client = self.app.test_client()
 
     def tearDown(self):
@@ -26,6 +28,20 @@ class BasicTestCase(unittest.TestCase):
 
     def test_app_is_testing(self):
         self.assertTrue(current_app.config['TESTING'])
+
+    def _register_user(self, username, email, password, follow_redirects=True):
+        return self.client.post(current_app.url_for('auth.register'), data={
+            'username': username,
+            'email': email,
+            'password': password,
+            'confirm_password': password
+        }, follow_redirects=follow_redirects)
+
+    def _login_user(self, username, password, follow_redirects=True):
+        return self.client.post(current_app.url_for('auth.login'), data={
+            'username': username,
+            'password': password
+        }, follow_redirects=follow_redirects)
 
 class UserModelTestCase(BasicTestCase):
     def test_password_setter(self):
@@ -60,10 +76,18 @@ class UserModelTestCase(BasicTestCase):
 
 class RoleModelTestCase(BasicTestCase):
     def test_create_role_and_find(self):
-        Role.create_role('Admin')
-        retrieved_role = Role.find_by_name('Admin')
+        # init_roles in BasicTestCase.setUp already creates 'Admin', 'Client', etc.
+        # Test creating a new, unique role here.
+        unique_role_name = "TestSpecificRole"
+        created_role = Role.create_role(unique_role_name, "grey", "#testspecific")
+        self.assertIsNotNone(created_role)
+        self.assertEqual(created_role.name, unique_role_name)
+        self.assertEqual(created_role.color_code, "grey")
+        self.assertEqual(created_role.hashtag, "#testspecific")
+
+        retrieved_role = Role.find_by_name(unique_role_name)
         self.assertIsNotNone(retrieved_role)
-        self.assertEqual(retrieved_role.name, 'Admin')
+        self.assertEqual(retrieved_role.name, unique_role_name)
 
 class ActivityLogModelTestCase(BasicTestCase):
     def test_log_activity(self):
@@ -189,19 +213,7 @@ class AuthFeaturesTestCase(BasicTestCase):
         self.assertIn('<span class="login-indicator logged-out"></span>', response.get_data(as_text=True))
         self.assertNotIn('<span class="login-indicator logged-in"></span>', response.get_data(as_text=True))
 
-    def _register_user(self, username, email, password):
-        return self.client.post(current_app.url_for('auth.register'), data={
-            'username': username,
-            'email': email,
-            'password': password,
-            'confirm_password': password
-        }, follow_redirects=True)
-
-    def _login_user(self, username, password):
-        return self.client.post(current_app.url_for('auth.login'), data={
-            'username': username,
-            'password': password
-        }, follow_redirects=True)
+    # _register_user and _login_user moved to BasicTestCase
 
     def test_visual_login_indicator_logged_in(self):
         self._register_user('testloginuser', 'login@example.com', 'Password123!')
@@ -317,6 +329,114 @@ class AuthFeaturesTestCase(BasicTestCase):
         self.assertIn('email', form.errors)
 
         self.client.get(current_app.url_for('auth.logout')) # Clean up
+
+class RoleAndContextProcessorTestCase(BasicTestCase):
+    def setUp(self):
+        super().setUp()
+        # init_roles() is now called in BasicTestCase.setUp(), no need to repeat here
+        # from app.models import init_roles
+        # init_roles()
+
+    def test_roles_created_with_attributes(self):
+        expected_roles = [
+            {'name': 'Admin', 'color_code': 'yellow', 'hashtag': '#admin'},
+            {'name': 'Maintenance', 'color_code': 'darkgrey', 'hashtag': '#maintenance'},
+            {'name': 'Worker', 'color_code': 'blue', 'hashtag': '#worker'},
+            {'name': 'Client', 'color_code': 'green', 'hashtag': '#client'}
+        ]
+        for role_data in expected_roles:
+            role = Role.find_by_name(role_data['name'])
+            self.assertIsNotNone(role, f"Role {role_data['name']} not found.")
+            self.assertEqual(role.color_code, role_data['color_code'])
+            self.assertEqual(role.hashtag, role_data['hashtag'])
+
+    def test_context_processor_logged_out_user(self):
+        with self.client:
+            self.client.get(current_app.url_for('main.home')) # Make a request to establish context
+            # For context processor tests, it's easier to test its direct output
+            # by invoking it within a test request context if direct context access is tricky.
+            # Or, check its effect in a rendered template if a variable is always present.
+            # Here, we'll test it more directly if possible, or via template variable.
+            # Since current_user is not authenticated, user_role should be None.
+            # We can't directly access template context easily without rendering.
+            # Let's check if a template renders something specific when user_role is None.
+            # For now, this test will be conceptual or rely on checking a page that uses user_role.
+            # A simpler way: call the context processor function directly.
+            from app import create_app # to get access to the app factory again
+            temp_app = create_app() # Create a temporary app instance for the test
+            # Find the context processor
+            cp_func = None
+            for func in temp_app.template_context_processors[None]: # None is for app-wide CPs
+                if func.__name__ == 'inject_user_role_info':
+                    cp_func = func
+                    break
+            self.assertIsNotNone(cp_func, "Context processor inject_user_role_info not found.")
+
+            # Simulate app context for the processor
+            with temp_app.test_request_context('/'):
+                # current_user will be AnonymousUserMixin, not authenticated
+                context = cp_func()
+                self.assertIn('user_role', context)
+                self.assertIsNone(context['user_role'])
+
+
+    def test_context_processor_logged_in_user_with_role(self):
+        # Create a role and user
+        admin_role = Role.find_by_name('Admin')
+        if not admin_role: # Should be created by init_roles in setUp
+            admin_role = Role.create_role('Admin', 'yellow', '#admin')
+
+        test_user = User(username='roleuser', email='roleuser@example.com', password='Password123!', role_id=admin_role.id)
+        db.session.add(test_user)
+        db.session.commit()
+
+        # Log in the user
+        self.client.post(current_app.url_for('auth.login'), data={
+            'username': 'roleuser',
+            'password': 'Password123!'
+        }, follow_redirects=True)
+
+        # Access a page that uses base.html (like home) and check for role attributes
+        response = self.client.get(current_app.url_for('main.home'))
+        self.assertEqual(response.status_code, 200)
+        html_content = response.get_data(as_text=True)
+
+        # Check for Admin role's color_code in navbar style (yellow)
+        # Note: The style might be background-color: yellow !important;
+        self.assertIn('style="background-color: yellow', html_content)
+        # Check for Admin role's hashtag
+        self.assertIn(admin_role.hashtag, html_content) # #admin
+        self.assertIn(f'<span class="badge badge-info role-hashtag">{admin_role.hashtag}</span>', html_content)
+
+        self.client.get(current_app.url_for('auth.logout')) # Clean up
+
+    def test_admin_can_change_own_role(self):
+        from app.auth.forms import EditProfileForm # For form data keys
+
+        admin_role = Role.find_by_name('Admin')
+        worker_role = Role.find_by_name('Worker')
+        self.assertIsNotNone(admin_role, "Admin role not found")
+        self.assertIsNotNone(worker_role, "Worker role not found")
+
+        admin_user = User(username='admineditor', email='admineditor@example.com', password='Password123!', role_id=admin_role.id)
+        db.session.add(admin_user)
+        db.session.commit()
+
+        self._login_user('admineditor', 'Password123!', follow_redirects=True) # Ensure follow_redirects if needed by test logic
+
+        response = self.client.post(current_app.url_for('auth.profile'), data={
+            'username': 'admineditor_newname', # Change username too
+            'email': 'admineditor_newmail@example.com', # Change email too
+            'role': worker_role.id # Change role to Worker
+        }, follow_redirects=True)
+        self.assertEqual(response.status_code, 200) # Should redirect to profile, then 200
+
+        updated_admin_user = User.find_by_id(admin_user.id)
+        self.assertEqual(updated_admin_user.role_id, worker_role.id)
+        self.assertEqual(updated_admin_user.role.name, 'Worker')
+        self.assertEqual(updated_admin_user.username, 'admineditor_newname')
+
+        self.client.get(current_app.url_for('auth.logout'))
 
 
 if __name__ == '__main__':

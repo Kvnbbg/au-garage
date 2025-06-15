@@ -24,16 +24,21 @@ class Role(db.Model): # Inherit from db.Model
     __tablename__ = 'roles' # Define table name
     id = db.Column(db.Integer, primary_key=True) # Define columns
     name = db.Column(db.String(80), unique=True, nullable=False)
+    color_code = db.Column(db.String(20)) # New column
+    hashtag = db.Column(db.String(50))   # New column
     users = db.relationship('User', backref='role', lazy='dynamic') # Define relationship
 
-    def __init__(self, name):
+    def __init__(self, name, color_code=None, hashtag=None):
         self.name = name
+        self.color_code = color_code
+        self.hashtag = hashtag
 
     @staticmethod
-    def create_role(name):
-        role = Role(name=name)
+    def create_role(name, color_code=None, hashtag=None):
+        role = Role(name=name, color_code=color_code, hashtag=hashtag)
         db.session.add(role) # Use SQLAlchemy session
         db.session.commit()
+        return role # Return the created role
 
     @staticmethod
     def find_by_name(name):
@@ -95,10 +100,29 @@ def login_user_with_expiration(user, remember=True, duration=365):
 
 
 def init_roles():
-    roles = ["admin", "editor", "viewer"]
-    for role_name in roles:
-        if Role.find_by_name(role_name) is None:
-            Role.create_role(role_name)
+    # Optional: Clear existing roles for a clean slate if names/IDs might change
+    # Warning: This deletes all roles and might affect existing users if not handled carefully.
+    # For this exercise, we'll assume it's for initial setup or controlled re-initialization.
+    # Role.query.delete()
+    # db.session.commit()
+
+    defined_roles = [
+        {'name': 'Admin', 'color_code': 'yellow', 'hashtag': '#admin'},
+        {'name': 'Maintenance', 'color_code': 'darkgrey', 'hashtag': '#maintenance'},
+        {'name': 'Worker', 'color_code': 'blue', 'hashtag': '#worker'},
+        {'name': 'Client', 'color_code': 'green', 'hashtag': '#client'}
+    ]
+
+    for role_data in defined_roles:
+        role = Role.find_by_name(role_data['name'])
+        if role is None:
+            Role.create_role(name=role_data['name'], color_code=role_data['color_code'], hashtag=role_data['hashtag'])
+        else:
+            # Optionally update existing roles if attributes changed
+            role.color_code = role_data['color_code']
+            role.hashtag = role_data['hashtag']
+            db.session.add(role)
+    db.session.commit()
 
 
 class VisitCount(db.Model):

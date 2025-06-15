@@ -3,7 +3,7 @@ from urllib.parse import urljoin, urlparse
 
 from flask import Blueprint, config, flash, redirect, render_template, request, session, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-from app.models import User, db, ActivityLog # Added ActivityLog
+from app.models import User, db, ActivityLog, Role # Added Role
 from werkzeug.security import check_password_hash, generate_password_hash
 
 # from app.database import get_db_connection # Removed
@@ -65,8 +65,15 @@ def register():
         return redirect(url_for("main.home"))
     form = RegistrationForm()
     if form.validate_on_submit():
-        # hashed_password = generate_password_hash(form.password.data) # User model's set_password handles hashing
-        new_user = User(username=form.username.data, email=form.email.data)
+        default_role_name = 'Client'
+        default_role = Role.find_by_name(default_role_name)
+        if not default_role:
+            # This case should ideally not happen if init_roles is always run
+            logger.error(f"Default role '{default_role_name}' not found. Please initialize roles.")
+            flash("An error occurred during registration. Default role not found.", "danger")
+            return render_template("register.html", title="Register", form=form)
+
+        new_user = User(username=form.username.data, email=form.email.data, role_id=default_role.id)
         new_user.set_password(form.password.data) # Set password handles hashing
         db.session.add(new_user)
         db.session.commit()
@@ -106,17 +113,39 @@ def set_language(language):
 @auth.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-    form = EditProfileForm(current_user.username, current_user.email) # Pass original username and email
+    # The form now takes original_username and original_email for validation
+    form = EditProfileForm(original_username=current_user.username, original_email=current_user.email)
+
+    is_admin = current_user.role and current_user.role.name == 'Admin'
+
     if form.validate_on_submit():
         current_user.username = form.username.data
-        current_user.email = form.email.data.lower().strip() # Ensure email is stored consistently
+        current_user.email = form.email.data.lower().strip()
+
+        if is_admin and form.role.data is not None:
+            # Ensure the role field was actually submitted and is not empty
+            # The 'Optional' validator allows it to be empty if not included in the form submission
+            # but if it is included, coerce=int will try to convert it.
+            # A more robust check might be needed if the field can be conditionally omitted by non-admins
+            # However, our template logic will hide it.
+            new_role = Role.query.get(form.role.data)
+            if new_role:
+                current_user.role_id = new_role.id
+            else:
+                flash("Invalid role selected.", "danger") # Should not happen if choices are from DB
+
         db.session.commit()
         flash("Your profile has been updated.", "success")
         return redirect(url_for("auth.profile"))
     elif request.method == "GET":
         form.username.data = current_user.username
         form.email.data = current_user.email
-    return render_template("profile.html", title="Edit Profile", form=form)
+        if is_admin and current_user.role_id is not None:
+            form.role.data = current_user.role_id
+        elif not is_admin: # If not admin, remove the role field from the form to prevent submission
+            del form.role
+
+    return render_template("profile.html", title="Edit Profile", form=form, is_admin=is_admin)
 
 
 @auth.route("/reset_password_request", methods=["GET", "POST"])
