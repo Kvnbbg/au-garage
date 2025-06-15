@@ -5,7 +5,9 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
-from flask_sqlalchemy import SQLAlchemy  # Import Flask-SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
+from flask_limiter import Limiter # Import Flask-Limiter
+from flask_limiter.util import get_remote_address # For IP address based limiting
 from config import DevelopmentConfig, ProductionConfig, TestingConfig
 
 # from .database import init_db # Remove get_db_connection - REMOVED TO BREAK CIRCULAR IMPORT
@@ -13,8 +15,12 @@ from config import DevelopmentConfig, ProductionConfig, TestingConfig
 # Create extension instances
 login_manager = LoginManager()
 mail = Mail()
-csrf = CSRFProtect()  # CSRF protection
-db = SQLAlchemy() # Initialize SQLAlchemy
+csrf = CSRFProtect()
+db = SQLAlchemy()
+limiter = Limiter( # Initialize Limiter
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"] # Default limits for all routes
+)
 
 
 def create_app():
@@ -31,11 +37,16 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = app.config['DATABASE_URI'] # Add SQLAlchemy database URI
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Disable modification tracking
 
+    # Set secure session cookie for production
+    if not app.config.get('DEBUG', False) and not app.config.get('TESTING', False): # Ensure not debug and not testing
+        app.config['SESSION_COOKIE_SECURE'] = True
+
     # Initialize extensions with the app object
     login_manager.init_app(app)
     mail.init_app(app)
-    csrf.init_app(app)  # Initialize CSRF protection
-    db.init_app(app) # Initialize SQLAlchemy with the app
+    csrf.init_app(app)
+    db.init_app(app)
+    limiter.init_app(app) # Initialize Limiter with the app
 
     # Setup for Flask-Login
     login_manager.login_view = (

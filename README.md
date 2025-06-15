@@ -25,14 +25,15 @@ The application has transitioned from a local garage tool to a modular solution 
 - **Inventory Control**: Real-time stock alerts and automated reordering.  
 - **Customer Portal**: Direct communication, appointment booking, and invoice generation.  
 - **Role-Based Access**: Admin, staff, and mechanic permissions.  
-- **Analytics Dashboard**: Performance metrics and reporting tools.  
+- **Analytics Dashboard**: Performance metrics and reporting tools.
+- **Visit Tracking**: Database-backed counter for user visits and leaderboard display.
 
 ---
 
 ## Technical Overview  
 ### Architecture  
 - **Backend**: Python/Flask with object-oriented design.  
-- **Database**: PostgreSQL (migrated via Flask-Migrate).  
+- **Database**: PostgreSQL (migrated via Flask-Migrate). Uses **SQLAlchemy** for ORM and database interactions.
 - **Frontend**: Responsive UI with dynamic transitions.  
 - **Integrations**: SMTP for notifications, payment gateways, and VR tools.  
 
@@ -56,10 +57,28 @@ cd au-garage
 python3 -m venv venv  
 source venv/bin/activate  # Unix/macOS | For Windows: .\venv\Scripts\activate  
 pip install -r requirements.txt  
-flask db upgrade  
+flask db upgrade  # If using Flask-Migrate and have migrations
+flask init-db # To initialize database tables and roles if not using Flask-Migrate or for first setup
 flask run  
 ```  
 **Configure `.env`**: Include `DATABASE_URL`, `SECRET_KEY`, and SMTP credentials.  
+
+---
+
+## Testing
+The project includes a suite of unit tests to ensure code quality and functionality.
+
+### Running Tests
+To discover and run all tests, navigate to the root directory of the project and use the following command:
+```bash
+python -m unittest discover tests
+```
+This will automatically find and execute all test cases located in the `tests` directory.
+
+---
+
+## Project Status & Maintenance
+This project is actively maintained. Dependencies are periodically updated to ensure security and leverage the latest features. Recent updates include key libraries such as Flask, SQLAlchemy, and associated extensions, as well as development tools like linters.
 
 ---
 
@@ -77,4 +96,4 @@ flask run
 --- 
 
 ![Signature](https://i.imgur.com/wmxtaI7.jpg)  
-*Maintained by Kévin Marville | 2025*  
+*Maintained by Kévin Marville | 2025*

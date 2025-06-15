@@ -7,6 +7,22 @@
     <!-- Bootstrap CSS (example, add your own static file handling) -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+      .login-indicator {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+      .login-indicator.logged-in {
+        background-color: green;
+      }
+      .login-indicator.logged-out {
+        background-color: red;
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -19,16 +35,24 @@
           <li class="nav-item active">
             <a class="nav-link" href="{{ url_for('main.home') }}">Home <span class="sr-only">(current)</span></a>
           </li>
+        </ul>
+        <ul class="navbar-nav ml-auto"> <!-- Changed to ml-auto for right alignment -->
           {% if current_user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('auth.profile') }}">Profile</a>
+              <a class="nav-link" href="{{ url_for('auth.profile') }}">
+                Profile ({{ current_user.username }})
+                <span class="login-indicator logged-in"></span>
+              </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
             </li>
           {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+              <a class="nav-link" href="{{ url_for('auth.login') }}">
+                Login
+                <span class="login-indicator logged-out"></span>
+              </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>

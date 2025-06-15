@@ -11,6 +11,25 @@ logger = logging.getLogger(__name__)
 
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
+    email = EmailField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Update Profile')
+
+    def __init__(self, original_username, original_email, *args, **kwargs):
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+        self.original_username = original_username
+        self.original_email = original_email
+
+    def validate_username(self, username):
+        if username.data != self.original_username:
+            user = User.find_by_username(username.data)
+            if user:
+                raise ValidationError('This username is already taken. Please choose a different one.')
+
+    def validate_email(self, email):
+        if email.data.lower().strip() != self.original_email:
+            user = User.query.filter_by(email=email.data.lower().strip()).first()
+            if user:
+                raise ValidationError('This email address is already registered. Please choose a different one.')
 
 class ResetPasswordRequestForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])

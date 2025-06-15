@@ -10,6 +10,7 @@ class BasicTestCase(unittest.TestCase):
         self.app.config['TESTING'] = True
         self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
         self.app.config['WTF_CSRF_ENABLED'] = False  # Disable CSRF for testing forms
+        self.app.config['SERVER_NAME'] = 'localhost.localdomain' # Added for url_for
         self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
@@ -112,7 +113,8 @@ class VisitCountTestCase(BasicTestCase):
     def test_new_user_visit_recorded(self):
         with self.app.test_client() as client:
             client.get('/') # First visit
-            cookie_obj = client.get_cookie('user_id')
+            # Try to get cookie, specifying domain if SERVER_NAME is set
+            cookie_obj = client.get_cookie('user_id', domain=self.app.config.get('SERVER_NAME', 'localhost'))
             self.assertIsNotNone(cookie_obj, "user_id cookie was not set")
             user_id_cookie_val = cookie_obj.value
 
@@ -129,7 +131,7 @@ class VisitCountTestCase(BasicTestCase):
 
         with self.app.test_client() as client:
             # Set cookie for the test client to simulate existing user
-            client.set_cookie('user_id', user_id) # Corrected set_cookie
+            client.set_cookie('user_id', user_id, domain=self.app.config['SERVER_NAME'])
             client.get('/') # Second visit
 
             visit_record = VisitCount.query.filter_by(user_id_str=user_id).first()
@@ -161,7 +163,7 @@ class VisitCountTestCase(BasicTestCase):
 
         # Current user (simulated by cookie) is user1
         with self.app.test_client() as client:
-            client.set_cookie('user_id', 'user1') # Corrected set_cookie
+            client.set_cookie('user_id', 'user1', domain=self.app.config['SERVER_NAME'])
             response = client.get('/') # This will increment user1's visits to 4
 
             html_content = response.get_data(as_text=True)
@@ -175,10 +177,146 @@ class VisitCountTestCase(BasicTestCase):
             self.assertIn("You&#39;ve completed 80% of the top user&#39;s visits. Keep it up!", html_content)
 
             # Simulate visit from the top user (user2_top)
-            client.set_cookie('user_id', 'user2_top') # Corrected set_cookie
+            client.set_cookie('user_id', 'user2_top', domain=self.app.config['SERVER_NAME'])
             response_top_user = client.get('/') # This will increment user2_top's visits to 6
             html_content_top_user = response_top_user.get_data(as_text=True)
             self.assertIn("🏆 You&#39;re the top visitor with 6 visits!", html_content_top_user)
+
+class AuthFeaturesTestCase(BasicTestCase):
+    def test_visual_login_indicator_logged_out(self):
+        response = self.client.get(current_app.url_for('main.home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('<span class="login-indicator logged-out"></span>', response.get_data(as_text=True))
+        self.assertNotIn('<span class="login-indicator logged-in"></span>', response.get_data(as_text=True))
+
+    def _register_user(self, username, email, password):
+        return self.client.post(current_app.url_for('auth.register'), data={
+            'username': username,
+            'email': email,
+            'password': password,
+            'confirm_password': password
+        }, follow_redirects=True)
+
+    def _login_user(self, username, password):
+        return self.client.post(current_app.url_for('auth.login'), data={
+            'username': username,
+            'password': password
+        }, follow_redirects=True)
+
+    def test_visual_login_indicator_logged_in(self):
+        self._register_user('testloginuser', 'login@example.com', 'Password123!')
+        # After registration, user is logged in and redirected to dashboard
+        # So, access home page again to check indicator
+        response = self.client.get(current_app.url_for('main.home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('<span class="login-indicator logged-in"></span>', response.get_data(as_text=True))
+        self.assertNotIn('<span class="login-indicator logged-out"></span>', response.get_data(as_text=True))
+        # Logout to clean up session for next test
+        self.client.get(current_app.url_for('auth.logout'))
+
+    def test_login_redirects_to_dashboard(self):
+        self._register_user('loginredirect', 'loginredirect@example.com', 'Password123!')
+        self.client.get(current_app.url_for('auth.logout')) # Log out first
+
+        response = self.client.post(current_app.url_for('auth.login'), data={
+            'username': 'loginredirect',
+            'password': 'Password123!'
+        }, follow_redirects=False) # Important: don't follow redirects to check Location
+        self.assertEqual(response.status_code, 302)
+        # Compare path part of the URL
+        expected_path = current_app.url_for('auth.dashboard', _external=False)
+        self.assertEqual(response.location, expected_path)
+
+
+    def test_register_redirects_to_dashboard_and_logs_in(self):
+        response = self.client.post(current_app.url_for('auth.register'), data={
+            'username': 'regredirect',
+            'email': 'regredirect@example.com',
+            'password': 'Password123!',
+            'confirm_password': 'Password123!'
+        }, follow_redirects=False)
+        self.assertEqual(response.status_code, 302)
+        expected_path = current_app.url_for('auth.dashboard', _external=False)
+        self.assertEqual(response.location, expected_path)
+
+        # Verify user is logged in by accessing a protected route or checking session
+        # Accessing home and checking for logged-in indicator is an indirect way
+        home_response = self.client.get(current_app.url_for('main.home'))
+        self.assertIn('<span class="login-indicator logged-in"></span>', home_response.get_data(as_text=True))
+        self.client.get(current_app.url_for('auth.logout')) # Clean up
+
+    def test_rate_limiting_on_login_route(self):
+        # This is an indirect check. Flask-Limiter adds attributes to the view function.
+        # A full test would require e.g. mocking time or using a custom in-memory storage.
+        login_view_func = current_app.view_functions.get('auth.login')
+        self.assertIsNotNone(login_view_func)
+        # Check if limiter has wrapped the function; specific attributes depend on Flask-Limiter version & setup
+        # Common attributes might be _limit_decorators, _request_limits, _limiter_exempt
+        # For this test, we'll just check if *some* limiter-specific attribute seems present or that it's wrapped.
+        # A simple check could be that the function name is not the original one if it's wrapped by decorators.
+        # However, the most reliable check is usually integration-style: make N+1 requests and check for 429.
+        # Given the constraints, we'll note this as a conceptual check.
+        # Flask-Limiter adds a _request_limits attribute to decorated view functions.
+        self.assertTrue(hasattr(login_view_func, "_request_limits"),
+                        "Login route does not appear to be wrapped by Flask-Limiter as expected (missing _request_limits).")
+
+
+    def test_edit_profile_form_validation(self):
+        from app.auth.forms import EditProfileForm
+        # Create initial user
+        u1 = User(username='userone', email='userone@example.com', password='Password123!')
+        db.session.add(u1)
+        db.session.commit()
+        # Create another user for conflict testing
+        u2 = User(username='usertwo', email='usertwo@example.com', password='Password123!')
+        db.session.add(u2)
+        db.session.commit()
+
+        # Login as userone
+        self._login_user('userone', 'Password123!')
+
+        # 1. Test changing username/email to something new and unique
+        form = EditProfileForm(original_username=u1.username, original_email=u1.email, username='newuserone', email='newuserone@example.com')
+        self.assertTrue(form.validate())
+
+        # 2. Test changing username to an existing one used by *another* user (should fail)
+        form = EditProfileForm(original_username=u1.username, original_email=u1.email, username='usertwo', email='userone@example.com')
+        self.assertFalse(form.validate())
+        self.assertIn('username', form.errors)
+        self.assertIn('This username is already taken', form.errors['username'][0])
+
+        # 3. Test changing email to an existing one used by *another* user (should fail)
+        form = EditProfileForm(original_username=u1.username, original_email=u1.email, username='userone', email='usertwo@example.com')
+        self.assertFalse(form.validate())
+        self.assertIn('email', form.errors)
+        self.assertIn('This email address is already registered', form.errors['email'][0])
+
+        # 4. Test keeping the *same* username/email (should pass)
+        form = EditProfileForm(original_username=u1.username, original_email=u1.email, username='userone', email='userone@example.com')
+        self.assertTrue(form.validate())
+
+        # 5. Test submitting form with no changes (should pass)
+        # In the route, data is typically populated from current_user for GET request
+        # Here we simulate form submission with data identical to original
+        with self.client.session_transaction() as sess:
+             # Ensure user is logged in for current_user context in form if it were live
+             # For direct form testing, we manually pass original values
+             pass
+
+        form = EditProfileForm(data={'username': u1.username, 'email': u1.email}, original_username=u1.username, original_email=u1.email)
+        self.assertTrue(form.validate())
+
+        # 6. Test empty username (should fail DataRequired)
+        form = EditProfileForm(original_username=u1.username, original_email=u1.email, username='', email='userone@example.com')
+        self.assertFalse(form.validate())
+        self.assertIn('username', form.errors)
+
+        # 7. Test invalid email format
+        form = EditProfileForm(original_username=u1.username, original_email=u1.email, username='userone', email='notanemail')
+        self.assertFalse(form.validate())
+        self.assertIn('email', form.errors)
+
+        self.client.get(current_app.url_for('auth.logout')) # Clean up
 
 
 if __name__ == '__main__':

@@ -19,6 +19,7 @@ from .forms import (
     ResetPasswordForm,
     ResetPasswordRequestForm,
 )
+from app import limiter # Import the limiter instance
 
 auth = Blueprint("auth", __name__)
 
@@ -41,6 +42,7 @@ logger = logging.getLogger(__name__)
 
 
 @auth.route("/login", methods=["GET", "POST"])
+@limiter.limit("10 per minute") # Apply rate limit
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("main.home"))
@@ -51,8 +53,8 @@ def login():
             login_user(user, remember=form.remember_me.data) # Pass the User object directly
             next_page = request.args.get("next")
             if not next_page or not is_safe_url(next_page):
-                return redirect(url_for("main.home"))
-            return redirect(next_page or url_for("main.home"))
+                return redirect(url_for("auth.dashboard")) # Changed to auth.dashboard
+            return redirect(next_page or url_for("auth.dashboard")) # Changed to auth.dashboard
         flash("Invalid username or password")
     return render_template("login.html", form=form)
 
@@ -68,8 +70,10 @@ def register():
         new_user.set_password(form.password.data) # Set password handles hashing
         db.session.add(new_user)
         db.session.commit()
-        flash("Your account has been created, you can now log in.", "success")
-        return redirect(url_for("auth.login"))
+        # Log in the new user
+        login_user(new_user)
+        flash("Your account has been created and you are now logged in.", "success")
+        return redirect(url_for("auth.dashboard")) # Changed to auth.dashboard
     return render_template("register.html", title="Register", form=form)
 
 
@@ -102,10 +106,10 @@ def set_language(language):
 @auth.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-    form = EditProfileForm(current_user.username)
+    form = EditProfileForm(current_user.username, current_user.email) # Pass original username and email
     if form.validate_on_submit():
         current_user.username = form.username.data
-        current_user.email = form.email.data
+        current_user.email = form.email.data.lower().strip() # Ensure email is stored consistently
         db.session.commit()
         flash("Your profile has been updated.", "success")
         return redirect(url_for("auth.profile"))

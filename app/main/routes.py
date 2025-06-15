@@ -123,11 +123,14 @@ def improved_home_with_maintenance_date():
         dynamic_message=dynamic_message,
         leaderboard_message=leaderboard_message
     ))
-    response.set_cookie("last_visited", formatted_now, max_age=60*60*24*365*2, httponly=True, samesite='Lax')  # 2 years, secure cookie
+
+    secure_cookie = not current_app.config.get('DEBUG', False) and not current_app.config.get('TESTING', False)
+
+    response.set_cookie("last_visited", formatted_now, max_age=60*60*24*365*2, httponly=True, samesite='Lax', secure=secure_cookie)
     # visit_count cookie is no longer the source of truth, but can be kept for other client-side uses or removed.
     # For this exercise, we'll update it to reflect the database value.
-    response.set_cookie("visit_count", str(current_user_visits), max_age=60*60*24*365*2, httponly=True, samesite='Lax')
-    response.set_cookie('user_id', user_id_str, max_age=60*60*24*365*2, httponly=True, samesite='Lax')  # Store user ID securely
+    response.set_cookie("visit_count", str(current_user_visits), max_age=60*60*24*365*2, httponly=True, samesite='Lax', secure=secure_cookie)
+    response.set_cookie('user_id', user_id_str, max_age=60*60*24*365*2, httponly=True, samesite='Lax', secure=secure_cookie)
 
     return response
 
