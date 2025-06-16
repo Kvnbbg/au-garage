@@ -11,18 +11,32 @@
         <h4>Role-Specific Options:</h4>
         <ul class="list-group mb-4">
             {% if user_role.name == 'Admin' %}
-                <li class="list-group-item"><a href="#">User Management</a></li>
+                <li class="list-group-item"><a href="{{ url_for('auth.admin_user_list') }}">User Management</a></li>
                 <li class="list-group-item"><a href="#">Site Configuration</a></li>
                 <li class="list-group-item"><a href="#">View All Activity Logs</a></li>
+                {# Admin also gets Maintenance links #}
+                <li class="list-group-item"><a href="{{ url_for('main.maintenance_logs') }}">View System Logs (Admin View)</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.maintenance_health') }}">Application Health Check (Admin View)</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.maintenance_tasks') }}">Manage Maintenance Tasks (Admin View)</a></li>
+                {# Admin also gets Worker links #}
+                <li class="list-group-item"><a href="{{ url_for('main.worker_schedule') }}">Worker Schedules (Admin View)</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.worker_tasks') }}">Worker Tasks (Admin View)</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.worker_salary_info') }}">Worker Salary Info (Admin View)</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.worker_documents') }}">Worker Documents (Admin View)</a></li>
             {% elif user_role.name == 'Maintenance' %}
-                <li class="list-group-item"><a href="#">View System Logs</a></li>
-                <li class="list-group-item"><a href="#">Application Health Check</a></li>
-                <li class="list-group-item"><a href="#">Manage Maintenance Tasks</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.maintenance_logs') }}">View System Logs</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.maintenance_health') }}">Application Health Check</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.maintenance_tasks') }}">Manage Maintenance Tasks</a></li>
+                {# Maintenance also gets Worker links #}
+                <li class="list-group-item"><a href="{{ url_for('main.worker_schedule') }}">Worker Schedules</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.worker_tasks') }}">Worker Tasks</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.worker_salary_info') }}">Worker Salary Info</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.worker_documents') }}">Worker Documents</a></li>
             {% elif user_role.name == 'Worker' %}
-                <li class="list-group-item"><a href="#">My Schedule</a></li>
-                <li class="list-group-item"><a href="#">View My Tasks</a></li>
-                <li class="list-group-item"><a href="#">My Timesheets/Salary Info</a></li>
-                <li class="list-group-item"><a href="#">Access Documents</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.worker_schedule') }}">My Schedule</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.worker_tasks') }}">View My Tasks</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.worker_salary_info') }}">My Timesheets/Salary Info</a></li>
+                <li class="list-group-item"><a href="{{ url_for('main.worker_documents') }}">Access Documents</a></li>
             {% elif user_role.name == 'Client' %}
                 <li class="list-group-item"><a href="#">View My Orders/Services</a></li>
                 <li class="list-group-item"><a href="{{ url_for('auth.profile') }}">My Profile Settings</a></li>

@@ -141,3 +141,64 @@ def home():
 def vr():
     # Your logic here
     return render_template('vr.html')
+
+# Helper decorator for role checking
+from functools import wraps
+from flask_login import current_user
+from flask import flash, redirect, url_for, request # Added request
+
+def role_required(allowed_roles):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if not current_user.is_authenticated:
+                return redirect(url_for('auth.login', next=request.url))
+            if not current_user.role or current_user.role.name not in allowed_roles:
+                flash(f"You do not have permission to access this page. Required roles: {', '.join(allowed_roles)}.", "danger")
+                return redirect(url_for('auth.dashboard'))
+            return f(*args, **kwargs)
+        return decorated_function
+    return decorator
+
+@main.route('/maintenance/logs')
+@login_required
+@role_required(['Admin', 'Maintenance'])
+def maintenance_logs():
+    return render_template('maintenance/system_logs.html', title="System Logs")
+
+@main.route('/maintenance/health')
+@login_required
+@role_required(['Admin', 'Maintenance'])
+def maintenance_health():
+    return render_template('maintenance/app_health.html', title="Application Health")
+
+@main.route('/maintenance/tasks')
+@login_required
+@role_required(['Admin', 'Maintenance'])
+def maintenance_tasks():
+    return render_template('maintenance/maintenance_tasks.html', title="Maintenance Tasks")
+
+# Worker Routes
+@main.route('/worker/documents')
+@login_required
+@role_required(['Admin', 'Maintenance', 'Worker'])
+def worker_documents():
+    return render_template('worker/documents.html', title="Worker Documents")
+
+@main.route('/worker/schedule')
+@login_required
+@role_required(['Admin', 'Maintenance', 'Worker'])
+def worker_schedule():
+    return render_template('worker/schedule.html', title="My Schedule")
+
+@main.route('/worker/tasks')
+@login_required
+@role_required(['Admin', 'Maintenance', 'Worker'])
+def worker_tasks():
+    return render_template('worker/tasks.html', title="My Tasks")
+
+@main.route('/worker/salary')
+@login_required
+@role_required(['Admin', 'Maintenance', 'Worker'])
+def worker_salary_info():
+    return render_template('worker/salary_info.html', title="My Salary Info")

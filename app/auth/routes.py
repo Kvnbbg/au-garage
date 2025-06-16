@@ -17,6 +17,7 @@ from .forms import (
     RegistrationForm,
     ResetPasswordForm,
     ResetPasswordRequestForm,
+    AdminEditUserRoleForm,
 )
 from app import limiter
 
@@ -203,3 +204,44 @@ def not_found_error(error):
 def internal_error(error):
     db.session.rollback()
     return render_template("500.html"), 500
+
+
+@auth.route("/admin/users", methods=["GET"])
+@login_required
+def admin_user_list():
+    if not current_user.role or current_user.role.name != 'Admin':
+        flash("You do not have permission to access this page.", "danger")
+        return redirect(url_for('main.home'))
+
+    users = User.query.all()
+    return render_template("admin/user_list.html", users=users, title="User List")
+
+
+@auth.route("/admin/edit_user_role/<int:user_id>", methods=["GET", "POST"])
+@login_required
+def admin_edit_user_role(user_id):
+    if not current_user.role or current_user.role.name != 'Admin':
+        flash("You do not have permission to access this page.", "danger")
+        return redirect(url_for('main.home'))
+
+    user_to_edit = User.query.get_or_404(user_id)
+    form = AdminEditUserRoleForm(obj=user_to_edit) # Pre-populate form with user's current role
+
+    if form.validate_on_submit():
+        new_role_id = form.role.data
+        # Prevent admin from changing their own role via this form to avoid self-lockout
+        # or demoting the last admin. More complex logic might be needed for "last admin" scenarios.
+        if user_to_edit.id == current_user.id and user_to_edit.role_id != new_role_id :
+             flash("Admins cannot change their own role through this form.", "warning")
+             return redirect(url_for('auth.admin_user_list'))
+
+        user_to_edit.role_id = new_role_id
+        db.session.add(user_to_edit)
+        db.session.commit()
+        flash(f"Role for user {user_to_edit.username} updated successfully.", "success")
+        return redirect(url_for('auth.admin_user_list'))
+
+    if request.method == "GET" and user_to_edit.role:
+         form.role.data = user_to_edit.role_id # Ensure correct pre-population on GET
+
+    return render_template("admin/edit_user_role.html", form=form, user_to_edit=user_to_edit, title="Edit User Role")

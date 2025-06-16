@@ -122,6 +122,82 @@ MAINTENANCE_START_DATE='YYYY-MM-DD HH:MM:SS' # Optional: For maintenance mode di
 
 ---
 
+## Running with Docker
+
+This project includes `Dockerfile` and `docker-compose.yml` files to facilitate running the application and its PostgreSQL database in Docker containers. This is recommended for a consistent development and testing environment.
+
+### Prerequisites
+- Docker installed and running on your system.
+- Docker Compose installed (usually comes with Docker Desktop).
+
+### Setup
+1.  **Environment File:**
+    Create a `.env` file in the project root by copying the `.env.example` file:
+    ```bash
+    cp .env.example .env
+    ```
+    Review and update the variables in `.env` as needed. Key variables for Docker include:
+    - `SECRET_KEY`: Set a strong unique secret.
+    - `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`: These will be used to initialize the PostgreSQL container. The `DATABASE_URL` in `docker-compose.yml` is configured to use these.
+    - `FLASK_ENV`: Set to `development` for development mode with live reloading. For production-like testing, you might set it to `production`.
+
+### Building and Running
+1.  **Build the Docker images and start the services:**
+    ```bash
+    docker-compose build
+    docker-compose up -d # The -d flag runs containers in detached mode
+    ```
+    The first time you run this, Docker will download the base images and build your application image, which might take a few minutes.
+
+2.  **Accessing the Application:**
+    Once the containers are up, the Flask application should be accessible at [http://localhost:5000](http://localhost:5000) in your web browser.
+
+3.  **Database Setup (First Run):**
+    The first time you start the services, you'll need to set up the database schema and initial roles within the running `web` container:
+    ```bash
+    docker-compose exec web flask db upgrade
+    docker-compose exec web flask init-roles
+    ```
+
+### Managing Services
+-   **View Logs:**
+    ```bash
+    docker-compose logs -f web  # For the web app
+    docker-compose logs -f db   # For the database
+    ```
+-   **Stop Services:**
+    ```bash
+    docker-compose down
+    ```
+-   **Stop and Remove Volumes (e.g., to reset the database):**
+    ```bash
+    docker-compose down -v
+    ```
+
+### Running Flask CLI Commands
+To run any `flask` CLI commands (like migrations, custom commands, etc.) within the context of the running `web` container:
+```bash
+docker-compose exec web <your_flask_command>
+```
+For example:
+```bash
+docker-compose exec web flask db migrate -m "new_migration"
+docker-compose exec web flask db upgrade
+docker-compose exec web flask init-roles
+```
+This is how you should attempt to run `flask db migrate` if you were previously facing issues in your local environment.
+
+### Production Notes
+- The default `docker-compose.yml` and `Dockerfile` are configured for development (e.g., Flask development server, live reloading).
+- For production, you would typically:
+  - Set `FLASK_ENV=production` in your `.env` file.
+  - Modify the `command` in `docker-compose.yml` for the `web` service to use a production-grade WSGI server like Gunicorn (an example is commented out in the file).
+  - Handle secrets more securely than just an `.env` file (e.g., using Docker secrets or other secrets management tools).
+  - Ensure robust logging and monitoring.
+  - Consider not mounting the application code as a volume for production images to ensure immutability, instead relying on the `COPY` instruction in the `Dockerfile`.
+
+---
+
 ## Testing
 The project includes a suite of unit tests to ensure code quality and functionality.
 

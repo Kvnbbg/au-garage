@@ -82,3 +82,12 @@ class RegistrationForm(FlaskForm):
             if user:
                 logger.warning(f"Attempt to register with taken email: {email.data}")
                 raise ValidationError("That email is already in use. Please choose a different one.")
+
+
+class AdminEditUserRoleForm(FlaskForm):
+    role = SelectField('Role', coerce=int, validators=[DataRequired()])
+    submit = SubmitField('Update Role')
+
+    def __init__(self, *args, **kwargs):
+        super(AdminEditUserRoleForm, self).__init__(*args, **kwargs)
+        self.role.choices = [(r.id, r.name) for r in Role.query.order_by('name').all()]

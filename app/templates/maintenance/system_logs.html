@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>System Log Viewing Area</h1>
+    <p>Feature Coming Soon.</p>
+    <p><a href="{{ url_for('auth.dashboard') }}">Back to Dashboard</a></p>
+</div>
+{% endblock %}

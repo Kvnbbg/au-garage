@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ title }} for {{ user_to_edit.username }}</h2>
+    <p>Current Role: {{ user_to_edit.role.name if user_to_edit.role else 'N/A' }}</p>
+
+    <form method="POST" action="{{ url_for('auth.admin_edit_user_role', user_id=user_to_edit.id) }}" novalidate>
+        {{ form.hidden_tag() }} {# CSRF token #}
+
+        <div class="mb-3">
+            {{ form.role.label(class="form-label") }}
+            {{ form.role(class="form-control" + (" is-invalid" if form.role.errors else "")) }}
+            {% if form.role.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.role.errors %}
+                        <span>{{ error }}</span><br>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        {{ form.submit(class="btn btn-primary") }}
+        <a href="{{ url_for('auth.admin_user_list') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
