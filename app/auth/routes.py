@@ -79,11 +79,17 @@ def logout():
 
 
 def is_safe_url(target):
-    test_url = urlparse(urljoin(request.host_url, target))
-    return (
-        test_url.scheme in ("http", "https")
-        and urlparse(request.host_url).hostname == test_url.hostname
-    )
+    try:
+        test_url = urlparse(urljoin(request.host_url, target))
+        # Ensure the URL is either relative or matches the host
+        return (
+            test_url.scheme in ("http", "https")
+            and test_url.netloc == ""
+            or test_url.hostname == urlparse(request.host_url).hostname
+        )
+    except ValueError:
+        # If parsing fails, the URL is not safe
+        return False
 
 
 @auth.route("/set_language/<language>")
