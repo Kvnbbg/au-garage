@@ -28,9 +28,10 @@ def get_user_id():
     In real applications, this could be a user session, database lookup, or IP-based tracking.
     """
     user_id = request.cookies.get('user_id')
-    if not user_id:
-        user_id = 'anonymous_' + str(math.floor(datetime.now().timestamp()))  # Generate unique anonymous ID
-    return user_id
+    if user_id and user_id.isalnum():  # Validate that user_id contains only alphanumeric characters
+        return user_id
+    else:
+        return 'anonymous_' + str(math.floor(datetime.now().timestamp()))  # Generate unique anonymous ID
 
 
 def improved_home_with_maintenance_date():
