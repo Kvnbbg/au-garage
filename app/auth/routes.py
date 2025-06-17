@@ -39,9 +39,9 @@ def login():
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             next_page = request.args.get("next")
-            if not next_page or not is_safe_url(next_page):
-                return redirect(url_for("auth.dashboard"))
-            return redirect(next_page or url_for("auth.dashboard"))
+            if next_page and is_safe_url(next_page):
+                return redirect(next_page)
+            return redirect(url_for("auth.dashboard"))
         flash("Invalid username or password")
     return render_template("login.html", form=form)
 
