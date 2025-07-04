@@ -223,8 +223,8 @@ This project is actively maintained. Dependencies are periodically updated to en
 ---
 
 ## Contributions & Licensing  
-- **Contributions**: Follow [CONTRIBUTING.md](https://github.com/Kvnbbg/au-garage/CONTRIBUTING.md).  
-- **License**: Custom license for commercial/developmental use ([Details](https://github.com/Kvnbbg/au-garage/LICENSE)).  
+- **Contributions**: Follow [CONTRIBUTING.md](https://github.com/Kvnbbg/au-garage/blob/main/CONTRIBUTING.md).  
+- **License**: Custom license for commercial/developmental use ([Details](https://github.com/Kvnbbg/au-garage/blob/main/LICENSE)).  
 
 --- 
 

@@ -64,9 +64,9 @@ class LoginForm(FlaskForm):
     )
 
 class RegistrationForm(FlaskForm):
-    username = StringField("Username", validators=[DataRequired(), Length(min=4, max=25), Regexp("^[A-Za-z][A-Za-z0-9_.]*$", 0, "Usernames must have only letters, numbers, dots or underscores")], render_kw={"placeholder": "Username", "class": "form-control"})
+    username = StringField("Username", validators=[DataRequired(), Length(min=4, max=25), Regexp(r"^[A-Za-z][A-Za-z0-9_.]*$", 0, "Usernames must have only letters, numbers, dots or underscores")], render_kw={"placeholder": "Username", "class": "form-control"})
     email = EmailField("Email (Optional)", validators=[Optional(), Email(message="Please enter a valid email address.")], render_kw={"placeholder": "Email (Optional)", "class": "form-control"})
-    password = PasswordField("Password", validators=[DataRequired(), Length(min=6, message="Password must be at least 6 characters long."), Regexp("^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$", 0, "Password must contain a letter, a number, and a special character.")], render_kw={"placeholder": "Password", "class": "form-control"})
+    password = PasswordField("Password", validators=[DataRequired(), Length(min=6, message="Password must be at least 6 characters long."), Regexp(r"^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$", 0, "Password must contain a letter, a number, and a special character.")], render_kw={"placeholder": "Password", "class": "form-control"})
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password", message="Passwords must match.")], render_kw={"placeholder": "Confirm Password", "class": "form-control"})
     submit = SubmitField("Sign Up", render_kw={"class": "btn btn-success"})
 
