@@ -1,0 +1,74 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Python virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE and editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Instance folder (if used for local SQLite, secrets, etc.)
+instance/
+*.db
+*.sqlite3
+
+# Test files and reports (optional, but can keep image smaller if tests are run elsewhere)
+# tests/
+# htmlcov/
+# .coverage
+# coverage.xml
+# nosetests.xml
+# pytestdebug.log
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Secrets / Environment files (should not be copied if .env is sourced at runtime)
+.env
+.env.*
+! .env.example # If you want to include the example
+
+# Node.js (if any frontend build steps were ever involved, good to have)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Static analysis / Linter caches
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/ # If Ruff is used
+
+# Trunk.io specific files
+.trunk/
+
+# IDX specific files (Google Project IDX)
+.idx/
+
+# Bandit report (if generated in root)
+bandit_report.json
+outdated_packages.json # if generated in root

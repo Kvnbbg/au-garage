@@ -36,6 +36,10 @@
                 {{ form.password(class="form-control", id="password") }}
                 <i class="fas fa-eye position-absolute right-0 top-50 translate-middle-y mr-3" style="cursor: pointer;" onclick="togglePasswordVisibility()"></i>
             </div>
+            <div class="form-group form-check">
+                {{ form.remember_me(class="form-check-input") }}
+                {{ form.remember_me.label(class="form-check-label") }}
+            </div>
             <div class="form-group">
                 {{ form.submit(class="btn btn-primary") }}
             </div>

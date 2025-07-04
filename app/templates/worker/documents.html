@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Access Documents</h1>
+    <p>Below is a list of documents available to you.</p>
+    <ul>
+        <li>Document 1 (Placeholder)</li>
+        <li>Document 2 (Placeholder)</li>
+    </ul>
+    <p><a href="{{ url_for('auth.dashboard') }}">Back to Dashboard</a></p>
+</div>
+{% endblock %}

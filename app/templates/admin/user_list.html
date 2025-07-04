@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ title }}</h2>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_item in users %}
+            <tr>
+                <td>{{ user_item.id }}</td>
+                <td>{{ user_item.username }}</td>
+                <td>{{ user_item.email }}</td>
+                <td>{{ user_item.role.name if user_item.role else 'N/A' }}</td>
+                <td>
+                    <a href="{{ url_for('auth.admin_edit_user_role', user_id=user_item.id) }}" class="btn btn-sm btn-primary">Edit Role</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -3,13 +3,13 @@ from urllib.parse import urljoin, urlparse
 
 from flask import Blueprint, config, flash, redirect, render_template, request, session, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-from app.models import User, db
+from app.models import User, db, ActivityLog, Role
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from app.database import get_db_connection
-from app.email import (  # Assuming this function is adapted for direct SQL handling
+from app.email import (
     send_email,
 )
+from flask import current_app
 
 from .forms import (
     EditProfileForm,
@@ -17,7 +17,9 @@ from .forms import (
     RegistrationForm,
     ResetPasswordForm,
     ResetPasswordRequestForm,
+    AdminEditUserRoleForm,
 )
+from app import limiter
 
 auth = Blueprint("auth", __name__)
 
@@ -26,49 +28,20 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def get_user_by_username(username):
-    conn = get_db_connection()
-    user = conn.execute(
-        "SELECT * FROM users WHERE username = ?", (username,)
-    ).fetchone()
-    conn.close()
-    return user
-
-
-def get_user_by_email(email):
-    conn = get_db_connection()
-    user = conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
-    conn.close()
-    return user
-
-
-def insert_new_user(username, email, password_hash):
-    conn = get_db_connection()
-    conn.execute(
-        "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)",
-        (username, email, password_hash),
-    )
-    conn.commit()
-    conn.close()
-
-
 @auth.route("/login", methods=["GET", "POST"])
+@limiter.limit("10 per minute")
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("main.home"))
     form = LoginForm()
     if form.validate_on_submit():
-        user = get_user_by_username(form.username.data)
-        if user and check_password_hash(user["password_hash"], form.password.data):
-            # User class needs adjustment for Flask-Login without SQLAlchemy
-            user_obj = User(
-                id=user["id"], username=user["username"]
-            )  # Adjust User class as needed
-            login_user(user_obj, remember=form.remember_me.data)
+        user = User.find_by_username(form.username.data)
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
             next_page = request.args.get("next")
-            if not next_page or not is_safe_url(next_page):
-                return redirect(url_for("main.home"))
-            return redirect(next_page or url_for("main.home"))
+            if next_page and is_safe_url(next_page):
+                return redirect(next_page)
+            return redirect(url_for("auth.dashboard"))
         flash("Invalid username or password")
     return render_template("login.html", form=form)
 
@@ -79,10 +52,22 @@ def register():
         return redirect(url_for("main.home"))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data)
-        insert_new_user(form.username.data, form.email.data, hashed_password)
-        flash("Your account has been created, you can now log in.", "success")
-        return redirect(url_for("auth.login"))
+        default_role_name = 'Client'
+        default_role = Role.find_by_name(default_role_name)
+        if not default_role:
+            # This case should ideally not happen if init_roles is always run
+            logger.error(f"Default role '{default_role_name}' not found. Please initialize roles.")
+            flash("An error occurred during registration. Default role not found.", "danger")
+            return render_template("register.html", title="Register", form=form)
+
+        new_user = User(username=form.username.data, email=form.email.data, role_id=default_role.id)
+        new_user.set_password(form.password.data)
+        db.session.add(new_user)
+        db.session.commit()
+        # Log in the new user
+        login_user(new_user)
+        flash("Your account has been created and you are now logged in.", "success")
+        return redirect(url_for("auth.dashboard"))
     return render_template("register.html", title="Register", form=form)
 
 
@@ -94,11 +79,17 @@ def logout():
 
 
 def is_safe_url(target):
-    test_url = urlparse(urljoin(request.host_url, target))
-    return (
-        test_url.scheme in ("http", "https")
-        and urlparse(request.host_url).hostname == test_url.hostname
-    )
+    try:
+        test_url = urlparse(urljoin(request.host_url, target))
+        # Ensure the URL is either relative or matches the host
+        return (
+            test_url.scheme in ("http", "https")
+            and test_url.netloc == ""
+            or test_url.hostname == urlparse(request.host_url).hostname
+        )
+    except ValueError:
+        # If parsing fails, the URL is not safe
+        return False
 
 
 @auth.route("/set_language/<language>")
@@ -115,17 +106,39 @@ def set_language(language):
 @auth.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-    form = EditProfileForm(current_user.username)
+    # The form now takes original_username and original_email for validation
+    form = EditProfileForm(original_username=current_user.username, original_email=current_user.email)
+
+    is_admin = current_user.role and current_user.role.name == 'Admin'
+
     if form.validate_on_submit():
         current_user.username = form.username.data
-        current_user.email = form.email.data
+        current_user.email = form.email.data.lower().strip()
+
+        if is_admin and form.role.data is not None:
+            # Ensure the role field was actually submitted and is not empty
+            # The 'Optional' validator allows it to be empty if not included in the form submission
+            # but if it is included, coerce=int will try to convert it.
+            # A more robust check might be needed if the field can be conditionally omitted by non-admins
+            # However, our template logic will hide it.
+            new_role = Role.query.get(form.role.data)
+            if new_role:
+                current_user.role_id = new_role.id
+            else:
+                flash("Invalid role selected.", "danger") # Should not happen if choices are from DB
+
         db.session.commit()
         flash("Your profile has been updated.", "success")
         return redirect(url_for("auth.profile"))
     elif request.method == "GET":
         form.username.data = current_user.username
         form.email.data = current_user.email
-    return render_template("profile.html", title="Edit Profile", form=form)
+        if is_admin and current_user.role_id is not None:
+            form.role.data = current_user.role_id
+        elif not is_admin: # If not admin, remove the role field from the form to prevent submission
+            del form.role
+
+    return render_template("profile.html", title="Edit Profile", form=form, is_admin=is_admin)
 
 
 @auth.route("/reset_password_request", methods=["GET", "POST"])
@@ -164,7 +177,7 @@ def send_password_reset_email(user):
     token = user.get_reset_password_token()
     send_email(
         "[YourApp] Reset Your Password",
-        sender=config["ADMINS"][0],
+        sender=current_app.config["ADMINS"][0], # Use current_app.config
         recipients=[user.email],
         text_body=render_template("email/reset_password.txt", user=user, token=token),
         html_body=render_template("email/reset_password.html", user=user, token=token),
@@ -180,12 +193,10 @@ def dashboard():
 @login_required
 def  role():
     # Example of extending dashboard functionality
-    if current_user.role == "admin":
+    activities = None
+    if current_user.role and current_user.role.name == "admin":
         # Fetch admin-specific data or activities
-        conn = get_db_connection()
-        activities = conn.execute('SELECT * FROM activity_log').fetchall()
-    else:
-        activities = None
+        activities = ActivityLog.query.order_by(ActivityLog.timestamp.desc()).all()
     return render_template("dashboard.html", activities=activities)
 
 
@@ -199,3 +210,44 @@ def not_found_error(error):
 def internal_error(error):
     db.session.rollback()
     return render_template("500.html"), 500
+
+
+@auth.route("/admin/users", methods=["GET"])
+@login_required
+def admin_user_list():
+    if not current_user.role or current_user.role.name != 'Admin':
+        flash("You do not have permission to access this page.", "danger")
+        return redirect(url_for('main.home'))
+
+    users = User.query.all()
+    return render_template("admin/user_list.html", users=users, title="User List")
+
+
+@auth.route("/admin/edit_user_role/<int:user_id>", methods=["GET", "POST"])
+@login_required
+def admin_edit_user_role(user_id):
+    if not current_user.role or current_user.role.name != 'Admin':
+        flash("You do not have permission to access this page.", "danger")
+        return redirect(url_for('main.home'))
+
+    user_to_edit = User.query.get_or_404(user_id)
+    form = AdminEditUserRoleForm(obj=user_to_edit) # Pre-populate form with user's current role
+
+    if form.validate_on_submit():
+        new_role_id = form.role.data
+        # Prevent admin from changing their own role via this form to avoid self-lockout
+        # or demoting the last admin. More complex logic might be needed for "last admin" scenarios.
+        if user_to_edit.id == current_user.id and user_to_edit.role_id != new_role_id :
+             flash("Admins cannot change their own role through this form.", "warning")
+             return redirect(url_for('auth.admin_user_list'))
+
+        user_to_edit.role_id = new_role_id
+        db.session.add(user_to_edit)
+        db.session.commit()
+        flash(f"Role for user {user_to_edit.username} updated successfully.", "success")
+        return redirect(url_for('auth.admin_user_list'))
+
+    if request.method == "GET" and user_to_edit.role:
+         form.role.data = user_to_edit.role_id # Ensure correct pre-population on GET
+
+    return render_template("admin/edit_user_role.html", form=form, user_to_edit=user_to_edit, title="Edit User Role")

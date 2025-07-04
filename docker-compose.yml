@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: flask_app_web
+    ports:
+      - "5000:5000" # Exposes port 5000 on the host and maps it to port 5000 in the container
+    volumes:
+      - .:/app # Mounts the current directory on the host to /app in the container for live code changes
+    env_file:
+      - .env # Loads environment variables from .env file
+    environment:
+      - FLASK_ENV=${FLASK_ENV:-development} # Default to development if not set in .env
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-app_user}:${POSTGRES_PASSWORD:-app_password}@db:5432/${POSTGRES_DB:-app_db}
+      # SECRET_KEY should be set in the .env file for security
+    depends_on:
+      - db
+    command: flask run --host=0.0.0.0 --port=5000 # Default command for development
+    # For production, you might use:
+    # command: gunicorn --bind 0.0.0.0:5000 "run:app"
+
+  db:
+    image: postgres:13-alpine
+    container_name: flask_app_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/ # Persist database data
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-app_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-app_password}
+      - POSTGRES_DB=${POSTGRES_DB:-app_db}
+    ports:
+      - "5432:5432" # Exposes PostgreSQL port for direct access if needed (optional)
+
+volumes:
+  postgres_data: # Defines the named volume for data persistence

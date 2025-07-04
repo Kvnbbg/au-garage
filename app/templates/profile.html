@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}Edit Profile - {{ super() }}{% endblock %}
+
 {% block content %}
 <div class="container my-5">
     <!-- Profile Information -->
@@ -8,40 +10,72 @@
             Profile Information
         </div>
         <div class="card-body">
-            <form id="profileForm">
+            <form method="POST" action="{{ url_for('auth.profile') }}" novalidate>
+                {{ form.hidden_tag() }} {# CSRF token #}
+
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="Username" required>
+                    {{ form.username.label(class="form-label") }}
+                    {{ form.username(class="form-control" + (" is-invalid" if form.username.errors else "")) }}
+                    {% if form.username.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span><br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
+
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                    {{ form.email.label(class="form-label") }}
+                    {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else "")) }}
+                    {% if form.email.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span><br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-                <button type="submit" class="btn btn-primary">Update Profile</button>
+
+                {% if is_admin and form.role %} {# Check if form.role exists #}
+                <div class="mb-3">
+                    {{ form.role.label(class="form-label") }}
+                    {{ form.role(class="form-control" + (" is-invalid" if form.role.errors else "")) }}
+                    {% if form.role.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.role.errors %}
+                                <span>{{ error }}</span><br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {{ form.submit(class="btn btn-primary") }}
             </form>
         </div>
     </div>
 
-<!-- Recent Activity Section with Enhancements -->
-<div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <span>Recent Activity</span>
-        <button class="btn btn-sm btn-outline-secondary" onclick="loadRecentActivity()">Refresh</button>
-    </div>
-    <div class="list-group list-group-flush" id="recentActivity">
-        <div class="list-group-item text-center">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
+    <!-- Recent Activity Section with Enhancements -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span>Recent Activity</span>
+            {# For simplicity, keeping the JS refresh, but this could be server-rendered too #}
+            <button class="btn btn-sm btn-outline-secondary" onclick="loadRecentActivity()">Refresh</button>
+        </div>
+        <div class="list-group list-group-flush" id="recentActivity">
+            <div class="list-group-item text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-</div>
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    // Load recent activity dynamically
+    // Load recent activity dynamically (keeping this part as is for now)
     function loadRecentActivity() {
         setTimeout(() => {
             const activities = ['Updated profile', 'Logged in', 'Completed a task']; // Example data
@@ -55,34 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }, 500); // Simulate async data fetching
     }
-
-    // AJAX form submission for the profile form
-    document.getElementById('profileForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(this);
-        
-        // Placeholder for AJAX request
-        console.log('Form Data:', Object.fromEntries(formData.entries()));
-        fetch('/update-profile', { // Your actual endpoint
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data); // Handle success
-            alert('Profile updated successfully!');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
-        });
-    });
-
     loadRecentActivity();
 });
 </script>
