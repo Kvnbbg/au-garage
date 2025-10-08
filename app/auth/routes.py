@@ -92,15 +92,6 @@ def is_safe_url(target):
         return False
 
 
-@auth.route("/set_language/<language>")
-def set_language(language):
-    # Check to ensure the language code is supported
-    supported_languages = ["en", "fr"]
-    if language in supported_languages:
-        session["lang"] = language
-    else:
-        flash("Unsupported language.", "error")
-    return redirect(url_for("main.home"))
 
 
 @auth.route("/profile", methods=["GET", "POST"])
@@ -116,16 +107,18 @@ def profile():
         current_user.email = form.email.data.lower().strip()
 
         if is_admin and form.role.data is not None:
-            # Ensure the role field was actually submitted and is not empty
-            # The 'Optional' validator allows it to be empty if not included in the form submission
-            # but if it is included, coerce=int will try to convert it.
-            # A more robust check might be needed if the field can be conditionally omitted by non-admins
-            # However, our template logic will hide it.
+            admin_role = Role.find_by_name('Admin')
+            if current_user.role_id == admin_role.id and form.role.data != admin_role.id:
+                admin_count = User.query.filter_by(role_id=admin_role.id).count()
+                if admin_count == 1:
+                    flash("You are the last admin and cannot change your own role.", "danger")
+                    return redirect(url_for('auth.profile'))
+
             new_role = Role.query.get(form.role.data)
             if new_role:
                 current_user.role_id = new_role.id
             else:
-                flash("Invalid role selected.", "danger") # Should not happen if choices are from DB
+                flash("Invalid role selected.", "danger")
 
         db.session.commit()
         flash("Your profile has been updated.", "success")

@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate # Import Flask-Migrate
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_talisman import Talisman
 from config import DevelopmentConfig, ProductionConfig, TestingConfig
 
 
@@ -22,6 +23,7 @@ limiter = Limiter(
     key_func=get_remote_address,
     default_limits=["200 per day", "50 per hour"]
 )
+talisman = Talisman()
 
 
 def create_app():
@@ -49,6 +51,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db) # Initialize Migrate with app and db
     limiter.init_app(app)
+    talisman.init_app(app)
 
     # Setup for Flask-Login
     login_manager.login_view = (

@@ -1,0 +1,43 @@
+/* app/static/css/dark-theme.css */
+
+body.dark-theme {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-theme .navbar {
+    background-color: #1f1f1f !important;
+    color: #ffffff;
+}
+
+.dark-theme .navbar-brand,
+.dark-theme .nav-link {
+    color: #ffffff !important;
+}
+
+.dark-theme .alert {
+    background-color: #333333;
+    color: #ffffff;
+    border-color: #444444;
+}
+
+.dark-theme .card {
+    background-color: #1f1f1f;
+    color: #ffffff;
+}
+
+.dark-theme .list-group-item {
+    background-color: #1f1f1f;
+    color: #ffffff;
+    border-color: #444444;
+}
+
+.dark-theme .form-control {
+    background-color: #333333;
+    color: #ffffff;
+    border-color: #444444;
+}
+
+.dark-theme .form-control::placeholder {
+    color: #bbbbbb;
+}

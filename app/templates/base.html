@@ -7,6 +7,7 @@
     <!-- Bootstrap CSS (example, add your own static file handling) -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dark-theme.css') }}">
     <style>
       .login-indicator {
         display: inline-block;
@@ -43,6 +44,13 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto"> <!-- Changed to ml-auto for right alignment -->
+          <li class="nav-item">
+            <button id="theme-switcher" class="btn btn-link nav-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun" viewBox="0 0 16 16">
+                <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm-5-5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm10 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zM3.536 3.536a.5.5 0 0 1 .707 0l1.414 1.414a.5.5 0 1 1-.707.707L3.536 4.243a.5.5 0 0 1 0-.707zm8.928 8.928a.5.5 0 0 1 .707 0l1.414 1.414a.5.5 0 1 1-.707.707l-1.414-1.414a.5.5 0 0 1 0-.707zM3.536 12.464a.5.5 0 0 1 0-.707l1.414-1.414a.5.5 0 1 1 .707.707L4.243 12.464a.5.5 0 0 1-.707 0zm8.928-8.928a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0z"/>
+              </svg>
+            </button>
+          </li>
           {% if current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('auth.profile') }}">
@@ -89,5 +97,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
   </body>
 </html>
