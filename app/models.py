@@ -145,18 +145,3 @@ class CV(db.Model):
 
     def __repr__(self):
         return f"<CV {self.id} User {self.user_id}>"
-
-
-class CV(db.Model):
-    __tablename__ = 'cvs'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    filename = db.Column(db.String(255), nullable=True) # For future self-hosting
-    file_url = db.Column(db.String(512), nullable=True) # For external links
-    description = db.Column(db.Text, nullable=True)
-    uploaded_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-    user = db.relationship('User', backref=db.backref('cvs', lazy='dynamic'))
-
-    def __repr__(self):
-        return f"<CV {self.id} User {self.user_id}>"

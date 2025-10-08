@@ -258,19 +258,17 @@ class AuthFeaturesTestCase(BasicTestCase):
         self.client.get(current_app.url_for('auth.logout')) # Clean up
 
     def test_rate_limiting_on_login_route(self):
-        # This is an indirect check. Flask-Limiter adds attributes to the view function.
-        # A full test would require e.g. mocking time or using a custom in-memory storage.
-        login_view_func = current_app.view_functions.get('auth.login')
-        self.assertIsNotNone(login_view_func)
-        # Check if limiter has wrapped the function; specific attributes depend on Flask-Limiter version & setup
-        # Common attributes might be _limit_decorators, _request_limits, _limiter_exempt
-        # For this test, we'll just check if *some* limiter-specific attribute seems present or that it's wrapped.
-        # A simple check could be that the function name is not the original one if it's wrapped by decorators.
-        # However, the most reliable check is usually integration-style: make N+1 requests and check for 429.
-        # Given the constraints, we'll note this as a conceptual check.
-        # Flask-Limiter adds a _request_limits attribute to decorated view functions.
-        self.assertTrue(hasattr(login_view_func, "_request_limits"),
-                        "Login route does not appear to be wrapped by Flask-Limiter as expected (missing _request_limits).")
+        # The login route is limited to 10 per minute.
+        # We will make 10 requests, which should succeed.
+        # The 11th request should fail with a 429 status code.
+        login_url = current_app.url_for('auth.login')
+        for i in range(10):
+            response = self.client.get(login_url)
+            self.assertNotEqual(response.status_code, 429, f"Request {i+1} should not be rate limited.")
+
+        # The 11th request should be rate limited.
+        response = self.client.get(login_url)
+        self.assertEqual(response.status_code, 429, "The 11th request should be rate limited.")
 
 
     def test_edit_profile_form_validation(self):
@@ -301,7 +299,7 @@ class AuthFeaturesTestCase(BasicTestCase):
         form = EditProfileForm(original_username=u1.username, original_email=u1.email, username='userone', email='usertwo@example.com')
         self.assertFalse(form.validate())
         self.assertIn('email', form.errors)
-        self.assertIn('This email address is already registered', form.errors['email'][0])
+        self.assertIn('That email is already in use. Please choose a different one.', form.errors['email'][0])
 
         # 4. Test keeping the *same* username/email (should pass)
         form = EditProfileForm(original_username=u1.username, original_email=u1.email, username='userone', email='userone@example.com')

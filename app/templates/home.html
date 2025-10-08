@@ -104,10 +104,8 @@
     <p class="text-center">
       {{ 'We\'re open from 9:00 AM to 5:00 PM, Monday through Friday. Visit us for all your car maintenance and repair needs.' if session['lang'] == 'en' else 'Nous sommes ouverts de 9h00 à 17h00, du lundi au vendredi. Visitez-nous pour tous vos besoins de maintenance et de réparation automobile.' }}
     </p>
-    <div>
-      <img src="{{ url_for('static', filename='/images/hours.png') }}" class="d-inline w-50" alt="hours">
-
-      <!-- Carousel caption for hours -->
+    <div class="text-center">
+      <img src="{{ url_for('static', filename='/images/hours.png') }}" class="d-block mx-auto img-fluid w-100 w-md-50" alt="hours">
     </div>
   </div>
 </section>

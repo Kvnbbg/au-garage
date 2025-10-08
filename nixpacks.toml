@@ -1,0 +1,17 @@
+# nixpacks.toml
+
+[phases.setup]
+# Use Python 3.11
+nixPkgs = ["python311"]
+
+[phases.install]
+# Install dependencies from requirements.txt
+cmds = ["pip install -r requirements.txt"]
+
+[phases.build]
+# Run database migrations and initialize roles
+cmds = ["flask db upgrade", "flask init-roles"]
+
+[start]
+# Start the application with gunicorn
+cmd = "gunicorn run:app"

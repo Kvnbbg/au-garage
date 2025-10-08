@@ -8,8 +8,13 @@ main = Blueprint('main', __name__)
 
 @main.route('/set_language/<language>')
 def set_language(language):
-    session['lang'] = language
-    return redirect(url_for('home'))
+    # Check to ensure the language code is supported
+    supported_languages = ["en", "fr"]
+    if language in supported_languages:
+        session["lang"] = language
+    else:
+        flash("Unsupported language.", "error")
+    return redirect(url_for("main.home"))
 
 
 def calculate_percentage(part, whole):
@@ -28,7 +33,8 @@ def get_user_id():
     In real applications, this could be a user session, database lookup, or IP-based tracking.
     """
     user_id = request.cookies.get('user_id')
-    if user_id and user_id.isalnum():  # Validate that user_id contains only alphanumeric characters
+    # Allow alphanumeric characters and underscores in user_id
+    if user_id and user_id.replace('_', '').isalnum():
         return user_id
     else:
         return 'anonymous_' + str(math.floor(datetime.now().timestamp()))  # Generate unique anonymous ID
@@ -145,7 +151,7 @@ def vr():
 
 # Helper decorator for role checking
 from functools import wraps
-from flask_login import current_user
+from flask_login import current_user, login_required
 from flask import flash, redirect, url_for, request # Added request
 
 def role_required(allowed_roles):

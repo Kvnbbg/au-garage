@@ -148,7 +148,7 @@
     document.getElementById('toggle-lang-sim')?.addEventListener('click', () => {
       const currentLang = "{{ session.get('lang', 'en') }}";
       const targetLang = currentLang === 'en' ? 'fr' : 'en';
-      window.location.href = "{{ url_for('auth.set_language', language='') }}" + targetLang;
+      window.location.href = "{{ url_for('main.set_language', language='') }}" + targetLang;
     });
 
     /* -------------------------------------------------------------------------
