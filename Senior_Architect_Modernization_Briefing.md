@@ -37,7 +37,7 @@
    - Update `run.py`/deployment entry points to use Gunicorn or the containerized stack defined in Dockerfile.
 
 2. **Automate Quality Gates (Weeks 2-4)**
-   - Implement the GitHub Actions pipeline delivering lint, test, SAST, container build, SBOM, and ArgoCD deployment triggers. 【F:artifacts/ci/github-actions.yml†L1-L97】
+   - Implement the GitHub Actions pipeline delivering lint, test, SAST, CodeQL, container build, SBOM, and ArgoCD deployment triggers. 【F:artifacts/ci/github-actions.yml†L1-L126】
    - Enforce branch protection and CODEOWNERS to guarantee reviewed, tested merges. 【F:artifacts/security/CODEOWNERS†L1-L21】【F:artifacts/security/branch-protection-rules.md†L1-L28】
    - Integrate Codecov and Bandit reports into PR checks; configure Dependabot to respect new checks before auto-merge.
 
@@ -64,7 +64,7 @@
 
 All generated modernization assets reside in `artifacts/`:
 
-- `artifacts/ci/github-actions.yml` – Multi-stage CI/CD pipeline with linting, testing, SAST, container build, SBOM, and deployment trigger. 【F:artifacts/ci/github-actions.yml†L1-L97】
+- `artifacts/ci/github-actions.yml` – Multi-stage CI/CD pipeline with linting, testing, SAST, CodeQL, container build, SBOM, and deployment trigger. 【F:artifacts/ci/github-actions.yml†L1-L126】
 - `artifacts/security/CODEOWNERS` – Ownership map enforcing accountable reviews. 【F:artifacts/security/CODEOWNERS†L1-L21】
 - `artifacts/security/branch-protection-rules.md` – Branch protection guardrails. 【F:artifacts/security/branch-protection-rules.md†L1-L28】
 - `artifacts/security/secrets-management-plan.md` – HashiCorp Vault rollout plan. 【F:artifacts/security/secrets-management-plan.md†L1-L32】

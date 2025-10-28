@@ -11,6 +11,7 @@ Apply these rules to the `main` branch to enforce secure delivery:
    - `CI / Lint & Formatting Gate`
    - `CI / Unit & Integration Tests`
    - `CI / Static Application Security Tests`
+   - `CI / CodeQL Analysis`
    - `CI / Build Container Image`
    - Require status checks to be up to date before merging.
 
