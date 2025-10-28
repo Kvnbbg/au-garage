@@ -1,0 +1,23 @@
+# CODEOWNERS for Garage V. Parrot Management System
+# Assign ownership by critical subsystem to guarantee accountable reviews.
+
+# Backend application code
+app/ @kvnbbg @backend-maintainers
+
+# Database migrations and schema
+migrations/ @data-team
+
+# Infrastructure & deployment manifests
+Dockerfile @devops-leads
+k8-deployments.yaml @devops-leads
+nixpacks.toml @devops-leads
+
+# CI/CD and security automation
+.github/ @platform-engineering
+artifacts/ci/ @platform-engineering
+
+# Documentation and governance
+README.md @product-ops
+ARCHITECTURE.md @product-ops @principal-architect
+SECURITY.md @security-team
+PRE_PRODUCTION_CHECKLIST.md @product-ops
