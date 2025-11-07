@@ -72,3 +72,7 @@ All generated modernization assets reside in `artifacts/`:
 - `artifacts/governance/dora-metrics-plan.md` – Implementation strategy for DORA metrics. 【F:artifacts/governance/dora-metrics-plan.md†L1-L24】
 
 These artifacts operationalize the Senior Developer Modernization Framework and provide the launchpad for execution.
+
+## 4. Execution Handoff
+
+- `Project_Velocity_Sprint1_Execution_Plan.md` – Sprint plan decomposing the Expansion Blueprint into actionable backlog items, definitions of done, and feedback loop instrumentation for Project Velocity.
