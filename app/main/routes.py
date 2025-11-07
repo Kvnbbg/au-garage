@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask import Blueprint, flash, make_response, redirect, render_template, request, url_for, session, current_app
+import base64
 import math
 from app import db # Import db
 from app.models import VisitCount # Import VisitCount model
@@ -133,7 +134,8 @@ def improved_home_with_maintenance_date():
     # visit_count cookie is no longer the source of truth, but can be kept for other client-side uses or removed.
     # For this exercise, we'll update it to reflect the database value.
     response.set_cookie("visit_count", str(current_user_visits), max_age=60*60*24*365*2, httponly=True, samesite='Lax', secure=secure_cookie)
-    response.set_cookie('user_id', user_id_str, max_age=60*60*24*365*2, httponly=True, samesite='Lax', secure=secure_cookie)
+    encoded_user_id_str = base64.urlsafe_b64encode(user_id_str.encode('utf-8')).decode('utf-8')
+    response.set_cookie('user_id', encoded_user_id_str, max_age=60*60*24*365*2, httponly=True, samesite='Lax', secure=secure_cookie)
 
     return response
 
