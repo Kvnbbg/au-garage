@@ -53,6 +53,24 @@ flask --app run:app run
 python run.py
 ```
 
+## Deploy to Vercel
+This repository includes a Vercel serverless entrypoint in `api/index.py`.
+
+1. Create a new Vercel project and import the repo.
+2. Configure environment variables (recommended minimum):
+   - `FLASK_ENV=production`
+   - `SECRET_KEY` (strong, random)
+   - `DATABASE_URL` (managed Postgres; avoid SQLite in production)
+   - `RATELIMIT_STORAGE_URI` (Redis/Upstash to avoid per-instance limits)
+   - `MAIL_*` and `ADMINS` for password reset and admin alerts
+3. Deploy from the Vercel dashboard or CLI.
+
+Common mistakes to avoid:
+- **Using SQLite in production**: Vercel functions run on ephemeral storage. Use managed Postgres.
+- **Missing `SECRET_KEY`**: production startup fails unless it is set.
+- **In-memory rate limiting**: each serverless instance has its own memory. Use Redis.
+- **Forgetting `FLASK_ENV=production`**: secure cookies and production logging depend on it.
+
 ## First-Run Setup
 ```bash
 flask garage init-db
