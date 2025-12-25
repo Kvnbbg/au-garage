@@ -34,6 +34,67 @@
     </div>
   </section>
 
+  <section class="landing-ecosystem mb-5">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <h2>
+          {{ 'Earth-First Navigation' if session.get('lang', 'en') == 'en' else 'Navigation centrée sur la planète' }}
+        </h2>
+        <p class="mb-3">
+          {{ 'Move through an ecosystem-inspired experience designed for clarity, resilience, and calmer decision-making.' if session.get('lang', 'en') == 'en' else 'Naviguez dans une expérience inspirée des écosystèmes, pensée pour la clarté, la résilience et des décisions plus sereines.' }}
+        </p>
+        <ul class="landing-safe-list mb-0">
+          <li>{{ 'Adaptive layout safeguards against spammy content overflow and layout bugs.' if session.get('lang', 'en') == 'en' else 'Mise en page adaptative pour éviter les débordements et bugs liés au spam.' }}</li>
+          <li>{{ 'Natural color cues guide focus without overwhelming sensitive viewers.' if session.get('lang', 'en') == 'en' else 'Repères de couleurs naturelles pour guider l’attention sans surcharge.' }}</li>
+          <li>{{ 'Clear typography improves readability for multi-step registrations.' if session.get('lang', 'en') == 'en' else 'Typographie claire pour les inscriptions en plusieurs étapes.' }}</li>
+        </ul>
+      </div>
+      <div class="col-lg-6">
+        <div class="landing-visual-grid">
+          <div class="landing-visual-card">
+            <div class="landing-visual-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" role="presentation">
+                <path d="M24 6c-9.94 0-18 8.06-18 18s8.06 18 18 18 18-8.06 18-18S33.94 6 24 6zm0 3c2.76 0 5.32.83 7.47 2.24-1.26.58-2.43 1.33-3.47 2.22-3.6.05-7.06 1.32-9.93 3.63-1.4 1.13-2.57 2.46-3.5 3.93-.56-.72-1.05-1.49-1.46-2.3C14.64 12.3 19 9 24 9zm-10.13 14.2c.85-1.7 2.05-3.24 3.6-4.48 2.37-1.92 5.19-3 8.16-3.13-1.27 1.6-2.1 3.55-2.36 5.67-3.02.27-5.83 1.52-8 3.57-.51-.52-.98-1.07-1.4-1.63zm20.48 14.9a15.01 15.01 0 0 1-10.35 4.14c-5.63 0-10.56-3.1-13.15-7.69 1.92.75 4 .89 6.03.41 2.7-.63 5.1-2.1 6.87-4.2 1.23.79 2.64 1.29 4.14 1.44 2.08.2 4.14-.34 5.88-1.5-.17 2.83-.83 5.54-1.42 7.4z" />
+              </svg>
+            </div>
+            <h3>
+              {{ 'Planet-Safe Guidance' if session.get('lang', 'en') == 'en' else 'Guidage sûr pour la planète' }}
+            </h3>
+            <p>
+              {{ 'Layered navigation labels keep newcomers oriented.' if session.get('lang', 'en') == 'en' else 'Repères superposés pour garder les nouveaux utilisateurs orientés.' }}
+            </p>
+          </div>
+          <div class="landing-visual-card">
+            <div class="landing-visual-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" role="presentation">
+                <path d="M14 38c6.63 0 12-5.37 12-12 0-3.08-1.16-5.9-3.06-8.04C27 16.7 31.54 17 35 20.46 38.87 24.33 39 30.7 35.39 35.1 31.78 39.5 25.6 40.54 21 37.5 19.16 39.03 16.72 38 14 38zm0-24c0 1.47.23 2.88.66 4.21C11.38 20.3 9 24.9 9 30c0 3.54 1.1 6.83 3 9.55C8.3 37.84 6 34.17 6 30c0-6.63 5.37-12 12-12z" />
+              </svg>
+            </div>
+            <h3>
+              {{ 'Ecosystem Support' if session.get('lang', 'en') == 'en' else 'Soutien de l’écosystème' }}
+            </h3>
+            <p>
+              {{ 'Soothing contrasts and balanced spacing reduce visual fatigue.' if session.get('lang', 'en') == 'en' else 'Contrastes doux et espacement équilibré pour réduire la fatigue visuelle.' }}
+            </p>
+          </div>
+          <div class="landing-visual-card">
+            <div class="landing-visual-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" role="presentation">
+                <path d="M20 6h8l2 8h8l-6.5 6 2.5 10-8-4.6-8 4.6 2.5-10L10 14h8l2-8zm4 24c6.63 0 12 5.37 12 12H12c0-6.63 5.37-12 12-12z" />
+              </svg>
+            </div>
+            <h3>
+              {{ 'Spam & Bug Shield' if session.get('lang', 'en') == 'en' else 'Bouclier anti-spam et bugs' }}
+            </h3>
+            <p>
+              {{ 'Content guards keep panels tidy as future updates arrive.' if session.get('lang', 'en') == 'en' else 'Garde-fous pour garder les panneaux nets lors des futures mises à jour.' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="landing-cta mb-5">
     <div class="row align-items-center">
       <div class="col-lg-7">
