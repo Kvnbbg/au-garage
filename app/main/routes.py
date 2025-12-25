@@ -1,9 +1,22 @@
 from datetime import datetime
-from flask import Blueprint, flash, make_response, redirect, render_template, request, url_for, session, current_app
+from uuid import uuid4
+
+from flask import (
+    Blueprint,
+    flash,
+    make_response,
+    redirect,
+    render_template,
+    request,
+    url_for,
+    session,
+    current_app,
+)
 import base64
 import math
 from app import db # Import db
 from app.models import VisitCount # Import VisitCount model
+from config import DATE_FORMAT, DEFAULT_MAINTENANCE_START_DATE
 
 main = Blueprint('main', __name__)
 
@@ -28,17 +41,53 @@ def calculate_percentage(part, whole):
         return 0
 
 
+def _normalize_user_id(cookie_value):
+    if not cookie_value:
+        return None
+    candidate = cookie_value
+    if not candidate.replace("_", "").isalnum():
+        try:
+            decoded = base64.urlsafe_b64decode(candidate.encode("utf-8")).decode("utf-8")
+            candidate = decoded
+        except (ValueError, UnicodeDecodeError):
+            return None
+    if candidate.replace("_", "").isalnum():
+        return candidate
+    return None
+
+
 def get_user_id():
     """
     Helper function to retrieve a user identifier, with fallback for missing cookies.
     In real applications, this could be a user session, database lookup, or IP-based tracking.
     """
     user_id = request.cookies.get('user_id')
-    # Allow alphanumeric characters and underscores in user_id
-    if user_id and user_id.replace('_', '').isalnum():
-        return user_id
-    else:
-        return 'anonymous_' + str(math.floor(datetime.now().timestamp()))  # Generate unique anonymous ID
+    normalized = _normalize_user_id(user_id)
+    if normalized:
+        return normalized
+    return f"anonymous_{uuid4().hex}"
+
+
+def get_maintenance_start_date():
+    maintenance_value = current_app.config.get("MAINTENANCE_START_DATE")
+    if isinstance(maintenance_value, datetime):
+        return maintenance_value, None
+    if isinstance(maintenance_value, str):
+        try:
+            return datetime.strptime(maintenance_value, DATE_FORMAT), None
+        except ValueError:
+            current_app.logger.warning(
+                "Invalid MAINTENANCE_START_DATE format in config: %s",
+                maintenance_value,
+            )
+            return (
+                DEFAULT_MAINTENANCE_START_DATE,
+                "Maintenance schedule is invalid. Using the default start date.",
+            )
+    return (
+        DEFAULT_MAINTENANCE_START_DATE,
+        "Maintenance schedule not configured. Showing default start date.",
+    )
 
 
 def improved_home_with_maintenance_date():
@@ -51,20 +100,11 @@ def improved_home_with_maintenance_date():
     formatted_now = now.strftime("%Y-%m-%d %H:%M:%S")
 
     # Retrieve maintenance start date from config
-    maintenance_start_date_str = current_app.config.get('MAINTENANCE_START_DATE')
-    default_maintenance_start_date = datetime(2024, 1, 1, 0, 0, 0)
+    maintenance_start_date, maintenance_message = get_maintenance_start_date()
+    formatted_maintenance_start_date = maintenance_start_date.strftime(DATE_FORMAT)
 
-    if maintenance_start_date_str:
-        try:
-            maintenance_start_date = datetime.strptime(maintenance_start_date_str, "%Y-%m-%d %H:%M:%S")
-        except ValueError:
-            flash(f"Invalid MAINTENANCE_START_DATE format. Using default: {default_maintenance_start_date.strftime('%Y-%m-%d %H:%M:%S')}", "danger")
-            maintenance_start_date = default_maintenance_start_date
-    else:
-        flash(f"MAINTENANCE_START_DATE not configured. Using default: {default_maintenance_start_date.strftime('%Y-%m-%d %H:%M:%S')}", "warning")
-        maintenance_start_date = default_maintenance_start_date
-
-    formatted_maintenance_start_date = maintenance_start_date.strftime("%Y-%m-%d %H:%M:%S")
+    if maintenance_message:
+        flash(f"{maintenance_message} {formatted_maintenance_start_date}.", "warning")
 
     # Calculate the duration since maintenance started in days
     duration_since_maintenance = now - maintenance_start_date
@@ -134,8 +174,7 @@ def improved_home_with_maintenance_date():
     # visit_count cookie is no longer the source of truth, but can be kept for other client-side uses or removed.
     # For this exercise, we'll update it to reflect the database value.
     response.set_cookie("visit_count", str(current_user_visits), max_age=60*60*24*365*2, httponly=True, samesite='Lax', secure=secure_cookie)
-    encoded_user_id_str = base64.urlsafe_b64encode(user_id_str.encode('utf-8')).decode('utf-8')
-    response.set_cookie('user_id', encoded_user_id_str, max_age=60*60*24*365*2, httponly=True, samesite='Lax', secure=secure_cookie)
+    response.set_cookie('user_id', user_id_str, max_age=60*60*24*365*2, httponly=True, samesite='Lax', secure=secure_cookie)
 
     return response
 

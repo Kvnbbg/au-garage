@@ -1,10 +1,8 @@
-import logging
 from urllib.parse import urljoin, urlparse
 
-from flask import Blueprint, config, flash, redirect, render_template, request, session, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from app.models import User, db, ActivityLog, Role
-from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.email import (
     send_email,
@@ -23,11 +21,6 @@ from app import limiter
 
 auth = Blueprint("auth", __name__)
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-
 @auth.route("/login", methods=["GET", "POST"])
 @limiter.limit("10 per minute")
 def login():
@@ -42,7 +35,10 @@ def login():
             if next_page and is_safe_url(next_page):
                 return redirect(next_page)
             return redirect(url_for("auth.dashboard"))
-        flash("Invalid username or password")
+        flash(
+            "Invalid username or password. Try again or reset your password.",
+            "danger",
+        )
     return render_template("login.html", form=form)
 
 
@@ -56,7 +52,10 @@ def register():
         default_role = Role.find_by_name(default_role_name)
         if not default_role:
             # This case should ideally not happen if init_roles is always run
-            logger.error(f"Default role '{default_role_name}' not found. Please initialize roles.")
+            current_app.logger.error(
+                "Default role '%s' not found. Please initialize roles.",
+                default_role_name,
+            )
             flash("An error occurred during registration. Default role not found.", "danger")
             return render_template("register.html", title="Register", form=form)
 
@@ -80,12 +79,11 @@ def logout():
 
 def is_safe_url(target):
     try:
+        host_url = urlparse(request.host_url)
         test_url = urlparse(urljoin(request.host_url, target))
-        # Ensure the URL is either relative or matches the host
         return (
             test_url.scheme in ("http", "https")
-            and test_url.netloc == ""
-            or test_url.hostname == urlparse(request.host_url).hostname
+            and (test_url.netloc == "" or test_url.netloc == host_url.netloc)
         )
     except ValueError:
         # If parsing fails, the URL is not safe
@@ -114,7 +112,7 @@ def profile():
                     flash("You are the last admin and cannot change your own role.", "danger")
                     return redirect(url_for('auth.profile'))
 
-            new_role = Role.query.get(form.role.data)
+            new_role = db.session.get(Role, form.role.data)
             if new_role:
                 current_user.role_id = new_role.id
             else:
@@ -168,9 +166,11 @@ def reset_password(token):
 
 def send_password_reset_email(user):
     token = user.get_reset_password_token()
+    default_sender = current_app.config.get("MAIL_DEFAULT_SENDER")
+    admin_sender = (current_app.config.get("ADMINS") or [None])[0]
     send_email(
         "[YourApp] Reset Your Password",
-        sender=current_app.config["ADMINS"][0], # Use current_app.config
+        sender=admin_sender or default_sender or "noreply@example.com",
         recipients=[user.email],
         text_body=render_template("email/reset_password.txt", user=user, token=token),
         html_body=render_template("email/reset_password.html", user=user, token=token),
@@ -184,19 +184,13 @@ def dashboard():
 
 @auth.route("/role")
 @login_required
-def  role():
+def role():
     # Example of extending dashboard functionality
     activities = None
     if current_user.role and current_user.role.name == "admin":
         # Fetch admin-specific data or activities
         activities = ActivityLog.query.order_by(ActivityLog.timestamp.desc()).all()
     return render_template("dashboard.html", activities=activities)
-
-
-# Flask application error handlers
-@auth.app_errorhandler(404)
-def not_found_error(error):
-    return render_template("404.html"), 404
 
 
 @auth.app_errorhandler(500)
