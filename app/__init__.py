@@ -1,16 +1,17 @@
 # app/__init__.py
-import os
-
 from flask import Flask
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate # Import Flask-Migrate
+from flask_migrate import Migrate
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_talisman import Talisman
-from config import DevelopmentConfig, ProductionConfig, TestingConfig
+from config import load_config
+from app.cli import register_cli
+from app.errors import register_error_handlers
+from app.logging import configure_logging, init_request_context
 
 
 # Create extension instances
@@ -18,7 +19,7 @@ login_manager = LoginManager()
 mail = Mail()
 csrf = CSRFProtect()
 db = SQLAlchemy()
-migrate = Migrate() # Initialize Migrate
+migrate = Migrate()
 limiter = Limiter(
     key_func=get_remote_address,
     default_limits=["200 per day", "50 per hour"]
@@ -26,45 +27,40 @@ limiter = Limiter(
 talisman = Talisman()
 
 
-def create_app():
+def create_app(config_overrides=None):
     app = Flask(__name__)
 
-    # Determine configuration class based on FLASK_ENV environment variable
-    config_class = {
-        "development": DevelopmentConfig,
-        "testing": TestingConfig,
-        "production": ProductionConfig,
-    }.get(os.environ.get("FLASK_ENV"), DevelopmentConfig)
-
-    app.config.from_object(config_class)
-    app.config['SQLALCHEMY_DATABASE_URI'] = app.config['DATABASE_URI'] # Add SQLAlchemy database URI
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Disable modification tracking
-
-    # Set secure session cookie for production
-    if not app.config.get('DEBUG', False) and not app.config.get('TESTING', False): # Ensure not debug and not testing
-        app.config['SESSION_COOKIE_SECURE'] = True
+    app_config, config_warnings = load_config()
+    app.config.from_mapping(app_config.to_flask_dict())
+    if config_overrides:
+        app.config.update(config_overrides)
 
     # Initialize extensions with the app object
     login_manager.init_app(app)
     mail.init_app(app)
     csrf.init_app(app)
     db.init_app(app)
-    migrate.init_app(app, db) # Initialize Migrate with app and db
+    migrate.init_app(app, db)
     limiter.init_app(app)
     talisman.init_app(app)
 
-    # Setup for Flask-Login
-    login_manager.login_view = (
-        "auth.login"  # Specify the view function that handles logins
-    )
+    configure_logging(app)
+    init_request_context(app)
+    register_error_handlers(app)
+    register_cli(app)
+
+    for warning in config_warnings:
+        app.logger.warning(warning)
+
+    login_manager.login_view = "auth.login"
     login_manager.login_message_category = "info"
 
     # User loader function for Flask-Login
-    from .models import User # Import User model
+    from .models import User
 
     @login_manager.user_loader
     def load_user(user_id):
-        return User.query.get(int(user_id)) # Use SQLAlchemy to load user
+        return db.session.get(User, int(user_id))
 
     # Register blueprints
     from .auth.routes import auth as auth_blueprint
@@ -74,13 +70,6 @@ def create_app():
     from .main.routes import main as main_blueprint
 
     app.register_blueprint(main_blueprint)
-
-    from .models import init_roles
-    @app.cli.command("init-roles")
-    def init_roles_command():
-        """Initialize roles with predefined data."""
-        init_roles()
-        print("Roles initialized.")
 
     # Context processor to inject user role information into templates
     from flask_login import current_user

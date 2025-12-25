@@ -1,9 +1,9 @@
-# This Python script serves as the entry point for a Flask application. Here's a breakdown of what it
-# does:
-# This Python script is the entry point for a Flask application. Here's a breakdown of what it does:
+import os
+
 from app import create_app
 
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=12000)
+    port = int(os.getenv("PORT", "5000"))
+    app.run(host="0.0.0.0", port=port)

@@ -73,7 +73,7 @@ class User(UserMixin, db.Model): # Inherit from db.Model
 
     @staticmethod
     def find_by_id(user_id):
-        return User.query.get(int(user_id)) # Use SQLAlchemy query
+        return db.session.get(User, int(user_id))
 
     def save_to_db(self):
         db.session.add(self) # Use SQLAlchemy session

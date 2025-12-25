@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Too Many Requests{% endblock %}
+
+{% block content %}
+  <div class="text-center">
+    <h1>Too Many Requests</h1>
+    <p>You're sending requests too quickly. Please wait a moment and try again.</p>
+    <a class="btn btn-primary" href="{{ url_for('main.home') }}">Back to Home</a>
+  </div>
+{% endblock %}

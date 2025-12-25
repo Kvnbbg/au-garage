@@ -1,16 +1,20 @@
 import unittest
-from datetime import datetime, timedelta
-from flask import Flask, current_app
+from datetime import datetime
+from flask import current_app
 from app import create_app, db
 from app.models import User, Role, ActivityLog, VisitCount
+from config import DATE_FORMAT, DEFAULT_MAINTENANCE_START_DATE
 
 class BasicTestCase(unittest.TestCase):
     def setUp(self):
-        self.app = create_app()
-        self.app.config['TESTING'] = True
-        self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
-        self.app.config['WTF_CSRF_ENABLED'] = False  # Disable CSRF for testing forms
-        self.app.config['SERVER_NAME'] = 'localhost.localdomain' # Added for url_for
+        self.app = create_app(
+            {
+                "TESTING": True,
+                "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:",
+                "WTF_CSRF_ENABLED": False,
+                "SERVER_NAME": "localhost.localdomain",
+            }
+        )
         self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
@@ -105,11 +109,11 @@ class ActivityLogModelTestCase(BasicTestCase):
 
 class MaintenanceDateTestCase(BasicTestCase):
     def test_home_page_uses_config_maintenance_date(self):
-        test_date_str = '2025-01-01 10:00:00'
-        self.app.config['MAINTENANCE_START_DATE'] = test_date_str
+        test_date = datetime(2025, 1, 1, 10, 0, 0)
+        self.app.config['MAINTENANCE_START_DATE'] = test_date
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(test_date_str, response.get_data(as_text=True))
+        self.assertIn(test_date.strftime(DATE_FORMAT), response.get_data(as_text=True))
 
     def test_home_page_fallback_date_missing_config(self):
         # Ensure the key is not in config for this test
@@ -119,10 +123,13 @@ class MaintenanceDateTestCase(BasicTestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         # Check for the default date used in routes.py or a flash message indicating fallback
-        # The exact default date is '2024-01-01 00:00:00'
         html_content = response.get_data(as_text=True)
-        self.assertIn('MAINTENANCE_START_DATE not configured. Using default: 2024-01-01 00:00:00', html_content)
-        self.assertIn('2024-01-01 00:00:00', html_content)
+        self.assertIn(
+            f"Maintenance schedule not configured. Showing default start date. "
+            f"{DEFAULT_MAINTENANCE_START_DATE.strftime(DATE_FORMAT)}.",
+            html_content,
+        )
+        self.assertIn(DEFAULT_MAINTENANCE_START_DATE.strftime(DATE_FORMAT), html_content)
 
 
     def test_home_page_fallback_date_invalid_format(self):
@@ -130,8 +137,11 @@ class MaintenanceDateTestCase(BasicTestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         html_content = response.get_data(as_text=True)
-        self.assertIn('Invalid MAINTENANCE_START_DATE format. Using default: 2024-01-01 00:00:00', html_content)
-        self.assertIn('2024-01-01 00:00:00', html_content)
+        self.assertIn(
+            "Maintenance schedule is invalid. Using the default start date.",
+            html_content,
+        )
+        self.assertIn(DEFAULT_MAINTENANCE_START_DATE.strftime(DATE_FORMAT), html_content)
 
 class VisitCountTestCase(BasicTestCase):
     def test_new_user_visit_recorded(self):
@@ -415,6 +425,14 @@ class RoleAndContextProcessorTestCase(BasicTestCase):
         worker_role = Role.find_by_name('Worker')
         self.assertIsNotNone(admin_role, "Admin role not found")
         self.assertIsNotNone(worker_role, "Worker role not found")
+
+        backup_admin = User(
+            username='adminbackup',
+            email='adminbackup@example.com',
+            password='Password123!',
+            role_id=admin_role.id,
+        )
+        db.session.add(backup_admin)
 
         admin_user = User(username='admineditor', email='admineditor@example.com', password='Password123!', role_id=admin_role.id)
         db.session.add(admin_user)
