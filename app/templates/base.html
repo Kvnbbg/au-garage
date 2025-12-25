@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ session.get('lang', 'en') }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,17 +33,47 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" {% if user_role and user_role.color_code %}style="background-color: {{ user_role.color_code }} !important;"{% endif %}>
-      <a class="navbar-brand" href="{{ url_for('main.home') }}">FlaskGarage</a>
+      <a class="navbar-brand" href="{{ url_for('main.landing') }}">FlaskGarage</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url_for('main.home') }}">Home <span class="sr-only">(current)</span></a>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.landing') }}">
+              {{ 'Landing' if session.get('lang', 'en') == 'en' else 'Accueil' }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.home') }}">
+              {{ 'Services' if session.get('lang', 'en') == 'en' else 'Services' }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.index') }}">
+              {{ 'Index' if session.get('lang', 'en') == 'en' else 'Annuaire' }}
+            </a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto"> <!-- Changed to ml-auto for right alignment -->
+          <li class="nav-item">
+            <div class="language-toggle btn-group" role="group" aria-label="Language toggle">
+              <a
+                class="btn btn-sm {% if session.get('lang', 'en') == 'en' %}btn-primary{% else %}btn-outline-primary{% endif %}"
+                href="{{ url_for('main.set_language', language='en') }}"
+                aria-pressed="{{ 'true' if session.get('lang', 'en') == 'en' else 'false' }}"
+              >
+                🇺🇸 English
+              </a>
+              <a
+                class="btn btn-sm {% if session.get('lang', 'en') == 'fr' %}btn-primary{% else %}btn-outline-primary{% endif %}"
+                href="{{ url_for('main.set_language', language='fr') }}"
+                aria-pressed="{{ 'true' if session.get('lang', 'en') == 'fr' else 'false' }}"
+              >
+                🇫🇷 Français
+              </a>
+            </div>
+          </li>
           <li class="nav-item">
             <button id="theme-switcher" class="btn btn-link nav-link">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun" viewBox="0 0 16 16">

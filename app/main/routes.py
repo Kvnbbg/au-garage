@@ -12,6 +12,7 @@ from flask import (
     session,
     current_app,
 )
+from flask_login import current_user, login_required
 import base64
 import math
 from app import db # Import db
@@ -28,7 +29,7 @@ def set_language(language):
         session["lang"] = language
     else:
         flash("Unsupported language.", "error")
-    return redirect(url_for("main.home"))
+    return redirect(request.referrer or url_for("main.landing"))
 
 
 def calculate_percentage(part, whole):
@@ -185,6 +186,21 @@ def home():
     Renders the home page and displays maintenance and leaderboard messages.
     """
     return improved_home_with_maintenance_date()
+
+
+@main.route("/landing")
+def landing():
+    return render_template("landing.html")
+
+
+@main.route("/index")
+def index():
+    if not current_user.is_authenticated:
+        flash(
+            "Register to join the family and unlock consultation tools.",
+            "info",
+        )
+    return render_template("index.html")
 @main.route('/vr')
 def vr():
     # Your logic here
@@ -192,8 +208,6 @@ def vr():
 
 # Helper decorator for role checking
 from functools import wraps
-from flask_login import current_user, login_required
-from flask import flash, redirect, url_for, request # Added request
 
 def role_required(allowed_roles):
     def decorator(f):

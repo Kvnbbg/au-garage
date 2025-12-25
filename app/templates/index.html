@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ 'Consultation Index' if session.get('lang', 'en') == 'en' else 'Annuaire de consultation' }}
+{% endblock %}
+
+{% block content %}
+  <div class="row align-items-center mb-4">
+    <div class="col-lg-8">
+      <h1 class="mb-3">
+        {{ 'Consultation Index' if session.get('lang', 'en') == 'en' else 'Annuaire de consultation' }}
+      </h1>
+      <p class="lead">
+        {{ 'Find care pathways, resources, and consultation steps curated for our family members.' if session.get('lang', 'en') == 'en' else 'Découvrez les parcours, ressources et étapes de consultation pour nos membres.' }}
+      </p>
+    </div>
+    <div class="col-lg-4 text-lg-right">
+      {% if current_user.is_authenticated %}
+        <a class="btn btn-primary" href="{{ url_for('auth.dashboard') }}">
+          {{ 'Back to Dashboard' if session.get('lang', 'en') == 'en' else 'Retour au tableau de bord' }}
+        </a>
+      {% else %}
+        <a class="btn btn-primary" href="{{ url_for('auth.register') }}">
+          {{ 'Register to Access' if session.get('lang', 'en') == 'en' else 'Inscription requise' }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card feature-card h-100">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ 'Step 1: Create Your Profile' if session.get('lang', 'en') == 'en' else 'Étape 1 : Créez votre profil' }}
+          </h5>
+          <p class="card-text">
+            {{ 'Securely register with a verified email to unlock family-only scheduling.' if session.get('lang', 'en') == 'en' else 'Inscription sécurisée avec email vérifié pour accéder aux rendez-vous.' }}
+          </p>
+          {% if not current_user.is_authenticated %}
+            <a class="btn btn-outline-primary" href="{{ url_for('auth.register') }}">
+              {{ 'Register Now' if session.get('lang', 'en') == 'en' else 'S’inscrire maintenant' }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card feature-card h-100">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ 'Step 2: Confirm Consultation' if session.get('lang', 'en') == 'en' else 'Étape 2 : Confirmer la consultation' }}
+          </h5>
+          <p class="card-text">
+            {{ 'Choose English or French support and confirm your preferred schedule.' if session.get('lang', 'en') == 'en' else 'Choisissez le français ou l’anglais et confirmez votre créneau.' }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card feature-card h-100">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ 'Step 3: Secure Check-In' if session.get('lang', 'en') == 'en' else 'Étape 3 : Enregistrement sécurisé' }}
+          </h5>
+          <p class="card-text">
+            {{ 'We verify your membership via our SQL-backed authentication before each session.' if session.get('lang', 'en') == 'en' else 'Nous vérifions votre adhésion via l’authentification SQL avant chaque session.' }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card feature-card h-100">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ 'Step 4: Ongoing Support' if session.get('lang', 'en') == 'en' else 'Étape 4 : Suivi continu' }}
+          </h5>
+          <p class="card-text">
+            {{ 'Keep your dashboard updated with follow-up notes and personalized next steps.' if session.get('lang', 'en') == 'en' else 'Mettez à jour votre tableau de bord avec les notes de suivi et prochaines étapes.' }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

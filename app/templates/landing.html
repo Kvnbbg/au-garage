@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ 'Consultation Landing' if session.get('lang', 'en') == 'en' else 'Accueil Consultation' }}
+{% endblock %}
+
+{% block content %}
+  <section class="landing-hero mb-4">
+    <span class="badge badge-light text-uppercase">
+      {{ 'Consultation Web App' if session.get('lang', 'en') == 'en' else 'Application Web de Consultation' }}
+    </span>
+    <h1 class="display-4 mt-3">
+      {{ 'Join the Family, Book with Confidence' if session.get('lang', 'en') == 'en' else 'Rejoignez la famille, réservez en confiance' }}
+    </h1>
+    <p class="lead">
+      {{ 'Your care journey starts here. Secure access, bilingual support, and trusted experts ready to help.' if session.get('lang', 'en') == 'en' else 'Votre parcours de soins commence ici. Accès sécurisé, support bilingue et experts de confiance.' }}
+    </p>
+    <div class="d-flex flex-wrap gap-3">
+      {% if current_user.is_authenticated %}
+        <a class="btn btn-light btn-lg mr-2" href="{{ url_for('auth.dashboard') }}">
+          {{ 'Go to Dashboard' if session.get('lang', 'en') == 'en' else 'Aller au tableau de bord' }}
+        </a>
+        <a class="btn btn-outline-light btn-lg" href="{{ url_for('main.index') }}">
+          {{ 'Explore Index' if session.get('lang', 'en') == 'en' else 'Explorer l’annuaire' }}
+        </a>
+      {% else %}
+        <a class="btn btn-light btn-lg mr-2" href="{{ url_for('auth.register') }}">
+          {{ 'Register to Join' if session.get('lang', 'en') == 'en' else 'Créer un compte' }}
+        </a>
+        <a class="btn btn-outline-light btn-lg" href="{{ url_for('auth.login') }}">
+          {{ 'Already a Member? Sign In' if session.get('lang', 'en') == 'en' else 'Déjà membre ? Connexion' }}
+        </a>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="landing-cta mb-5">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <h2>
+          {{ 'Simple, Secure Registration' if session.get('lang', 'en') == 'en' else 'Inscription simple et sécurisée' }}
+        </h2>
+        <p class="mb-2">
+          {{ 'Create your profile in minutes and access bilingual consultation, personalized follow-up, and family-only community updates.' if session.get('lang', 'en') == 'en' else 'Créez votre profil en quelques minutes et accédez à une consultation bilingue, un suivi personnalisé et des informations réservées à la famille.' }}
+        </p>
+        <ul class="mb-0">
+          <li>{{ 'Password hashing and session protection are enabled by default.' if session.get('lang', 'en') == 'en' else 'Hachage des mots de passe et protection de session activés par défaut.' }}</li>
+          <li>{{ 'SQL-backed authentication ensures reliable access checks.' if session.get('lang', 'en') == 'en' else 'Authentification basée sur SQL pour des contrôles fiables.' }}</li>
+          <li>{{ 'Switch languages instantly with the toggle above.' if session.get('lang', 'en') == 'en' else 'Changez de langue instantanément via le bouton ci-dessus.' }}</li>
+        </ul>
+      </div>
+      <div class="col-lg-5 mt-4 mt-lg-0">
+        <div class="card feature-card">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ 'Not connected yet?' if session.get('lang', 'en') == 'en' else 'Pas encore connecté ?' }}
+            </h5>
+            <p class="card-text">
+              {{ 'Register now to become part of the family and unlock your consultation dashboard.' if session.get('lang', 'en') == 'en' else 'Inscrivez-vous maintenant pour rejoindre la famille et débloquer votre tableau de bord.' }}
+            </p>
+            {% if current_user.is_authenticated %}
+              <a class="btn btn-primary" href="{{ url_for('auth.dashboard') }}">
+                {{ 'Open Dashboard' if session.get('lang', 'en') == 'en' else 'Ouvrir le tableau de bord' }}
+              </a>
+            {% else %}
+              <a class="btn btn-primary" href="{{ url_for('auth.register') }}">
+                {{ 'Start Registration' if session.get('lang', 'en') == 'en' else 'Commencer l’inscription' }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card feature-card h-100">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ 'Bilingual Experience' if session.get('lang', 'en') == 'en' else 'Expérience bilingue' }}
+            </h5>
+            <p class="card-text">
+              {{ 'Serve English and French audiences with a smoother, single-click toggle.' if session.get('lang', 'en') == 'en' else 'Servez les audiences françaises et anglaises avec un bouton fluide en un clic.' }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card feature-card h-100">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ 'Family-Only Access' if session.get('lang', 'en') == 'en' else 'Accès réservé à la famille' }}
+            </h5>
+            <p class="card-text">
+              {{ 'Registration keeps the community secure and ensures trusted care coordination.' if session.get('lang', 'en') == 'en' else 'L’inscription protège la communauté et garantit une coordination fiable.' }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card feature-card h-100">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ 'Deployment Ready' if session.get('lang', 'en') == 'en' else 'Déploiement prêt' }}
+            </h5>
+            <p class="card-text">
+              {{ 'Optimized for Vercel deployment with a clean fallback SQL authentication flow.' if session.get('lang', 'en') == 'en' else 'Optimisé pour un déploiement Vercel avec un flux SQL fiable.' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
