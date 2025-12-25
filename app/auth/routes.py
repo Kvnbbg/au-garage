@@ -1,8 +1,11 @@
+from datetime import datetime
 from urllib.parse import urljoin, urlparse
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-from app.models import User, db, ActivityLog, Role
+from app.models import User, db, ActivityLog, Role, VisitCount
+from sqlalchemy import func
+from sqlalchemy.exc import SQLAlchemyError
 
 from app.email import (
     send_email,
@@ -180,14 +183,39 @@ def send_password_reset_email(user):
 @login_required
 def dashboard():
     flash("Welcome to the dashboard! Be careful as you navigate. Try running the different activities through movements in front.", "info")
-    return render_template("dashboard.html")
+    stats = {}
+    recent_activity = []
+    try:
+        stats["total_users"] = User.query.count()
+        stats["total_roles"] = Role.query.count()
+        stats["total_visits"] = db.session.query(func.sum(VisitCount.visits)).scalar() or 0
+        recent_activity = (
+            ActivityLog.query.order_by(ActivityLog.timestamp.desc()).limit(5).all()
+        )
+    except SQLAlchemyError:
+        db.session.rollback()
+        stats = {}
+
+    maintenance_start = current_app.config.get("MAINTENANCE_START_DATE")
+    if isinstance(maintenance_start, datetime):
+        stats["maintenance_start_date"] = maintenance_start.strftime("%Y-%m-%d")
+        stats["maintenance_days"] = (datetime.now() - maintenance_start).days
+    else:
+        stats["maintenance_start_date"] = "Unknown"
+        stats["maintenance_days"] = None
+
+    return render_template(
+        "dashboard.html",
+        stats=stats,
+        recent_activity=recent_activity,
+    )
 
 @auth.route("/role")
 @login_required
 def role():
     # Example of extending dashboard functionality
     activities = None
-    if current_user.role and current_user.role.name == "admin":
+    if current_user.role and current_user.role.name == "Admin":
         # Fetch admin-specific data or activities
         activities = ActivityLog.query.order_by(ActivityLog.timestamp.desc()).all()
     return render_template("dashboard.html", activities=activities)

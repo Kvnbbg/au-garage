@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 import os
+import secrets
 from typing import Iterable, List, Tuple
 
 from dotenv import load_dotenv
@@ -107,9 +108,14 @@ def load_config(
     warnings: List[str] = []
     if not secret_key:
         if env == "production":
-            raise ValueError("SECRET_KEY must be set in production.")
-        secret_key = DEFAULT_DEV_SECRET
-        warnings.append("Using default SECRET_KEY. Set SECRET_KEY in your .env file.")
+            secret_key = secrets.token_urlsafe(32)
+            warnings.append(
+                "SECRET_KEY not set in production; generated an ephemeral key. "
+                "Set SECRET_KEY for stable sessions."
+            )
+        else:
+            secret_key = DEFAULT_DEV_SECRET
+            warnings.append("Using default SECRET_KEY. Set SECRET_KEY in your .env file.")
 
     database_uri = os.getenv("DATABASE_URL") or os.getenv("DATABASE_URI") or "sqlite:///instance/app.db"
     maintenance_start_date, maintenance_warnings = _parse_datetime(
