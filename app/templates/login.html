@@ -50,7 +50,7 @@
 <!-- Language Switch and Registration Prompt -->
 <section class="text-center mt-4">
   <div class="container">
-    {% if session['lang'] == 'fr' %}
+    {% if session.get('lang', 'en') == 'fr' %}
       <p>👩‍💼 Pas encore inscrit ?</p>
       <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary">S'inscrire ici</a>
     {% else %}

@@ -5,7 +5,7 @@
 <section class="registration-section text-center mt-4">
   <div class="container">
     <div class="heading">
-      {% if session['lang'] == 'fr' %}
+      {% if session.get('lang', 'en') == 'fr' %}
         <h2>📝 Inscription</h2>
         <p>Rejoignez-nous pour une expérience personnalisée !</p>
       {% else %}
@@ -19,7 +19,7 @@
         {{ form.hidden_tag() }}
         <div class="form-group">
           {{ form.username.label(class="form-label font-weight-bold") }}
-          {{ form.username(class="form-control", placeholder=( "Username" if session['lang'] != 'fr' else "Nom d'utilisateur" )) }}
+          {{ form.username(class="form-control", placeholder=( "Username" if session.get('lang', 'en') != 'fr' else "Nom d'utilisateur" )) }}
           {% if form.username.errors %}
             {% for error in form.username.errors %}
               <div class="alert alert-danger">{{ error }}</div>
