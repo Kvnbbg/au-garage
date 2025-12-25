@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
+import secrets
 
 from flask import current_app, session
+from itsdangerous import BadSignature, SignatureExpired, URLSafeTimedSerializer
 from flask_login import UserMixin, login_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from app import db, login_manager # Import db from app
@@ -85,6 +87,30 @@ class User(UserMixin, db.Model): # Inherit from db.Model
     def get_id(self):
         """Return the id of the user to satisfy Flask-Login's requirements."""
         return str(self.id)
+
+    def get_reset_password_token(self, expires_in=600):
+        serializer = URLSafeTimedSerializer(
+            current_app.config["SECRET_KEY"],
+            salt=current_app.config.get("SECURITY_PASSWORD_SALT", "password-reset-salt"),
+        )
+        return serializer.dumps(
+            {"user_id": self.id, "nonce": secrets.token_hex(8)},
+        )
+
+    @staticmethod
+    def verify_reset_password_token(token, max_age=600):
+        serializer = URLSafeTimedSerializer(
+            current_app.config["SECRET_KEY"],
+            salt=current_app.config.get("SECURITY_PASSWORD_SALT", "password-reset-salt"),
+        )
+        try:
+            data = serializer.loads(token, max_age=max_age)
+        except (BadSignature, SignatureExpired):
+            return None
+        user_id = data.get("user_id")
+        if not user_id:
+            return None
+        return db.session.get(User, int(user_id))
 
     def __repr__(self):
         return f"<User {self.username}>"

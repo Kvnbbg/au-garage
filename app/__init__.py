@@ -1,5 +1,6 @@
 # app/__init__.py
 from flask import Flask
+import os
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
@@ -12,6 +13,45 @@ from config import load_config
 from app.cli import register_cli
 from app.errors import register_error_handlers
 from app.logging import configure_logging, init_request_context
+
+
+def _normalize_sqlite_uri(app, database_uri):
+    if not database_uri.startswith("sqlite:"):
+        return database_uri
+    if database_uri.startswith("sqlite:///:memory:"):
+        return database_uri
+    if database_uri.startswith("sqlite:///instance/"):
+        relative_path = database_uri.replace("sqlite:///instance/", "", 1)
+        absolute_path = os.path.join(app.instance_path, relative_path)
+        return f"sqlite:///{os.path.abspath(absolute_path)}"
+    if database_uri.startswith("sqlite:///"):
+        return database_uri
+    return database_uri
+
+
+def _resolve_sqlite_path(database_uri):
+    if not database_uri.startswith("sqlite:"):
+        return None
+    if database_uri.startswith("sqlite:///:memory:"):
+        return None
+    if database_uri.startswith("sqlite:///"):
+        return database_uri.replace("sqlite:///", "", 1)
+    return None
+
+
+def _auto_initialize_sqlite(app):
+    database_uri = app.config.get("SQLALCHEMY_DATABASE_URI", "")
+    sqlite_path = _resolve_sqlite_path(database_uri)
+    if not sqlite_path:
+        return
+    sqlite_dir = os.path.dirname(sqlite_path)
+    if sqlite_dir:
+        os.makedirs(sqlite_dir, exist_ok=True)
+    with app.app_context():
+        from .models import init_roles
+
+        db.create_all()
+        init_roles()
 
 
 # Create extension instances
@@ -34,6 +74,10 @@ def create_app(config_overrides=None):
     app.config.from_mapping(app_config.to_flask_dict())
     if config_overrides:
         app.config.update(config_overrides)
+    app.config["SQLALCHEMY_DATABASE_URI"] = _normalize_sqlite_uri(
+        app,
+        app.config.get("SQLALCHEMY_DATABASE_URI", ""),
+    )
 
     # Initialize extensions with the app object
     login_manager.init_app(app)
@@ -48,6 +92,7 @@ def create_app(config_overrides=None):
     init_request_context(app)
     register_error_handlers(app)
     register_cli(app)
+    _auto_initialize_sqlite(app)
 
     for warning in config_warnings:
         app.logger.warning(warning)

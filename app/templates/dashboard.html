@@ -5,6 +5,58 @@
 {% block content %}
 <div class="container mt-4">
     <h2>Welcome to your Dashboard, {{ current_user.username }}!</h2>
+    {% if stats %}
+        <div class="row mt-4">
+            <div class="col-md-3 mb-3">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <h6 class="text-muted">Total Users</h6>
+                        <h3>{{ stats.total_users }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <h6 class="text-muted">Total Roles</h6>
+                        <h3>{{ stats.total_roles }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <h6 class="text-muted">Total Visits</h6>
+                        <h3>{{ stats.total_visits }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <h6 class="text-muted">Maintenance Since</h6>
+                        <h5 class="mb-1">{{ stats.maintenance_start_date }}</h5>
+                        {% if stats.maintenance_days is not none %}
+                            <small class="text-muted">{{ stats.maintenance_days }} days</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if recent_activity %}
+        <div class="card mb-4">
+            <div class="card-header">Recent Activity</div>
+            <ul class="list-group list-group-flush">
+                {% for entry in recent_activity %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>{{ entry.activity_data }}</span>
+                        <span class="text-muted small">{{ entry.timestamp.strftime('%Y-%m-%d %H:%M') }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
     {% if user_role %}
         <p>Your Role: {{ user_role.name }} {% if user_role.hashtag %}<span class="badge badge-info">{{ user_role.hashtag }}</span>{% endif %}</p>
         <hr>

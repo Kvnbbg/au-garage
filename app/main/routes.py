@@ -17,6 +17,7 @@ import base64
 import math
 from app import db # Import db
 from app.models import VisitCount # Import VisitCount model
+from sqlalchemy.exc import SQLAlchemyError
 from config import DATE_FORMAT, DEFAULT_MAINTENANCE_START_DATE
 
 main = Blueprint('main', __name__)
@@ -114,25 +115,38 @@ def improved_home_with_maintenance_date():
     # Get the user identifier (session, IP address, or any unique identifier)
     user_id_str = get_user_id()
 
-    # Query or create VisitCount record for the current user
-    user_visit_record = VisitCount.query.filter_by(user_id_str=user_id_str).first()
-    if user_visit_record:
-        user_visit_record.visits += 1
-    else:
-        user_visit_record = VisitCount(user_id_str=user_id_str, visits=1)
-        db.session.add(user_visit_record)
-    db.session.commit()
-
-    current_user_visits = user_visit_record.visits
-
-    # Find the user with the maximum visits for the leaderboard
-    top_visitor_record = VisitCount.query.order_by(VisitCount.visits.desc()).first()
-
     max_visits = 0
     max_visits_user_id_str = "N/A"
-    if top_visitor_record:
-        max_visits = top_visitor_record.visits
-        max_visits_user_id_str = top_visitor_record.user_id_str
+    leaderboard_message = None
+    try:
+        # Query or create VisitCount record for the current user
+        user_visit_record = VisitCount.query.filter_by(user_id_str=user_id_str).first()
+        if user_visit_record:
+            user_visit_record.visits += 1
+        else:
+            user_visit_record = VisitCount(user_id_str=user_id_str, visits=1)
+            db.session.add(user_visit_record)
+        db.session.commit()
+
+        current_user_visits = user_visit_record.visits
+
+        # Find the user with the maximum visits for the leaderboard
+        top_visitor_record = VisitCount.query.order_by(VisitCount.visits.desc()).first()
+
+        if top_visitor_record:
+            max_visits = top_visitor_record.visits
+            max_visits_user_id_str = top_visitor_record.user_id_str
+    except SQLAlchemyError as exc:
+        db.session.rollback()
+        current_app.logger.warning(
+            "Visit tracking unavailable; falling back to cookie counts.",
+            exc_info=exc,
+        )
+        try:
+            current_user_visits = int(request.cookies.get("visit_count", "0")) + 1
+        except ValueError:
+            current_user_visits = 1
+        leaderboard_message = "Visit leaderboard is temporarily unavailable."
 
 
     # Dynamic messages based on user visit count
@@ -143,16 +157,17 @@ def improved_home_with_maintenance_date():
     ]
 
     # Leaderboard message with a percentage of the user's visits relative to the top visitor
-    if current_user_visits >= max_visits and max_visits > 0: # also check max_visits > 0
-        leaderboard_message = f"🏆 You're the top visitor with {current_user_visits} visits!"
-    elif max_visits > 0: # Check max_visits > 0 before calculating percentage
-        percentage_of_top = calculate_percentage(current_user_visits, max_visits)
-        leaderboard_message = (
-            f"You're ranked below the top visitor ({max_visits_user_id_str}), who has {max_visits} visits. "
-            f"You've completed {math.floor(percentage_of_top)}% of the top user's visits. Keep it up!"
-        )
-    else: # Handle case where VisitCount table is empty or only has current user
-        leaderboard_message = "Welcome! Be the first to set a high score on our visit leaderboard!"
+    if leaderboard_message is None:
+        if current_user_visits >= max_visits and max_visits > 0: # also check max_visits > 0
+            leaderboard_message = f"🏆 You're the top visitor with {current_user_visits} visits!"
+        elif max_visits > 0: # Check max_visits > 0 before calculating percentage
+            percentage_of_top = calculate_percentage(current_user_visits, max_visits)
+            leaderboard_message = (
+                f"You're ranked below the top visitor ({max_visits_user_id_str}), who has {max_visits} visits. "
+                f"You've completed {math.floor(percentage_of_top)}% of the top user's visits. Keep it up!"
+            )
+        else: # Handle case where VisitCount table is empty or only has current user
+            leaderboard_message = "Welcome! Be the first to set a high score on our visit leaderboard!"
 
 
     # Select a dynamic message based on the visit count
