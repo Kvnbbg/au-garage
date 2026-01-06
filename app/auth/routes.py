@@ -62,7 +62,11 @@ def register():
             flash("An error occurred during registration. Default role not found.", "danger")
             return render_template("register.html", title="Register", form=form)
 
-        new_user = User(username=form.username.data, email=form.email.data, role_id=default_role.id)
+        new_user = User(
+            username=form.username.data.strip(),
+            email=form.email.data.lower().strip(),
+            role_id=default_role.id,
+        )
         new_user.set_password(form.password.data)
         db.session.add(new_user)
         db.session.commit()
