@@ -105,6 +105,8 @@ pytest
 - Set a strong `SECRET_KEY` in production.
 - Use a real SMTP provider for email flows.
 - Keep dependencies updated and review `SECURITY.md` for reporting.
+
+## Security Testing
 - For pentest alignment with OWASP Top 10 (2021/2025) and a black-box checklist, see [PENTEST_CHECKLIST.md](PENTEST_CHECKLIST.md).
 
 ## Contribution Workflow
