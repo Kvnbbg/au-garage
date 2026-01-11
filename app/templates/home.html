@@ -15,43 +15,100 @@
   </div>
 </div>
 
+{% set services = [
+  {
+    "image": "images/vehicule4.jpg",
+    "alt": "Engine repair service",
+    "title_en": "Engine Repair",
+    "title_fr": "Réparation Moteur",
+    "desc_en": "Expert engine repair services to keep your vehicle running smoothly.",
+    "desc_fr": "Services experts de réparation de moteur pour maintenir votre véhicule en bon état de fonctionnement.",
+    "details_en": "Diagnostics, timing, and tune-ups with daily-ready reliability.",
+    "details_fr": "Diagnostics, calage et réglages avec une fiabilité prête au quotidien."
+  },
+  {
+    "image": "images/vehicule5.jpg",
+    "alt": "Tire replacement service",
+    "title_en": "Tire Replacement",
+    "title_fr": "Remplacement de Pneus",
+    "desc_en": "Quality tire replacement services to ensure your safety on the road.",
+    "desc_fr": "Services de remplacement de pneus de qualité pour garantir votre sécurité sur la route.",
+    "details_en": "Seasonal swaps, balancing, and alignment recommendations.",
+    "details_fr": "Permutation saisonnière, équilibrage et recommandations d’alignement."
+  },
+  {
+    "image": "images/service-example2.jpg",
+    "alt": "Battery check service",
+    "title_en": "Battery Check and Replacement",
+    "title_fr": "Vérification et Remplacement de Batterie",
+    "desc_en": "Ensure your car starts every time with our battery check and replacement service.",
+    "desc_fr": "Assurez-vous que votre voiture démarre à chaque fois avec notre service de vérification et de remplacement de la batterie.",
+    "details_en": "Voltage testing, clean terminals, and warranty-ready installs.",
+    "details_fr": "Tests de tension, nettoyage des bornes et installation garantie."
+  },
+  {
+    "image": "images/service-example4.jpg",
+    "alt": "Brake service",
+    "title_en": "Brake Services",
+    "title_fr": "Services de Freinage",
+    "desc_en": "Comprehensive brake services to ensure your vehicle stops as it should.",
+    "desc_fr": "Services de freinage complets pour garantir que votre véhicule s'arrête comme il se doit.",
+    "details_en": "Whiteout brake-readiness display for daily-safe stopping.",
+    "details_fr": "Affichage whiteout de préparation au freinage pour un arrêt sûr."
+  }
+] %}
+
 <!-- Services Section -->
 <section id="services" class="py-5">
   <div class="container">
-    <h2 class="text-center mb-4">{{ 'Our Services' if session.get('lang', 'en') == 'en' else 'Nos Services' }}</h2>
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center mb-4 gap-3">
+      <h2 class="text-center text-lg-left mb-0">{{ 'Our Services' if session.get('lang', 'en') == 'en' else 'Nos Services' }}</h2>
+      <div class="service-actions d-flex flex-wrap justify-content-center justify-content-lg-end gap-2">
+        <span class="service-chip">{{ 'Daily Ready' if session.get('lang', 'en') == 'en' else 'Prêt au quotidien' }}</span>
+        <span class="service-chip">{{ 'Certified Care' if session.get('lang', 'en') == 'en' else 'Soins certifiés' }}</span>
+        <span class="service-chip">{{ 'Fast Turnaround' if session.get('lang', 'en') == 'en' else 'Rapide' }}</span>
+      </div>
+    </div>
+    <div class="brake-whiteout mb-4">
+      <div>
+        <h3>{{ 'Whiteout Brake Readiness' if session.get('lang', 'en') == 'en' else 'Affichage Whiteout Freinage' }}</h3>
+        <p class="mb-2">
+          {{ 'A quick-glance panel for braking confidence, calibrated for daily driving and fleet use.' if session.get('lang', 'en') == 'en' else 'Un panneau lisible d’un coup d’œil pour la confiance au freinage, calibré pour la conduite quotidienne.' }}
+        </p>
+        <div class="brake-meter">
+          <div class="brake-meter__bar" aria-hidden="true"></div>
+          <span class="brake-meter__label">{{ 'Ready' if session.get('lang', 'en') == 'en' else 'Prêt' }}</span>
+        </div>
+      </div>
+      <button class="btn btn-dark btn-sm brake-whiteout__cta" type="button">
+        {{ 'Request Brake Check' if session.get('lang', 'en') == 'en' else 'Demander un contrôle' }}
+      </button>
+    </div>
     <div class="row">
-      <!-- Service 1 -->
-      <div class="col-md-4 mb-4">
-        <img src="{{ url_for('static', filename='images/vehicule4.jpg') }}" alt="Service 1 Image" class="img-fluid mb-3" />
-        <h4>{{ 'Engine Repair' if session.get('lang', 'en') == 'en' else 'Réparation Moteur' }}</h4>
-        <p>
-          {{ 'Expert engine repair services to keep your vehicle running smoothly.' if session.get('lang', 'en') == 'en' else 'Services experts de réparation de moteur pour maintenir votre véhicule en bon état de fonctionnement.' }}
-        </p>
-      </div>
-      <!-- Service 2 -->
-      <div class="col-md-4 mb-4">
-        <img src="{{ url_for('static', filename='images/vehicule5.jpg') }}" alt="Service 2 Image" class="img-fluid mb-3" />
-        <h4>{{ 'Tire Replacement' if session.get('lang', 'en') == 'en' else 'Remplacement de Pneus' }}</h4>
-        <p>
-          {{ 'Quality tire replacement services to ensure your safety on the road.' if session.get('lang', 'en') == 'en' else 'Services de remplacement de pneus de qualité pour garantir votre sécurité sur la route.' }}
-        </p>
-      </div>
-      <!-- Service 3 -->
-      <div class="col-md-4 mb-4">
-        <img src="{{ url_for('static', filename='images/service-example2.jpg') }}" alt="Service 3 Image" class="img-fluid mb-3" />
-        <h4>{{ 'Battery Check and Replacement' if session.get('lang', 'en') == 'en' else 'Vérification et Remplacement de Batterie' }}</h4>
-        <p>
-          {{ 'Ensure your car starts every time with our battery check and replacement service.' if session.get('lang', 'en') == 'en' else 'Assurez-vous que votre voiture démarre à chaque fois avec notre service de vérification et de remplacement de la batterie.' }}
-        </p>
-      </div>
-      <!-- Service 4 -->
-      <div class="col-md-4 mb-4">
-        <img src="{{ url_for('static', filename='images/service-example4.jpg') }}" alt="Service 4 Image" class="img-fluid mb-3" />
-        <h4>{{ 'Brake Services' if session.get('lang', 'en') == 'en' else 'Services de Freinage' }}</h4>
-        <p>
-          {{ 'Comprehensive brake services to ensure your vehicle stops as it should.' if session.get('lang', 'en') == 'en' else 'Services de freinage complets pour garantir que votre véhicule s\'arrête comme il se doit.' }}
-        </p>
-      </div>
+      {% for service in services %}
+        <div class="col-md-4 mb-4">
+          <article class="service-card h-100 {% if 'Brake' in service.title_en %}service-card--highlight{% endif %}">
+            <div class="service-card__media">
+              <img src="{{ url_for('static', filename=service.image) }}" alt="{{ service.alt }}" class="img-fluid" loading="lazy" />
+              <span class="service-card__badge">
+                {{ 'Premium' if session.get('lang', 'en') == 'en' else 'Premium' }}
+              </span>
+            </div>
+            <div class="service-card__body">
+              <h4>{{ service.title_en if session.get('lang', 'en') == 'en' else service.title_fr }}</h4>
+              <p>
+                {{ service.desc_en if session.get('lang', 'en') == 'en' else service.desc_fr }}
+              </p>
+              <details class="service-card__details">
+                <summary>{{ 'Daily usage details' if session.get('lang', 'en') == 'en' else 'Détails pour usage quotidien' }}</summary>
+                <p>
+                  {{ service.details_en if session.get('lang', 'en') == 'en' else service.details_fr }}
+                </p>
+              </details>
+            </div>
+          </article>
+        </div>
+      {% endfor %}
     </div>
   </div>
 </section>
